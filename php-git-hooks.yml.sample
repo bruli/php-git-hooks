@@ -1,0 +1,7 @@
+pre-commit:
+  execute:
+    php-cs-fixer:  true
+    phpunit:       true
+    phplint:       true
+    phpcs:         true
+    phpmd:         true

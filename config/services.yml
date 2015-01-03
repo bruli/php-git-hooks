@@ -1,0 +1,36 @@
+services:
+  check.config.file:
+    class: 'PhpGitHooks\Infraestructure\Config\CheckConfigFile'
+  config.file.validator:
+    class: 'PhpGitHooks\Infraestructure\Config\ConfigFileValidator'
+    arguments: [@check.config.file]
+  config.file.reader:
+    class: 'PhpGitHooks\Infraestructure\Config\ConfigFileReader'
+    arguments: [@check.config.file]
+  config.file:
+    class: 'PhpGitHooks\Infraestructure\Config\ConfigFile'
+    arguments: [@config.file.validator, @config.file.reader]
+  pre.commit.config:
+    class: PhpGitHooks\Infraestructure\Config\PreCommitConfig
+    arguments: [@config.file.reader]
+  output.handler:
+    class: PhpGitHooks\Command\OutputHandler
+  phpunit.handler:
+    class: PhpGitHooks\Infraestructure\PhpUnit\PhpUnitHandler
+    arguments: [@output.handler]
+  phpmd.handler:
+    class: PhpGitHooks\Infraestructure\PhpMD\PhpMDHandler
+    arguments: [@output.handler]
+  code.sniffer.handler:
+    class: PhpGitHooks\Infraestructure\CodeSniffer\CodeSnifferHandler
+    arguments: [@output.handler]
+  php.cs.fixer.handler:
+    class: PhpGitHooks\Infraestructure\PhpCsFixer\PhpCsFixerHandler
+    arguments: [@output.handler]
+  php.lint.handler:
+    class: PhpGitHooks\Infraestructure\PhpLint\PhpLintHandler
+    arguments: [@output.handler]
+  composer.files.validator:
+    class: PhpGitHooks\Infraestructure\Composer\ComposerFilesValidator
+    arguments: [@output.handler]
+

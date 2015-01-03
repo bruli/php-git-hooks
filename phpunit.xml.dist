@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.4/phpunit.xsd"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         verbose="false"
+         strict="true"
+         syntaxCheck="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         backupGlobals="false">
+  <testsuites>
+    <testsuite name="PhpGitHooks Unit Tests">
+      <directory>./src</directory>
+    </testsuite>
+  </testsuites>
+
+  <listeners>
+    <listener class="\Mockery\Adapter\Phpunit\TestListener"/>
+    <listener class="\MyBuilder\PhpunitAccelerator\TestListener"/>
+  </listeners>
+
+  <filter>
+    <blacklist>
+      <directory>./bin</directory>
+      <directory>./vendor</directory>
+    </blacklist>
+  </filter>
+</phpunit>
+
