@@ -11,6 +11,7 @@
             "email": "brulics@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
             "PhpGitHooks\\": "src/"
