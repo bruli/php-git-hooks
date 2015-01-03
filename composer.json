@@ -1,6 +1,6 @@
 {
   "name": "bruli/php-git-hooks",
-  "description": "Quality tools for php projects.",
+  "description": "Git hooks for PHP projects.",
   "license": "MIT",
   "authors": [
     {

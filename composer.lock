@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "277b872d7d073d0b1b5776373183093e",
+    "hash": "8b80fe675c24b663f48ee179a27f2ff9",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -1592,12 +1592,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "eb042601b714a675b36a5af4de352695fcf33db7"
+                "reference": "59180ea818b1fe87de344d979240dd422e2d7892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/eb042601b714a675b36a5af4de352695fcf33db7",
-                "reference": "eb042601b714a675b36a5af4de352695fcf33db7",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/59180ea818b1fe87de344d979240dd422e2d7892",
+                "reference": "59180ea818b1fe87de344d979240dd422e2d7892",
                 "shasum": ""
             },
             "require": {
@@ -1630,7 +1630,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 08:02:46"
+            "time": "2015-01-03 15:46:01"
         }
     ],
     "packages-dev": [
