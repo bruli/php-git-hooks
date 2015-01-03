@@ -44,7 +44,7 @@ pre-commit:
     phpmd:         true
 ```
 
-... or you can copy php-git-hooks.yml.sample that exists in vendor/bruli/php-git-hooks.
+... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.
 
 ### Config file for phpunit.
 If you want use phpunit tool, you must create a phpunit.xml.dist in your project root directory. 
@@ -63,7 +63,7 @@ For pre-commit hook:
  $cp vendor/bruli/hooks/pre-commit .git/hooks
 ```
 ### execute.
-<img style="border:1px solid #ccc; padding:1px" src="https://Resources/docs/images/pre-commit.png" />
+<img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/pre-commit.png" />
 
 ## Credits
 
