@@ -73,7 +73,7 @@ class QualityCodeTool extends Application
             $this->checkCodeStyleWithCodeSniffer();
             $this->checkPhpMessDetection();
             $this->checkUnitTestsArePassing();
-            
+
             $this->output->writeln('<fg=white;options=bold;bg=blue>Hey!, good job!</fg=white;options=bold;bg=blue>');
         }
 

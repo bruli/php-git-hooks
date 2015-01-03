@@ -63,7 +63,7 @@ For pre-commit hook:
  $cp vendor/bruli/hooks/pre-commit .git/hooks
 ```
 ### execute.
-<img style="border:1px solid #ccc; padding:1px" src="https://github.com/raulfraile/LadybugBundle/raw/master/Resources/doc/images/doc_example.png" />
+<img style="border:1px solid #ccc; padding:1px" src="https://Resources/docs/images/pre-commit.png" />
 
 ## Credits
 
