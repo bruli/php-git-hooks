@@ -1,9 +1,12 @@
 php-git-hooks
 =============
+[![Build Status](https://travis-ci.org/bruli/php-git-hooks.svg?branch=master)](https://travis-ci.org/bruli/php-git-hooks)
+[![Latest Stable Version](https://poser.pugx.org/bruli/php-git-hooks/v/stable.svg)](https://packagist.org/packages/bruli/php-git-hooks) [![Total Downloads](https://poser.pugx.org/bruli/php-git-hooks/downloads.svg)](https://packagist.org/packages/bruli/php-git-hooks) [![Latest Unstable Version](https://poser.pugx.org/bruli/php-git-hooks/v/unstable.svg)](https://packagist.org/packages/bruli/php-git-hooks) [![License](https://poser.pugx.org/bruli/php-git-hooks/license.svg)](https://packagist.org/packages/bruli/php-git-hooks)
 
 Git hooks for PHP projects.
 
 Library based in git hook scripts for PHP projects, using in [Atrápalo](http://atrapalo.com).
+
 [Original scripts](http://carlosbuenosvinos.com/write-your-git-hooks-in-php-and-keep-them-under-git-control/)
 
 ## Installation
