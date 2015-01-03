@@ -33,4 +33,10 @@ services:
   composer.files.validator:
     class: PhpGitHooks\Infraestructure\Composer\ComposerFilesValidator
     arguments: [@output.handler]
-
+  merge.validator:
+    class: PhpGitHooks\Infraestructure\Git\MergeValidator
+  extract.commit.message:
+    class: PhpGitHooks\Infraestructure\CommitMessage\ExtractCommitMessage
+  commit.message.validator:
+    class: PhpGitHooks\Infraestructure\CommitMessage\CommitMessageValidator
+    arguments: [@output.handler, @merge.validator, @extract.commit.message]

@@ -18,8 +18,6 @@ use PhpGitHooks\Infraestructure\PhpUnit\UnitTestsException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * Class QualityCodeTool
@@ -53,7 +51,7 @@ class QualityCodeTool extends Application
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     public function doRun(InputInterface $input, OutputInterface $output)
@@ -76,7 +74,6 @@ class QualityCodeTool extends Application
 
             $this->output->writeln('<fg=white;options=bold;bg=blue>Hey!, good job!</fg=white;options=bold;bg=blue>');
         }
-
     }
 
     private function extractCommitedFiles()
@@ -196,6 +193,5 @@ class QualityCodeTool extends Application
             $phpunit->setOutput($this->output);
             $phpunit->run();
         }
-
     }
 }
