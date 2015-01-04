@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="check.config.file" class="PhpGitHooks\Infraestructure\Config\CheckConfigFile">
+        </service>
+        <service id="config.file.validator" class="PhpGitHooks\Infraestructure\Config\ConfigFileValidator">
+            <argument type="service" id="check.config.file" />
+        </service>
+        <service id="config.file.reader" class="PhpGitHooks\Infraestructure\Config\ConfigFileReader">
+            <argument type="service" id="check.config.file" />
+        </service>
+        <service id="config.file" class="PhpGitHooks\Infraestructure\Config\ConfigFile">
+            <argument type="service" id="config.file.validator"/>
+            <argument type="service" id="config.file.reader" />
+        </service>
+        <service id="pre.commit.config" class="PhpGitHooks\Infraestructure\Config\PreCommitConfig">
+            <argument type="service" id="config.file.reader" />
+        </service>
+        <service id="output.handler" class="PhpGitHooks\Command\OutputHandler">
+        </service>
+        <service id="phpunit.handler" class="PhpGitHooks\Infraestructure\PhpUnit\PhpUnitHandler">
+            <argument type="service" id="output.handler" />
+        </service>
+        <service id="phpmd.handler" class="PhpGitHooks\Infraestructure\PhpMD\PhpMDHandler">
+            <argument type="service" id="output.handler" />
+        </service>
+        <service id="code.sniffer.handler" class="PhpGitHooks\Infraestructure\CodeSniffer\CodeSnifferHandler">
+            <argument type="service" id="output.handler" />
+        </service>
+        <service id="php.cs.fixer.handler" class="PhpGitHooks\Infraestructure\PhpCsFixer\PhpCsFixerHandler">
+            <argument type="service" id="output.handler" />
+        </service>
+        <service id="php.lint.handler" class="PhpGitHooks\Infraestructure\PhpLint\PhpLintHandler">
+            <argument type="service" id="output.handler" />
+        </service>
+        <service id="composer.files.validator" class="PhpGitHooks\Infraestructure\Composer\ComposerFilesValidator">
+            <argument type="service" id="output.handler" />
+        </service>
+        <service id="merge.validator" class="PhpGitHooks\Infraestructure\Git\MergeValidator">
+        </service>
+        <service id="extract.commit.message" class="PhpGitHooks\Infraestructure\CommitMessage\ExtractCommitMessage">
+        </service>
+        <service id="commit.message.validator" class="PhpGitHooks\Infraestructure\CommitMessage\CommitMessageValidator">
+            <argument type="service" id="output.handler" />
+            <argument type="service" id="merge.validator" />
+            <argument type="service" id="extract.commit.message" />
+        </service>
+    </services>
+</container>

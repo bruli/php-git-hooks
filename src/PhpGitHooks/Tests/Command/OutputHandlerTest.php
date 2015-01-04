@@ -55,6 +55,6 @@ class OutputHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $message = $this->outputTitleHandler->getSuccessfulStepMessage();
 
-        $this->assertEquals('<comment>Ok</comment>', $message);
+        $this->assertEquals('<comment>'.OutputHandler::SUCCESSFUL_MESSAGE.'</comment>', $message);
     }
 }

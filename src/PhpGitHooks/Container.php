@@ -5,6 +5,7 @@ namespace PhpGitHooks;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -13,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 class Container
 {
-    const SERVICES_YML = 'services.yml';
+    const SERVICES_FILE = 'services.xml';
     const CONFIG_PATH = '/../../config/';
 
     /** @var ContainerBuilder */
@@ -27,8 +28,8 @@ class Container
 
     private function getConfigServices()
     {
-        $loader = new YamlFileLoader($this->container, new FileLocator(__DIR__.self::CONFIG_PATH));
-        $loader->load(self::SERVICES_YML);
+        $loader = new XmlFileLoader($this->container, new FileLocator(__DIR__.self::CONFIG_PATH));
+        $loader->load(self::SERVICES_FILE);
     }
 
     /**

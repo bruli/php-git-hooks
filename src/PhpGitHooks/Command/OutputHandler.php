@@ -10,7 +10,7 @@ class OutputHandler
 {
     const MAX_LENGTH = 50;
     const TITLE_SEPARATOR = '.';
-    const SUCCESSFUL_MESSAGE = 'Ok';
+    const SUCCESSFUL_MESSAGE = '0k';
     /** @var  string */
     private $title;
     /** @var  string */
