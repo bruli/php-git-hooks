@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b80fe675c24b663f48ee179a27f2ff9",
+    "hash": "b9f2c2d8f8b0de3d14f6796cbd0501a2",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -66,12 +66,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "2fbddc46d67b19c6e96099bf4ac9d2236268274f"
+                "reference": "35ff179bb246b5da8cbadffe76586073f102c39d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/2fbddc46d67b19c6e96099bf4ac9d2236268274f",
-                "reference": "2fbddc46d67b19c6e96099bf4ac9d2236268274f",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/35ff179bb246b5da8cbadffe76586073f102c39d",
+                "reference": "35ff179bb246b5da8cbadffe76586073f102c39d",
                 "shasum": ""
             },
             "require": {
@@ -111,7 +111,7 @@
                 }
             ],
             "description": "A script to automatically fix Symfony Coding Standard",
-            "time": "2015-01-03 13:10:40"
+            "time": "2015-01-04 16:16:36"
         },
         {
             "name": "mockery/mockery",
@@ -1286,12 +1286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DependencyInjection.git",
-                "reference": "bf96d4becd554e5140e4a03da1b6783bed00dc78"
+                "reference": "0f5504c376c0c0038bdb19fa98be01309cb7bbb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/bf96d4becd554e5140e4a03da1b6783bed00dc78",
-                "reference": "bf96d4becd554e5140e4a03da1b6783bed00dc78",
+                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/0f5504c376c0c0038bdb19fa98be01309cb7bbb1",
+                "reference": "0f5504c376c0c0038bdb19fa98be01309cb7bbb1",
                 "shasum": ""
             },
             "require": {
@@ -1337,7 +1337,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 08:02:46"
+            "time": "2015-01-03 22:52:01"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1404,12 +1404,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "dcf38d0fedb1c018a03cd9f7e675798286513fdf"
+                "reference": "afaca2a33dc0d9442a7ca4d87def8aff7d937b87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/dcf38d0fedb1c018a03cd9f7e675798286513fdf",
-                "reference": "dcf38d0fedb1c018a03cd9f7e675798286513fdf",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/afaca2a33dc0d9442a7ca4d87def8aff7d937b87",
+                "reference": "afaca2a33dc0d9442a7ca4d87def8aff7d937b87",
                 "shasum": ""
             },
             "require": {
@@ -1442,7 +1442,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 09:42:51"
+            "time": "2015-01-04 09:06:13"
         },
         {
             "name": "symfony/finder",
@@ -1936,6 +1936,7 @@
     "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

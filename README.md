@@ -18,7 +18,7 @@ You must add the following line to the `composer.json` file:
 ``` json
 {
     "require-dev": {
-        "bruli/php-git-hooks": "1.0.*@dev"
+        "bruli/php-git-hooks": "1.*@dev"
     }
 }
 ```
