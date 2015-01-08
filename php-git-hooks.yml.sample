@@ -5,4 +5,3 @@ pre-commit:
     phplint:       true
     phpcs:         true
     phpmd:         true
-    

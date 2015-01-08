@@ -28,7 +28,7 @@ class PhpUnitHandler extends ToolHandler
         });
 
         if (!$phpunit->isSuccessful()) {
-            throw new UnitTestsException;
+            throw new UnitTestsException();
         }
     }
 

@@ -25,8 +25,8 @@ class QualityMessageTool extends Application
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface                                                           $input
+     * @param  OutputInterface                                                          $output
      * @throws \PhpGitHooks\Infraestructure\CommitMessage\InvalidCommitMessageException
      */
     public function doRun(InputInterface $input, OutputInterface $output)

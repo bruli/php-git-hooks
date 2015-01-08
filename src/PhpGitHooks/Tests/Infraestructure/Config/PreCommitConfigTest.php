@@ -3,7 +3,6 @@
 namespace Infraestructure\Config;
 
 use Mockery\Mock;
-use PhpGitHooks\Infraestructure\Config\InvalidConfigStructureException;
 use PhpGitHooks\Infraestructure\Config\PreCommitConfig;
 use PhpGitHooks\Infraestructure\Config\ConfigFileReader;
 

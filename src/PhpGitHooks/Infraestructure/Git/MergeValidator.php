@@ -18,6 +18,7 @@ class MergeValidator
                 return true;
             }
         }
+
         return false;
     }
 }
