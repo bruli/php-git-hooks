@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Infraestructure\CodeSniffer;
 
 use PhpGitHooks\Infraestructure\Common\ToolHandler;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -31,6 +32,7 @@ class CodeSnifferHandler extends ToolHandler
             }
 
             $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard='.self::STANDARD.'', $file));
+            /** @var Process $phpCs */
             $phpCs = $processBuilder->getProcess();
             $phpCs->run();
         }

@@ -31,7 +31,7 @@ class QualityCodeTool extends Application
     private $files;
     /** @var  Container */
     private $container;
-    /** @var  OutputTitleHandler */
+    /** @var  OutputHandler */
     private $outputTitleHandler;
     /** @var  PreCommitConfig */
     private $preCommitConfig;

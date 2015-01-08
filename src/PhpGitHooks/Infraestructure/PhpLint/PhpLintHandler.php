@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Infraestructure\PhpLint;
 
 use PhpGitHooks\Infraestructure\Common\ToolHandler;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -29,6 +30,7 @@ class PhpLintHandler extends ToolHandler
             }
 
             $processBuilder = new ProcessBuilder(array('php', '-l', $file));
+            /** @var Process $process */
             $process = $processBuilder->getProcess();
             $process->run();
         }
