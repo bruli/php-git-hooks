@@ -27,8 +27,6 @@ class QualityCodeTool extends Application
 {
     /** @var  OutputInterface */
     private $output;
-    /** @var  InputInterface */
-    private $input;
     /** @var  array */
     private $files;
     /** @var  Container */
@@ -56,7 +54,6 @@ class QualityCodeTool extends Application
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        $this->input = $input;
         $this->output = $output;
 
         $this->output->writeln('<fg=white;options=bold;bg=red>Pre-commit tool</fg=white;options=bold;bg=red>');
