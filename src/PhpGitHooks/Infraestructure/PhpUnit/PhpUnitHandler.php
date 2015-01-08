@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Infraestructure\PhpUnit;
 
 use PhpGitHooks\Infraestructure\Common\ToolHandler;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
