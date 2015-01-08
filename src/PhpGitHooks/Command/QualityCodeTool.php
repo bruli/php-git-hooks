@@ -31,8 +31,6 @@ class QualityCodeTool extends Application
     private $files;
     /** @var  Container */
     private $container;
-//    /** @var  array */
-//    private $configData;
     /** @var  OutputTitleHandler */
     private $outputTitleHandler;
     /** @var  PreCommitConfig */
@@ -57,8 +55,6 @@ class QualityCodeTool extends Application
         $this->output = $output;
 
         $this->output->writeln('<fg=white;options=bold;bg=red>Pre-commit tool</fg=white;options=bold;bg=red>');
-
-//        $this->setconfigData();
         $this->extractCommitedFiles();
 
         if ($this->isProcessingAnyPhpFile()) {
@@ -90,11 +86,6 @@ class QualityCodeTool extends Application
 
         $this->output->writeln($this->outputTitleHandler->getSuccessfulStepMessage($result));
     }
-
-//    private function setconfigData()
-//    {
-//        $this->configData = $this->container->get('config.file')->getPreCommitConfiguration();
-//    }
 
     /**
      * @return bool
