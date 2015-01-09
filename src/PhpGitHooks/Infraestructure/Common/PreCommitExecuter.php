@@ -15,14 +15,6 @@ abstract class PreCommitExecuter
     protected $preCommitConfig;
 
     /**
-     * @param PreCommitConfig $preCommitConfig
-     */
-    public function __construct(PreCommitConfig $preCommitConfig)
-    {
-        $this->preCommitConfig = $preCommitConfig;
-    }
-
-    /**
      * @return bool
      */
     protected function isEnabled()

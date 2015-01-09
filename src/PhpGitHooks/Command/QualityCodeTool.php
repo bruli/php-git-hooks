@@ -155,21 +155,6 @@ class QualityCodeTool extends Application
         }
     }
 
-//    /**
-//     * @throws PHPMDViolationsException
-//     */
-//    private function checkPhpMessDetection()
-//    {
-//        if ($this->isEnabledInConfig('phpmd') === true) {
-//            /** @var PhpMDHandler $phpmd */
-//            $phpmd = $this->container->get('phpmd.handler');
-//            $phpmd->setOutput($this->output);
-//            $phpmd->setFiles($this->files);
-//            $phpmd->setNeedle(self::PHP_FILES_IN_SRC);
-//            $phpmd->run();
-//        }
-//    }
-
     /**
      * @param  string $stepName
      * @return bool

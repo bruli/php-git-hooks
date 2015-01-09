@@ -23,7 +23,7 @@ class CheckPhpMessDetectionPreCommitExecuter extends PreCommitExecuter
     public function __construct(PreCommitConfig $preCommitConfig, PhpMDHandler $phpMDHandler)
     {
         $this->phpMDHandler = $phpMDHandler;
-        parent::__construct($preCommitConfig);
+        $this->preCommitConfig = $preCommitConfig;
     }
 
     /**

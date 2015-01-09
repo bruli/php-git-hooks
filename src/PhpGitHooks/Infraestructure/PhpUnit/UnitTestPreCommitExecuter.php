@@ -3,6 +3,7 @@
 
 namespace PhpGitHooks\Infraestructure\PhpUnit;
 
+use PhpGitHooks\Infraestructure\Common\PreCommitExecuter;
 use PhpGitHooks\Infraestructure\Config\PreCommitConfig;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -10,11 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class UnitTestPreCommitExecuter
  * @package PhpGitHooks\Infraestructure\PhpUnit
  */
-class UnitTestPreCommitExecuter
+class UnitTestPreCommitExecuter extends PreCommitExecuter
 {
-    /** @var PreCommitConfig  */
-    private $preCommitConfig;
-
+    /** @var PhpUnitHandler  */
     private $phpunitHandler;
 
     /**
@@ -40,10 +39,10 @@ class UnitTestPreCommitExecuter
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    private function isEnabled()
+    protected function commandName()
     {
-        return $this->preCommitConfig->isEnabled('phpunit');
+        return 'phpunit';
     }
 }
