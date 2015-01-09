@@ -57,7 +57,10 @@ class QualityCodeTool extends Application
 
         if ($this->isProcessingAnyPhpFile()) {
             $this->checkComposerJsonAndLockSync();
-            $this->checkPhpSyntaxWithLint();
+//            $this->checkPhpSyntaxWithLint();
+
+            $this->container->get('check.php.syntax.lint.pre.commit.executer')
+                ->run($this->output, $this->files);
 
             $this->container->get('fix.code.style.cs.fixer.pre.commit.executer')
                 ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
@@ -119,26 +122,26 @@ class QualityCodeTool extends Application
         $composerValidator->validate();
     }
 
-    /**
-     * @throws PhpLintException
-     */
-    private function checkPhpSyntaxWithLint()
-    {
-        if ($this->isEnabledInConfig('phplint') === true) {
-            /** @var PhpLintHandler $phplint */
-            $phplint = $this->container->get('php.lint.handler');
-            $phplint->setOutput($this->output);
-            $phplint->setFiles($this->files);
-            $phplint->run();
-        }
-    }
+//    /**
+//     * @throws PhpLintException
+//     */
+//    private function checkPhpSyntaxWithLint()
+//    {
+//        if ($this->isEnabledInConfig('phplint') === true) {
+//            /** @var PhpLintHandler $phplint */
+//            $phplint = $this->container->get('php.lint.handler');
+//            $phplint->setOutput($this->output);
+//            $phplint->setFiles($this->files);
+//            $phplint->run();
+//        }
+//    }
 
-    /**
-     * @param  string $stepName
-     * @return bool
-     */
-    private function isEnabledInConfig($stepName)
-    {
-        return $this->preCommitConfig->isEnabled($stepName);
-    }
+//    /**
+//     * @param  string $stepName
+//     * @return bool
+//     */
+//    private function isEnabledInConfig($stepName)
+//    {
+//        return $this->preCommitConfig->isEnabled($stepName);
+//    }
 }
