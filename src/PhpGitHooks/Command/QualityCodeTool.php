@@ -59,7 +59,10 @@ class QualityCodeTool extends Application
             $this->checkComposerJsonAndLockSync();
             $this->checkPhpSyntaxWithLint();
             $this->checkCodeStyleWithCsFixer();
-            $this->checkCodeStyleWithCodeSniffer();
+//            $this->checkCodeStyleWithCodeSniffer();
+            $this->container->get('check.code.style.code.sniffer.pre.commit.executer')
+                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+
             $this->container->get('check.php.mess.detection.pre.commit.executer')
                 ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
 
@@ -140,20 +143,20 @@ class QualityCodeTool extends Application
         }
     }
 
-    /**
-     * @throws InvalidCodingStandardException
-     */
-    private function checkCodeStyleWithCodeSniffer()
-    {
-        if (true === $this->isEnabledInConfig('phpcs')) {
-            /** @var CodeSnifferHandler $phpcs */
-            $phpcs = $this->container->get('code.sniffer.handler');
-            $phpcs->setOutput($this->output);
-            $phpcs->setFiles($this->files);
-            $phpcs->setNeddle(self::PHP_FILES_IN_SRC);
-            $phpcs->run();
-        }
-    }
+//    /**
+//     * @throws InvalidCodingStandardException
+//     */
+//    private function checkCodeStyleWithCodeSniffer()
+//    {
+//        if (true === $this->isEnabledInConfig('phpcs')) {
+//            /** @var CodeSnifferHandler $phpcs */
+//            $phpcs = $this->container->get('code.sniffer.handler');
+//            $phpcs->setOutput($this->output);
+//            $phpcs->setFiles($this->files);
+//            $phpcs->setNeddle(self::PHP_FILES_IN_SRC);
+//            $phpcs->run();
+//        }
+//    }
 
     /**
      * @param  string $stepName

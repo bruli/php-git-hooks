@@ -56,5 +56,9 @@
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="phpmd.handler"/>
         </service>
+        <service id="check.code.style.code.sniffer.pre.commit.executer" class="PhpGitHooks\Infraestructure\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecuter">
+            <argument type="service" id="pre.commit.config"/>
+            <argument type="service" id="code.sniffer.handler"/>
+        </service>
     </services>
 </container>
