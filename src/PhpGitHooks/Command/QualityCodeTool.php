@@ -63,7 +63,8 @@ class QualityCodeTool extends Application
             $this->checkCodeStyleWithCsFixer();
             $this->checkCodeStyleWithCodeSniffer();
             $this->checkPhpMessDetection();
-            $this->checkUnitTestsArePassing();
+//            $this->checkUnitTestsArePassing();
+            $this->container->get('unit.test.pre.commit.executer')->run($this->output);
 
             $this->output->writeln('<fg=white;options=bold;bg=blue>Hey!, good job!</fg=white;options=bold;bg=blue>');
         }
@@ -170,21 +171,21 @@ class QualityCodeTool extends Application
         }
     }
 
-    /**
-     * @throws UnitTestsException
-     */
-    private function checkUnitTestsArePassing()
-    {
-        if (true === $this->isEnabledInConfig('phpunit')) {
-            /** @var PhpUnitHandler $phpunit */
-            $phpunit = $this->container->get('phpunit.handler');
-            $phpunit->setOutput($this->output);
-            $phpunit->run();
-        }
-    }
+//    /**
+//     * @throws UnitTestsException
+//     */
+//    private function checkUnitTestsArePassing()
+//    {
+//        if (true === $this->isEnabledInConfig('phpunit')) {
+//            /** @var PhpUnitHandler $phpunit */
+//            $phpunit = $this->container->get('phpunit.handler');
+//            $phpunit->setOutput($this->output);
+//            $phpunit->run();
+//        }
+//    }
 
     /**
-     * @param string $stepName
+     * @param  string $stepName
      * @return bool
      */
     private function isEnabledInConfig($stepName)

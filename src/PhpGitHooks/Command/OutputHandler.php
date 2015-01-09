@@ -64,7 +64,8 @@ class OutputHandler
     }
 
     /**
-     * @param  null   $message
+     * @param null|string $message
+     *
      * @return string
      */
     public function getSuccessfulStepMessage($message = null)
