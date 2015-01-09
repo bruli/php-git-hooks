@@ -119,7 +119,7 @@ class QualityCodeTool extends Application
      */
     private function checkPhpSyntaxWithLint()
     {
-        if ($this->preCommitConfig->isEnabled('phplint') === true) {
+        if ($this->isEnabledInConfig('phplint') === true) {
             /** @var PhpLintHandler $phplint */
             $phplint = $this->container->get('php.lint.handler');
             $phplint->setOutput($this->output);
@@ -130,7 +130,7 @@ class QualityCodeTool extends Application
 
     private function checkCodeStyleWithCsFixer()
     {
-        if ($this->preCommitConfig->isEnabled('php-cs-fixer') === true) {
+        if ($this->isEnabledInConfig('php-cs-fixer') === true) {
             /** @var PhpCsFixerHandler $phpCsFixer */
             $phpCsFixer = $this->container->get('php.cs.fixer.handler');
             $phpCsFixer->setOutput($this->output);
@@ -145,7 +145,7 @@ class QualityCodeTool extends Application
      */
     private function checkCodeStyleWithCodeSniffer()
     {
-        if ($this->preCommitConfig->isEnabled('phpcs')) {
+        if (true === $this->isEnabledInConfig('phpcs')) {
             /** @var CodeSnifferHandler $phpcs */
             $phpcs = $this->container->get('code.sniffer.handler');
             $phpcs->setOutput($this->output);
@@ -160,7 +160,7 @@ class QualityCodeTool extends Application
      */
     private function checkPhpMessDetection()
     {
-        if ($this->preCommitConfig->isEnabled('phpmd') === true) {
+        if ($this->isEnabledInConfig('phpmd') === true) {
             /** @var PhpMDHandler $phpmd */
             $phpmd = $this->container->get('phpmd.handler');
             $phpmd->setOutput($this->output);
@@ -175,11 +175,20 @@ class QualityCodeTool extends Application
      */
     private function checkUnitTestsArePassing()
     {
-        if (true === $this->preCommitConfig->isEnabled('phpunit')) {
+        if (true === $this->isEnabledInConfig('phpunit')) {
             /** @var PhpUnitHandler $phpunit */
             $phpunit = $this->container->get('phpunit.handler');
             $phpunit->setOutput($this->output);
             $phpunit->run();
         }
+    }
+
+    /**
+     * @param string $stepName
+     * @return bool
+     */
+    private function isEnabledInConfig($stepName)
+    {
+        return $this->preCommitConfig->isEnabled($stepName);
     }
 }
