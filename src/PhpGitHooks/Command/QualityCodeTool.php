@@ -58,8 +58,11 @@ class QualityCodeTool extends Application
         if ($this->isProcessingAnyPhpFile()) {
             $this->checkComposerJsonAndLockSync();
             $this->checkPhpSyntaxWithLint();
-            $this->checkCodeStyleWithCsFixer();
-            
+//            $this->checkCodeStyleWithCsFixer();
+
+            $this->container->get('fix.code.style.cs.fixer.pre.commit.executer')
+                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+
             $this->container->get('check.code.style.code.sniffer.pre.commit.executer')
                 ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
 
@@ -131,17 +134,17 @@ class QualityCodeTool extends Application
         }
     }
 
-    private function checkCodeStyleWithCsFixer()
-    {
-        if ($this->isEnabledInConfig('php-cs-fixer') === true) {
-            /** @var PhpCsFixerHandler $phpCsFixer */
-            $phpCsFixer = $this->container->get('php.cs.fixer.handler');
-            $phpCsFixer->setOutput($this->output);
-            $phpCsFixer->setFiles($this->files);
-            $phpCsFixer->setFilesToAnalize(self::PHP_FILES_IN_SRC);
-            $phpCsFixer->run();
-        }
-    }
+//    private function checkCodeStyleWithCsFixer()
+//    {
+//        if ($this->isEnabledInConfig('php-cs-fixer') === true) {
+//            /** @var PhpCsFixerHandler $phpCsFixer */
+//            $phpCsFixer = $this->container->get('php.cs.fixer.handler');
+//            $phpCsFixer->setOutput($this->output);
+//            $phpCsFixer->setFiles($this->files);
+//            $phpCsFixer->setFilesToAnalize(self::PHP_FILES_IN_SRC);
+//            $phpCsFixer->run();
+//        }
+//    }
 
     /**
      * @param  string $stepName

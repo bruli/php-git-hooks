@@ -60,5 +60,9 @@
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="code.sniffer.handler"/>
         </service>
+        <service id="fix.code.style.cs.fixer.pre.commit.executer" class="PhpGitHooks\Infraestructure\PhpCsFixer\FixCodeStyleCsFixerPreCommitExecuter">
+            <argument type="service" id="pre.commit.config"/>
+            <argument type="service" id="php.cs.fixer.handler"/>
+        </service>
     </services>
 </container>
