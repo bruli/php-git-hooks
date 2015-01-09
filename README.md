@@ -64,13 +64,13 @@ The most easy way to enable hook is copy hook file into your .git/hooks director
 #For pre-commit hook:
 
 ``` bash
- $cp vendor/bruli/hooks/pre-commit .git/hooks
+ $cp vendor/bruli/php-git-hooks/hooks/pre-commit .git/hooks
 ```
 
 #For commit-msg hook:
 
 ``` bash
- $cp vendor/bruli/hooks/commit-msg .git/hooks
+ $cp vendor/bruli/php-git-hooks/hooks/commit-msg .git/hooks
 ```
 
 ### execute.
