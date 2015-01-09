@@ -41,9 +41,11 @@ class FixCodeStyleCsFixerPreCommitExecuter extends PreCommitExecuter
      */
     public function run(OutputInterface $output, array $files, $needle)
     {
-        $this->phpCsFixerHandler->setOutput($output);
-        $this->phpCsFixerHandler->setFiles($files);
-        $this->phpCsFixerHandler->setFilesToAnalize($needle);
-        $this->phpCsFixerHandler->run();
+        if ($this->isEnabled()) {
+            $this->phpCsFixerHandler->setOutput($output);
+            $this->phpCsFixerHandler->setFiles($files);
+            $this->phpCsFixerHandler->setFilesToAnalize($needle);
+            $this->phpCsFixerHandler->run();
+        }
     }
 }
