@@ -3,8 +3,6 @@
 namespace PhpGitHooks\Command;
 
 use PhpGitHooks\Container;
-use PhpGitHooks\Infraestructure\Composer\ComposerFilesValidator;
-use PhpGitHooks\Infraestructure\Config\PreCommitConfig;
 use PhpGitHooks\Infraestructure\Git\ExtractCommitedFiles;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,7 +22,7 @@ class QualityCodeTool extends Application
     private $container;
     /** @var  OutputHandler */
     private $outputTitleHandler;
-    
+
     const PHP_FILES_IN_SRC = '/^src\/(.*)(\.php)$/';
 
     public function __construct()
@@ -46,27 +44,9 @@ class QualityCodeTool extends Application
         $this->output->writeln('<fg=white;options=bold;bg=red>Pre-commit tool</fg=white;options=bold;bg=red>');
         $this->extractCommitedFiles();
 
-        if ($this->isProcessingAnyPhpFile()) {
+        $this->execute();
 
-            $this->container->get('check.composer.files.pre.commit.executer')
-                ->run($this->output, $this->files);
-
-            $this->container->get('check.php.syntax.lint.pre.commit.executer')
-                ->run($this->output, $this->files);
-
-            $this->container->get('fix.code.style.cs.fixer.pre.commit.executer')
-                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
-
-            $this->container->get('check.code.style.code.sniffer.pre.commit.executer')
-                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
-
-            $this->container->get('check.php.mess.detection.pre.commit.executer')
-                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
-
-            $this->container->get('unit.test.pre.commit.executer')->run($this->output);
-
-            $this->output->writeln('<fg=white;options=bold;bg=blue>Hey!, good job!</fg=white;options=bold;bg=blue>');
-        }
+        $this->output->writeln('<fg=white;options=bold;bg=blue>Hey!, good job!</fg=white;options=bold;bg=blue>');
     }
 
     private function extractCommitedFiles()
@@ -100,5 +80,27 @@ class QualityCodeTool extends Application
         }
 
         return false;
+    }
+
+    private function execute()
+    {
+        if ($this->isProcessingAnyPhpFile()) {
+            $this->container->get('check.composer.files.pre.commit.executer')
+                ->run($this->output, $this->files);
+
+            $this->container->get('check.php.syntax.lint.pre.commit.executer')
+                ->run($this->output, $this->files);
+
+            $this->container->get('fix.code.style.cs.fixer.pre.commit.executer')
+                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+
+            $this->container->get('check.code.style.code.sniffer.pre.commit.executer')
+                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+
+            $this->container->get('check.php.mess.detection.pre.commit.executer')
+                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+
+            $this->container->get('unit.test.pre.commit.executer')->run($this->output);
+        }
     }
 }
