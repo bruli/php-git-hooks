@@ -68,5 +68,8 @@
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="php.lint.handler"/>
         </service>
+        <service id="check.composer.files.pre.commit.executer" class="PhpGitHooks\Infraestructure\Composer\CheckComposerFilesPreCommitExecuter">
+            <argument type="service" id="composer.files.validator"/>
+        </service>
     </services>
 </container>

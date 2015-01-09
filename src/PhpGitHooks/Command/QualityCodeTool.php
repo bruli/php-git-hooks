@@ -3,16 +3,9 @@
 namespace PhpGitHooks\Command;
 
 use PhpGitHooks\Container;
-use PhpGitHooks\Infraestructure\CodeSniffer\CodeSnifferHandler;
 use PhpGitHooks\Infraestructure\Composer\ComposerFilesValidator;
 use PhpGitHooks\Infraestructure\Config\PreCommitConfig;
 use PhpGitHooks\Infraestructure\Git\ExtractCommitedFiles;
-use PhpGitHooks\Infraestructure\CodeSniffer\InvalidCodingStandardException;
-use PhpGitHooks\Infraestructure\PhpCsFixer\PhpCsFixerHandler;
-use PhpGitHooks\Infraestructure\PhpLint\PhpLintException;
-use PhpGitHooks\Infraestructure\PhpLint\PhpLintHandler;
-use PhpGitHooks\Infraestructure\PhpMD\PhpMDHandler;
-use PhpGitHooks\Infraestructure\PhpMD\PHPMDViolationsException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,15 +24,13 @@ class QualityCodeTool extends Application
     private $container;
     /** @var  OutputHandler */
     private $outputTitleHandler;
-    /** @var  PreCommitConfig */
-    private $preCommitConfig;
+    
     const PHP_FILES_IN_SRC = '/^src\/(.*)(\.php)$/';
 
     public function __construct()
     {
         $this->container = new Container();
         $this->outputTitleHandler = new OutputHandler();
-        $this->preCommitConfig = $this->container->get('pre.commit.config');
 
         parent::__construct('Code Quality Tool');
     }
@@ -56,8 +47,9 @@ class QualityCodeTool extends Application
         $this->extractCommitedFiles();
 
         if ($this->isProcessingAnyPhpFile()) {
-            $this->checkComposerJsonAndLockSync();
-//            $this->checkPhpSyntaxWithLint();
+
+            $this->container->get('check.composer.files.pre.commit.executer')
+                ->run($this->output, $this->files);
 
             $this->container->get('check.php.syntax.lint.pre.commit.executer')
                 ->run($this->output, $this->files);
@@ -109,39 +101,4 @@ class QualityCodeTool extends Application
 
         return false;
     }
-
-    /**
-     * @throws \PhpGitHooks\Infraestructure\Composer\ComposerJsonNotCommitedException
-     */
-    private function checkComposerJsonAndLockSync()
-    {
-        /** @var ComposerFilesValidator $composerValidator */
-        $composerValidator = $this->container->get('composer.files.validator');
-        $composerValidator->setOutput($this->output);
-        $composerValidator->setFiles($this->files);
-        $composerValidator->validate();
-    }
-
-//    /**
-//     * @throws PhpLintException
-//     */
-//    private function checkPhpSyntaxWithLint()
-//    {
-//        if ($this->isEnabledInConfig('phplint') === true) {
-//            /** @var PhpLintHandler $phplint */
-//            $phplint = $this->container->get('php.lint.handler');
-//            $phplint->setOutput($this->output);
-//            $phplint->setFiles($this->files);
-//            $phplint->run();
-//        }
-//    }
-
-//    /**
-//     * @param  string $stepName
-//     * @return bool
-//     */
-//    private function isEnabledInConfig($stepName)
-//    {
-//        return $this->preCommitConfig->isEnabled($stepName);
-//    }
 }
