@@ -60,7 +60,9 @@ class QualityCodeTool extends Application
             $this->checkPhpSyntaxWithLint();
             $this->checkCodeStyleWithCsFixer();
             $this->checkCodeStyleWithCodeSniffer();
-            $this->checkPhpMessDetection();
+            $this->container->get('check.php.mess.detection.pre.commit.executer')
+                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+
             $this->container->get('unit.test.pre.commit.executer')->run($this->output);
 
             $this->output->writeln('<fg=white;options=bold;bg=blue>Hey!, good job!</fg=white;options=bold;bg=blue>');
@@ -153,20 +155,20 @@ class QualityCodeTool extends Application
         }
     }
 
-    /**
-     * @throws PHPMDViolationsException
-     */
-    private function checkPhpMessDetection()
-    {
-        if ($this->isEnabledInConfig('phpmd') === true) {
-            /** @var PhpMDHandler $phpmd */
-            $phpmd = $this->container->get('phpmd.handler');
-            $phpmd->setOutput($this->output);
-            $phpmd->setFiles($this->files);
-            $phpmd->setNeedle(self::PHP_FILES_IN_SRC);
-            $phpmd->run();
-        }
-    }
+//    /**
+//     * @throws PHPMDViolationsException
+//     */
+//    private function checkPhpMessDetection()
+//    {
+//        if ($this->isEnabledInConfig('phpmd') === true) {
+//            /** @var PhpMDHandler $phpmd */
+//            $phpmd = $this->container->get('phpmd.handler');
+//            $phpmd->setOutput($this->output);
+//            $phpmd->setFiles($this->files);
+//            $phpmd->setNeedle(self::PHP_FILES_IN_SRC);
+//            $phpmd->run();
+//        }
+//    }
 
     /**
      * @param  string $stepName

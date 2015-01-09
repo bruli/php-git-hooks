@@ -52,5 +52,9 @@
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="phpunit.handler"/>
         </service>
+        <service id="check.php.mess.detection.pre.commit.executer" class="PhpGitHooks\Infraestructure\PhpMD\CheckPhpMessDetectionPreCommitExecuter">
+            <argument type="service" id="pre.commit.config"/>
+            <argument type="service" id="phpmd.handler"/>
+        </service>
     </services>
 </container>
