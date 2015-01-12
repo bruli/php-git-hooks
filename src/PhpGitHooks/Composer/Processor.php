@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Composer;
 
 use Composer\IO\IOInterface;
+use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
 
 /**
  * Class Processor
@@ -14,9 +15,9 @@ abstract class Processor
     protected $io;
 
     /**
-     * @param $io
+     * @param IOInterface $io
      */
-    public function __construct($io)
+    public function __construct(IOInterface $io)
     {
         $this->io = $io;
     }

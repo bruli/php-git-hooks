@@ -2,12 +2,27 @@
 
 namespace PhpGitHooks\Composer;
 
+use Composer\IO\IOInterface;
+use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
 use Symfony\Component\Yaml\Yaml;
 
 class ConfiguratorProcessor extends Processor
 {
-    const CONFIG_FILE = 'php-git-hooks.yml';
     private $configData = array();
+    /** @var  CheckConfigFile */
+    private $checkConfigFile;
+
+    /**
+     * @param IOInterface $io
+     * @param CheckConfigFile $checkConfigFile
+     */
+    public function __construct(IOInterface $io, CheckConfigFile $checkConfigFile)
+    {
+        parent::__construct($io);
+
+        $this->checkConfigFile = $checkConfigFile;
+    }
+
 
     public function process()
     {
@@ -16,7 +31,7 @@ class ConfiguratorProcessor extends Processor
 
     private function initConfigFile()
     {
-        if (false === file_exists(self::CONFIG_FILE)) {
+        if (false === $this->checkConfigFile->exists()) {
             $generate = $this->setQuestion('Do you want generate a php-git.hooks.yml file?', 'Y/n', 'Y');
 
             if ('N' === strtoupper($generate)) {
@@ -38,6 +53,6 @@ class ConfiguratorProcessor extends Processor
     {
         $data = Yaml::dump($this->configData);
 
-        file_put_contents(self::CONFIG_FILE, $data);
+        file_put_contents($this->checkConfigFile->getFile(), $data);
     }
 }

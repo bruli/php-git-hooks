@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Composer;
 
 use Composer\Script\Event;
-use Composer\IO;
+use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
 
 /**
  * Class ConfiguratorScript
@@ -16,12 +16,11 @@ class ConfiguratorScript
      */
     public static function buildConfig(Event $event)
     {
-        if (false
-            === $event->isDevMode()) {
+        if (false === $event->isDevMode()) {
             return;
         }
 
-        $processor = new ConfiguratorProcessor($event->getIO());
+        $processor = new ConfiguratorProcessor($event->getIO(), new CheckConfigFile());
 
         return $processor->process();
     }
