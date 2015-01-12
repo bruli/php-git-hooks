@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Composer;
 
-use Symfony\Component\Process\Process;
+use PhpGitHooks\Infraestructure\Git\HooksFileCopier;
 
 /**
  * Class PreCommitProcessor
@@ -38,21 +38,10 @@ class PreCommitProcessor extends Processor
         $enabled = false;
 
         if ('Y' === strtoupper($enablePrecommit)) {
-            $this->copyHookFile('pre-commit');
+            HooksFileCopier::copy('pre-commit');
             $enabled = true;
         }
         $this->preCommitData['pre-commit'] = ['enabled' => $enabled];
-    }
-
-    /**
-     * @param $hook
-     */
-    private function copyHookFile($hook)
-    {
-        if (false === file_exists('.git/hooks/'.$hook)) {
-            $copy = new Process('cp '.__DIR__.'/../../../hooks/'.$hook.' .git/hooks/'.$hook);
-            $copy->run();
-        }
     }
 
     /**
