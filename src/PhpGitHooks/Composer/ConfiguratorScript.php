@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Composer;
 
 use Composer\Script\Event;
+use PhpGitHooks\Container;
 use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
 
 /**
@@ -20,8 +21,16 @@ class ConfiguratorScript
             return;
         }
 
-        $processor = new ConfiguratorProcessor($event->getIO(), new CheckConfigFile());
+        $container = new Container();
+
+        /** @var ConfiguratorProcessor $processor */
+        $processor = $container->get('configurator.processor');
+        $processor->setIO($event->getIO());
 
         return $processor->process();
+
+//        $processor = new ConfiguratorProcessor($event->getIO(), new CheckConfigFile());
+//
+//        return $processor->process();
     }
 }

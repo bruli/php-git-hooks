@@ -5,7 +5,6 @@ namespace PhpGitHooks\Composer;
 use Composer\IO\IOInterface;
 use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
 use PhpGitHooks\Infraestructure\Config\ConfigFileWriter;
-use Symfony\Component\Yaml\Yaml;
 
 class ConfiguratorProcessor extends Processor
 {
@@ -14,16 +13,12 @@ class ConfiguratorProcessor extends Processor
     private $checkConfigFile;
 
     /**
-     * @param IOInterface $io
      * @param CheckConfigFile $checkConfigFile
      */
-    public function __construct(IOInterface $io, CheckConfigFile $checkConfigFile)
+    public function __construct(CheckConfigFile $checkConfigFile)
     {
-        parent::__construct($io);
-
         $this->checkConfigFile = $checkConfigFile;
     }
-
 
     public function process()
     {
@@ -43,9 +38,9 @@ class ConfiguratorProcessor extends Processor
                 return;
             }
 
-            $preCommit = new PreCommitProcessor($this->io);
+            $preCommit = new PreCommitProcessor();
+            $preCommit->setIO($this->io);
             $this->configData = $preCommit->execute();
-
 
             ConfigFileWriter::write($this->checkConfigFile->getFile(), $this->configData);
         }

@@ -17,7 +17,7 @@ abstract class Processor
     /**
      * @param IOInterface $io
      */
-    public function __construct(IOInterface $io)
+    public function setIO(IOInterface $io)
     {
         $this->io = $io;
     }
