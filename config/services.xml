@@ -71,8 +71,11 @@
         <service id="check.composer.files.pre.commit.executer" class="PhpGitHooks\Infraestructure\Composer\CheckComposerFilesPreCommitExecuter">
             <argument type="service" id="composer.files.validator"/>
         </service>
+        <service id="pre.commit.processor" class="PhpGitHooks\Composer\PreCommitProcessor">
+        </service>
         <service id="configurator.processor" class="PhpGitHooks\Composer\ConfiguratorProcessor">
             <argument type="service" id="check.config.file"/>
+            <argument type="service" id="pre.commit.processor"/>
         </service>
     </services>
 </container>
