@@ -15,7 +15,7 @@ class ConfigFileWriter
      * @param string $file
      * @param array  $configData
      */
-    public static function write($file, $configData)
+    public function write($file, $configData)
     {
         $data = Yaml::dump($configData);
 

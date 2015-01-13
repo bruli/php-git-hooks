@@ -16,7 +16,7 @@ class HooksFileCopier
     /**
      * @param string $hook
      */
-    public static function copy($hook)
+    public function copy($hook)
     {
         if (false === file_exists(self::GIT_HOOKS_PATH . $hook)) {
             $copy = new Process('cp ' . __DIR__ . '/../../../../hooks/' . $hook . ' .git/hooks/' . $hook);

@@ -12,6 +12,16 @@ class PreCommitProcessor extends Processor
 {
     private $preCommitData = array();
     private $preCommitTools = ['phpunit', 'phplint', 'php-cs-fixer', 'phpcs', 'phpmd'];
+    /** @var  HooksFileCopier */
+    private $hooksFileCopier;
+
+    /**
+     * @param HooksFileCopier $hooksFileCopier
+     */
+    public function __construct(HooksFileCopier $hooksFileCopier)
+    {
+        $this->hooksFileCopier = $hooksFileCopier;
+    }
 
     /**
      * @return array
@@ -38,7 +48,7 @@ class PreCommitProcessor extends Processor
         $enabled = false;
 
         if ('Y' === strtoupper($enablePrecommit)) {
-            HooksFileCopier::copy('pre-commit');
+            $this->hooksFileCopier->copy('pre-commit');
             $enabled = true;
         }
         $this->preCommitData['pre-commit'] = ['enabled' => $enabled];

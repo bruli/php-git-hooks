@@ -5,6 +5,10 @@ namespace PhpGitHooks\Composer;
 use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
 use PhpGitHooks\Infraestructure\Config\ConfigFileWriter;
 
+/**
+ * Class ConfiguratorProcessor
+ * @package PhpGitHooks\Composer
+ */
 class ConfiguratorProcessor extends Processor
 {
     private $configData = array();
@@ -12,18 +16,22 @@ class ConfiguratorProcessor extends Processor
     private $checkConfigFile;
     /** @var PreCommitProcessor */
     private $preCommitProcessor;
+    /** @var ConfigFileWriter  */
+    private $configFileWriter;
 
     /**
-     * @param CheckConfigFile $checkConfigFile
+     * @param CheckConfigFile    $checkConfigFile
      * @param PreCommitProcessor $preCommitProcessor
+     * @param ConfigFileWriter   $configFileWriter
      */
     public function __construct(
         CheckConfigFile $checkConfigFile,
-        PreCommitProcessor $preCommitProcessor
-    )
-    {
+        PreCommitProcessor $preCommitProcessor,
+        ConfigFileWriter $configFileWriter
+    ) {
         $this->checkConfigFile = $checkConfigFile;
         $this->preCommitProcessor = $preCommitProcessor;
+        $this->configFileWriter = $configFileWriter;
     }
 
     public function process()
@@ -47,7 +55,7 @@ class ConfiguratorProcessor extends Processor
             $this->preCommitProcessor->setIO($this->io);
             $this->configData = $this->preCommitProcessor->execute();
 
-            ConfigFileWriter::write($this->checkConfigFile->getFile(), $this->configData);
+            $this->configFileWriter->write($this->checkConfigFile->getFile(), $this->configData);
         }
     }
 }
