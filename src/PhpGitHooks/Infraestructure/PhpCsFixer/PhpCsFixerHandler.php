@@ -34,7 +34,6 @@ class PhpCsFixerHandler extends ToolHandler
                     'php',
                     'bin/php-cs-fixer',
                     '--dry-run',
-                    '--verbose',
                     'fix',
                     $file,
                     '--fixers='.self::FIXERS,
@@ -44,8 +43,12 @@ class PhpCsFixerHandler extends ToolHandler
             $phpCsFixer = $processBuilder->getProcess();
             $phpCsFixer->run();
 
+            if (false === $phpCsFixer->isSuccessful()) {
+                throw new PhpCsFixerException($phpCsFixer->getOutput());
+            }
         }
-            $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
+
+        $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
     }
 
     /**
