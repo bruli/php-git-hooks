@@ -22,6 +22,8 @@ class PhpCsFixerHandler extends ToolHandler
         $this->outputHandler->setTitle('Checking code style with PHP-CS-FIXER');
         $this->output->write($this->outputHandler->getTitle());
 
+        $errors = array();
+
         foreach ($this->files as $file) {
             $srcFile = preg_match($this->filesToAnalize, $file);
 
@@ -44,8 +46,12 @@ class PhpCsFixerHandler extends ToolHandler
             $phpCsFixer->run();
 
             if (false === $phpCsFixer->isSuccessful()) {
-                throw new PhpCsFixerException($phpCsFixer->getOutput());
+                $errors[] = $phpCsFixer->getOutput();
             }
+        }
+
+        if ($errors) {
+            throw new PhpCsFixerException(implode('', $errors));
         }
 
         $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
