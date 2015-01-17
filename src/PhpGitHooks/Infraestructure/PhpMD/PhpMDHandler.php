@@ -37,7 +37,7 @@ class PhpMDHandler extends ToolHandler
                     'text',
                     'PmdRules.xml',
                     '--minimumpriority',
-                    1
+                    1,
                 ]
             );
             $process = $processBuilder->getProcess();
@@ -46,9 +46,8 @@ class PhpMDHandler extends ToolHandler
             if (false === $process->isSuccessful()) {
                 throw new PHPMDViolationsException($process->getOutput());
             }
-
         }
-            $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
+        $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
     }
 
     /**

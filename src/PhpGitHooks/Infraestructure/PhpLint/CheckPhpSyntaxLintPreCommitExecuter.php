@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\PhpLint;
 
 use PhpGitHooks\Infraestructure\Common\PreCommitExecuter;

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\CodeSniffer;
 
 use PhpGitHooks\Infraestructure\Common\PreCommitExecuter;

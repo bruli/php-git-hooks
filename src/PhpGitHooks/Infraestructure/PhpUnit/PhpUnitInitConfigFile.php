@@ -1,9 +1,9 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\PhpUnit;
 
 use PhpGitHooks\Composer\Processor;
+use PhpGitHooks\Infraestructure\Common\ConfigFileToolValidator;
 
 /**
  * Class PhpUnitInitConfigFile
@@ -11,15 +11,18 @@ use PhpGitHooks\Composer\Processor;
  */
 class PhpUnitInitConfigFile extends Processor
 {
-    /** @var  PhpUnitFileValidator */
+    /** @var  ConfigFileToolValidator */
     private $validatorFile;
 
+    private $configFiles = ['phpunit.xml', 'phpunit.xml.dist'];
+
     /**
-     * @param PhpUnitFileValidator $phpUnitFileValidator
+     * @param ConfigFileToolValidator $configFileToolValidator
      */
-    public function __construct(PhpUnitFileValidator $phpUnitFileValidator)
+    public function __construct(ConfigFileToolValidator $configFileToolValidator)
     {
-        $this->validatorFile = $phpUnitFileValidator;
+        $this->validatorFile = $configFileToolValidator;
+        $this->validatorFile->setFiles($this->configFiles);
     }
 
     public function process()
@@ -34,7 +37,7 @@ class PhpUnitInitConfigFile extends Processor
         $answer = $this->setQuestion('Do you want create a phpunit.xml.dist file?', 'Y/n', 'Y');
 
         if ('Y' === strtoupper($answer)) {
-            copy(__DIR__ . '/../../../../phpunit.xml.dist', 'phpunit.xml.dist');
+            copy(__DIR__.'/../../../../phpunit.xml.dist', 'phpunit.xml.dist');
         }
     }
 }

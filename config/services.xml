@@ -78,10 +78,10 @@
         </service>
         <service id="hooks.file.copier" class="PhpGitHooks\Infraestructure\Git\HooksFileCopier">
         </service>
-        <service id="phpunit.file.validator" class="PhpGitHooks\Infraestructure\PhpUnit\PhpUnitFileValidator">
+        <service id="config.file.tool.validator" class="PhpGitHooks\Infraestructure\Common\ConfigFileToolValidator">
         </service>
         <service id="phpunit.init.config.file" class="PhpGitHooks\Infraestructure\PhpUnit\PhpUnitInitConfigFile">
-            <argument type="service" id="phpunit.file.validator"/>
+            <argument type="service" id="config.file.tool.validator"/>
         </service>
         <service id="configurator.processor" class="PhpGitHooks\Composer\ConfiguratorProcessor">
             <argument type="service" id="check.config.file"/>

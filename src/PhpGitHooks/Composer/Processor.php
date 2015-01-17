@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Composer;
 
 use Composer\IO\IOInterface;
-use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
 
 /**
  * Class Processor

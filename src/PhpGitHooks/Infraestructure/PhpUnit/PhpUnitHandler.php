@@ -11,7 +11,6 @@ use Symfony\Component\Process\ProcessBuilder;
  */
 class PhpUnitHandler extends ToolHandler
 {
-
     /**
      * @throws UnitTestsException
      */

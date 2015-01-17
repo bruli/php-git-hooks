@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks;
 
 use Symfony\Component\Config\FileLocator;

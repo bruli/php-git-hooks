@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\Composer;
 
 use Symfony\Component\Console\Output\OutputInterface;

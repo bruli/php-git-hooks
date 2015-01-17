@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\Common;
 
 use PhpGitHooks\Infraestructure\Config\PreCommitConfig;

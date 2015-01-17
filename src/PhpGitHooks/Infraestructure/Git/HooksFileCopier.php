@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\Git;
 
 use Symfony\Component\Process\Process;
@@ -18,8 +17,8 @@ class HooksFileCopier
      */
     public function copy($hook)
     {
-        if (false === file_exists(self::GIT_HOOKS_PATH . $hook)) {
-            $copy = new Process('cp ' . __DIR__ . '/../../../../hooks/' . $hook . ' .git/hooks/' . $hook);
+        if (false === file_exists(self::GIT_HOOKS_PATH.$hook)) {
+            $copy = new Process('cp '.__DIR__.'/../../../../hooks/'.$hook.' .git/hooks/'.$hook);
             $copy->run();
         }
     }
