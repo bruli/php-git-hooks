@@ -4,6 +4,7 @@ namespace PhpGitHooks\Composer;
 
 use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
 use PhpGitHooks\Infraestructure\Config\ConfigFileWriter;
+use PhpGitHooks\Infraestructure\PhpUnit\PhpUnitInitConfigFile;
 
 /**
  * Class ConfiguratorProcessor
@@ -16,27 +17,34 @@ class ConfiguratorProcessor extends Processor
     private $checkConfigFile;
     /** @var PreCommitProcessor */
     private $preCommitProcessor;
-    /** @var ConfigFileWriter  */
+    /** @var ConfigFileWriter */
     private $configFileWriter;
+    /** @var PhpUnitInitConfigFile  */
+    private $phpUnitInitConfigFile;
 
     /**
-     * @param CheckConfigFile    $checkConfigFile
-     * @param PreCommitProcessor $preCommitProcessor
-     * @param ConfigFileWriter   $configFileWriter
+     * @param CheckConfigFile       $checkConfigFile
+     * @param PreCommitProcessor    $preCommitProcessor
+     * @param ConfigFileWriter      $configFileWriter
+     * @param PhpUnitInitConfigFile $phpUnitInitConfigFile
      */
     public function __construct(
         CheckConfigFile $checkConfigFile,
         PreCommitProcessor $preCommitProcessor,
-        ConfigFileWriter $configFileWriter
+        ConfigFileWriter $configFileWriter,
+        PhpUnitInitConfigFile $phpUnitInitConfigFile
     ) {
         $this->checkConfigFile = $checkConfigFile;
         $this->preCommitProcessor = $preCommitProcessor;
         $this->configFileWriter = $configFileWriter;
+        $this->phpUnitInitConfigFile = $phpUnitInitConfigFile;
     }
 
     public function process()
     {
         $this->initConfigFile();
+        $this->phpUnitInitConfigFile->setIO($this->io);
+        $this->phpUnitInitConfigFile->process();
     }
 
     private function initConfigFile()
