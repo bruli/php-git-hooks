@@ -40,7 +40,7 @@ php composer.phar install
 ### Composer configuration.
 After download all repositories, composer ask you about configuration.
 
-<img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/composer_install/Resources/docs/images/composer-config.png" />
+<img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/composer-config.png" />
 
 ### Composer configuration in Symfony2 projects.
 
