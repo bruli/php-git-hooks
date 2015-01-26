@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpGitHooks\Infraetructure\CodeSniffer;
+namespace PhpGitHooks\Infrastructure\CodeSniffer;
 
 /**
  * Class InvalidCodingStandardException
