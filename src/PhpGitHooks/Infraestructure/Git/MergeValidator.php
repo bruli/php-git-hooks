@@ -14,7 +14,7 @@ class MergeValidator
     public function isMerge()
     {
         foreach (['MERGE_MSG', 'MERGE_HEAD', 'MERGE_MODE'] as $fileName) {
-            if (file_exists('.git/' . $fileName)) {
+            if (file_exists('.git/'.$fileName)) {
                 return true;
             }
         }

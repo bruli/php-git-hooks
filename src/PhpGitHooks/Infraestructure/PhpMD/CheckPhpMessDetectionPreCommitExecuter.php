@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\PhpMD;
 
 use PhpGitHooks\Infraestructure\Common\PreCommitExecuter;

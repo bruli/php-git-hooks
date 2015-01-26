@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\PhpCsFixer;
 
 use PhpGitHooks\Infraestructure\Common\PreCommitExecuter;

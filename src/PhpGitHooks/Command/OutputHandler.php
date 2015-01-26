@@ -30,7 +30,7 @@ class OutputHandler
     public function getTitle()
     {
         $text = $this->title;
-        $length= $this->getlength();
+        $length = $this->getlength();
 
         for ($i = 0; $i < $length; $i++) {
             $text .= self::TITLE_SEPARATOR;

@@ -71,5 +71,23 @@
         <service id="check.composer.files.pre.commit.executer" class="PhpGitHooks\Infraestructure\Composer\CheckComposerFilesPreCommitExecuter">
             <argument type="service" id="composer.files.validator"/>
         </service>
+        <service id="pre.commit.processor" class="PhpGitHooks\Composer\PreCommitProcessor">
+            <argument type="service" id="hooks.file.copier"/>
+        </service>
+        <service id="config.file.writer" class="PhpGitHooks\Infraestructure\Config\ConfigFileWriter">
+        </service>
+        <service id="hooks.file.copier" class="PhpGitHooks\Infraestructure\Git\HooksFileCopier">
+        </service>
+        <service id="config.file.tool.validator" class="PhpGitHooks\Infraestructure\Common\ConfigFileToolValidator">
+        </service>
+        <service id="phpunit.init.config.file" class="PhpGitHooks\Infraestructure\PhpUnit\PhpUnitInitConfigFile">
+            <argument type="service" id="config.file.tool.validator"/>
+        </service>
+        <service id="configurator.processor" class="PhpGitHooks\Composer\ConfiguratorProcessor">
+            <argument type="service" id="check.config.file"/>
+            <argument type="service" id="pre.commit.processor"/>
+            <argument type="service" id="config.file.writer" />
+            <argument type="service" id="phpunit.init.config.file" />
+        </service>
     </services>
 </container>

@@ -28,7 +28,8 @@
     "symfony/yaml": "~2.6"
   },
   "require-dev": {
-    "raulfraile/ladybug": "~1.0"
+    "raulfraile/ladybug": "~1.0",
+    "composer/composer": "~1.0@dev"
   },
   "config": {
     "bin-dir": "bin/"
@@ -37,5 +38,9 @@
     "branch-alias": {
       "dev-master": "1.x-dev"
     }
+  },
+  "scripts": {
+    "post-install-cmd": "PhpGitHooks\\Composer\\ConfiguratorScript::buildConfig",
+    "post-update-cmd": "PhpGitHooks\\Composer\\ConfiguratorScript::buildConfig"
   }
 }

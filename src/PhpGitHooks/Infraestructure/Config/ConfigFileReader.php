@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpGitHooks\Infraestructure\Config;
 
 use Symfony\Component\Yaml\Yaml;

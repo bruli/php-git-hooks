@@ -28,10 +28,8 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidConfigData()
     {
-        $data = ['pre-commit' =>
-            ['execute' =>
-                ['phpunit' => 'dfaa']
-            ]
+        $data = ['pre-commit' => ['execute' => ['phpunit' => 'dfaa'],
+            ],
         ];
 
         $this->configFileReader->shouldReceive('getData')->andReturn($data);
@@ -44,10 +42,8 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function serviceNameNotExists()
     {
-        $data = ['pre-commit' =>
-            ['execute' =>
-                ['phpunit' => true]
-            ]
+        $data = ['pre-commit' => ['execute' => ['phpunit' => true],
+            ],
         ];
 
         $this->configFileReader->shouldReceive('getData')->andReturn($data);
@@ -61,10 +57,8 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function serviceIsEnabled()
     {
-        $data = ['pre-commit' =>
-            ['execute' =>
-                ['phpunit' => true]
-            ]
+        $data = ['pre-commit' => ['execute' => ['phpunit' => true],
+            ],
         ];
 
         $this->configFileReader->shouldReceive('getData')->andReturn($data);
