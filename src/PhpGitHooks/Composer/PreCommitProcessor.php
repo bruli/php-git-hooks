@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Composer;
 
-use PhpGitHooks\Infraestructure\Git\HooksFileCopier;
+use PhpGitHooks\Infrastructure\Git\HooksFileCopier;
 
 /**
  * Class PreCommitProcessor
@@ -11,7 +11,7 @@ use PhpGitHooks\Infraestructure\Git\HooksFileCopier;
 class PreCommitProcessor extends Processor
 {
     private $preCommitData = array();
-    private $preCommitTools = ['phpunit', 'phplint', 'php-cs-fixer', 'phpcs', 'phpmd'];
+    private $preCommitTools = array('phpunit', 'phplint', 'php-cs-fixer', 'phpcs', 'phpmd');
     /** @var  HooksFileCopier */
     private $hooksFileCopier;
 
@@ -51,7 +51,7 @@ class PreCommitProcessor extends Processor
             $this->hooksFileCopier->copy('pre-commit');
             $enabled = true;
         }
-        $this->preCommitData['pre-commit'] = ['enabled' => $enabled];
+        $this->preCommitData['pre-commit'] = array('enabled' => $enabled);
     }
 
     /**

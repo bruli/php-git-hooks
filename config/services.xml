@@ -4,83 +4,83 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="check.config.file" class="PhpGitHooks\Infraestructure\Config\CheckConfigFile">
+        <service id="check.config.file" class="PhpGitHooks\Infrastructure\Config\CheckConfigFile">
         </service>
-        <service id="config.file.validator" class="PhpGitHooks\Infraestructure\Config\ConfigFileValidator">
+        <service id="config.file.validator" class="PhpGitHooks\Infrastructure\Config\ConfigFileValidator">
             <argument type="service" id="check.config.file" />
         </service>
-        <service id="config.file.reader" class="PhpGitHooks\Infraestructure\Config\ConfigFileReader">
+        <service id="config.file.reader" class="PhpGitHooks\Infrastructure\Config\ConfigFileReader">
             <argument type="service" id="check.config.file" />
         </service>
-        <service id="config.file" class="PhpGitHooks\Infraestructure\Config\ConfigFile">
+        <service id="config.file" class="PhpGitHooks\Infrastructure\Config\ConfigFile">
             <argument type="service" id="config.file.validator"/>
             <argument type="service" id="config.file.reader" />
         </service>
-        <service id="pre.commit.config" class="PhpGitHooks\Infraestructure\Config\PreCommitConfig">
+        <service id="pre.commit.config" class="PhpGitHooks\Infrastructure\Config\PreCommitConfig">
             <argument type="service" id="config.file.reader" />
         </service>
         <service id="output.handler" class="PhpGitHooks\Command\OutputHandler">
         </service>
-        <service id="phpunit.handler" class="PhpGitHooks\Infraestructure\PhpUnit\PhpUnitHandler">
+        <service id="phpunit.handler" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitHandler">
             <argument type="service" id="output.handler" />
         </service>
-        <service id="phpmd.handler" class="PhpGitHooks\Infraestructure\PhpMD\PhpMDHandler">
+        <service id="phpmd.handler" class="PhpGitHooks\Infrastructure\PhpMD\PhpMDHandler">
             <argument type="service" id="output.handler" />
         </service>
-        <service id="code.sniffer.handler" class="PhpGitHooks\Infraestructure\CodeSniffer\CodeSnifferHandler">
+        <service id="code.sniffer.handler" class="PhpGitHooks\Infrastructure\CodeSniffer\CodeSnifferHandler">
             <argument type="service" id="output.handler" />
         </service>
-        <service id="php.cs.fixer.handler" class="PhpGitHooks\Infraestructure\PhpCsFixer\PhpCsFixerHandler">
+        <service id="php.cs.fixer.handler" class="PhpGitHooks\Infrastructure\PhpCsFixer\PhpCsFixerHandler">
             <argument type="service" id="output.handler" />
         </service>
-        <service id="php.lint.handler" class="PhpGitHooks\Infraestructure\PhpLint\PhpLintHandler">
+        <service id="php.lint.handler" class="PhpGitHooks\Infrastructure\PhpLint\PhpLintHandler">
             <argument type="service" id="output.handler" />
         </service>
-        <service id="composer.files.validator" class="PhpGitHooks\Infraestructure\Composer\ComposerFilesValidator">
+        <service id="composer.files.validator" class="PhpGitHooks\Infrastructure\Composer\ComposerFilesValidator">
             <argument type="service" id="output.handler" />
         </service>
-        <service id="merge.validator" class="PhpGitHooks\Infraestructure\Git\MergeValidator">
+        <service id="merge.validator" class="PhpGitHooks\Infrastructure\Git\MergeValidator">
         </service>
-        <service id="extract.commit.message" class="PhpGitHooks\Infraestructure\CommitMessage\ExtractCommitMessage">
+        <service id="extract.commit.message" class="PhpGitHooks\Infrastructure\CommitMessage\ExtractCommitMessage">
         </service>
-        <service id="commit.message.validator" class="PhpGitHooks\Infraestructure\CommitMessage\CommitMessageValidator">
+        <service id="commit.message.validator" class="PhpGitHooks\Infrastructure\CommitMessage\CommitMessageValidator">
             <argument type="service" id="output.handler" />
             <argument type="service" id="merge.validator" />
             <argument type="service" id="extract.commit.message" />
         </service>
-        <service id="unit.test.pre.commit.executer" class="PhpGitHooks\Infraestructure\PhpUnit\UnitTestPreCommitExecuter">
+        <service id="unit.test.pre.commit.executer" class="PhpGitHooks\Infrastructure\PhpUnit\UnitTestPreCommitExecuter">
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="phpunit.handler"/>
         </service>
-        <service id="check.php.mess.detection.pre.commit.executer" class="PhpGitHooks\Infraestructure\PhpMD\CheckPhpMessDetectionPreCommitExecuter">
+        <service id="check.php.mess.detection.pre.commit.executer" class="PhpGitHooks\Infrastructure\PhpMD\CheckPhpMessDetectionPreCommitExecuter">
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="phpmd.handler"/>
         </service>
-        <service id="check.code.style.code.sniffer.pre.commit.executer" class="PhpGitHooks\Infraestructure\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecuter">
+        <service id="check.code.style.code.sniffer.pre.commit.executer" class="PhpGitHooks\Infrastructure\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecuter">
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="code.sniffer.handler"/>
         </service>
-        <service id="fix.code.style.cs.fixer.pre.commit.executer" class="PhpGitHooks\Infraestructure\PhpCsFixer\FixCodeStyleCsFixerPreCommitExecuter">
+        <service id="fix.code.style.cs.fixer.pre.commit.executer" class="PhpGitHooks\Infrastructure\PhpCsFixer\FixCodeStyleCsFixerPreCommitExecuter">
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="php.cs.fixer.handler"/>
         </service>
-        <service id="check.php.syntax.lint.pre.commit.executer" class="PhpGitHooks\Infraestructure\PhpLint\CheckPhpSyntaxLintPreCommitExecuter">
+        <service id="check.php.syntax.lint.pre.commit.executer" class="PhpGitHooks\Infrastructure\PhpLint\CheckPhpSyntaxLintPreCommitExecuter">
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="php.lint.handler"/>
         </service>
-        <service id="check.composer.files.pre.commit.executer" class="PhpGitHooks\Infraestructure\Composer\CheckComposerFilesPreCommitExecuter">
+        <service id="check.composer.files.pre.commit.executer" class="PhpGitHooks\Infrastructure\Composer\CheckComposerFilesPreCommitExecuter">
             <argument type="service" id="composer.files.validator"/>
         </service>
         <service id="pre.commit.processor" class="PhpGitHooks\Composer\PreCommitProcessor">
             <argument type="service" id="hooks.file.copier"/>
         </service>
-        <service id="config.file.writer" class="PhpGitHooks\Infraestructure\Config\ConfigFileWriter">
+        <service id="config.file.writer" class="PhpGitHooks\Infrastructure\Config\ConfigFileWriter">
         </service>
-        <service id="hooks.file.copier" class="PhpGitHooks\Infraestructure\Git\HooksFileCopier">
+        <service id="hooks.file.copier" class="PhpGitHooks\Infrastructure\Git\HooksFileCopier">
         </service>
-        <service id="config.file.tool.validator" class="PhpGitHooks\Infraestructure\Common\ConfigFileToolValidator">
+        <service id="config.file.tool.validator" class="PhpGitHooks\Infrastructure\Common\ConfigFileToolValidator">
         </service>
-        <service id="phpunit.init.config.file" class="PhpGitHooks\Infraestructure\PhpUnit\PhpUnitInitConfigFile">
+        <service id="phpunit.init.config.file" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitInitConfigFile">
             <argument type="service" id="config.file.tool.validator"/>
         </service>
         <service id="configurator.processor" class="PhpGitHooks\Composer\ConfiguratorProcessor">

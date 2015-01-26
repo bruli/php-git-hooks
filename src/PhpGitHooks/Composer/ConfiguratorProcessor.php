@@ -2,9 +2,9 @@
 
 namespace PhpGitHooks\Composer;
 
-use PhpGitHooks\Infraestructure\Config\CheckConfigFile;
-use PhpGitHooks\Infraestructure\Config\ConfigFileWriter;
-use PhpGitHooks\Infraestructure\PhpUnit\PhpUnitInitConfigFile;
+use PhpGitHooks\Infrastructure\Config\CheckConfigFile;
+use PhpGitHooks\Infrastructure\Config\ConfigFileWriter;
+use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitInitConfigFile;
 
 /**
  * Class ConfiguratorProcessor
