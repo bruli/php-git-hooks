@@ -37,7 +37,27 @@ php composer.phar install
 ```
 
 ## Step 2: Configuration
-### Config file for git hooks.
+### Composer configuration.
+After download all repositories, composer ask you about configuration.
+
+<img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/composer-config.png" />
+
+### Composer configuration in Symfony2 projects.
+
+In Symfony2 projects you need add this lines in your composer.json:
+``` json
+"scripts": {
+    "post-install-cmd": [
+      ...another lines...
+      "PhpGitHooks\\Composer\\ConfiguratorScript::buildConfig"
+    ],
+    "post-update-cmd": [
+      ...another lines...
+      "PhpGitHooks\\Composer\\ConfiguratorScript::buildConfig"
+    ]
+```
+
+### Manual config file for git hooks.
 You can configure php-git-hooks, creating a php-git-hook.yml file with...
 
 ``` yaml

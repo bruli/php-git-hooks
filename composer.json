@@ -29,7 +29,7 @@
     "composer/composer": "~1.0@dev"
   },
   "require-dev": {
-    "raulfraile/ladybug": "~1.0",
+    "raulfraile/ladybug": "~1.0"
   },
   "config": {
     "bin-dir": "bin/"
