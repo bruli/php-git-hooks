@@ -85,6 +85,8 @@ The most easy way to enable hook is copy hook file into your .git/hooks director
 
 #For pre-commit hook:
 
+You can enable this hooks with composer or manually executing
+
 ``` bash
  $cp vendor/bruli/php-git-hooks/hooks/pre-commit .git/hooks
 ```
