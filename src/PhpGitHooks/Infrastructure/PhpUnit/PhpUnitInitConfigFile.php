@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpUnit;
 
-use PhpGitHooks\Composer\Processor;
+use PhpGitHooks\Application\Composer\Processor;
 use PhpGitHooks\Infrastructure\Common\ConfigFileToolValidator;
 
 /**

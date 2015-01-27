@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpGitHooks\Composer;
+namespace PhpGitHooks\Application\Composer;
 
 use Composer\IO\IOInterface;
 
 /**
  * Class Processor
- * @package PhpGitHooks\Composer
+ * @package PhpGitHooks\Application\Composer
  */
 abstract class Processor
 {

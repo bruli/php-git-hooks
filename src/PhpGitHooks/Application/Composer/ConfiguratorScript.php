@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpGitHooks\Composer;
+namespace PhpGitHooks\Application\Composer;
 
 use Composer\Script\Event;
 use PhpGitHooks\Container;

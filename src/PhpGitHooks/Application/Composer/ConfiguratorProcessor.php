@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpGitHooks\Composer;
+namespace PhpGitHooks\Application\Composer;
 
 use PhpGitHooks\Infrastructure\Config\CheckConfigFile;
 use PhpGitHooks\Infrastructure\Config\ConfigFileWriter;
@@ -8,7 +8,7 @@ use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitInitConfigFile;
 
 /**
  * Class ConfiguratorProcessor
- * @package PhpGitHooks\Composer
+ * @package PhpGitHooks\Application\Composer
  */
 class ConfiguratorProcessor extends Processor
 {
@@ -40,13 +40,21 @@ class ConfiguratorProcessor extends Processor
         $this->phpUnitInitConfigFile = $phpUnitInitConfigFile;
     }
 
+    /**
+     * @return bool
+     */
     public function process()
     {
         $this->initConfigFile();
         $this->phpUnitInitConfigFile->setIO($this->io);
         $this->phpUnitInitConfigFile->process();
+
+        return true;
     }
 
+    /**
+     * @return null
+     */
     private function initConfigFile()
     {
         if (false === $this->checkConfigFile->exists()) {

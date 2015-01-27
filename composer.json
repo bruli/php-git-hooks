@@ -40,7 +40,7 @@
     }
   },
   "scripts": {
-    "post-install-cmd": "PhpGitHooks\\Composer\\ConfiguratorScript::buildConfig",
-    "post-update-cmd": "PhpGitHooks\\Composer\\ConfiguratorScript::buildConfig"
+    "post-install-cmd": "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig",
+    "post-update-cmd": "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
   }
 }

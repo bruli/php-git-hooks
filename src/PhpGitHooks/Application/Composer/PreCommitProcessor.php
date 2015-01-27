@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpGitHooks\Composer;
+namespace PhpGitHooks\Application\Composer;
 
 use PhpGitHooks\Infrastructure\Git\HooksFileCopier;
 
 /**
  * Class PreCommitProcessor
- * @package PhpGitHooks\Composer
+ * @package PhpGitHooks\Application\Composer
  */
 class PreCommitProcessor extends Processor
 {
