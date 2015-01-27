@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\Composer;
+namespace PhpGitHooks\Application\Composer;
 
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 
 /**
  * Class ComposerFilesValidator
- * @package PhpGitHooks\Infrastructure\Composer
+ * @package PhpGitHooks\Application\Composer
  */
 class ComposerFilesValidator extends ToolHandler
 {

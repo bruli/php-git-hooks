@@ -29,7 +29,8 @@
     "composer/composer": "~1.0@dev"
   },
   "require-dev": {
-    "raulfraile/ladybug": "~1.0"
+    "raulfraile/ladybug": "~1.0",
+    "fiunchinho/phpunit-randomizer": "~1.0@dev"
   },
   "config": {
     "bin-dir": "bin/"

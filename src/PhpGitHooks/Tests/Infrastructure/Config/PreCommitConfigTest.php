@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Tests\Infrastructure\Config;
 
 use Mockery\Mock;
-use PhpGitHooks\Infrastructure\Config\PreCommitConfig;
+use PhpGitHooks\Application\Config\PreCommitConfig;
 
 /**
  * Class PreCommitConfigTest

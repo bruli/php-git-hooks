@@ -3,8 +3,8 @@
 namespace PhpGitHooks\Tests\Infrastructure\Config;
 
 use Mockery\Mock;
-use PhpGitHooks\Infrastructure\Config\ConfigFile;
-use PhpGitHooks\Infrastructure\Config\ConfigFileNotFoundException;
+use PhpGitHooks\Application\Config\ConfigFile;
+use PhpGitHooks\Application\Config\ConfigFileNotFoundException;
 
 /**
  * Class ConfigFileTest
@@ -21,7 +21,7 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->configFileValidator = \Mockery::mock('PhpGitHooks\Infrastructure\Config\ConfigFileValidator');
+        $this->configFileValidator = \Mockery::mock('PhpGitHooks\Application\Config\ConfigFileValidator');
         $this->configFileReader = \Mockery::mock('PhpGitHooks\Infrastructure\Config\ConfigFileReader');
         $this->configFile = new ConfigFile($this->configFileValidator, $this->configFileReader);
     }
@@ -31,7 +31,7 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
      */
     public function configFileNotExistsAndReturnException()
     {
-        $this->setExpectedException('PhpGitHooks\Infrastructure\Config\ConfigFileNotFoundException');
+        $this->setExpectedException('PhpGitHooks\Application\Config\ConfigFileNotFoundException');
         $this->configFileValidator->shouldReceive('validate')->andThrow(new ConfigFileNotFoundException());
 
         $this->configFile->getPreCommitConfiguration();
@@ -53,11 +53,11 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
      */
     public function getPreCommitConfigurationReturnsSuccesfull()
     {
-        $data = [
-            'pre-commit' => ['execute' => [
-                    'phpunit' => true,
-                ]],
-        ];
+        $data = array(
+            'pre-commit' => array('execute' => array(
+                'phpunit' => true,
+            )),
+        );
 
         $this->configFileValidator->shouldReceive('validate');
         $this->configFileReader->shouldReceive('getData')->andReturn($data);

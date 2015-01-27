@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\Config;
+namespace PhpGitHooks\Application\Config;
 
 /**
  * Class ConfigFileNotFoundException

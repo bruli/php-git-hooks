@@ -1,10 +1,13 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\Config;
+namespace PhpGitHooks\Application\Config;
+
+use PhpGitHooks\Infrastructure\Config\ConfigFileReader;
+use PhpGitHooks\Infrastructure\Config\InvalidConfigStructureException;
 
 /**
  * Class ConfigFile
- * @package PhpGitHooks\Infrastructure\Config
+ * @package PhpGitHooks\Application\Config
  */
 class ConfigFile
 {

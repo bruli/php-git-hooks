@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpGitHooks\Tests\Infrastructure\Composer;
+namespace PhpGitHooks\Tests\Application\Composer;
 
 use Mockery\Mock;
-use PhpGitHooks\Infrastructure\Composer\ComposerFilesValidator;
+use PhpGitHooks\Application\Composer\ComposerFilesValidator;
 
 /**
  * Class ComposerFilesValidatorTest
@@ -36,7 +36,7 @@ class ComposerFilesValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function validateReturnsException()
     {
-        $this->setExpectedException('PhpGitHooks\Infrastructure\Composer\ComposerJsonNotCommitedException');
+        $this->setExpectedException('PhpGitHooks\Application\Composer\ComposerJsonNotCommitedException');
 
         $this->composerFilesValidator->setFiles(['composer.json']);
         $this->composerFilesValidator->setOutput($this->outuputInterface);

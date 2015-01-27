@@ -1,9 +1,9 @@
 <?php
 
-namespace Infrastructure\CommitMessage;
+namespace PhpGitHooks\Tests\Application\CommitMessage;
 
 use Mockery\Mock;
-use PhpGitHooks\Infrastructure\CommitMessage\CommitMessageValidator;
+use PhpGitHooks\Application\CommitMessage\CommitMessageValidator;
 
 /**
  * Class CommitMessageValidatorTest
@@ -49,7 +49,7 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidCommitMessageReturnsException()
     {
-        $this->setExpectedException('\PhpGitHooks\Infrastructure\CommitMessage\InvalidCommitMessageException');
+        $this->setExpectedException('\PhpGitHooks\Application\CommitMessage\InvalidCommitMessageException');
 
         $this->extractCommitMessage->shouldReceive('extract')->andReturn('invalid commit message');
 

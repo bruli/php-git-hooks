@@ -1,10 +1,12 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\Config;
+namespace PhpGitHooks\Application\Config;
+
+use PhpGitHooks\Infrastructure\Config\CheckConfigFile;
 
 /**
  * Class ConfigFileValidator
- * @package PhpGitHooks\Infrastructure\Config
+ * @package PhpGitHooks\Application\Config
  */
 class ConfigFileValidator
 {

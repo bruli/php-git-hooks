@@ -12,7 +12,7 @@
          backupGlobals="false">
   <testsuites>
     <testsuite name="PhpGitHooks Unit Tests">
-      <directory>./src</directory>
+      <directory>./src/PhpGitHooks/Tests/</directory>
     </testsuite>
   </testsuites>
 

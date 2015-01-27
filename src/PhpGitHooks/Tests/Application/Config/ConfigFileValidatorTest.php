@@ -3,9 +3,7 @@
 namespace PhpGitHooks\Tests\Infrastructure\Config;
 
 use Mockery\Mock;
-use PhpGitHooks\Infrastructure\Config\ConfigFileValidator;
-use PhpGitHooks\Infrastructure\Config\CheckConfigFile;
-use PhpGitHooks\Infrastructure\Config\ConfigFileNotFoundException;
+use PhpGitHooks\Application\Config\ConfigFileValidator;
 
 /**
  * Class ConfigFileValidatorTest
@@ -29,7 +27,7 @@ class ConfigFileValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function validateReturnsNotFoundException()
     {
-        $this->setExpectedException('PhpGitHooks\Infrastructure\Config\ConfigFileNotFoundException');
+        $this->setExpectedException('PhpGitHooks\Application\Config\ConfigFileNotFoundException');
 
         $this->checkConfigFile->shouldReceive('exists')->andReturn(false);
 

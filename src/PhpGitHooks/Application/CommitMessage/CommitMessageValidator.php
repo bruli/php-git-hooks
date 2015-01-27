@@ -1,15 +1,16 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\CommitMessage;
+namespace PhpGitHooks\Application\CommitMessage;
 
 use PhpGitHooks\Command\OutputHandler;
+use PhpGitHooks\Infrastructure\CommitMessage\ExtractCommitMessage;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use PhpGitHooks\Infrastructure\Git\MergeValidator;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * Class CommitMessageValidator
- * @package PhpGitHooks\Infrastructure\CommitMessage
+ * @package PhpGitHooks\Application\CommitMessage
  */
 class CommitMessageValidator extends ToolHandler
 {

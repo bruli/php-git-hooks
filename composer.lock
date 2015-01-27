@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c084c2b35b3a759805c5df842432145",
+    "hash": "5b77419802955f935611a0a9cad7b164",
     "packages": [
         {
             "name": "composer/composer",
@@ -1884,6 +1884,53 @@
     ],
     "packages-dev": [
         {
+            "name": "fiunchinho/phpunit-randomizer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fiunchinho/phpunit-randomizer.git",
+                "reference": "eeacf561999a5617dd27d27e8ad520271dbda577"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fiunchinho/phpunit-randomizer/zipball/eeacf561999a5617dd27d27e8ad520271dbda577",
+                "reference": "eeacf561999a5617dd27d27e8ad520271dbda577",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.2"
+            },
+            "bin": [
+                "bin/phpunit-randomizer"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PHPUnitRandomizer": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Jose Manuel Armesto",
+                    "email": "jose@armesto.net"
+                }
+            ],
+            "description": "Execute your test cases in random order, so you can check if they have hidden dependencies",
+            "homepage": "http://armesto.net/",
+            "keywords": [
+                "phpunit",
+                "testing",
+                "unit testing"
+            ],
+            "time": "2014-12-19 17:21:11"
+        },
+        {
             "name": "ptachoire/cssembed",
             "version": "v1.0.2",
             "source": {
@@ -2184,7 +2231,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "composer/composer": 20
+        "composer/composer": 20,
+        "fiunchinho/phpunit-randomizer": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

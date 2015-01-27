@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\CommitMessage;
+namespace PhpGitHooks\Application\CommitMessage;
 
 /**
  * Class InvalidCommitMessageException
- * @package PhpGitHooks\Infrastructure\CommitMessage
+ * @package PhpGitHooks\Application\CommitMessage
  */
 class InvalidCommitMessageException extends \Exception
 {

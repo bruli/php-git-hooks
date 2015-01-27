@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\Composer;
+namespace PhpGitHooks\Application\Composer;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class CheckComposerFilesPreCommitExecuter
- * @package PhpGitHooks\Infrastructure\Composer
+ * @package PhpGitHooks\Application\Composer
  */
 class CheckComposerFilesPreCommitExecuter
 {

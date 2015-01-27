@@ -1,10 +1,12 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\Config;
+namespace PhpGitHooks\Application\Config;
+
+use PhpGitHooks\Infrastructure\Config\ConfigFileReader;
 
 /**
  * Class PreCommitConfig
- * @package PhpGitHooks\Infrastructure\Config
+ * @package PhpGitHooks\Application\Config
  */
 class PreCommitConfig
 {
