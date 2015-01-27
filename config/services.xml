@@ -80,8 +80,11 @@
         </service>
         <service id="config.file.tool.validator" class="PhpGitHooks\Infrastructure\Common\ConfigFileToolValidator">
         </service>
-        <service id="phpunit.init.config.file" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitInitConfigFile">
+        <service id="phpunit.init.config.file" class="PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile">
             <argument type="service" id="config.file.tool.validator"/>
+            <argument type="service" id="phpunit.config.file.creator"/>
+        </service>
+        <service id="phpunit.config.file.creator" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitConfigFileCreator">
         </service>
         <service id="configurator.processor" class="PhpGitHooks\Application\Composer\ConfiguratorProcessor">
             <argument type="service" id="check.config.file"/>

@@ -29,9 +29,8 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
         $this->IO = \Mockery::mock('Composer\IO\IOInterface');
         $this->checkConfigFile = \Mockery::mock('PhpGitHooks\Infrastructure\Config\CheckConfigFile');
         $this->preCommitProcessor = \Mockery::mock('PhpGitHooks\Application\Composer\PreCommitProcessor');
-//        $this->preCommitProcessor->shouldReceive('setIO');
         $this->configFileWriter = \Mockery::mock('PhpGitHooks\Infrastructure\Config\ConfigFileWriter');
-        $this->phpUnitInitConfigFile = \Mockery::mock('PhpGitHooks\Infrastructure\PhpUnit\PhpUnitInitConfigFile');
+        $this->phpUnitInitConfigFile = \Mockery::mock('PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile');
         $this->phpUnitInitConfigFile->shouldReceive('setIO');
 
         $this->configuratorProcessor = new ConfiguratorProcessor(
