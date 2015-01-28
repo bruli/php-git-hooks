@@ -64,7 +64,7 @@
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="php.cs.fixer.handler"/>
         </service>
-        <service id="check.php.syntax.lint.pre.commit.executer" class="PhpGitHooks\Infrastructure\PhpLint\CheckPhpSyntaxLintPreCommitExecuter">
+        <service id="check.php.syntax.lint.pre.commit.executer" class="PhpGitHooks\Application\PhpLint\CheckPhpSyntaxLintPreCommitExecuter">
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="php.lint.handler"/>
         </service>

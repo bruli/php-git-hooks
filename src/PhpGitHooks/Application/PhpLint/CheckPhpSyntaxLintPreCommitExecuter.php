@@ -1,14 +1,15 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\PhpLint;
+namespace PhpGitHooks\Application\PhpLint;
 
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
 use PhpGitHooks\Application\Config\PreCommitConfig;
+use PhpGitHooks\Infrastructure\PhpLint\PhpLintHandler;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class CheckPhpSyntaxLintPreCommitExecuter
- * @package PhpGitHooks\Infrastructure\PhpLint
+ * @package PhpGitHooks\Application\PhpLint
  */
 class CheckPhpSyntaxLintPreCommitExecuter extends PreCommitExecuter
 {
