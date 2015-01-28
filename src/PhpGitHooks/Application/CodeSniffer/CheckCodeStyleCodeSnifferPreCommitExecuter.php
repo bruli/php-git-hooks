@@ -1,7 +1,9 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\CodeSniffer;
+namespace PhpGitHooks\Application\CodeSniffer;
 
+use PhpGitHooks\Infrastructure\CodeSniffer\CodeSnifferHandler;
+use PhpGitHooks\Infrastructure\CodeSniffer\InvalidCodingStandardException;
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
 use PhpGitHooks\Application\Config\PreCommitConfig;
 use Symfony\Component\Console\Output\OutputInterface;
