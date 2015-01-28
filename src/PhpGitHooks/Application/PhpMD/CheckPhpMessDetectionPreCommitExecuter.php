@@ -1,9 +1,11 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\PhpMD;
+namespace PhpGitHooks\Application\PhpMD;
 
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
 use PhpGitHooks\Application\Config\PreCommitConfig;
+use PhpGitHooks\Infrastructure\PhpMD\PhpMDHandler;
+use PhpGitHooks\Infrastructure\PhpMD\PHPMDViolationsException;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

@@ -10,23 +10,26 @@
          stopOnError="false"
          stopOnFailure="false"
          backupGlobals="false">
-  <testsuites>
-    <testsuite name="PhpGitHooks Unit Tests">
-      <directory>./src/PhpGitHooks/Tests/</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="PhpGitHooks Unit Tests">
+            <directory>./src/PhpGitHooks/Tests/</directory>
+        </testsuite>
+    </testsuites>
 
-  <listeners>
-    <listener class="\Mockery\Adapter\Phpunit\TestListener"/>
-    <listener class="\MyBuilder\PhpunitAccelerator\TestListener"/>
-  </listeners>
+    <listeners>
+        <listener class="\Mockery\Adapter\Phpunit\TestListener"/>
+        <listener class="\MyBuilder\PhpunitAccelerator\TestListener"/>
+    </listeners>
 
-  <filter>
-    <blacklist>
-      <directory>./bin</directory>
-      <directory>./vendor</directory>
-      <directory>./src/PhpGitHooks/Infrastructure</directory>
-    </blacklist>
-  </filter>
+    <filter>
+        <blacklist>
+            <directory>./bin</directory>
+            <directory>./vendor</directory>
+            <directory>./src/PhpGitHooks/Infrastructure</directory>
+        </blacklist>
+        <whitelist>
+            <directory>./src/PhpGitHooks/Application</directory>
+        </whitelist>
+    </filter>
 </phpunit>
 
