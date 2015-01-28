@@ -1,9 +1,10 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\PhpCsFixer;
+namespace PhpGitHooks\Application\PhpCsFixer;
 
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
 use PhpGitHooks\Application\Config\PreCommitConfig;
+use PhpGitHooks\Infrastructure\PhpCsFixer\PhpCsFixerHandler;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

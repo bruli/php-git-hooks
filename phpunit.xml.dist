@@ -25,6 +25,7 @@
     <blacklist>
       <directory>./bin</directory>
       <directory>./vendor</directory>
+      <directory>./src/PhpGitHooks/Infrastructure</directory>
     </blacklist>
   </filter>
 </phpunit>
