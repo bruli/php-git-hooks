@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\PhpUnit;
+namespace PhpGitHooks\Application\PhpUnit;
 
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
 use PhpGitHooks\Application\Config\PreCommitConfig;

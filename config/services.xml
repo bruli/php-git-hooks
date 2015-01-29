@@ -21,8 +21,9 @@
         </service>
         <service id="output.handler" class="PhpGitHooks\Command\OutputHandler">
         </service>
-        <service id="phpunit.handler" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitHandler">
+        <service id="phpunit.handler" class="PhpGitHooks\Application\PhpUnit\PhpUnitHandler">
             <argument type="service" id="output.handler" />
+            <argument type="service" id="phpunit.process.builder"/>
         </service>
         <service id="phpmd.handler" class="PhpGitHooks\Infrastructure\PhpMD\PhpMDHandler">
             <argument type="service" id="output.handler" />
@@ -48,7 +49,7 @@
             <argument type="service" id="merge.validator" />
             <argument type="service" id="extract.commit.message" />
         </service>
-        <service id="unit.test.pre.commit.executer" class="PhpGitHooks\Infrastructure\PhpUnit\UnitTestPreCommitExecuter">
+        <service id="unit.test.pre.commit.executer" class="PhpGitHooks\Application\PhpUnit\UnitTestPreCommitExecuter">
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="phpunit.handler"/>
         </service>
@@ -91,6 +92,8 @@
             <argument type="service" id="pre.commit.processor"/>
             <argument type="service" id="config.file.writer" />
             <argument type="service" id="phpunit.init.config.file" />
+        </service>
+        <service id="phpunit.process.builder" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder">
         </service>
     </services>
 </container>

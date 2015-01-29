@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\PhpUnit;
+namespace PhpGitHooks\Application\PhpUnit;
 
 /**
  * Class UnitTestsException
- * @package PhpGitHooks\Infrastructure\PhpUnit
+ * @package PhpGitHooks\Application\PhpUnit
  */
 class UnitTestsException extends \Exception
 {
