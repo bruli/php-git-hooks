@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5b77419802955f935611a0a9cad7b164",
+    "hash": "68a9b48b7231b3f9e1be83b61253d7dc",
     "packages": [
         {
             "name": "composer/composer",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f"
+                "reference": "27ce5ec336231194988d63b0fc11764857a88485"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f",
-                "reference": "825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f",
+                "url": "https://api.github.com/repos/composer/composer/zipball/27ce5ec336231194988d63b0fc11764857a88485",
+                "reference": "27ce5ec336231194988d63b0fc11764857a88485",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-01-20 16:39:06"
+            "time": "2015-01-29 18:25:30"
         },
         {
             "name": "doctrine/instantiator",
@@ -134,12 +134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "0599dc2570590121c0fc10f1e10341c9368aeba8"
+                "reference": "69dc9aa98c788dcdbb6c44d94d6b4bc867bc8948"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/0599dc2570590121c0fc10f1e10341c9368aeba8",
-                "reference": "0599dc2570590121c0fc10f1e10341c9368aeba8",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/69dc9aa98c788dcdbb6c44d94d6b4bc867bc8948",
+                "reference": "69dc9aa98c788dcdbb6c44d94d6b4bc867bc8948",
                 "shasum": ""
             },
             "require": {
@@ -179,7 +179,7 @@
                 }
             ],
             "description": "A script to automatically fix Symfony Coding Standard",
-            "time": "2015-01-25 12:05:46"
+            "time": "2015-01-27 18:52:37"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -817,12 +817,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3d6600da7eb6cb37d25143eea3fd09875c3ede49"
+                "reference": "e85198bbce24ea11075ce8bdfc2cfffb818aae8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3d6600da7eb6cb37d25143eea3fd09875c3ede49",
-                "reference": "3d6600da7eb6cb37d25143eea3fd09875c3ede49",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e85198bbce24ea11075ce8bdfc2cfffb818aae8c",
+                "reference": "e85198bbce24ea11075ce8bdfc2cfffb818aae8c",
                 "shasum": ""
             },
             "require": {
@@ -841,7 +841,7 @@
                 "sebastian/comparator": "~1.1",
                 "sebastian/diff": "~1.2",
                 "sebastian/environment": "~1.2",
-                "sebastian/exporter": "~1.0",
+                "sebastian/exporter": "~1.2",
                 "sebastian/global-state": "~1.0",
                 "sebastian/version": "~1.0",
                 "symfony/yaml": "~2.1|~3.0"
@@ -881,7 +881,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-01-24 14:25:39"
+            "time": "2015-01-27 07:32:25"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1110,12 +1110,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "35ab8d385eef068186c83e23ae83c96b0288b3ee"
+                "reference": "84839970d05254c73cde183a721c7af13aede943"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/35ab8d385eef068186c83e23ae83c96b0288b3ee",
-                "reference": "35ab8d385eef068186c83e23ae83c96b0288b3ee",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/84839970d05254c73cde183a721c7af13aede943",
+                "reference": "84839970d05254c73cde183a721c7af13aede943",
                 "shasum": ""
             },
             "require": {
@@ -1128,7 +1128,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -1168,7 +1168,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2015-01-24 09:57:24"
+            "time": "2015-01-27 07:23:06"
         },
         {
             "name": "sebastian/global-state",
@@ -2176,16 +2176,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "6b434f4521e74bb5022e7e9e441189356fea137b"
+                "reference": "5a5a640cbca8885f972746ec298743a8b378d0df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/6b434f4521e74bb5022e7e9e441189356fea137b",
-                "reference": "6b434f4521e74bb5022e7e9e441189356fea137b",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/5a5a640cbca8885f972746ec298743a8b378d0df",
+                "reference": "5a5a640cbca8885f972746ec298743a8b378d0df",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.4"
+                "php": ">=5.2.7"
             },
             "type": "library",
             "extra": {
@@ -2225,7 +2225,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-01-25 17:35:14"
+            "time": "2015-01-29 09:43:27"
         }
     ],
     "aliases": [],

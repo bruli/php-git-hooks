@@ -2,6 +2,7 @@
   "name": "bruli/php-git-hooks",
   "description": "Git hooks for PHP projects.",
   "license": "MIT",
+  "keywords": ["git", "hook", "quality"],
   "authors": [
     {
       "name": "Pablo Braulio",
