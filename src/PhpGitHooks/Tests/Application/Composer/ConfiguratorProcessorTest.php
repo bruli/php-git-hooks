@@ -11,7 +11,7 @@ use PhpGitHooks\Tests\Infrastructure\Common\FileCopierDummy;
 use PhpGitHooks\Tests\Infrastructure\Common\FilesValidatorDummy;
 use PhpGitHooks\Tests\Infrastructure\Config\FileWriterDummy;
 use PhpGitHooks\Tests\Infrastructure\PhpUnit\FileCreatorDummy;
-use PhpGitHooks\Tests\vendor\Composer\IO\IOInterfaceDummy;
+use PhpGitHooks\Tests\Vendors\Composer\IO\IOInterfaceDummy;
 
 /**
  * Class ConfiguratorProcessorTest
@@ -34,9 +34,6 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
     /** @var  Mock */
     private $hooksFileCopier;
 
-    /**
-     *
-     */
     protected function setUp()
     {
         $this->IO = new IOInterfaceDummy();

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68a9b48b7231b3f9e1be83b61253d7dc",
+    "hash": "7a9ffb099047738a65573783e30ad34c",
     "packages": [
         {
             "name": "composer/composer",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "27ce5ec336231194988d63b0fc11764857a88485"
+                "reference": "be23cbfa6e9aa7acd59653e0090b5db045a4c572"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/27ce5ec336231194988d63b0fc11764857a88485",
-                "reference": "27ce5ec336231194988d63b0fc11764857a88485",
+                "url": "https://api.github.com/repos/composer/composer/zipball/be23cbfa6e9aa7acd59653e0090b5db045a4c572",
+                "reference": "be23cbfa6e9aa7acd59653e0090b5db045a4c572",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-01-29 18:25:30"
+            "time": "2015-01-30 20:24:26"
         },
         {
             "name": "doctrine/instantiator",
@@ -2176,12 +2176,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "5a5a640cbca8885f972746ec298743a8b378d0df"
+                "reference": "74a8bddec4e8fbea8b3f497bc7cc4bdf1a498330"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/5a5a640cbca8885f972746ec298743a8b378d0df",
-                "reference": "5a5a640cbca8885f972746ec298743a8b378d0df",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/74a8bddec4e8fbea8b3f497bc7cc4bdf1a498330",
+                "reference": "74a8bddec4e8fbea8b3f497bc7cc4bdf1a498330",
                 "shasum": ""
             },
             "require": {
@@ -2225,7 +2225,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-01-29 09:43:27"
+            "time": "2015-01-30 11:04:23"
         }
     ],
     "aliases": [],
