@@ -2,13 +2,14 @@
 
 namespace PhpGitHooks\Infrastructure\Git;
 
+use PhpGitHooks\Infrastructure\Common\FileCopier;
 use Symfony\Component\Process\Process;
 
 /**
  * Class HooksFileCopier
  * @package PhpGitHooks\Infrastructure\Git
  */
-class HooksFileCopier
+class HooksFileCopier implements FileCopier
 {
     const GIT_HOOKS_PATH = '.git/hooks/';
 

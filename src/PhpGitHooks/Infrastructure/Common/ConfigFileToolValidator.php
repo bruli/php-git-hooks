@@ -6,7 +6,7 @@ namespace PhpGitHooks\Infrastructure\Common;
  * Class ConfigFileToolValidator
  * @package PhpGitHooks\Infrastructure\Common
  */
-class ConfigFileToolValidator
+class ConfigFileToolValidator implements FilesValidator
 {
     /** @var array */
     private $files = array();
@@ -22,7 +22,7 @@ class ConfigFileToolValidator
     /**
      * @return bool
      */
-    public function existsConfigFile()
+    public function existsFile()
     {
         foreach ($this->files as $configFile) {
             if (file_exists($configFile)) {

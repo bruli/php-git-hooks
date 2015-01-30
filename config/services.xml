@@ -92,8 +92,12 @@
             <argument type="service" id="pre.commit.processor"/>
             <argument type="service" id="config.file.writer" />
             <argument type="service" id="phpunit.init.config.file" />
+            <argument type="service" id="commit.msg.processor"/>
         </service>
         <service id="phpunit.process.builder" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder">
+        </service>
+        <service id="commit.msg.processor" class="PhpGitHooks\Application\Composer\CommitMsgProcessor">
+            <argument type="service" id="hooks.file.copier"/>
         </service>
     </services>
 </container>

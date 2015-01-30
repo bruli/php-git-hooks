@@ -2,13 +2,14 @@
 
 namespace PhpGitHooks\Infrastructure\Config;
 
+use PhpGitHooks\Infrastructure\Common\FileWriter;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ConfigFileWriter
  * @package PhpGitHooks\Infrastructure\Config
  */
-class ConfigFileWriter
+class ConfigFileWriter implements FileWriter
 {
     /**
      * @param string $file

@@ -4,6 +4,8 @@ namespace PhpGitHooks\Application\PhpUnit;
 
 use PhpGitHooks\Application\Composer\Processor;
 use PhpGitHooks\Infrastructure\Common\ConfigFileToolValidator;
+use PhpGitHooks\Infrastructure\Common\FileCreator;
+use PhpGitHooks\Infrastructure\Common\FilesValidator;
 use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitConfigFileCreator;
 
 /**
@@ -20,12 +22,12 @@ class PhpUnitInitConfigFile extends Processor
     private $phpunitConfigFileCreator;
 
     /**
-     * @param ConfigFileToolValidator  $configFileToolValidator
-     * @param PhpUnitConfigFileCreator $phpUnitConfigFileCreator
+     * @param FilesValidator    $configFileToolValidator
+     * @param ConfigFileCreator $phpUnitConfigFileCreator
      */
     public function __construct(
-        ConfigFileToolValidator $configFileToolValidator,
-        PhpUnitConfigFileCreator $phpUnitConfigFileCreator
+        FilesValidator $configFileToolValidator,
+        FileCreator $phpUnitConfigFileCreator
     ) {
         $this->validatorFile = $configFileToolValidator;
         $this->validatorFile->setFiles($this->configFiles);
@@ -34,7 +36,7 @@ class PhpUnitInitConfigFile extends Processor
 
     public function process()
     {
-        if (!$this->validatorFile->existsConfigFile()) {
+        if (!$this->validatorFile->existsFile()) {
             $this->createFile();
         }
     }

@@ -12,7 +12,8 @@ use PhpGitHooks\Container;
 class ConfiguratorScript
 {
     /**
-     * @param Event $event
+     * @param  Event     $event
+     * @return bool|void
      */
     public static function buildConfig(Event $event)
     {

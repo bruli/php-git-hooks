@@ -2,13 +2,14 @@
 
 namespace PhpGitHooks\Application\Composer;
 
+use PhpGitHooks\Infrastructure\Common\FileCopier;
 use PhpGitHooks\Infrastructure\Git\HooksFileCopier;
 
 /**
  * Class PreCommitProcessor
  * @package PhpGitHooks\Application\Composer
  */
-class PreCommitProcessor extends Processor
+class PreCommitProcessor extends Processor implements ProcessorHook
 {
     private $preCommitData = array();
     private $preCommitTools = array('phpunit', 'phplint', 'php-cs-fixer', 'phpcs', 'phpmd');
@@ -18,7 +19,7 @@ class PreCommitProcessor extends Processor
     /**
      * @param HooksFileCopier $hooksFileCopier
      */
-    public function __construct(HooksFileCopier $hooksFileCopier)
+    public function __construct(FileCopier $hooksFileCopier)
     {
         $this->hooksFileCopier = $hooksFileCopier;
     }

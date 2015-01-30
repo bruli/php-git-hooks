@@ -2,8 +2,16 @@
 
 namespace PhpGitHooks\Tests\Application\Composer;
 
+use PhpGitHooks\Application\Composer\CommitMsgProcessor;
 use PhpGitHooks\Application\Composer\ConfiguratorProcessor;
 use Mockery\Mock;
+use PhpGitHooks\Application\Composer\PreCommitProcessor;
+use PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile;
+use PhpGitHooks\Tests\Infrastructure\Common\FileCopierDummy;
+use PhpGitHooks\Tests\Infrastructure\Common\FilesValidatorDummy;
+use PhpGitHooks\Tests\Infrastructure\Config\FileWriterDummy;
+use PhpGitHooks\Tests\Infrastructure\PhpUnit\FileCreatorDummy;
+use PhpGitHooks\Tests\vendor\Composer\IO\IOInterfaceDummy;
 
 /**
  * Class ConfiguratorProcessorTest
@@ -15,29 +23,40 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
     private $configuratorProcessor;
     /** @var  Mock */
     private $checkConfigFile;
-    /** @var  Mock */
+    /** @var  PreCommitProcessor */
     private $preCommitProcessor;
     /** @var  Mock */
-    private $configFileWriter;
-    /** @var  Mock */
     private $phpUnitInitConfigFile;
-    /** @var  Mock */
+    /** @var  IOInterfaceDummy */
     private $IO;
+    /** @var  CommitMsgProcessor */
+    private $commitMsgProcessor;
+    /** @var  Mock */
+    private $hooksFileCopier;
 
+    /**
+     *
+     */
     protected function setUp()
     {
-        $this->IO = \Mockery::mock('Composer\IO\IOInterface');
+        $this->IO = new IOInterfaceDummy();
         $this->checkConfigFile = \Mockery::mock('PhpGitHooks\Infrastructure\Config\CheckConfigFile');
-        $this->preCommitProcessor = \Mockery::mock('PhpGitHooks\Application\Composer\PreCommitProcessor');
-        $this->configFileWriter = \Mockery::mock('PhpGitHooks\Infrastructure\Config\ConfigFileWriter');
-        $this->phpUnitInitConfigFile = \Mockery::mock('PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile');
-        $this->phpUnitInitConfigFile->shouldReceive('setIO');
+        $this->hooksFileCopier = new FileCopierDummy();
+
+        $this->phpUnitInitConfigFile = new PhpUnitInitConfigFile(
+            new FilesValidatorDummy(false),
+            new FileCreatorDummy()
+        );
+
+        $this->commitMsgProcessor = new CommitMsgProcessor($this->hooksFileCopier);
+        $this->preCommitProcessor = new PreCommitProcessor($this->hooksFileCopier);
 
         $this->configuratorProcessor = new ConfiguratorProcessor(
             $this->checkConfigFile,
             $this->preCommitProcessor,
-            $this->configFileWriter,
-            $this->phpUnitInitConfigFile
+            new FileWriterDummy(),
+            $this->phpUnitInitConfigFile,
+            $this->commitMsgProcessor
         );
 
         $this->configuratorProcessor->setIO($this->IO);
@@ -48,10 +67,9 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function initConfigFileFileNotExists()
     {
-        $this->IO->shouldReceive('ask')->andReturn('N');
-        $this->IO->shouldReceive('write');
+        $this->IO->setAsk('n');
+        $this->checkConfigFile->shouldReceive('getFile');
         $this->checkConfigFile->shouldReceive('exists')->andReturn(false);
-        $this->phpUnitInitConfigFile->shouldReceive('process');
 
         $this->assertTrue($this->configuratorProcessor->process());
     }
@@ -61,14 +79,9 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function initConfigFileExecute()
     {
-        $this->IO->shouldReceive('ask')->andReturn('Y');
-        $this->IO->shouldReceive('write');
+        $this->IO->setAsk('y');
         $this->checkConfigFile->shouldReceive('exists')->andReturn(false);
-        $this->phpUnitInitConfigFile->shouldReceive('process');
-        $this->preCommitProcessor->shouldReceive('setIO');
-        $this->preCommitProcessor->shouldReceive('execute');
         $this->checkConfigFile->shouldReceive('getFile');
-        $this->configFileWriter->shouldReceive('write');
 
         $this->assertTrue($this->configuratorProcessor->process());
     }

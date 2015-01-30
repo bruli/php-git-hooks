@@ -2,11 +2,13 @@
 
 namespace PhpGitHooks\Infrastructure\PhpUnit;
 
+use PhpGitHooks\Infrastructure\Common\FileCreator;
+
 /**
  * Class ConfigFileCreator
  * @package PhpGitHooks\Infrastructure\PhpUnit
  */
-class PhpUnitConfigFileCreator
+class PhpUnitConfigFileCreator implements FileCreator
 {
     public function create()
     {

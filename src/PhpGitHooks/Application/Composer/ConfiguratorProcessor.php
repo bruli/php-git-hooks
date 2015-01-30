@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\Composer;
 
+use PhpGitHooks\Infrastructure\Common\FileWriter;
 use PhpGitHooks\Infrastructure\Config\CheckConfigFile;
 use PhpGitHooks\Infrastructure\Config\ConfigFileWriter;
 use PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile;
@@ -21,23 +22,28 @@ class ConfiguratorProcessor extends Processor
     private $configFileWriter;
     /** @var PhpUnitInitConfigFile  */
     private $phpUnitInitConfigFile;
+    /** @var  CommitMsgProcessor */
+    private $commitMsgProcessor;
 
     /**
      * @param CheckConfigFile       $checkConfigFile
      * @param PreCommitProcessor    $preCommitProcessor
-     * @param ConfigFileWriter      $configFileWriter
+     * @param FileWriter            $configFileWriter
      * @param PhpUnitInitConfigFile $phpUnitInitConfigFile
+     * @param CommitMsgProcessor    $commitMsgProcessor
      */
     public function __construct(
         CheckConfigFile $checkConfigFile,
         PreCommitProcessor $preCommitProcessor,
-        ConfigFileWriter $configFileWriter,
-        PhpUnitInitConfigFile $phpUnitInitConfigFile
+        FileWriter $configFileWriter,
+        PhpUnitInitConfigFile $phpUnitInitConfigFile,
+        CommitMsgProcessor $commitMsgProcessor
     ) {
         $this->checkConfigFile = $checkConfigFile;
         $this->preCommitProcessor = $preCommitProcessor;
         $this->configFileWriter = $configFileWriter;
         $this->phpUnitInitConfigFile = $phpUnitInitConfigFile;
+        $this->commitMsgProcessor = $commitMsgProcessor;
     }
 
     /**
@@ -68,10 +74,32 @@ class ConfiguratorProcessor extends Processor
                 return;
             }
 
-            $this->preCommitProcessor->setIO($this->io);
-            $this->configData = $this->preCommitProcessor->execute();
+            $preCommitData = $this->preCommit();
+            $commitMsgData = $this->commitMsg();
+
+            $this->configData = array_merge($preCommitData, $commitMsgData);
 
             $this->configFileWriter->write($this->checkConfigFile->getFile(), $this->configData);
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function commitMsg()
+    {
+        $this->commitMsgProcessor->setIO($this->io);
+
+        return $this->commitMsgProcessor->execute();
+    }
+
+    /**
+     * @return array
+     */
+    private function preCommit()
+    {
+        $this->preCommitProcessor->setIO($this->io);
+
+        return $this->preCommitProcessor->execute();
     }
 }
