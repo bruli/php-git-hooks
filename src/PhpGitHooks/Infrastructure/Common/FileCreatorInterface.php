@@ -3,10 +3,10 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Interface FileCreator
+ * Interface FileCreatorInterface
  * @package PhpGitHooks\Infrastructure\Common
  */
-interface FileCreator
+interface FileCreatorInterface
 {
     public function create();
 }

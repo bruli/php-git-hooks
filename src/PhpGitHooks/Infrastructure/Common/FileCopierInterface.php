@@ -3,10 +3,10 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Interface FileCopier
+ * Interface FileCopierInterface
  * @package PhpGitHooks\Infrastructure\Common
  */
-interface FileCopier
+interface FileCopierInterface
 {
     /**
      * @param string $file

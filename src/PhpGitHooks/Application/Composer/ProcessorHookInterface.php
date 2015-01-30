@@ -8,7 +8,7 @@ use Composer\IO\IOInterface;
  * Interface ProcessorHook
  * @package PhpGitHooks\Application\Composer
  */
-interface ProcessorHook
+interface ProcessorHookInterface
 {
     /**
      * @return array

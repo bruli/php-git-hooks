@@ -2,13 +2,13 @@
 
 namespace PhpGitHooks\Tests\Infrastructure\Common;
 
-use PhpGitHooks\Infrastructure\Common\FileCopier;
+use PhpGitHooks\Infrastructure\Common\FileCopierInterface;
 
 /**
  * Class FileCopierDummy
  * @package PhpGitHooks\Tests\Infrastructure\Common
  */
-class FileCopierDummy implements FileCopier
+class FileCopierDummy implements FileCopierInterface
 {
     /**
      * @param string $file

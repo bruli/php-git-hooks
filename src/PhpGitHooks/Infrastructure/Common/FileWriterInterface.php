@@ -3,10 +3,10 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Interface FileWriter
+ * Interface FileWriterInterface
  * @package PhpGitHooks\Infrastructure\Common
  */
-interface FileWriter
+interface FileWriterInterface
 {
     /**
      * @param string $file

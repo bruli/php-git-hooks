@@ -2,13 +2,13 @@
 
 namespace PhpGitHooks\Tests\Infrastructure\Common;
 
-use PhpGitHooks\Infrastructure\Common\FilesValidator;
+use PhpGitHooks\Infrastructure\Common\FilesValidatorInterface;
 
 /**
  * Class FilesValidatorDummy
  * @package PhpGitHooks\Tests\Infrastructure\Common
  */
-class FilesValidatorDummy implements FilesValidator
+class FilesValidatorDummy implements FilesValidatorInterface
 {
     /** @var  bool */
     private $existsFile;

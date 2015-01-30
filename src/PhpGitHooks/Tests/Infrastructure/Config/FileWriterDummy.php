@@ -2,13 +2,13 @@
 
 namespace PhpGitHooks\Tests\Infrastructure\Config;
 
-use PhpGitHooks\Infrastructure\Common\FileWriter;
+use PhpGitHooks\Infrastructure\Common\FileWriterInterface;
 
 /**
  * Class FileWriterDummy
  * @package PhpGitHooks\Tests\Infrastructure\Config
  */
-class FileWriterDummy implements FileWriter
+class FileWriterDummy implements FileWriterInterface
 {
     /**
      * @param string $file

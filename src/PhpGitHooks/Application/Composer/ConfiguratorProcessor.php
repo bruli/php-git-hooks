@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Application\Composer;
 
-use PhpGitHooks\Infrastructure\Common\FileWriter;
+use PhpGitHooks\Infrastructure\Common\FileWriterInterface;
 use PhpGitHooks\Infrastructure\Config\CheckConfigFile;
 use PhpGitHooks\Infrastructure\Config\ConfigFileWriter;
 use PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile;
@@ -28,14 +28,14 @@ class ConfiguratorProcessor extends Processor
     /**
      * @param CheckConfigFile       $checkConfigFile
      * @param PreCommitProcessor    $preCommitProcessor
-     * @param FileWriter            $configFileWriter
+     * @param FileWriterInterface   $configFileWriter
      * @param PhpUnitInitConfigFile $phpUnitInitConfigFile
      * @param CommitMsgProcessor    $commitMsgProcessor
      */
     public function __construct(
         CheckConfigFile $checkConfigFile,
         PreCommitProcessor $preCommitProcessor,
-        FileWriter $configFileWriter,
+        FileWriterInterface $configFileWriter,
         PhpUnitInitConfigFile $phpUnitInitConfigFile,
         CommitMsgProcessor $commitMsgProcessor
     ) {

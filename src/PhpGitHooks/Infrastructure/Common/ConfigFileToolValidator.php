@@ -6,7 +6,7 @@ namespace PhpGitHooks\Infrastructure\Common;
  * Class ConfigFileToolValidator
  * @package PhpGitHooks\Infrastructure\Common
  */
-class ConfigFileToolValidator implements FilesValidator
+class ConfigFileToolValidator implements FilesValidatorInterface
 {
     /** @var array */
     private $files = array();

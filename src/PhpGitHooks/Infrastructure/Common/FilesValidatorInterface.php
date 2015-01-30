@@ -3,10 +3,10 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Interface FilesValidator
+ * Interface FilesValidatorInterface
  * @package PhpGitHooks\Infrastructure\Common
  */
-interface FilesValidator
+interface FilesValidatorInterface
 {
     /**
      * @param array $files

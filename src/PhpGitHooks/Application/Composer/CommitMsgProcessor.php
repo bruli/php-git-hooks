@@ -2,14 +2,14 @@
 
 namespace PhpGitHooks\Application\Composer;
 
-use PhpGitHooks\Infrastructure\Common\FileCopier;
+use PhpGitHooks\Infrastructure\Common\FileCopierInterface;
 use PhpGitHooks\Infrastructure\Git\HooksFileCopier;
 
 /**
  * Class CommitMsgProcessor
  * @package PhpGitHooks\Application\Composer
  */
-class CommitMsgProcessor extends Processor implements ProcessorHook
+class CommitMsgProcessor extends Processor implements ProcessorHookInterface
 {
     const HOOK_NAME = 'commit-msg';
     /** @var HooksFileCopier  */
@@ -18,9 +18,9 @@ class CommitMsgProcessor extends Processor implements ProcessorHook
     private $preCommitData = array();
 
     /**
-     * @param FileCopier $hooksFileCopier
+     * @param FileCopierInterface $hooksFileCopier
      */
-    public function __construct(FileCopier $hooksFileCopier)
+    public function __construct(FileCopierInterface $hooksFileCopier)
     {
         $this->hooksFileCopier = $hooksFileCopier;
     }
