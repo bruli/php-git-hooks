@@ -27,7 +27,7 @@
     "symfony/dependency-injection": "~2.6",
     "symfony/config": "~2.6",
     "symfony/yaml": "~2.6",
-    "composer/composer": "dev-master"
+    "composer/composer": "~1.0@dev"
   },
   "require-dev": {
     "raulfraile/ladybug": "~1.0",
