@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Application\Config;
 
-use PhpGitHooks\Infrastructure\Config\ConfigFileReader;
+use PhpGitHooks\Infrastructure\Config\FileReaderInterface;
 
 /**
  * Class PreCommitConfig
@@ -10,13 +10,13 @@ use PhpGitHooks\Infrastructure\Config\ConfigFileReader;
  */
 class PreCommitConfig implements HookConfigInterface
 {
-    /** @var ConfigFileReader */
+    /** @var FileReaderInterface */
     private $configFileReader;
 
     /**
-     * @param ConfigFileReader $configFileReader
+     * @param FileReaderInterface $configFileReader
      */
-    public function __construct(ConfigFileReader $configFileReader)
+    public function __construct(FileReaderInterface $configFileReader)
     {
         $this->configFileReader = $configFileReader;
     }

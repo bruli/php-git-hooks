@@ -8,7 +8,7 @@ use Symfony\Component\Yaml\Yaml;
  * Class ConfigFileReader
  * @package PhpGitHooks\Infrastructure\Config
  */
-class ConfigFileReader
+class ConfigFileReader implements FileReaderInterface
 {
     /** @var CheckConfigFile */
     private $checkConfigFile;
