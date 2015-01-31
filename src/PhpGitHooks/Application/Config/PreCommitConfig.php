@@ -8,7 +8,7 @@ use PhpGitHooks\Infrastructure\Config\ConfigFileReader;
  * Class PreCommitConfig
  * @package PhpGitHooks\Application\Config
  */
-class PreCommitConfig
+class PreCommitConfig implements HookConfigInterface
 {
     /** @var ConfigFileReader */
     private $configFileReader;

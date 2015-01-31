@@ -2,10 +2,10 @@
 
 namespace PhpGitHooks\Application\CodeSniffer;
 
+use PhpGitHooks\Application\Config\HookConfigInterface;
 use PhpGitHooks\Infrastructure\CodeSniffer\CodeSnifferHandler;
 use PhpGitHooks\Infrastructure\CodeSniffer\InvalidCodingStandardException;
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
-use PhpGitHooks\Application\Config\PreCommitConfig;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -18,10 +18,10 @@ class CheckCodeStyleCodeSnifferPreCommitExecuter extends PreCommitExecuter
     private $codeSnifferHandler;
 
     /**
-     * @param PreCommitConfig    $preCommitConfig
-     * @param CodeSnifferHandler $codeSnifferHandler
+     * @param HookConfigInterface $preCommitConfig
+     * @param CodeSnifferHandler  $codeSnifferHandler
      */
-    public function __construct(PreCommitConfig $preCommitConfig, CodeSnifferHandler $codeSnifferHandler)
+    public function __construct(HookConfigInterface $preCommitConfig, CodeSnifferHandler $codeSnifferHandler)
     {
         $this->preCommitConfig = $preCommitConfig;
         $this->codeSnifferHandler = $codeSnifferHandler;

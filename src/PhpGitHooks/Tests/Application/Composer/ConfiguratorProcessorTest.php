@@ -7,11 +7,11 @@ use PhpGitHooks\Application\Composer\ConfiguratorProcessor;
 use Mockery\Mock;
 use PhpGitHooks\Application\Composer\PreCommitProcessor;
 use PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile;
-use PhpGitHooks\Tests\Infrastructure\Common\FileCopierDummy;
-use PhpGitHooks\Tests\Infrastructure\Common\FilesValidatorDummy;
-use PhpGitHooks\Tests\Infrastructure\Config\FileWriterDummy;
-use PhpGitHooks\Tests\Infrastructure\PhpUnit\FileCreatorDummy;
-use PhpGitHooks\Tests\Vendors\Composer\IO\IOInterfaceDummy;
+use PhpGitHooks\Infrastructure\Common\InMemoryFileCopier;
+use PhpGitHooks\Infrastructure\Common\InMemoryFilesValidator;
+use PhpGitHooks\Infrastructure\Composer\InMemoryIOInterface;
+use PhpGitHooks\Infrastructure\Config\InMemoryFileWriter;
+use PhpGitHooks\Infrastructure\PhpUnit\InMemoryFileCreator;
 
 /**
  * Class ConfiguratorProcessorTest
@@ -27,7 +27,7 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
     private $preCommitProcessor;
     /** @var  Mock */
     private $phpUnitInitConfigFile;
-    /** @var  IOInterfaceDummy */
+    /** @var  InMemoryIOInterface */
     private $IO;
     /** @var  CommitMsgProcessor */
     private $commitMsgProcessor;
@@ -36,13 +36,13 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->IO = new IOInterfaceDummy();
+        $this->IO = new InMemoryIOInterface();
         $this->checkConfigFile = \Mockery::mock('PhpGitHooks\Infrastructure\Config\CheckConfigFile');
-        $this->hooksFileCopier = new FileCopierDummy();
+        $this->hooksFileCopier = new InMemoryFileCopier();
 
         $this->phpUnitInitConfigFile = new PhpUnitInitConfigFile(
-            new FilesValidatorDummy(false),
-            new FileCreatorDummy()
+            new InMemoryFilesValidator(false),
+            new InMemoryFileCreator()
         );
 
         $this->commitMsgProcessor = new CommitMsgProcessor($this->hooksFileCopier);
@@ -51,7 +51,7 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
         $this->configuratorProcessor = new ConfiguratorProcessor(
             $this->checkConfigFile,
             $this->preCommitProcessor,
-            new FileWriterDummy(),
+            new InMemoryFileWriter(),
             $this->phpUnitInitConfigFile,
             $this->commitMsgProcessor
         );

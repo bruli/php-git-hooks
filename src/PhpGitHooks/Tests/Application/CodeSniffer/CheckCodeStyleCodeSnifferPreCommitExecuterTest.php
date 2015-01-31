@@ -4,6 +4,8 @@ namespace PhpGitHooks\Tests\Application\CodeSniffer;
 
 use Mockery\Mock;
 use PhpGitHooks\Application\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecuter;
+use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
+use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 
 /**
  * Class CheckCodeStyleCodeSnifferPreCommitExecuterTest
@@ -13,17 +15,17 @@ class CheckCodeStyleCodeSnifferPreCommitExecuterTest extends \PHPUnit_Framework_
 {
     /** @var  CheckCodeStyleCodeSnifferPreCommitExecuter */
     private $checkCodeStyleCodeSnifferPreCommitExecuter;
-    /** @var  Mock */
+    /** @var  InMemoryHookConfig */
     private $preCommitConfig;
     /** @var  Mock */
     private $codeSnifferHandler;
-    /** @var  Mock */
+    /** @var InMemoryOutputInterface */
     private $outputInterface;
 
     protected function setUp()
     {
-        $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
-        $this->preCommitConfig = \Mockery::mock('PhpGitHooks\Application\Config\PreCommitConfig');
+        $this->outputInterface = new InMemoryOutputInterface();
+        $this->preCommitConfig = new InMemoryHookConfig();
         $this->codeSnifferHandler = \Mockery::mock('PhpGitHooks\Infrastructure\CodeSniffer\CodeSnifferHandler');
         $this->checkCodeStyleCodeSnifferPreCommitExecuter  = new CheckCodeStyleCodeSnifferPreCommitExecuter(
             $this->preCommitConfig,
@@ -36,7 +38,7 @@ class CheckCodeStyleCodeSnifferPreCommitExecuterTest extends \PHPUnit_Framework_
      */
     public function isDisabled()
     {
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(false);
+        $this->preCommitConfig->setEnabled(false);
 
         $this->checkCodeStyleCodeSnifferPreCommitExecuter->run(
             $this->outputInterface,
@@ -50,7 +52,8 @@ class CheckCodeStyleCodeSnifferPreCommitExecuterTest extends \PHPUnit_Framework_
      */
     public function isEnable()
     {
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(true);
+        $this->preCommitConfig->setEnabled(true);
+
         $this->codeSnifferHandler->shouldReceive('setOutput');
         $this->codeSnifferHandler->shouldReceive('setFiles');
         $this->codeSnifferHandler->shouldReceive('setNeddle');

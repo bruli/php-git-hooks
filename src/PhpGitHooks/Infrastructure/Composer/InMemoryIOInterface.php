@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpGitHooks\Tests\Vendors\Composer\IO;
+namespace PhpGitHooks\Infrastructure\Composer;
 
 use Composer\Config;
 use Composer\IO\IOInterface;
@@ -9,7 +9,7 @@ use Composer\IO\IOInterface;
  * Class IOInterfaceDummy
  * @package PhpGitHooks\Tests\Vendors\Composer\IO
  */
-class IOInterfaceDummy implements IOInterface
+class InMemoryIOInterface implements IOInterface
 {
     /** @var  string */
     private $ask;
