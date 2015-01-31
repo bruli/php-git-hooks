@@ -4,8 +4,9 @@ namespace PhpGitHooks\Application\CommitMessage;
 
 use PhpGitHooks\Command\OutputHandler;
 use PhpGitHooks\Infrastructure\CommitMessage\ExtractCommitMessage;
+use PhpGitHooks\Infrastructure\Common\FileExtractInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
-use PhpGitHooks\Infrastructure\Git\MergeValidator;
+use PhpGitHooks\Infrastructure\Git\MergeValidatorInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
@@ -16,20 +17,20 @@ class CommitMessageValidator extends ToolHandler
 {
     /** @var  InputInterface */
     private $input;
-    /** @var  MergeValidator */
+    /** @var  MergeValidatorInterface */
     private $mergeValidator;
     /** @var  ExtractCommitMessage */
     private $extractCommitMessage;
 
     /**
-     * @param OutputHandler        $outputHandler
-     * @param MergeValidator       $mergeValidator
-     * @param ExtractCommitMessage $extractCommitMessage
+     * @param OutputHandler           $outputHandler
+     * @param MergeValidatorInterface $mergeValidator
+     * @param FileExtractInterface    $extractCommitMessage
      */
     public function __construct(
         OutputHandler $outputHandler,
-        MergeValidator $mergeValidator,
-        ExtractCommitMessage $extractCommitMessage
+        MergeValidatorInterface $mergeValidator,
+        FileExtractInterface $extractCommitMessage
     ) {
         $this->mergeValidator = $mergeValidator;
         $this->extractCommitMessage = $extractCommitMessage;

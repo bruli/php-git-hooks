@@ -2,11 +2,13 @@
 
 namespace PhpGitHooks\Infrastructure\CommitMessage;
 
+use PhpGitHooks\Infrastructure\Common\FileExtractInterface;
+
 /**
  * Class ExtractCommitMessage
  * @package Infrastructure\CommitMessage
  */
-class ExtractCommitMessage
+class ExtractCommitMessage implements FileExtractInterface
 {
     /**
      * @param  string $commitFile

@@ -2,8 +2,12 @@
 
 namespace PhpGitHooks\Tests\Application\CommitMessage;
 
-use Mockery\Mock;
 use PhpGitHooks\Application\CommitMessage\CommitMessageValidator;
+use PhpGitHooks\Command\OutputHandler;
+use PhpGitHooks\Infrastructure\Common\InMemoryFileExtractInterface;
+use PhpGitHooks\Infrastructure\Component\InMemoryInputInterface;
+use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
+use PhpGitHooks\Infrastructure\Git\InMemoryMergeValidator;
 
 /**
  * Class CommitMessageValidatorTest
@@ -13,29 +17,26 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  CommitMessageValidator */
     private $commitMessageValidator;
-    /** @var  Mock */
+    /** @var  OutputHandler */
     private $outputHandler;
-    /** @var  Mock */
+    /** @var  InMemoryInputInterface */
     private $inputInterface;
-    /** @var  Mock */
+    /** @var  InMemoryOutputInterface */
     private $outputInterface;
-    /** @var  Mock */
+    /** @var  InMemoryMergeValidator */
     private $mergeValidator;
-    /** @var  Mock */
+    /** @var  InMemoryFileExtractInterface */
     private $extractCommitMessage;
 
     protected function setUp()
     {
-        $this->outputHandler = \Mockery::mock('PhpGitHooks\Command\OutputHandler');
-        $this->outputHandler->shouldReceive('setTitle');
-        $this->outputHandler->shouldReceive('getTitle');
-        $this->outputHandler->shouldReceive('getSuccessfulStepMessage')->andReturn('Ok');
-        $this->inputInterface = \Mockery::mock('Symfony\Component\Console\Input\InputInterface');
-        $this->inputInterface->shouldReceive('getFirstArgument')->andReturn('commit_file');
-        $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
-        $this->mergeValidator = \Mockery::mock('PhpGitHooks\Infrastructure\Git\MergeValidator');
-        $this->mergeValidator->shouldReceive('isMerge')->andReturn(false);
-        $this->extractCommitMessage = \Mockery::mock('PhpGitHooks\Infrastructure\CommitMessage\ExtractCommitMessage');
+        $this->outputHandler = new OutputHandler();
+        $this->inputInterface = new InMemoryInputInterface();
+        $this->inputInterface->setFirstArgument('commit_file');
+        $this->outputInterface = new InMemoryOutputInterface();
+        $this->mergeValidator = new InMemoryMergeValidator();
+        $this->mergeValidator->setMerge(false);
+        $this->extractCommitMessage = new InMemoryFileExtractInterface();
 
         $this->commitMessageValidator = new CommitMessageValidator(
             $this->outputHandler,
@@ -51,7 +52,7 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\PhpGitHooks\Application\CommitMessage\InvalidCommitMessageException');
 
-        $this->extractCommitMessage->shouldReceive('extract')->andReturn('invalid commit message');
+        $this->extractCommitMessage->setExtract('invalid commit message');
 
         $this->commitMessageValidator->setInput($this->inputInterface);
         $this->commitMessageValidator->setOutput($this->outputInterface);
@@ -63,7 +64,7 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function validCommitMessage()
     {
-        $this->extractCommitMessage->shouldReceive('extract')->andReturn('#0111 valid commit message');
+        $this->extractCommitMessage->setExtract('#0111 valid commit message');
 
         $this->commitMessageValidator->setInput($this->inputInterface);
         $this->commitMessageValidator->setOutput($this->outputInterface);
