@@ -2,9 +2,9 @@
 
 namespace PhpGitHooks\Tests\Application\Composer;
 
-use Composer\IO\IOInterface;
-use Mockery\Mock;
 use PhpGitHooks\Application\Composer\PreCommitProcessor;
+use PhpGitHooks\Infrastructure\Common\InMemoryFileCopier;
+use PhpGitHooks\Infrastructure\Composer\InMemoryIOInterface;
 
 /**
  * Class PreCommitProcessorTest
@@ -14,15 +14,15 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  PreCommitProcessor */
     private $preCommitProcessor;
-    /** @var  Mock */
+    /** @var  InMemoryFileCopier */
     private $hooksFileCopier;
-    /** @var  Mock */
+    /** @var  InMemoryIOInterface */
     private $IO;
 
     protected function setUp()
     {
-        $this->IO = \Mockery::mock('Composer\IO\IOInterface');
-        $this->hooksFileCopier = \Mockery::mock('PhpGitHooks\Infrastructure\Git\HooksFileCopier');
+        $this->IO = new InMemoryIOInterface();
+        $this->hooksFileCopier = new InMemoryFileCopier();
         $this->preCommitProcessor = new PreCommitProcessor($this->hooksFileCopier);
         $this->preCommitProcessor->setIO($this->IO);
     }
@@ -32,9 +32,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function userAlwaysSayNO()
     {
-        $this->IO->shouldReceive('ask')
-            ->times(6)
-            ->andReturn('N', 'N', 'N', 'N', 'N', 'N');
+        $this->IO->setAsk('n');
         $data = $this->preCommitProcessor->execute();
 
         $this->assertFalse($data['pre-commit']['enabled']);
@@ -50,11 +48,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function userAlwaysSayYes()
     {
-        $this->hooksFileCopier->shouldReceive('copy');
-
-        $this->IO->shouldReceive('ask')
-            ->times(6)
-            ->andReturn('Y', 'Y', 'Y', 'Y', 'Y', 'Y');
+        $this->IO->setAsk('y');
         $data = $this->preCommitProcessor->execute();
 
         $this->assertTrue($data['pre-commit']['enabled']);
