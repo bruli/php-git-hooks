@@ -2,11 +2,13 @@
 
 namespace PhpGitHooks\Infrastructure\Config;
 
+use PhpGitHooks\Infrastructure\Common\CheckFileInterface;
+
 /**
  * Class CheckConfigFile
  * @package PhpGitHooks\Infrastructure\Config
  */
-class CheckConfigFile
+class CheckConfigFile implements CheckFileInterface
 {
     const CONFIG_FILE = 'php-git-hooks.yml';
 

@@ -2,8 +2,11 @@
 
 namespace PhpGitHooks\Tests\Application\Composer;
 
-use Mockery\Mock;
 use PhpGitHooks\Application\Composer\ComposerFilesValidator;
+use PhpGitHooks\Command\InMemoryOutputHandler;
+use PhpGitHooks\Command\OutputHandlerInterface;
+use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class ComposerFilesValidatorTest
@@ -13,22 +16,16 @@ class ComposerFilesValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  ComposerFilesValidator */
     private $composerFilesValidator;
-    /** @var  Mock */
+    /** @var  OutputHandlerInterface */
     private $outputHandler;
-    /** @var  Mock */
+    /** @var  OutputInterface */
     private $outuputInterface;
 
     protected function setUp()
     {
-        $this->outputHandler = \Mockery::mock('PhpGitHooks\Command\OutputHandler');
+        $this->outputHandler = new InMemoryOutputHandler();
         $this->composerFilesValidator = new ComposerFilesValidator($this->outputHandler);
-        $this->outuputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
-
-        $this->outputHandler->shouldReceive('setTitle');
-        $this->outputHandler->shouldReceive('getTitle');
-        $this->outputHandler->shouldReceive('getSuccessfulStepMessage');
-        $this->outuputInterface->shouldReceive('write');
-        $this->outuputInterface->shouldReceive('writeln');
+        $this->outuputInterface = new InMemoryOutputInterface();
     }
 
     /**

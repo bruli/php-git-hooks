@@ -4,12 +4,13 @@ namespace PhpGitHooks\Tests\Application\Composer;
 
 use PhpGitHooks\Application\Composer\CommitMsgProcessor;
 use PhpGitHooks\Application\Composer\ConfiguratorProcessor;
-use Mockery\Mock;
 use PhpGitHooks\Application\Composer\PreCommitProcessor;
 use PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile;
+use PhpGitHooks\Infrastructure\Common\CheckFileInterface;
 use PhpGitHooks\Infrastructure\Common\InMemoryFileCopier;
 use PhpGitHooks\Infrastructure\Common\InMemoryFilesValidator;
 use PhpGitHooks\Infrastructure\Composer\InMemoryIOInterface;
+use PhpGitHooks\Infrastructure\Config\InMemoryCheckConfigFile;
 use PhpGitHooks\Infrastructure\Config\InMemoryFileWriter;
 use PhpGitHooks\Infrastructure\PhpUnit\InMemoryFileCreator;
 
@@ -21,23 +22,23 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  ConfiguratorProcessor */
     private $configuratorProcessor;
-    /** @var  Mock */
+    /** @var  CheckFileInterface */
     private $checkConfigFile;
     /** @var  PreCommitProcessor */
     private $preCommitProcessor;
-    /** @var  Mock */
+    /** @var  PhpUnitInitConfigFile */
     private $phpUnitInitConfigFile;
     /** @var  InMemoryIOInterface */
     private $IO;
     /** @var  CommitMsgProcessor */
     private $commitMsgProcessor;
-    /** @var  Mock */
+    /** @var  InMemoryFileCopier */
     private $hooksFileCopier;
 
     protected function setUp()
     {
         $this->IO = new InMemoryIOInterface();
-        $this->checkConfigFile = \Mockery::mock('PhpGitHooks\Infrastructure\Config\CheckConfigFile');
+        $this->checkConfigFile = new InMemoryCheckConfigFile();
         $this->hooksFileCopier = new InMemoryFileCopier();
 
         $this->phpUnitInitConfigFile = new PhpUnitInitConfigFile(
@@ -65,8 +66,7 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
     public function initConfigFileFileNotExists()
     {
         $this->IO->setAsk('n');
-        $this->checkConfigFile->shouldReceive('getFile');
-        $this->checkConfigFile->shouldReceive('exists')->andReturn(false);
+        $this->checkConfigFile->setExists(false);
 
         $this->assertTrue($this->configuratorProcessor->process());
     }
@@ -77,8 +77,7 @@ class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
     public function initConfigFileExecute()
     {
         $this->IO->setAsk('y');
-        $this->checkConfigFile->shouldReceive('exists')->andReturn(false);
-        $this->checkConfigFile->shouldReceive('getFile');
+        $this->checkConfigFile->setExists(false);
 
         $this->assertTrue($this->configuratorProcessor->process());
     }
