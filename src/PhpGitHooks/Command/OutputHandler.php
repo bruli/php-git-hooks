@@ -6,7 +6,7 @@ namespace PhpGitHooks\Command;
  * Class OutputHandler
  * @package PhpGitHooks\Command
  */
-class OutputHandler
+class OutputHandler implements OutputHandlerInterface
 {
     const MAX_LENGTH = 50;
     const TITLE_SEPARATOR = '.';

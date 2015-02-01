@@ -25,7 +25,7 @@ class ConfigFileToolValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator->setFiles(['inexistentFile']);
 
-        $this->assertFalse($this->validator->existsFile());
+        $this->assertFalse($this->validator->validate());
     }
 
     /**
@@ -36,6 +36,6 @@ class ConfigFileToolValidatorTest extends \PHPUnit_Framework_TestCase
         $path = __DIR__.'/../../../../../';
         $this->validator->setFiles([$path.'phpunit.xml', $path.'phpunit.xml.dist']);
 
-        $this->assertTrue($this->validator->existsFile());
+        $this->assertTrue($this->validator->validate());
     }
 }

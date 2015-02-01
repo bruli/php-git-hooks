@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\Common;
 
-use PhpGitHooks\Command\OutputHandler;
+use PhpGitHooks\Command\OutputHandlerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -11,15 +11,15 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 abstract class ToolHandler
 {
-    /** @var OutputHandler  */
+    /** @var OutputHandlerInterface  */
     protected $outputHandler;
     /** @var  OutputInterface */
     protected $output;
 
     /**
-     * @param OutputHandler $outputHandler
+     * @param OutputHandlerInterface $outputHandler
      */
-    public function __construct(OutputHandler $outputHandler)
+    public function __construct(OutputHandlerInterface $outputHandler)
     {
         $this->outputHandler = $outputHandler;
     }

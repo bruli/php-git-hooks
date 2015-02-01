@@ -2,13 +2,15 @@
 
 namespace PhpGitHooks\Application\Composer;
 
+use PhpGitHooks\Infrastructure\Common\FilesValidatorInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
+use PhpGitHooks\Infrastructure\Common\ToolHandlerInterface;
 
 /**
  * Class ComposerFilesValidator
  * @package PhpGitHooks\Application\Composer
  */
-class ComposerFilesValidator extends ToolHandler
+class ComposerFilesValidator extends ToolHandler implements FilesValidatorInterface, ToolHandlerInterface
 {
     /** @var array  */
     private $files;

@@ -16,5 +16,5 @@ interface FilesValidatorInterface
     /**
      * @return bool
      */
-    public function existsFile();
+    public function validate();
 }

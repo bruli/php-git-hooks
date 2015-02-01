@@ -23,7 +23,7 @@ class PhpUnitInitConfigFile extends Processor
 
     /**
      * @param FilesValidatorInterface $configFileToolValidator
-     * @param ConfigFileCreator       $phpUnitConfigFileCreator
+     * @param FileCreatorInterface    $phpUnitConfigFileCreator
      */
     public function __construct(
         FilesValidatorInterface $configFileToolValidator,
@@ -36,7 +36,7 @@ class PhpUnitInitConfigFile extends Processor
 
     public function process()
     {
-        if (!$this->validatorFile->existsFile()) {
+        if (!$this->validatorFile->validate()) {
             $this->createFile();
         }
     }

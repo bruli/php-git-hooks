@@ -27,7 +27,7 @@ class InMemoryFilesValidator implements FilesValidatorInterface
     /**
      * @return bool
      */
-    public function existsFile()
+    public function validate()
     {
         return $this->existsFile;
     }

@@ -22,7 +22,7 @@ class ConfigFileToolValidator implements FilesValidatorInterface
     /**
      * @return bool
      */
-    public function existsFile()
+    public function validate()
     {
         foreach ($this->files as $configFile) {
             if (file_exists($configFile)) {

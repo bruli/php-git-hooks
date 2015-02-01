@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\Composer;
 
+use PhpGitHooks\Infrastructure\Common\FilesValidatorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -14,9 +15,9 @@ class CheckComposerFilesPreCommitExecuter
     private $composerFilesValidator;
 
     /**
-     * @param ComposerFilesValidator $composerFilesValidator
+     * @param FilesValidatorInterface $composerFilesValidator
      */
-    public function __construct(ComposerFilesValidator $composerFilesValidator)
+    public function __construct(FilesValidatorInterface $composerFilesValidator)
     {
         $this->composerFilesValidator = $composerFilesValidator;
     }

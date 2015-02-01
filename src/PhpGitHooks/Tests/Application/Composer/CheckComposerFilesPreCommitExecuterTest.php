@@ -4,6 +4,10 @@ namespace PhpGitHooks\Tests\Application\Composer;
 
 use Mockery\Mock;
 use PhpGitHooks\Application\Composer\CheckComposerFilesPreCommitExecuter;
+use PhpGitHooks\Application\Composer\InMemoryComposerFilesValidator;
+use PhpGitHooks\Command\InMemoryOutputHandler;
+use PhpGitHooks\Infrastructure\Common\InMemoryFilesValidator;
+use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
 
 /**
  * Class CheckComposerFilesPreCommitExecuterTest
@@ -11,7 +15,7 @@ use PhpGitHooks\Application\Composer\CheckComposerFilesPreCommitExecuter;
  */
 class CheckComposerFilesPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  Mock */
+    /** @var  InMemoryFilesValidator */
     private $composerFilesValidator;
     /** @var  CheckComposerFilesPreCommitExecuter */
     private $checkComposerFilesPreCommitExecuter;
@@ -22,9 +26,9 @@ class CheckComposerFilesPreCommitExecuterTest extends \PHPUnit_Framework_TestCas
 
     protected function setUp()
     {
-        $this->outputHandler = \Mockery::mock('PhpGitHooks\Command\OutputHandler');
-        $this->outuputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
-        $this->composerFilesValidator = \Mockery::mock('PhpGitHooks\Application\Composer\ComposerFilesValidator');
+        $this->outputHandler = new InMemoryOutputHandler();
+        $this->outuputInterface = new InMemoryOutputInterface();
+        $this->composerFilesValidator = new InMemoryComposerFilesValidator();
         $this->checkComposerFilesPreCommitExecuter = new CheckComposerFilesPreCommitExecuter(
             $this->composerFilesValidator
         );
@@ -35,10 +39,6 @@ class CheckComposerFilesPreCommitExecuterTest extends \PHPUnit_Framework_TestCas
      */
     public function runSuccessful()
     {
-        $this->composerFilesValidator->shouldReceive('setOutput');
-        $this->composerFilesValidator->shouldReceive('setFiles');
-        $this->composerFilesValidator->shouldReceive('validate');
-
         $this->checkComposerFilesPreCommitExecuter->run($this->outuputInterface, array());
     }
 }
