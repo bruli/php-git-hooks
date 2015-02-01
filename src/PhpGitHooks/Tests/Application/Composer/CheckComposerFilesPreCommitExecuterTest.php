@@ -2,7 +2,6 @@
 
 namespace PhpGitHooks\Tests\Application\Composer;
 
-use Mockery\Mock;
 use PhpGitHooks\Application\Composer\CheckComposerFilesPreCommitExecuter;
 use PhpGitHooks\Application\Composer\InMemoryComposerFilesValidator;
 use PhpGitHooks\Command\InMemoryOutputHandler;
@@ -19,9 +18,9 @@ class CheckComposerFilesPreCommitExecuterTest extends \PHPUnit_Framework_TestCas
     private $composerFilesValidator;
     /** @var  CheckComposerFilesPreCommitExecuter */
     private $checkComposerFilesPreCommitExecuter;
-    /** @var  Mock */
+    /** @var  InMemoryOutputHandler */
     private $outputHandler;
-    /** @var  Mock */
+    /** @var  InMemoryOutputInterface */
     private $outuputInterface;
 
     protected function setUp()

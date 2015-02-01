@@ -2,8 +2,11 @@
 
 namespace PhpGitHooks\Tests\Application\Composer;
 
-use Mockery\Mock;
+use Composer\IO\IOInterface;
 use PhpGitHooks\Application\Composer\CommitMsgProcessor;
+use PhpGitHooks\Infrastructure\Common\FileCopierInterface;
+use PhpGitHooks\Infrastructure\Common\InMemoryFileCopier;
+use PhpGitHooks\Infrastructure\Composer\InMemoryIOInterface;
 
 /**
  * Class CommitMsgProcessorTest
@@ -13,15 +16,15 @@ class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  CommitMsgProcessor */
     private $commitMsgProcessor;
-    /** @var  Mock */
+    /** @var  FileCopierInterface */
     private $hooksFileCopier;
-    /** @var  Mock */
+    /** @var  IOInterface */
     private $iOinterface;
 
     protected function setUp()
     {
-        $this->hooksFileCopier = \Mockery::mock('PhpGitHooks\Infrastructure\Git\HooksFileCopier');
-        $this->iOinterface = \Mockery::mock('Composer\IO\IOInterface');
+        $this->hooksFileCopier = new InMemoryFileCopier();
+        $this->iOinterface = new InMemoryIOInterface();
 
         $this->commitMsgProcessor = new CommitMsgProcessor($this->hooksFileCopier);
         $this->commitMsgProcessor->setIO($this->iOinterface);
@@ -32,7 +35,7 @@ class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function isDisabled()
     {
-        $this->iOinterface->shouldReceive('ask')->andReturn('n');
+        $this->iOinterface->setAsk('n');
         $data = $this->commitMsgProcessor->execute();
 
         $this->assertFalse($data['commit-msg']['enabled']);
@@ -43,8 +46,7 @@ class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function isEnabled()
     {
-        $this->iOinterface->shouldReceive('ask')->andReturn('y');
-        $this->hooksFileCopier->shouldReceive('copy');
+        $this->iOinterface->setAsk('y');
         $data = $this->commitMsgProcessor->execute();
 
         $this->assertTrue($data['commit-msg']['enabled']);
