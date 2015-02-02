@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Command;
 
+use PhpGitHooks\Application\CommitMessage\CommitMessageValidator;
 use PhpGitHooks\Container;
-use PhpGitHooks\Infraestructure\CommitMessage\CommitMessageValidator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -25,9 +25,9 @@ class QualityMessageTool extends Application
     }
 
     /**
-     * @param  InputInterface                                                           $input
-     * @param  OutputInterface                                                          $output
-     * @throws \PhpGitHooks\Infraestructure\CommitMessage\InvalidCommitMessageException
+     * @param  InputInterface                                                       $input
+     * @param  OutputInterface                                                      $output
+     * @throws \PhpGitHooks\Application\CommitMessage\InvalidCommitMessageException
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {

@@ -5,6 +5,9 @@ namespace PhpGitHooks\Tests\Application\PhpUnit;
 use Mockery\Mock;
 use PhpGitHooks\Application\PhpUnit\PhpUnitHandler;
 use PhpGitHooks\Application\PhpUnit\UnitTestPreCommitExecuter;
+use PhpGitHooks\Command\InMemoryOutputHandler;
+use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
+use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 
 /**
  * Class UnitTestPreCommitExecuterTest
@@ -14,13 +17,13 @@ class UnitTestPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  UnitTestPreCommitExecuter */
     private $unitTestPreCommitExecuter;
-    /** @var  Mock */
+    /** @var  InMemoryHookConfig */
     private $preCommitConfig;
     /** @var  PhpUnitHandler */
     private $phpUnitHandler;
-    /** @var  Mock */
+    /** @var  InMemoryOutputInterface */
     private $outputInterface;
-    /** @var  Mock */
+    /** @var  InMemoryOutputHandler */
     private $outputHandler;
     /** @var  Mock */
     private $phpunitProcessBuilder;
@@ -31,11 +34,11 @@ class UnitTestPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->preCommitConfig = \Mockery::mock('PhpGitHooks\Application\Config\PreCommitConfig');
-        $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
-        $this->outputHandler = \Mockery::mock('PhpGitHooks\Command\OutputHandler');
+        $this->preCommitConfig = new InMemoryHookConfig();
+        $this->outputInterface = new InMemoryOutputInterface();
+        $this->outputHandler = new InMemoryOutputHandler();
         $this->phpunitProcessBuilder = \Mockery::mock('PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder');
-        $this->processBuilder = \Mockery::mock('PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder');
+        $this->processBuilder = \Mockery::mock('Symfony\Component\Process\ProcessBuilder');
         $this->process = \Mockery::mock('Symfony\Component\Process\Process');
         $this->process->shouldReceive('run')->andReturn(1);
         $this->process->shouldReceive('stop');
@@ -52,7 +55,7 @@ class UnitTestPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
      */
     public function isDisabled()
     {
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(false);
+        $this->preCommitConfig->setEnabled(false);
 
         $this->unitTestPreCommitExecuter->run($this->outputInterface);
     }
@@ -63,7 +66,7 @@ class UnitTestPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
     public function isEnabledAndSuccessful()
     {
         $this->process->shouldReceive('isSuccessful')->andReturn(true);
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(true);
+        $this->preCommitConfig->setEnabled(true);
         $this->enabledMocks();
 
         $this->phpunitProcessBuilder->shouldReceive('getProcessBuilder')->andReturn($this->processBuilder);
@@ -79,7 +82,7 @@ class UnitTestPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhpGitHooks\Application\PhpUnit\UnitTestsException');
 
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(true);
+        $this->preCommitConfig->setEnabled(true);
         $this->process->shouldReceive('isSuccessful')->andReturn(false);
         $this->enabledMocks();
 
@@ -91,11 +94,6 @@ class UnitTestPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 
     private function enabledMocks()
     {
-        $this->outputHandler->shouldReceive('setTitle');
-        $this->outputHandler->shouldReceive('getTitle');
-        $this->outputHandler->shouldReceive('getSuccessfulStepMessage');
-        $this->outputInterface->shouldReceive('write');
-        $this->outputInterface->shouldReceive('writeln');
         $this->processBuilder->shouldReceive('setTimeout');
         $this->processBuilder->shouldReceive('getProcess')->andReturn($this->process);
     }

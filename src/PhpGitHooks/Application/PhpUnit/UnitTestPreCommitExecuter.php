@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Application\PhpUnit;
 
+use PhpGitHooks\Application\Config\HookConfigInterface;
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
-use PhpGitHooks\Application\Config\PreCommitConfig;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -16,12 +16,12 @@ class UnitTestPreCommitExecuter extends PreCommitExecuter
     private $phpunitHandler;
 
     /**
-     * @param PreCommitConfig $preCommitConfig
-     * @param PhpUnitHandler  $phpUnitHandler
+     * @param HookConfigInterface $hookConfigInterface
+     * @param PhpUnitHandler      $phpUnitHandler
      */
-    public function __construct(PreCommitConfig $preCommitConfig, PhpUnitHandler $phpUnitHandler)
+    public function __construct(HookConfigInterface $hookConfigInterface, PhpUnitHandler $phpUnitHandler)
     {
-        $this->preCommitConfig = $preCommitConfig;
+        $this->preCommitConfig = $hookConfigInterface;
         $this->phpunitHandler = $phpUnitHandler;
     }
 

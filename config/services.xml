@@ -44,7 +44,7 @@
         </service>
         <service id="extract.commit.message" class="PhpGitHooks\Infrastructure\CommitMessage\ExtractCommitMessage">
         </service>
-        <service id="commit.message.validator" class="PhpGitHooks\Infrastructure\CommitMessage\CommitMessageValidator">
+        <service id="commit.message.validator" class="PhpGitHooks\Application\CommitMessage\CommitMessageValidator">
             <argument type="service" id="output.handler" />
             <argument type="service" id="merge.validator" />
             <argument type="service" id="extract.commit.message" />

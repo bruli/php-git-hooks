@@ -2,7 +2,8 @@
 
 namespace PhpGitHooks\Application\PhpUnit;
 
-use PhpGitHooks\Command\OutputHandler;
+use PhpGitHooks\Command\OutputHandlerInterface;
+use PhpGitHooks\Infrastructure\Common\ProcessBuilderInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder;
 
@@ -16,14 +17,14 @@ class PhpUnitHandler extends ToolHandler
     private $phpUnitProcessBuilder;
 
     /**
-     * @param OutputHandler         $outputHandler
-     * @param PhpUnitProcessBuilder $phpUnitProcessBuilder
+     * @param OutputHandlerInterface  $outputHandler
+     * @param ProcessBuilderInterface $processBuilderInterface
      */
-    public function __construct(OutputHandler $outputHandler, PhpUnitProcessBuilder $phpUnitProcessBuilder)
+    public function __construct(OutputHandlerInterface $outputHandler, ProcessBuilderInterface $processBuilderInterface)
     {
         parent::__construct($outputHandler);
 
-        $this->phpUnitProcessBuilder = $phpUnitProcessBuilder;
+        $this->phpUnitProcessBuilder = $processBuilderInterface;
     }
 
     /**
