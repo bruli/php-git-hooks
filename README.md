@@ -58,7 +58,7 @@ In Symfony2 projects you need add this lines in your composer.json:
 ```
 
 ### Manual config file for git hooks.
-You can configure php-git-hooks, creating a php-git-hook.yml file with...
+You can configure php-git-hooks, creating a php-git-hooks.yml file with...
 
 ``` yaml
 pre-commit:
