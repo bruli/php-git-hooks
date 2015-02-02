@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\Common;
 
-use PhpGitHooks\Infrastructure\Config\PreCommitConfig;
+use PhpGitHooks\Application\Config\HookConfigInterface;
 
 /**
  * Class PreCommitExecuter
@@ -10,7 +10,7 @@ use PhpGitHooks\Infrastructure\Config\PreCommitConfig;
  */
 abstract class PreCommitExecuter
 {
-    /** @var PreCommitConfig  */
+    /** @var HookConfigInterface  */
     protected $preCommitConfig;
 
     /**

@@ -2,8 +2,9 @@
 
 namespace PhpGitHooks\Application\PhpMD;
 
+use PhpGitHooks\Application\Config\HookConfigInterface;
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
-use PhpGitHooks\Application\Config\PreCommitConfig;
+use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\PhpMD\PhpMDHandler;
 use PhpGitHooks\Infrastructure\PhpMD\PHPMDViolationsException;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,13 +19,15 @@ class CheckPhpMessDetectionPreCommitExecuter extends PreCommitExecuter
     private $phpMDHandler;
 
     /**
-     * @param PreCommitConfig $preCommitConfig
-     * @param PhpMDHandler    $phpMDHandler
+     * @param HookConfigInterface    $hookConfigInterface
+     * @param RecursiveToolInterface $recursiveToolInterface
      */
-    public function __construct(PreCommitConfig $preCommitConfig, PhpMDHandler $phpMDHandler)
-    {
-        $this->phpMDHandler = $phpMDHandler;
-        $this->preCommitConfig = $preCommitConfig;
+    public function __construct(
+        HookConfigInterface $hookConfigInterface,
+        RecursiveToolInterface $recursiveToolInterface
+    ) {
+        $this->phpMDHandler = $recursiveToolInterface;
+        $this->preCommitConfig = $hookConfigInterface;
     }
 
     /**

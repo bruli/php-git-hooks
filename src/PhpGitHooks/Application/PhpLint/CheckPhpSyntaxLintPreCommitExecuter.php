@@ -2,8 +2,9 @@
 
 namespace PhpGitHooks\Application\PhpLint;
 
+use PhpGitHooks\Application\Config\HookConfigInterface;
+use PhpGitHooks\Infrastructure\Common\FilesToolHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
-use PhpGitHooks\Application\Config\PreCommitConfig;
 use PhpGitHooks\Infrastructure\PhpLint\PhpLintHandler;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -17,13 +18,15 @@ class CheckPhpSyntaxLintPreCommitExecuter extends PreCommitExecuter
     private $phpLintHandler;
 
     /**
-     * @param PreCommitConfig $preCommitConfig
-     * @param PhpLintHandler  $phpLintHandler
+     * @param HookConfigInterface       $hookConfigInterface
+     * @param FilesToolHandlerInterface $filesToolhandlerInterface
      */
-    public function __construct(PreCommitConfig $preCommitConfig, PhpLintHandler $phpLintHandler)
-    {
-        $this->preCommitConfig = $preCommitConfig;
-        $this->phpLintHandler = $phpLintHandler;
+    public function __construct(
+        HookConfigInterface $hookConfigInterface,
+        FilesToolHandlerInterface $filesToolhandlerInterface
+    ) {
+        $this->preCommitConfig = $hookConfigInterface;
+        $this->phpLintHandler = $filesToolhandlerInterface;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpLint;
 
+use PhpGitHooks\Infrastructure\Common\FilesToolHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
@@ -10,7 +11,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * Class PhpLintHandler
  * @package PhpGitHooks\Infrastructure\PhpLint
  */
-class PhpLintHandler extends ToolHandler
+class PhpLintHandler extends ToolHandler implements FilesToolHandlerInterface
 {
     const NEEDLE = '/(\.php)|(\.inc)$/';
     /** @var array */

@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Tests\Infrastructure\Config;
 
-use Mockery\Mock;
 use PhpGitHooks\Application\Config\ConfigFileValidator;
+use PhpGitHooks\Infrastructure\Config\InMemoryCheckConfigFile;
 
 /**
  * Class ConfigFileValidatorTest
@@ -13,12 +13,12 @@ class ConfigFileValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  ConfigFileValidator */
     private $configFileValidator;
-    /** @var  Mock */
+    /** @var  InMemoryCheckConfigFile */
     private $checkConfigFile;
 
     protected function setUp()
     {
-        $this->checkConfigFile = \Mockery::mock('PhpGitHooks\Infrastructure\Config\CheckConfigFile');
+        $this->checkConfigFile = new InMemoryCheckConfigFile();
         $this->configFileValidator = new ConfigFileValidator($this->checkConfigFile);
     }
 
@@ -29,7 +29,7 @@ class ConfigFileValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhpGitHooks\Application\Config\ConfigFileNotFoundException');
 
-        $this->checkConfigFile->shouldReceive('exists')->andReturn(false);
+        $this->checkConfigFile->setExists(false);
 
         $this->configFileValidator->validate();
     }
@@ -39,7 +39,7 @@ class ConfigFileValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function validateIsSuccessful()
     {
-        $this->checkConfigFile->shouldReceive('exists')->andReturn(true);
+        $this->checkConfigFile->setExists(true);
 
         $this->assertEquals(null, $this->configFileValidator->validate());
     }

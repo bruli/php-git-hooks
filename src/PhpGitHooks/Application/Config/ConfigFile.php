@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Application\Config;
 
 use PhpGitHooks\Infrastructure\Config\ConfigFileReader;
+use PhpGitHooks\Infrastructure\Config\FileReaderInterface;
 use PhpGitHooks\Infrastructure\Config\InvalidConfigStructureException;
 
 /**
@@ -18,9 +19,9 @@ class ConfigFile
 
     /**
      * @param ConfigFileValidator $configFileValidator
-     * @param ConfigFileReader    $configFileReader
+     * @param FileReaderInterface $configFileReader
      */
-    public function __construct(ConfigFileValidator $configFileValidator, ConfigFileReader $configFileReader)
+    public function __construct(ConfigFileValidator $configFileValidator, FileReaderInterface $configFileReader)
     {
         $this->configFileValidator = $configFileValidator;
         $this->configFileReader = $configFileReader;

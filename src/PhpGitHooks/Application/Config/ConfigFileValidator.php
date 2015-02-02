@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\Config;
 
+use PhpGitHooks\Infrastructure\Common\CheckFileInterface;
 use PhpGitHooks\Infrastructure\Config\CheckConfigFile;
 
 /**
@@ -14,11 +15,11 @@ class ConfigFileValidator
     private $checkConfigFile;
 
     /**
-     * @param CheckConfigFile $checkConfigFile
+     * @param CheckFileInterface $checkFileInterface
      */
-    public function __construct(CheckConfigFile $checkConfigFile)
+    public function __construct(CheckFileInterface $checkFileInterface)
     {
-        $this->checkConfigFile = $checkConfigFile;
+        $this->checkConfigFile = $checkFileInterface;
     }
 
     /**

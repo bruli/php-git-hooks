@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpMD;
 
+use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
@@ -9,7 +10,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * Class PhpMDHandler
  * @package PhpGitHooks\Infrastructure\PhpMD
  */
-class PhpMDHandler extends ToolHandler
+class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
 {
     /** @var  array */
     private $files;

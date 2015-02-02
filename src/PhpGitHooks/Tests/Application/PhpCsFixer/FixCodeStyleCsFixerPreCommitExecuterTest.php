@@ -3,7 +3,9 @@
 namespace PhpGitHooks\Tests\Application\PhpCsFixer;
 
 use PhpGitHooks\Application\PhpCsFixer\FixCodeStyleCsFixerPreCommitExecuter;
-use Mockery\Mock;
+use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
+use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
+use PhpGitHooks\Infrastructure\PhpCsFixer\InMemoryPhpCsFixerHandler;
 
 /**
  * Class FixCodeStyleCsFixerPreCommitExecuterTest
@@ -13,18 +15,18 @@ class FixCodeStyleCsFixerPreCommitExecuterTest extends \PHPUnit_Framework_TestCa
 {
     /** @var  FixCodeStyleCsFixerPreCommitExecuter */
     private $fixCodeStyleCsFixerPreCommitExecuter;
-    /** @var  Mock */
+    /** @var  InMemoryHookConfig */
     private $preCommitConfig;
-    /** @var  Mock */
+    /** @var  InMemoryOutputInterface */
     private $outputInterface;
-    /** @var  Mock */
+    /** @var  InMemoryPhpCsFixerHandler */
     private $phpCsFixerHandler;
 
     protected function setUp()
     {
-        $this->preCommitConfig = \Mockery::mock('PhpGitHooks\Application\Config\PreCommitConfig');
-        $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
-        $this->phpCsFixerHandler = \Mockery::mock('PhpGitHooks\Infrastructure\PhpCsFixer\PhpCsFixerHandler');
+        $this->preCommitConfig = new InMemoryHookConfig();
+        $this->outputInterface = new InMemoryOutputInterface();
+        $this->phpCsFixerHandler = new InMemoryPhpCsFixerHandler();
         $this->fixCodeStyleCsFixerPreCommitExecuter = new FixCodeStyleCsFixerPreCommitExecuter(
             $this->preCommitConfig,
             $this->phpCsFixerHandler
@@ -36,7 +38,7 @@ class FixCodeStyleCsFixerPreCommitExecuterTest extends \PHPUnit_Framework_TestCa
      */
     public function idDisabled()
     {
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(false);
+        $this->preCommitConfig->setEnabled(false);
         $this->fixCodeStyleCsFixerPreCommitExecuter->run(
             $this->outputInterface,
             array(),
@@ -49,11 +51,7 @@ class FixCodeStyleCsFixerPreCommitExecuterTest extends \PHPUnit_Framework_TestCa
      */
     public function isEnabled()
     {
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(true);
-        $this->phpCsFixerHandler->shouldReceive('setOutput');
-        $this->phpCsFixerHandler->shouldReceive('setFiles');
-        $this->phpCsFixerHandler->shouldReceive('setFilesToAnalize');
-        $this->phpCsFixerHandler->shouldReceive('run');
+        $this->preCommitConfig->setEnabled(true);
 
         $this->fixCodeStyleCsFixerPreCommitExecuter->run(
             $this->outputInterface,

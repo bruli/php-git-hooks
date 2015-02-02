@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpCsFixer;
 
+use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
@@ -9,7 +10,7 @@ use Symfony\Component\Process\ProcessBuilder;
  * Class PhpCsFixerHandler
  * @package PhpGitHooks\Infrastructure\PhpCsFixer
  */
-class PhpCsFixerHandler extends ToolHandler
+class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface
 {
     const FIXERS = '-psr0';
     /** @var array */

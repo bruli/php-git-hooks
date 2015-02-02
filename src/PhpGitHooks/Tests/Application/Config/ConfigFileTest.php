@@ -5,6 +5,7 @@ namespace PhpGitHooks\Tests\Infrastructure\Config;
 use Mockery\Mock;
 use PhpGitHooks\Application\Config\ConfigFile;
 use PhpGitHooks\Application\Config\ConfigFileNotFoundException;
+use PhpGitHooks\Infrastructure\Config\InMemoryFileReader;
 
 /**
  * Class ConfigFileTest
@@ -16,13 +17,13 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
     private $configFile;
     /** @var  Mock */
     private $configFileValidator;
-    /** @var  Mock */
+    /** @var  InMemoryFileReader */
     private $configFileReader;
 
     protected function setUp()
     {
         $this->configFileValidator = \Mockery::mock('PhpGitHooks\Application\Config\ConfigFileValidator');
-        $this->configFileReader = \Mockery::mock('PhpGitHooks\Infrastructure\Config\ConfigFileReader');
+        $this->configFileReader = new InMemoryFileReader();
         $this->configFile = new ConfigFile($this->configFileValidator, $this->configFileReader);
     }
 
@@ -44,7 +45,7 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhpGitHooks\Infrastructure\Config\InvalidConfigStructureException');
         $this->configFileValidator->shouldReceive('validate');
-        $this->configFileReader->shouldReceive('getData')->andReturn([]);
+        $this->configFileReader->setData([]);
         $this->configFile->getPreCommitConfiguration();
     }
 
@@ -60,7 +61,7 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->configFileValidator->shouldReceive('validate');
-        $this->configFileReader->shouldReceive('getData')->andReturn($data);
+        $this->configFileReader->setData($data);
         $this->assertTrue(is_array($this->configFile->getPreCommitConfiguration()));
     }
 }

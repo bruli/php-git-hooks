@@ -2,8 +2,9 @@
 
 namespace PhpGitHooks\Application\PhpCsFixer;
 
+use PhpGitHooks\Application\Config\HookConfigInterface;
+use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
-use PhpGitHooks\Application\Config\PreCommitConfig;
 use PhpGitHooks\Infrastructure\PhpCsFixer\PhpCsFixerHandler;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -17,13 +18,15 @@ class FixCodeStyleCsFixerPreCommitExecuter extends PreCommitExecuter
     private $phpCsFixerHandler;
 
     /**
-     * @param PreCommitConfig   $preCommitConfig
-     * @param PhpCsFixerHandler $csFixerHandler
+     * @param HookConfigInterface      $hookConfigInterface
+     * @param InteractiveToolInterface $toolHandlerInterface
      */
-    public function __construct(PreCommitConfig $preCommitConfig, PhpCsFixerHandler $csFixerHandler)
-    {
-        $this->preCommitConfig = $preCommitConfig;
-        $this->phpCsFixerHandler = $csFixerHandler;
+    public function __construct(
+        HookConfigInterface $hookConfigInterface,
+        InteractiveToolInterface $toolHandlerInterface
+    ) {
+        $this->preCommitConfig = $hookConfigInterface;
+        $this->phpCsFixerHandler = $toolHandlerInterface;
     }
 
     /**

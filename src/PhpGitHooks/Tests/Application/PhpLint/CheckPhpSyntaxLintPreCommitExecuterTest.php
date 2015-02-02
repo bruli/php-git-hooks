@@ -2,8 +2,10 @@
 
 namespace PhpGitHooks\Tests\Application\PhpLint;
 
-use Mockery\Mock;
 use PhpGitHooks\Application\PhpLint\CheckPhpSyntaxLintPreCommitExecuter;
+use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
+use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
+use PhpGitHooks\Infrastructure\PhpLint\InMemoryPhpLintHandler;
 
 /**
  * Class CheckPhpSyntaxLintPreCommitExecuterTest
@@ -13,18 +15,18 @@ class CheckPhpSyntaxLintPreCommitExecuterTest extends \PHPUnit_Framework_TestCas
 {
     /** @var  CheckPhpSyntaxLintPreCommitExecuter */
     private $checkPhpSyntaxLintPreCommitExecuter;
-    /** @var  Mock */
+    /** @var  InMemoryPhpLintHandler */
     private $phpLintHandler;
-    /** @var  Mock */
+    /** @var  InMemoryHookConfig */
     private $preCommitConfig;
-    /** @var  Mock */
+    /** @var  InMemoryOutputInterface */
     private $outputInterface;
 
     protected function setUp()
     {
-        $this->phpLintHandler = \Mockery::mock('PhpGitHooks\Infrastructure\PhpLint\PhpLintHandler');
-        $this->preCommitConfig = \Mockery::mock('PhpGitHooks\Application\Config\PreCommitConfig');
-        $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
+        $this->phpLintHandler = new InMemoryPhpLintHandler();
+        $this->preCommitConfig = new InMemoryHookConfig();
+        $this->outputInterface = new InMemoryOutputInterface();
 
         $this->checkPhpSyntaxLintPreCommitExecuter = new CheckPhpSyntaxLintPreCommitExecuter(
             $this->preCommitConfig,
@@ -37,7 +39,7 @@ class CheckPhpSyntaxLintPreCommitExecuterTest extends \PHPUnit_Framework_TestCas
      */
     public function toolIsDissabled()
     {
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(false);
+        $this->preCommitConfig->setEnabled(false);
 
         $this->checkPhpSyntaxLintPreCommitExecuter->run($this->outputInterface, array());
     }
@@ -47,10 +49,7 @@ class CheckPhpSyntaxLintPreCommitExecuterTest extends \PHPUnit_Framework_TestCas
      */
     public function toolIsEnabled()
     {
-        $this->preCommitConfig->shouldReceive('isEnabled')->andReturn(true);
-        $this->phpLintHandler->shouldReceive('setOutput');
-        $this->phpLintHandler->shouldReceive('setFiles');
-        $this->phpLintHandler->shouldReceive('run');
+        $this->preCommitConfig->setEnabled(true);
 
         $this->checkPhpSyntaxLintPreCommitExecuter->run($this->outputInterface, array());
     }
