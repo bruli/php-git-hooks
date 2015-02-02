@@ -26,10 +26,10 @@
     "phpmd/phpmd": "~2.1",
     "symfony/dependency-injection": "~2.6",
     "symfony/config": "~2.6",
-    "symfony/yaml": "~2.6",
-    "composer/composer": "~1.0@dev"
+    "symfony/yaml": "~2.6"
   },
   "require-dev": {
+    "composer/composer": "~1.0@dev",
     "raulfraile/ladybug": "~1.0",
     "fiunchinho/phpunit-randomizer": "~1.0@dev"
   },
