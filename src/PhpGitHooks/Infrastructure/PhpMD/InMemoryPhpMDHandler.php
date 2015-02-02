@@ -12,12 +12,10 @@ class InMemoryPhpMDHandler implements RecursiveToolInterface
      */
     public function setOutput(OutputInterface $outputInterface)
     {
-        // TODO: Implement setOutput() method.
     }
 
     public function run()
     {
-        // TODO: Implement run() method.
     }
 
     /**
@@ -25,7 +23,6 @@ class InMemoryPhpMDHandler implements RecursiveToolInterface
      */
     public function setNeedle($needle)
     {
-        // TODO: Implement setNeedle() method.
     }
 
     /**
@@ -33,6 +30,5 @@ class InMemoryPhpMDHandler implements RecursiveToolInterface
      */
     public function setFiles($files)
     {
-        // TODO: Implement setFiles() method.
     }
 }

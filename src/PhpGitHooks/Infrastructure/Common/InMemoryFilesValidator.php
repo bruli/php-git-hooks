@@ -21,7 +21,6 @@ class InMemoryFilesValidator implements FilesValidatorInterface
      */
     public function setFiles(array $files)
     {
-        // TODO: Implement setFiles() method.
     }
 
     /**

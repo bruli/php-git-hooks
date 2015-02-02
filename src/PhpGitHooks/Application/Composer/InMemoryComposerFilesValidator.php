@@ -17,7 +17,6 @@ class InMemoryComposerFilesValidator implements FilesValidatorInterface, ToolHan
      */
     public function setFiles(array $files)
     {
-        // TODO: Implement setFiles() method.
     }
 
     /**
@@ -25,7 +24,6 @@ class InMemoryComposerFilesValidator implements FilesValidatorInterface, ToolHan
      */
     public function validate()
     {
-        // TODO: Implement validate() method.
     }
 
     /**
@@ -33,6 +31,5 @@ class InMemoryComposerFilesValidator implements FilesValidatorInterface, ToolHan
      */
     public function setOutput(OutputInterface $outputInterface)
     {
-        // TODO: Implement setOutput() method.
     }
 }

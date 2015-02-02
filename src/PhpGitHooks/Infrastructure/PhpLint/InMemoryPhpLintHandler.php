@@ -16,12 +16,10 @@ class InMemoryPhpLintHandler implements FilesToolHandlerInterface
      */
     public function setOutput(OutputInterface $outputInterface)
     {
-        // TODO: Implement setOutput() method.
     }
 
     public function run()
     {
-        // TODO: Implement run() method.
     }
 
     /**
@@ -29,6 +27,5 @@ class InMemoryPhpLintHandler implements FilesToolHandlerInterface
      */
     public function setFiles(array $files)
     {
-        // TODO: Implement setFiles() method.
     }
 }

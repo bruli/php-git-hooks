@@ -29,7 +29,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function isInteractive()
     {
-        // TODO: Implement isInteractive() method.
     }
 
     /**
@@ -39,7 +38,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function isVerbose()
     {
-        // TODO: Implement isVerbose() method.
     }
 
     /**
@@ -49,7 +47,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function isVeryVerbose()
     {
-        // TODO: Implement isVeryVerbose() method.
     }
 
     /**
@@ -59,7 +56,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function isDebug()
     {
-        // TODO: Implement isDebug() method.
     }
 
     /**
@@ -69,7 +65,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function isDecorated()
     {
-        // TODO: Implement isDecorated() method.
     }
 
     /**
@@ -80,7 +75,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function write($messages, $newline = true)
     {
-        // TODO: Implement write() method.
     }
 
     /**
@@ -92,7 +86,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function overwrite($messages, $newline = true, $size = null)
     {
-        // TODO: Implement overwrite() method.
     }
 
     /**
@@ -122,7 +115,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function askConfirmation($question, $default = true)
     {
-        // TODO: Implement askConfirmation() method.
     }
 
     /**
@@ -144,7 +136,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function askAndValidate($question, $validator, $attempts = false, $default = null)
     {
-        // TODO: Implement askAndValidate() method.
     }
 
     /**
@@ -156,7 +147,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function askAndHideAnswer($question)
     {
-        // TODO: Implement askAndHideAnswer() method.
     }
 
     /**
@@ -166,7 +156,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function getAuthentications()
     {
-        // TODO: Implement getAuthentications() method.
     }
 
     /**
@@ -178,7 +167,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function hasAuthentication($repositoryName)
     {
-        // TODO: Implement hasAuthentication() method.
     }
 
     /**
@@ -190,7 +178,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function getAuthentication($repositoryName)
     {
-        // TODO: Implement getAuthentication() method.
     }
 
     /**
@@ -202,7 +189,6 @@ class InMemoryIOInterface implements IOInterface
      */
     public function setAuthentication($repositoryName, $username, $password = null)
     {
-        // TODO: Implement setAuthentication() method.
     }
 
     /**
@@ -212,6 +198,5 @@ class InMemoryIOInterface implements IOInterface
      */
     public function loadConfiguration(Config $config)
     {
-        // TODO: Implement loadConfiguration() method.
     }
 }

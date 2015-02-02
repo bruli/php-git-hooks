@@ -25,7 +25,6 @@ class InMemoryCheckConfigFile implements CheckFileInterface
      */
     public function getFile()
     {
-        // TODO: Implement getFile() method.
     }
 
     /**

@@ -13,7 +13,6 @@ class InMemoryOutputHandler implements OutputHandlerInterface
      */
     public function setTitle($title)
     {
-        // TODO: Implement setTitle() method.
     }
 
     /**
@@ -21,7 +20,6 @@ class InMemoryOutputHandler implements OutputHandlerInterface
      */
     public function getTitle()
     {
-        // TODO: Implement getTitle() method.
     }
 
     /**
@@ -29,7 +27,6 @@ class InMemoryOutputHandler implements OutputHandlerInterface
      */
     public function getError()
     {
-        // TODO: Implement getError() method.
     }
 
     /**
@@ -37,7 +34,6 @@ class InMemoryOutputHandler implements OutputHandlerInterface
      */
     public function setError($error)
     {
-        // TODO: Implement setError() method.
     }
 
     /**
@@ -47,6 +43,5 @@ class InMemoryOutputHandler implements OutputHandlerInterface
      */
     public function getSuccessfulStepMessage($message = null)
     {
-        // TODO: Implement getSuccessfulStepMessage() method.
     }
 }

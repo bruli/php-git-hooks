@@ -16,12 +16,10 @@ class InMemoryPhpCsFixerHandler implements InteractiveToolInterface
      */
     public function setOutput(OutputInterface $outputInterface)
     {
-        // TODO: Implement setOutput() method.
     }
 
     public function run()
     {
-        // TODO: Implement run() method.
     }
 
     /**
@@ -29,7 +27,6 @@ class InMemoryPhpCsFixerHandler implements InteractiveToolInterface
      */
     public function setFilesToAnalize($filesToAnalize)
     {
-        // TODO: Implement setFilesToAnalize() method.
     }
 
     /**
@@ -37,6 +34,5 @@ class InMemoryPhpCsFixerHandler implements InteractiveToolInterface
      */
     public function setFiles(array $files)
     {
-        // TODO: Implement setFiles() method.
     }
 }

@@ -20,7 +20,6 @@ class InMemoryOutputInterface implements OutputInterface
      */
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
     {
-        // TODO: Implement write() method.
     }
 
     /**
@@ -35,7 +34,6 @@ class InMemoryOutputInterface implements OutputInterface
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
-        // TODO: Implement writeln() method.
     }
 
     /**
@@ -47,7 +45,6 @@ class InMemoryOutputInterface implements OutputInterface
      */
     public function setVerbosity($level)
     {
-        // TODO: Implement setVerbosity() method.
     }
 
     /**
@@ -59,7 +56,6 @@ class InMemoryOutputInterface implements OutputInterface
      */
     public function getVerbosity()
     {
-        // TODO: Implement getVerbosity() method.
     }
 
     /**
@@ -71,7 +67,6 @@ class InMemoryOutputInterface implements OutputInterface
      */
     public function setDecorated($decorated)
     {
-        // TODO: Implement setDecorated() method.
     }
 
     /**
@@ -83,7 +78,6 @@ class InMemoryOutputInterface implements OutputInterface
      */
     public function isDecorated()
     {
-        // TODO: Implement isDecorated() method.
     }
 
     /**
@@ -95,7 +89,6 @@ class InMemoryOutputInterface implements OutputInterface
      */
     public function setFormatter(OutputFormatterInterface $formatter)
     {
-        // TODO: Implement setFormatter() method.
     }
 
     /**
@@ -107,6 +100,5 @@ class InMemoryOutputInterface implements OutputInterface
      */
     public function getFormatter()
     {
-        // TODO: Implement getFormatter() method.
     }
 }
