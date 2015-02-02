@@ -25,6 +25,11 @@ You must add the following line to the `composer.json` file:
     }
 }
 ```
+Or you can write in your console:
+
+``` bash
+$ composer require bruli/php-git-hooks --dev
+```
 
 If you don't have composer, you need download the  binary file and run it:
 
