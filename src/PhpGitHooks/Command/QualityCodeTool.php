@@ -24,6 +24,7 @@ class QualityCodeTool extends Application
     private $outputTitleHandler;
 
     const PHP_FILES_IN_SRC = '/^src\/(.*)(\.php)$/';
+    const COMPOSER_FILES    = '/^composer\.(json|lock)$/';
 
     public function __construct()
     {
@@ -75,6 +76,10 @@ class QualityCodeTool extends Application
         foreach ($this->files as $file) {
             $isPhpFile = preg_match(self::PHP_FILES_IN_SRC, $file);
             if ($isPhpFile) {
+                return true;
+            }
+            $isComposerFile = preg_match(self::COMPOSER_FILES, $file);
+            if ($isComposerFile) {
                 return true;
             }
         }
