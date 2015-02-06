@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\CommitMessage;
 
+use PhpGitHooks\Application\Config\ConfigFile;
 use PhpGitHooks\Command\OutputHandler;
 use PhpGitHooks\Infrastructure\CommitMessage\ExtractCommitMessage;
 use PhpGitHooks\Infrastructure\Common\FileExtractInterface;
@@ -21,6 +22,8 @@ class CommitMessageValidator extends ToolHandler
     private $mergeValidator;
     /** @var  ExtractCommitMessage */
     private $extractCommitMessage;
+    /** @var  ConfigFile */
+    private $configFile;
 
     /**
      * @param OutputHandler           $outputHandler
@@ -30,10 +33,12 @@ class CommitMessageValidator extends ToolHandler
     public function __construct(
         OutputHandler $outputHandler,
         MergeValidatorInterface $mergeValidator,
-        FileExtractInterface $extractCommitMessage
+        FileExtractInterface $extractCommitMessage,
+        ConfigFile $configFile
     ) {
         $this->mergeValidator = $mergeValidator;
         $this->extractCommitMessage = $extractCommitMessage;
+        $this->configFile = $configFile;
         parent::__construct($outputHandler);
     }
 
@@ -67,6 +72,8 @@ class CommitMessageValidator extends ToolHandler
      */
     private function isValidMessage($commitMessage)
     {
-        return $this->mergeValidator->isMerge() || preg_match('/#[0-9]{2,7}/', $commitMessage);
+        $data = $this->configFile->getMessageCommitConfiguration();
+
+        return $this->mergeValidator->isMerge() || preg_match('/'. $data['regular-expression'] .'/', $commitMessage);
     }
 }
