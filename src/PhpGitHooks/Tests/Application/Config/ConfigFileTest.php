@@ -64,4 +64,19 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
         $this->configFileReader->setData($data);
         $this->assertTrue(is_array($this->configFile->getPreCommitConfiguration()));
     }
+
+    /**
+     * @test
+     */
+    public function getMessageCommitConfigurationReturnsSuccesfull()
+    {
+        $data = array(
+            'commit-message' => array('regular-expression' => 'expression'
+            )
+        );
+
+        $this->configFileValidator->shouldReceive('validate');
+        $this->configFileReader->setData($data);
+        $this->assertTrue(is_array($this->configFile->getMessageCommitConfiguration()));
+    }
 }

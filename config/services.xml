@@ -48,6 +48,7 @@
             <argument type="service" id="output.handler" />
             <argument type="service" id="merge.validator" />
             <argument type="service" id="extract.commit.message" />
+            <argument type="service" id="config.file" />
         </service>
         <service id="unit.test.pre.commit.executer" class="PhpGitHooks\Application\PhpUnit\UnitTestPreCommitExecuter">
             <argument type="service" id="pre.commit.config"/>
