@@ -24,6 +24,8 @@ class PhpMDHandler extends ToolHandler
         $this->outputHandler->setTitle('Checking code mess with PHPMD');
         $this->output->write($this->outputHandler->getTitle());
 
+        $errors = [];
+
         foreach ($this->files as $file) {
             if (!preg_match($this->needle, $file)) {
                 continue;
@@ -44,11 +46,15 @@ class PhpMDHandler extends ToolHandler
             $process->run();
 
             if (false === $process->isSuccessful()) {
-                throw new PHPMDViolationsException($process->getOutput());
+                $errors[] = $process->getOutput();
             }
-
         }
-            $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
+
+        if ($errors) {
+            throw new PHPMDViolationsException(implode(''), $errors);
+        }
+
+        $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
     }
 
     /**
