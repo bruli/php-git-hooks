@@ -6,6 +6,6 @@ pre-commit:
     phplint:       true
     phpcs:         true
     phpmd:         true
-commit-message:
+commit-msg:
     enabled:       true
     regular-expression: '#[0-9]{2,7}'
