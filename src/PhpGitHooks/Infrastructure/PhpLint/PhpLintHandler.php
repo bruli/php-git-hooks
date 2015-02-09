@@ -36,6 +36,7 @@ class PhpLintHandler extends ToolHandler implements FilesToolHandlerInterface
             $process->run();
         }
 
+        /* @var Process $process */
         if (false === $process->isSuccessful()) {
             $this->outputHandler->setError($process->getErrorOutput());
             $this->output->writeln($this->outputHandler->getError());
