@@ -73,6 +73,8 @@ pre-commit:
     phplint:       true
     phpcs:         true
     phpmd:         true
+commit-message:
+    regular-expression: '#[0-9]{2,7}'
 ```
 
 ... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.

@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Tests\Application\CommitMessage;
 
+use Mockery\Mock;
 use PhpGitHooks\Application\CommitMessage\CommitMessageValidator;
 use PhpGitHooks\Application\Config\ConfigFile;
 use PhpGitHooks\Command\OutputHandler;
@@ -28,8 +29,8 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
     private $mergeValidator;
     /** @var  InMemoryFileExtractInterface */
     private $extractCommitMessage;
-    /** @var  PhpGitHooks\Application\Config\ConfigFile Mock */
-    private $configFileMock;
+    /** @var  Mock */
+    private $configFile;
 
     protected function setUp()
     {
@@ -40,15 +41,15 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
         $this->mergeValidator = new InMemoryMergeValidator();
         $this->mergeValidator->setMerge(false);
         $this->extractCommitMessage = new InMemoryFileExtractInterface();
-        $this->configFileMock = $this->getMockBuilder('PhpGitHooks\Application\Config\ConfigFile')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->configFile = \Mockery::mock('PhpGitHooks\Application\Config\ConfigFile');
+        $this->configFile->shouldReceive('getMessageCommitConfiguration')
+            ->andReturn(array('regular-expression' => '#[0-9]{2,7}'));
 
         $this->commitMessageValidator = new CommitMessageValidator(
             $this->outputHandler,
             $this->mergeValidator,
             $this->extractCommitMessage,
-            $this->configFileMock
+            $this->configFile
         );
     }
 
@@ -58,7 +59,6 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
     public function invalidCommitMessageReturnsException()
     {
         $this->setExpectedException('\PhpGitHooks\Application\CommitMessage\InvalidCommitMessageException');
-        $this->configFileMock->expects($this->once())->method('getMessageCommitConfiguration')->willReturn(array('regular-expression' => '#[0-9]{2,7}'));
 
         $this->extractCommitMessage->setExtract('invalid commit message');
 
@@ -72,8 +72,6 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function validCommitMessage()
     {
-        $this->configFileMock->expects($this->once())->method('getMessageCommitConfiguration')->willReturn(array('regular-expression' => '#[0-9]{2,7}'));
-
         $this->extractCommitMessage->setExtract('#0111 valid commit message');
 
         $this->commitMessageValidator->setInput($this->inputInterface);

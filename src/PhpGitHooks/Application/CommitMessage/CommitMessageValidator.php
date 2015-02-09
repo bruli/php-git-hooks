@@ -29,6 +29,7 @@ class CommitMessageValidator extends ToolHandler
      * @param OutputHandler           $outputHandler
      * @param MergeValidatorInterface $mergeValidator
      * @param FileExtractInterface    $extractCommitMessage
+     * @param ConfigFile              $configFile
      */
     public function __construct(
         OutputHandler $outputHandler,
@@ -74,6 +75,6 @@ class CommitMessageValidator extends ToolHandler
     {
         $data = $this->configFile->getMessageCommitConfiguration();
 
-        return $this->mergeValidator->isMerge() || preg_match('/'. $data['regular-expression'] .'/', $commitMessage);
+        return $this->mergeValidator->isMerge() || preg_match('/'.$data['regular-expression'].'/', $commitMessage);
     }
 }

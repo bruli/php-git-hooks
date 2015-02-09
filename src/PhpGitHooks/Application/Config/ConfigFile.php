@@ -52,6 +52,9 @@ class ConfigFile
         return $data['pre-commit']['execute'];
     }
 
+    /**
+     * @return string
+     */
     public function getMessageCommitConfiguration()
     {
         $data = $this->getConfigurationData();
