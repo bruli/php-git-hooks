@@ -67,6 +67,7 @@ You can configure php-git-hooks, creating a php-git-hooks.yml file with...
 
 ``` yaml
 pre-commit:
+  enabled: true
   execute:
     php-cs-fixer:  true
     phpunit:       true
@@ -74,6 +75,7 @@ pre-commit:
     phpcs:         true
     phpmd:         true
 commit-message:
+    enabled: true
     regular-expression: '#[0-9]{2,7}'
 ```
 

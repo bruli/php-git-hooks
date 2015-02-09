@@ -71,8 +71,8 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
     public function getMessageCommitConfigurationReturnsSuccesfull()
     {
         $data = array(
-            'commit-message' => array('regular-expression' => 'expression'
-            )
+            'commit-message' => array('regular-expression' => 'expression',
+            ),
         );
 
         $this->configFileValidator->shouldReceive('validate');

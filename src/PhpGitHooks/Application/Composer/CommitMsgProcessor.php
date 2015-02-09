@@ -12,7 +12,7 @@ use PhpGitHooks\Infrastructure\Git\HooksFileCopier;
 class CommitMsgProcessor extends Processor implements ProcessorHookInterface
 {
     const HOOK_NAME = 'commit-msg';
-    /** @var HooksFileCopier  */
+    /** @var HooksFileCopier */
     private $hooksFileCopier;
     /** @var  array */
     private $preCommitData = array();
@@ -43,9 +43,18 @@ class CommitMsgProcessor extends Processor implements ProcessorHookInterface
 
         if ('Y' === strtoupper($enable)) {
             $this->hooksFileCopier->copy(self::HOOK_NAME);
+            $this->regularExpression();
             $enabled = true;
         }
 
-        $this->preCommitData[self::HOOK_NAME] = ['enabled' => $enabled];
+        $this->preCommitData[self::HOOK_NAME]['enabled'] = $enabled;
+    }
+
+    private function regularExpression()
+    {
+        $expression = $this
+            ->setQuestion('Write a regular expression for commit-msg hook. ', '#[0-9]{2,7}', '#[0-9]{2,7}');
+
+        $this->preCommitData[self::HOOK_NAME]['regular-expression'] = $expression;
     }
 }
