@@ -59,6 +59,6 @@ class ConfigFile
     {
         $data = $this->getConfigurationData();
 
-        return $data['commit-message'];
+        return $data['commit-msg'];
     }
 }

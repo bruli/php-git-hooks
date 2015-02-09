@@ -71,7 +71,7 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
     public function getMessageCommitConfigurationReturnsSuccesfull()
     {
         $data = array(
-            'commit-message' => array('regular-expression' => 'expression',
+            'commit-msg' => array('regular-expression' => 'expression',
             ),
         );
 
