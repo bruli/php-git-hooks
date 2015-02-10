@@ -35,13 +35,13 @@ class CodeSnifferHandler extends ToolHandler
             /** @var Process $phpCs */
             $phpCs = $processBuilder->getProcess();
             $phpCs->run();
-        }
+            
+            if (false === $phpCs->isSuccessful()) {
+                $this->outputHandler->setError($phpCs->getOutput());
+                $this->output->writeln($this->outputHandler->getError());
 
-        if (false === $phpCs->isSuccessful()) {
-            $this->outputHandler->setError($phpCs->getOutput());
-            $this->output->writeln($this->outputHandler->getError());
-
-            throw new InvalidCodingStandardException();
+                throw new InvalidCodingStandardException();
+            }
         }
 
         $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
