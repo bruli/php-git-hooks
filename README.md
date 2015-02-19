@@ -53,11 +53,11 @@ In Symfony2 projects you need add this lines in your composer.json:
 ``` json
 "scripts": {
     "post-install-cmd": [
-      ...another lines...
+      ...other lines...
       "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
     ],
     "post-update-cmd": [
-      ...another lines...
+      ...other lines...
       "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
     ]
 ```
