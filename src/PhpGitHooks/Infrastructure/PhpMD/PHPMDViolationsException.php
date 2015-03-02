@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\PhpMD;
 
 /**
- * Class PHPMDViolationsException
- * @package PhpGitHooks\Infrastructure\PhpMD
+ * Class PHPMDViolationsException.
  */
 class PHPMDViolationsException extends \Exception
 {

@@ -5,8 +5,7 @@ namespace PhpGitHooks\Application\Composer;
 use Composer\IO\IOInterface;
 
 /**
- * Class Processor
- * @package PhpGitHooks\Application\Composer
+ * Class Processor.
  */
 abstract class Processor
 {
@@ -22,9 +21,10 @@ abstract class Processor
     }
 
     /**
-     * @param  string $question
-     * @param  string $answers
-     * @param  string $default
+     * @param string $question
+     * @param string $answers
+     * @param string $default
+     *
      * @return string
      */
     protected function setQuestion($question, $answers, $default)

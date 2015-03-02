@@ -6,8 +6,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use PhpGitHooks\Infrastructure\Common\FilesToolHandlerInterface;
 
 /**
- * Class InMemoryPhpLintHandler
- * @package PhpGitHooks\Infrastructure\PhpLint
+ * Class InMemoryPhpLintHandler.
  */
 class InMemoryPhpLintHandler implements FilesToolHandlerInterface
 {

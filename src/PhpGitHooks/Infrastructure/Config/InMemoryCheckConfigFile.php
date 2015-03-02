@@ -5,8 +5,7 @@ namespace PhpGitHooks\Infrastructure\Config;
 use PhpGitHooks\Infrastructure\Common\CheckFileInterface;
 
 /**
- * Class InMemoryCheckConfigFile
- * @package PhpGitHooks\Infrastructure\Config
+ * Class InMemoryCheckConfigFile.
  */
 class InMemoryCheckConfigFile implements CheckFileInterface
 {

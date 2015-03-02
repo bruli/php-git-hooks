@@ -5,13 +5,13 @@ namespace PhpGitHooks\Infrastructure\CommitMessage;
 use PhpGitHooks\Infrastructure\Common\FileExtractInterface;
 
 /**
- * Class ExtractCommitMessage
- * @package Infrastructure\CommitMessage
+ * Class ExtractCommitMessage.
  */
 class ExtractCommitMessage implements FileExtractInterface
 {
     /**
-     * @param  string $commitFile
+     * @param string $commitFile
+     *
      * @return string
      */
     public function extract($commitFile)

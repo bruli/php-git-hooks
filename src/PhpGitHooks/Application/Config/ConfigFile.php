@@ -7,8 +7,7 @@ use PhpGitHooks\Infrastructure\Config\FileReaderInterface;
 use PhpGitHooks\Infrastructure\Config\InvalidConfigStructureException;
 
 /**
- * Class ConfigFile
- * @package PhpGitHooks\Application\Config
+ * Class ConfigFile.
  */
 class ConfigFile
 {
@@ -37,6 +36,7 @@ class ConfigFile
 
     /**
      * @return array
+     *
      * @throws ConfigFileNotFoundException
      * @throws InvalidConfigStructureException
      */

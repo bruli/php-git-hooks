@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Application\Config;
 
 /**
- * Class ConfigFileNotFoundException
- * @package PhpGitHooks\Infrastructure\Config
+ * Class ConfigFileNotFoundException.
  */
 class ConfigFileNotFoundException extends \Exception
 {

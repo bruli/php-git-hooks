@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Git;
 
 /**
- * Interface MergeValidatorInterface
- * @package PhpGitHooks\Infrastructure\Git
+ * Interface MergeValidatorInterface.
  */
 interface MergeValidatorInterface
 {

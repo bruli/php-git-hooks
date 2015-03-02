@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Application\CommitMessage;
 
 /**
- * Class InvalidCommitMessageException
- * @package PhpGitHooks\Application\CommitMessage
+ * Class InvalidCommitMessageException.
  */
 class InvalidCommitMessageException extends \Exception
 {

@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Interface FileWriterInterface
- * @package PhpGitHooks\Infrastructure\Common
+ * Interface FileWriterInterface.
  */
 interface FileWriterInterface
 {

@@ -15,8 +15,7 @@ use PhpGitHooks\Infrastructure\Config\InMemoryFileWriter;
 use PhpGitHooks\Infrastructure\PhpUnit\InMemoryFileCreator;
 
 /**
- * Class ConfiguratorProcessorTest
- * @package PhpGitHooks\Tests\Application\Composer
+ * Class ConfiguratorProcessorTest.
  */
 class ConfiguratorProcessorTest extends \PHPUnit_Framework_TestCase
 {

@@ -5,8 +5,7 @@ namespace PhpGitHooks\Infrastructure\Config;
 use PhpGitHooks\Infrastructure\Common\FileWriterInterface;
 
 /**
- * Class InMemoryFileWriter
- * @package PhpGitHooks\Infrastructure\Config
+ * Class InMemoryFileWriter.
  */
 class InMemoryFileWriter implements FileWriterInterface
 {

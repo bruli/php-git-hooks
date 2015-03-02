@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Command;
 
 /**
- * Interface OutputHandlerInterface
- * @package PhpGitHooks\Command
+ * Interface OutputHandlerInterface.
  */
 interface OutputHandlerInterface
 {

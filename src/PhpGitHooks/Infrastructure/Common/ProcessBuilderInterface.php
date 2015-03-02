@@ -7,8 +7,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * Interface ProcessBuilderInterface
- * @package PhpGitHooks\Infrastructure\Common
+ * Interface ProcessBuilderInterface.
  */
 interface ProcessBuilderInterface
 {
@@ -18,8 +17,9 @@ interface ProcessBuilderInterface
     public function getProcessBuilder();
 
     /**
-     * @param  Process         $process
-     * @param  OutputInterface $outputInterface
+     * @param Process         $process
+     * @param OutputInterface $outputInterface
+     *
      * @return int
      */
     public function executeProcess(Process $process, OutputInterface $outputInterface);

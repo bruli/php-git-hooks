@@ -5,8 +5,7 @@ namespace PhpGitHooks\Infrastructure\Common;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Interface InteractiveToolInterface
- * @package PhpGitHooks\Infrastructure\Common
+ * Interface InteractiveToolInterface.
  */
 interface InteractiveToolInterface
 {

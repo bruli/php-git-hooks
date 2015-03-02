@@ -6,8 +6,7 @@ use PhpGitHooks\Infrastructure\Common\FileCopierInterface;
 use PhpGitHooks\Infrastructure\Git\HooksFileCopier;
 
 /**
- * Class CommitMsgProcessor
- * @package PhpGitHooks\Application\Composer
+ * Class CommitMsgProcessor.
  */
 class CommitMsgProcessor extends Processor implements ProcessorHookInterface
 {

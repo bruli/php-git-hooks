@@ -9,8 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class QualityMessageTool
- * @package PhpGitHooks\Command
+ * Class QualityMessageTool.
  */
 class QualityMessageTool extends Application
 {
@@ -25,8 +24,9 @@ class QualityMessageTool extends Application
     }
 
     /**
-     * @param  InputInterface                                                       $input
-     * @param  OutputInterface                                                      $output
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
      * @throws \PhpGitHooks\Application\CommitMessage\InvalidCommitMessageException
      */
     public function doRun(InputInterface $input, OutputInterface $output)

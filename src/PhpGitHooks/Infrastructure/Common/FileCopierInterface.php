@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Interface FileCopierInterface
- * @package PhpGitHooks\Infrastructure\Common
+ * Interface FileCopierInterface.
  */
 interface FileCopierInterface
 {

@@ -12,8 +12,7 @@ use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
 use PhpGitHooks\Infrastructure\Git\InMemoryMergeValidator;
 
 /**
- * Class CommitMessageValidatorTest
- * @package Infrastructure\CommitMessage
+ * Class CommitMessageValidatorTest.
  */
 class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
 {

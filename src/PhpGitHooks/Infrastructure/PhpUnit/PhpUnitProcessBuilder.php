@@ -8,8 +8,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * Class PhpUnitProcessBuilder
- * @package PhpGitHooks\Infrastructure\PhpUnit
+ * Class PhpUnitProcessBuilder.
  */
 class PhpUnitProcessBuilder implements ProcessBuilderInterface
 {
@@ -22,8 +21,9 @@ class PhpUnitProcessBuilder implements ProcessBuilderInterface
     }
 
     /**
-     * @param  Process         $process
-     * @param  OutputInterface $outputInterface
+     * @param Process         $process
+     * @param OutputInterface $outputInterface
+     *
      * @return int
      */
     public function executeProcess(Process $process, OutputInterface $outputInterface)

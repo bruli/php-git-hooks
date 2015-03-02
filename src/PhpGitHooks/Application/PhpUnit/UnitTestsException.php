@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Application\PhpUnit;
 
 /**
- * Class UnitTestsException
- * @package PhpGitHooks\Application\PhpUnit
+ * Class UnitTestsException.
  */
 class UnitTestsException extends \Exception
 {

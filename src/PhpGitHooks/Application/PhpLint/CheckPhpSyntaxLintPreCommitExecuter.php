@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\PhpLint\PhpLintHandler;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class CheckPhpSyntaxLintPreCommitExecuter
- * @package PhpGitHooks\Application\PhpLint
+ * Class CheckPhpSyntaxLintPreCommitExecuter.
  */
 class CheckPhpSyntaxLintPreCommitExecuter extends PreCommitExecuter
 {
@@ -30,9 +29,10 @@ class CheckPhpSyntaxLintPreCommitExecuter extends PreCommitExecuter
     }
 
     /**
-     * @param  OutputInterface $output
-     * @param  array           $files
-     * @throws string          PhpLintException
+     * @param OutputInterface $output
+     * @param array           $files
+     *
+     * @throws string PhpLintException
      */
     public function run(OutputInterface $output, array $files)
     {

@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\Config\ConfigFileWriter;
 use PhpGitHooks\Application\PhpUnit\PhpUnitInitConfigFile;
 
 /**
- * Class ConfiguratorProcessor
- * @package PhpGitHooks\Application\Composer
+ * Class ConfiguratorProcessor.
  */
 class ConfiguratorProcessor extends Processor
 {
@@ -60,7 +59,6 @@ class ConfiguratorProcessor extends Processor
     }
 
     /**
-     * @return null
      */
     private function initConfigFile()
     {

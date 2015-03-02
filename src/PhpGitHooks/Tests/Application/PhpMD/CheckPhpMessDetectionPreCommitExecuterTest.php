@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 use PhpGitHooks\Infrastructure\PhpMD\InMemoryPhpMDHandler;
 
 /**
- * Class CheckPhpMessDetectionPreCommitExecuterTest
- * @package PhpGitHooks\Tests\Application\PhpMD
+ * Class CheckPhpMessDetectionPreCommitExecuterTest.
  */
 class CheckPhpMessDetectionPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 {

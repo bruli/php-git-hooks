@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\Common\InMemoryFilesValidator;
 use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
 
 /**
- * Class CheckComposerFilesPreCommitExecuterTest
- * @package PhpGitHooks\Tests\Application\Composer
+ * Class CheckComposerFilesPreCommitExecuterTest.
  */
 class CheckComposerFilesPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 {

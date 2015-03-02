@@ -7,8 +7,7 @@ use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use PhpGitHooks\Infrastructure\Common\ToolHandlerInterface;
 
 /**
- * Class ComposerFilesValidator
- * @package PhpGitHooks\Application\Composer
+ * Class ComposerFilesValidator.
  */
 class ComposerFilesValidator extends ToolHandler implements FilesValidatorInterface, ToolHandlerInterface
 {

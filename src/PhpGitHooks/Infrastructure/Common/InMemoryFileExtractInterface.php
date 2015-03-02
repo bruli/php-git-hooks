@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Class InMemoryFileExtractInterface
- * @package PhpGitHooks\Infrastructure\Common
+ * Class InMemoryFileExtractInterface.
  */
 class InMemoryFileExtractInterface implements FileExtractInterface
 {
@@ -12,7 +11,8 @@ class InMemoryFileExtractInterface implements FileExtractInterface
     private $extract;
 
     /**
-     * @param  string $file
+     * @param string $file
+     *
      * @return string
      */
     public function extract($file)

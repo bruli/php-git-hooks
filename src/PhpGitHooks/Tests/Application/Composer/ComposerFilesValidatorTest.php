@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ComposerFilesValidatorTest
- * @package PhpGitHooks\Tests\Infrastructure\Composer
+ * Class ComposerFilesValidatorTest.
  */
 class ComposerFilesValidatorTest extends \PHPUnit_Framework_TestCase
 {

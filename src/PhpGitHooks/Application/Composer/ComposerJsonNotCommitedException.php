@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Application\Composer;
 
 /**
- * Class ComposerJsonNotCommitedException
- * @package PhpGitHooks\Application\Composer
+ * Class ComposerJsonNotCommitedException.
  */
 class ComposerJsonNotCommitedException extends \Exception
 {

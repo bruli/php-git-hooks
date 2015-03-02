@@ -6,13 +6,13 @@ use Composer\Script\Event;
 use PhpGitHooks\Container;
 
 /**
- * Class ConfiguratorScript
- * @package PhpGitHooks\Composer
+ * Class ConfiguratorScript.
  */
 class ConfiguratorScript
 {
     /**
-     * @param  Event     $event
+     * @param Event $event
+     *
      * @return bool|void
      */
     public static function buildConfig(Event $event)

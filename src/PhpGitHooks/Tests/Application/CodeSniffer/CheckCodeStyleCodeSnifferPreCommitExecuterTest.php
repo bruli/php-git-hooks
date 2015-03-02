@@ -8,8 +8,7 @@ use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
 use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 
 /**
- * Class CheckCodeStyleCodeSnifferPreCommitExecuterTest
- * @package PhpGitHooks\Tests\Application\CodeSniffer
+ * Class CheckCodeStyleCodeSnifferPreCommitExecuterTest.
  */
 class CheckCodeStyleCodeSnifferPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 {

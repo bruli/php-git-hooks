@@ -6,8 +6,7 @@ use PhpGitHooks\Infrastructure\Common\FileCopierInterface;
 use Symfony\Component\Process\Process;
 
 /**
- * Class HooksFileCopier
- * @package PhpGitHooks\Infrastructure\Git
+ * Class HooksFileCopier.
  */
 class HooksFileCopier implements FileCopierInterface
 {

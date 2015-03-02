@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Class InMemoryFileCopier
- * @package PhpGitHooks\Tests\Infrastructure\Common
+ * Class InMemoryFileCopier.
  */
 class InMemoryFileCopier implements FileCopierInterface
 {

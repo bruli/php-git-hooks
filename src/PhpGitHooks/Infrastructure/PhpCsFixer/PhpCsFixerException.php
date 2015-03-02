@@ -2,8 +2,7 @@
 namespace PhpGitHooks\Infrastructure\PhpCsFixer;
 
 /**
- * Class PhpCsFixerException
- * @package PhpGitHooks\Infrastructure\PhpCsFixer
+ * Class PhpCsFixerException.
  */
 class PhpCsFixerException extends \Exception
 {

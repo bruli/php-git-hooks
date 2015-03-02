@@ -6,8 +6,7 @@ use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class InMemoryPhpCsFixerHandler
- * @package PhpGitHooks\Infrastructure\PhpCsFixer
+ * Class InMemoryPhpCsFixerHandler.
  */
 class InMemoryPhpCsFixerHandler implements InteractiveToolInterface
 {

@@ -11,8 +11,7 @@ use PhpGitHooks\Infrastructure\Git\MergeValidatorInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
- * Class CommitMessageValidator
- * @package PhpGitHooks\Application\CommitMessage
+ * Class CommitMessageValidator.
  */
 class CommitMessageValidator extends ToolHandler
 {
@@ -68,7 +67,8 @@ class CommitMessageValidator extends ToolHandler
     }
 
     /**
-     * @param  string $commitMessage
+     * @param string $commitMessage
+     *
      * @return bool
      */
     private function isValidMessage($commitMessage)

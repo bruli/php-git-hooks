@@ -5,8 +5,7 @@ namespace PhpGitHooks\Application\Composer;
 use Composer\IO\IOInterface;
 
 /**
- * Interface ProcessorHook
- * @package PhpGitHooks\Application\Composer
+ * Interface ProcessorHook.
  */
 interface ProcessorHookInterface
 {

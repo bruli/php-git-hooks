@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\PhpCsFixer\PhpCsFixerHandler;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class FixCodeStyleCsFixerPreCommitExecuter
- * @package PhpGitHooks\Infrastructure\PhpCsFixer
+ * Class FixCodeStyleCsFixerPreCommitExecuter.
  */
 class FixCodeStyleCsFixerPreCommitExecuter extends PreCommitExecuter
 {

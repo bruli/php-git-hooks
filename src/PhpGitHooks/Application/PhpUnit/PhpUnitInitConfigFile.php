@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\Common\FilesValidatorInterface;
 use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitConfigFileCreator;
 
 /**
- * Class PhpUnitInitConfigFile
- * @package PhpGitHooks\Infrastructure\PhpUnit
+ * Class PhpUnitInitConfigFile.
  */
 class PhpUnitInitConfigFile extends Processor
 {

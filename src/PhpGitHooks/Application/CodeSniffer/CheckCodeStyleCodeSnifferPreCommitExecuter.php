@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class CheckCodeStyleCodeSnifferPreCommitExecuter
- * @package PhpGitHooks\Infrastructure\CodeSniffer
+ * Class CheckCodeStyleCodeSnifferPreCommitExecuter.
  */
 class CheckCodeStyleCodeSnifferPreCommitExecuter extends PreCommitExecuter
 {
@@ -28,9 +27,10 @@ class CheckCodeStyleCodeSnifferPreCommitExecuter extends PreCommitExecuter
     }
 
     /**
-     * @param  OutputInterface                $output
-     * @param  array                          $files
-     * @param  string                         $needle
+     * @param OutputInterface $output
+     * @param array           $files
+     * @param string          $needle
+     *
      * @throws InvalidCodingStandardException
      */
     public function run(OutputInterface $output, array $files, $needle)

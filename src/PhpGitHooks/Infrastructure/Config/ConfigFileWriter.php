@@ -6,8 +6,7 @@ use PhpGitHooks\Infrastructure\Common\FileWriterInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class ConfigFileWriter
- * @package PhpGitHooks\Infrastructure\Config
+ * Class ConfigFileWriter.
  */
 class ConfigFileWriter implements FileWriterInterface
 {

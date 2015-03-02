@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Config;
 
 /**
- * Class InMemoryFileReader
- * @package PhpGitHooks\Infrastructure\Config
+ * Class InMemoryFileReader.
  */
 class InMemoryFileReader implements FileReaderInterface
 {

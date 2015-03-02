@@ -9,8 +9,7 @@ use PhpGitHooks\Infrastructure\Common\InMemoryFileCopier;
 use PhpGitHooks\Infrastructure\Composer\InMemoryIOInterface;
 
 /**
- * Class CommitMsgProcessorTest
- * @package PhpGitHooks\Tests\Application\Composer
+ * Class CommitMsgProcessorTest.
  */
 class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
 {

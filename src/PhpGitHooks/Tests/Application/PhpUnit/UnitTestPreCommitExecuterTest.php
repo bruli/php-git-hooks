@@ -10,8 +10,7 @@ use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
 use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 
 /**
- * Class UnitTestPreCommitExecuterTest
- * @package PhpGitHooks\Tests\Application\PhpUnit
+ * Class UnitTestPreCommitExecuterTest.
  */
 class UnitTestPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 {

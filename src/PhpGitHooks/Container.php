@@ -7,8 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
- * Class Container
- * @package PhpGitHooks
+ * Class Container.
  */
 class Container
 {
@@ -31,7 +30,8 @@ class Container
     }
 
     /**
-     * @param  string $serviceName
+     * @param string $serviceName
+     *
      * @return object
      */
     public function get($serviceName)

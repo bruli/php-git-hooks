@@ -5,8 +5,7 @@ namespace PhpGitHooks\Infrastructure\Config;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class ConfigFileReader
- * @package PhpGitHooks\Infrastructure\Config
+ * Class ConfigFileReader.
  */
 class ConfigFileReader implements FileReaderInterface
 {

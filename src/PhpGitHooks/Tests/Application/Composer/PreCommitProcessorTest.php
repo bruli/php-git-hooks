@@ -7,8 +7,7 @@ use PhpGitHooks\Infrastructure\Common\InMemoryFileCopier;
 use PhpGitHooks\Infrastructure\Composer\InMemoryIOInterface;
 
 /**
- * Class PreCommitProcessorTest
- * @package PhpGitHooks\Tests\Application\Composer
+ * Class PreCommitProcessorTest.
  */
 class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
 {

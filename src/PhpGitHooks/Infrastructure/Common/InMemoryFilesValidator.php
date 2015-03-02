@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Class FilesValidatorDummy
- * @package PhpGitHooks\Tests\Infrastructure\Common
+ * Class FilesValidatorDummy.
  */
 class InMemoryFilesValidator implements FilesValidatorInterface
 {

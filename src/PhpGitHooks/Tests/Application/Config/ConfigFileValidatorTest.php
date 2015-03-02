@@ -6,8 +6,7 @@ use PhpGitHooks\Application\Config\ConfigFileValidator;
 use PhpGitHooks\Infrastructure\Config\InMemoryCheckConfigFile;
 
 /**
- * Class ConfigFileValidatorTest
- * @package PhpGitHooks\Tests\Core\Config
+ * Class ConfigFileValidatorTest.
  */
 class ConfigFileValidatorTest extends \PHPUnit_Framework_TestCase
 {

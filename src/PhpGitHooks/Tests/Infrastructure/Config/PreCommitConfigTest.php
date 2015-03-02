@@ -6,8 +6,7 @@ use PhpGitHooks\Application\Config\PreCommitConfig;
 use PhpGitHooks\Infrastructure\Config\InMemoryFileReader;
 
 /**
- * Class PreCommitConfigTest
- * @package Infrastructure\Config
+ * Class PreCommitConfigTest.
  */
 class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
 {

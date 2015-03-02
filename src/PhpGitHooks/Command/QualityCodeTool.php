@@ -9,8 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class QualityCodeTool
- * @package PhpGitHooks\Command
+ * Class QualityCodeTool.
  */
 class QualityCodeTool extends Application
 {

@@ -6,8 +6,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
- * Class InMemoryInputInterface
- * @package PhpGitHooks\Infrastructure\Component
+ * Class InMemoryInputInterface.
  */
 class InMemoryInputInterface implements InputInterface
 {

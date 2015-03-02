@@ -6,8 +6,7 @@ use Composer\Config;
 use Composer\IO\IOInterface;
 
 /**
- * Class IOInterfaceDummy
- * @package PhpGitHooks\Tests\Vendors\Composer\IO
+ * Class IOInterfaceDummy.
  */
 class InMemoryIOInterface implements IOInterface
 {
@@ -192,11 +191,32 @@ class InMemoryIOInterface implements IOInterface
     }
 
     /**
-     * Loads authentications from a config instance
+     * Loads authentications from a config instance.
      *
      * @param Config $config
      */
     public function loadConfiguration(Config $config)
+    {
+    }
+
+    /**
+     * Writes a message to the error output.
+     *
+     * @param string|array $messages The message as an array of lines or a single string
+     * @param bool         $newline  Whether to add a newline or not
+     */
+    public function writeError($messages, $newline = true)
+    {
+    }
+
+    /**
+     * Overwrites a previous message to the error output.
+     *
+     * @param string|array $messages The message as an array of lines or a single string
+     * @param bool         $newline  Whether to add a newline or not
+     * @param integer      $size     The size of line
+     */
+    public function overwriteError($messages, $newline = true, $size = null)
     {
     }
 }

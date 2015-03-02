@@ -10,8 +10,7 @@ use PhpGitHooks\Infrastructure\PhpMD\PHPMDViolationsException;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class CheckPhpMessDetectionPreCommitExecuter
- * @package PhpGitHooks\Infrastructure\PhpMD
+ * Class CheckPhpMessDetectionPreCommitExecuter.
  */
 class CheckPhpMessDetectionPreCommitExecuter extends PreCommitExecuter
 {
@@ -39,9 +38,10 @@ class CheckPhpMessDetectionPreCommitExecuter extends PreCommitExecuter
     }
 
     /**
-     * @param  OutputInterface          $output
-     * @param  array                    $files
-     * @param  string                   $needle
+     * @param OutputInterface $output
+     * @param array           $files
+     * @param string          $needle
+     *
      * @throws PHPMDViolationsException
      */
     public function run(OutputInterface $output, array $files, $needle)

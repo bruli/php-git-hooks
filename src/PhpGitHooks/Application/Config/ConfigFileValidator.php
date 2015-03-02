@@ -6,8 +6,7 @@ use PhpGitHooks\Infrastructure\Common\CheckFileInterface;
 use PhpGitHooks\Infrastructure\Config\CheckConfigFile;
 
 /**
- * Class ConfigFileValidator
- * @package PhpGitHooks\Application\Config
+ * Class ConfigFileValidator.
  */
 class ConfigFileValidator
 {

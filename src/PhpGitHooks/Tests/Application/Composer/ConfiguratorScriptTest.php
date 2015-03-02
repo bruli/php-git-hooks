@@ -6,8 +6,7 @@ use PhpGitHooks\Application\Composer\ConfiguratorScript;
 use Mockery\Mock;
 
 /**
- * Class ConfiguratorScriptTest
- * @package PhpGitHooks\Tests\Application\Composer
+ * Class ConfiguratorScriptTest.
  */
 class ConfiguratorScriptTest extends \PHPUnit_Framework_TestCase
 {

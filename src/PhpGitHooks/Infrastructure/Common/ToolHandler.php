@@ -6,8 +6,7 @@ use PhpGitHooks\Command\OutputHandlerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ToolHandler
- * @package PhpGitHooks\Infrastructure\Common
+ * Class ToolHandler.
  */
 abstract class ToolHandler
 {

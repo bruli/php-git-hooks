@@ -8,8 +8,7 @@ use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder;
 
 /**
- * Class PhpUnitHandler
- * @package PhpGitHooks\Application\PhpUnit
+ * Class PhpUnitHandler.
  */
 class PhpUnitHandler extends ToolHandler
 {

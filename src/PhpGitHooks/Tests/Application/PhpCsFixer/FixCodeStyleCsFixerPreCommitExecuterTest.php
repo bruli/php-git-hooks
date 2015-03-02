@@ -8,8 +8,7 @@ use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 use PhpGitHooks\Infrastructure\PhpCsFixer\InMemoryPhpCsFixerHandler;
 
 /**
- * Class FixCodeStyleCsFixerPreCommitExecuterTest
- * @package PhpGitHooks\Tests\Application\PhpCsFixer
+ * Class FixCodeStyleCsFixerPreCommitExecuterTest.
  */
 class FixCodeStyleCsFixerPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 {

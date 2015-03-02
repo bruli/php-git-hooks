@@ -5,8 +5,7 @@ namespace PhpGitHooks\Tests\Command;
 use PhpGitHooks\Command\OutputHandler;
 
 /**
- * Class OutputHandlerTest
- * @package PhpGitHooks\Tests\Command
+ * Class OutputHandlerTest.
  */
 class OutputHandlerTest extends \PHPUnit_Framework_TestCase
 {

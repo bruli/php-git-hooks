@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\CodeSniffer;
 
 /**
- * Class InvalidCodingStandardException
- * @package PhpGitHooks\Infrastructure\PhpCsFixer
+ * Class InvalidCodingStandardException.
  */
 class InvalidCodingStandardException extends \Exception
 {

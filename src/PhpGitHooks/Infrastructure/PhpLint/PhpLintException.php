@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\PhpLint;
 
 /**
- * Class PhpLintException
- * @package PhpGitHooks\Infrastructure\PhpLint
+ * Class PhpLintException.
  */
 class PhpLintException extends \Exception
 {

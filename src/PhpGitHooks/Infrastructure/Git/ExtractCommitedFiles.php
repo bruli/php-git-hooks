@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Git;
 
 /**
- * Class ExtractCommitedFiles
- * @package PhpGitHooks\Infrastructure\Git
+ * Class ExtractCommitedFiles.
  */
 class ExtractCommitedFiles
 {

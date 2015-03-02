@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Config;
 
 /**
- * Class InvalidConfigStructureException
- * @package PhpGitHooks\Infrastructure\Config
+ * Class InvalidConfigStructureException.
  */
 class InvalidConfigStructureException extends \Exception
 {

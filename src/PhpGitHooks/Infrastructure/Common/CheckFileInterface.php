@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Interface CheckFileInterface
- * @package PhpGitHooks\Infrastructure\Common
+ * Interface CheckFileInterface.
  */
 interface CheckFileInterface
 {

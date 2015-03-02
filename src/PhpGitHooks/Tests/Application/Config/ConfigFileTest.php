@@ -8,8 +8,7 @@ use PhpGitHooks\Application\Config\ConfigFileNotFoundException;
 use PhpGitHooks\Infrastructure\Config\InMemoryFileReader;
 
 /**
- * Class ConfigFileTest
- * @package Infrastructure\Config
+ * Class ConfigFileTest.
  */
 class ConfigFileTest extends \PHPUnit_Framework_TestCase
 {

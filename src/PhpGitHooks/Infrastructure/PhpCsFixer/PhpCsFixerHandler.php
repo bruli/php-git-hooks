@@ -7,8 +7,7 @@ use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * Class PhpCsFixerHandler
- * @package PhpGitHooks\Infrastructure\PhpCsFixer
+ * Class PhpCsFixerHandler.
  */
 class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface
 {

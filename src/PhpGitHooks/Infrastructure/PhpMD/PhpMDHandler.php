@@ -7,8 +7,7 @@ use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * Class PhpMDHandler
- * @package PhpGitHooks\Infrastructure\PhpMD
+ * Class PhpMDHandler.
  */
 class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
 {

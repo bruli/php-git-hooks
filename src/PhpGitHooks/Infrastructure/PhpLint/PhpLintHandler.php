@@ -8,8 +8,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * Class PhpLintHandler
- * @package PhpGitHooks\Infrastructure\PhpLint
+ * Class PhpLintHandler.
  */
 class PhpLintHandler extends ToolHandler implements FilesToolHandlerInterface
 {

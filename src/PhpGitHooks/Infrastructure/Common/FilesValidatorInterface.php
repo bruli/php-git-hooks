@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Interface FilesValidatorInterface
- * @package PhpGitHooks\Infrastructure\Common
+ * Interface FilesValidatorInterface.
  */
 interface FilesValidatorInterface
 {

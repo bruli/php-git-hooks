@@ -7,8 +7,7 @@ use PhpGitHooks\Infrastructure\Common\PreCommitExecuter;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class UnitTestPreCommitExecuter
- * @package PhpGitHooks\Infrastructure\PhpUnit
+ * Class UnitTestPreCommitExecuter.
  */
 class UnitTestPreCommitExecuter extends PreCommitExecuter
 {
@@ -26,7 +25,8 @@ class UnitTestPreCommitExecuter extends PreCommitExecuter
     }
 
     /**
-     * @param  OutputInterface    $outputInterface
+     * @param OutputInterface $outputInterface
+     *
      * @throws UnitTestsException
      */
     public function run(OutputInterface $outputInterface)

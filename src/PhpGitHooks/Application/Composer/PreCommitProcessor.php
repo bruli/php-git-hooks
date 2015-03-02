@@ -6,8 +6,7 @@ use PhpGitHooks\Infrastructure\Common\FileCopierInterface;
 use PhpGitHooks\Infrastructure\Git\HooksFileCopier;
 
 /**
- * Class PreCommitProcessor
- * @package PhpGitHooks\Application\Composer
+ * Class PreCommitProcessor.
  */
 class PreCommitProcessor extends Processor implements ProcessorHookInterface
 {

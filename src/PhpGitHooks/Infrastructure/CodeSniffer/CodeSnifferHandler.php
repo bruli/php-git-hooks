@@ -7,8 +7,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * Class CodeSnifferHandler
- * @package PhpGitHooks\Infrastructure\CodeSniffer
+ * Class CodeSnifferHandler.
  */
 class CodeSnifferHandler extends ToolHandler
 {
@@ -35,7 +34,7 @@ class CodeSnifferHandler extends ToolHandler
             /** @var Process $phpCs */
             $phpCs = $processBuilder->getProcess();
             $phpCs->run();
-            
+
             if (false === $phpCs->isSuccessful()) {
                 $this->outputHandler->setError($phpCs->getOutput());
                 $this->output->writeln($this->outputHandler->getError());

@@ -8,8 +8,7 @@ use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 use PhpGitHooks\Infrastructure\PhpLint\InMemoryPhpLintHandler;
 
 /**
- * Class CheckPhpSyntaxLintPreCommitExecuterTest
- * @package PhpGitHooks\Tests\Application\PhpLint
+ * Class CheckPhpSyntaxLintPreCommitExecuterTest.
  */
 class CheckPhpSyntaxLintPreCommitExecuterTest extends \PHPUnit_Framework_TestCase
 {

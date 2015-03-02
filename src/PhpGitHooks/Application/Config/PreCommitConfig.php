@@ -5,8 +5,7 @@ namespace PhpGitHooks\Application\Config;
 use PhpGitHooks\Infrastructure\Config\FileReaderInterface;
 
 /**
- * Class PreCommitConfig
- * @package PhpGitHooks\Application\Config
+ * Class PreCommitConfig.
  */
 class PreCommitConfig implements HookConfigInterface
 {
@@ -23,6 +22,7 @@ class PreCommitConfig implements HookConfigInterface
 
     /**
      * @param $service
+     *
      * @return bool
      */
     public function isEnabled($service)

@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Config;
 
 /**
- * Interface FileReaderInterface
- * @package PhpGitHooks\Infrastructure\Config
+ * Interface FileReaderInterface.
  */
 interface FileReaderInterface
 {

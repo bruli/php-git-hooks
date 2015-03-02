@@ -5,8 +5,7 @@ namespace PhpGitHooks\Infrastructure\PhpUnit;
 use PhpGitHooks\Infrastructure\Common\FileCreatorInterface;
 
 /**
- * Class InMemoryFileCreator
- * @package PhpGitHooks\Infrastructure\PhpUnit
+ * Class InMemoryFileCreator.
  */
 class InMemoryFileCreator implements FileCreatorInterface
 {

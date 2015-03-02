@@ -5,8 +5,7 @@ namespace PhpGitHooks\Tests\Infrastructure\Common;
 use PhpGitHooks\Infrastructure\Common\ConfigFileToolValidator;
 
 /**
- * Class ConfigFileToolValidatorTest
- * @package PhpGitHooks\Tests\Infrastructure\Common
+ * Class ConfigFileToolValidatorTest.
  */
 class ConfigFileToolValidatorTest extends \PHPUnit_Framework_TestCase
 {

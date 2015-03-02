@@ -5,8 +5,7 @@ namespace PhpGitHooks\Infrastructure\Config;
 use PhpGitHooks\Application\Config\HookConfigInterface;
 
 /**
- * Class InMemoryHookConfig
- * @package PhpGitHooks\Infrastructrure\Config
+ * Class InMemoryHookConfig.
  */
 class InMemoryHookConfig implements HookConfigInterface
 {
@@ -22,7 +21,8 @@ class InMemoryHookConfig implements HookConfigInterface
     }
 
     /**
-     * @param  string $hook
+     * @param string $hook
+     *
      * @return bool
      */
     public function isEnabled($hook)

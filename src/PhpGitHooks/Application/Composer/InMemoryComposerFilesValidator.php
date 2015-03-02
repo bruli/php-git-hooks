@@ -7,8 +7,7 @@ use PhpGitHooks\Infrastructure\Common\ToolHandlerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class InMemoryComposerFilesValidator
- * @package PhpGitHooks\Application\Composer
+ * Class InMemoryComposerFilesValidator.
  */
 class InMemoryComposerFilesValidator implements FilesValidatorInterface, ToolHandlerInterface
 {

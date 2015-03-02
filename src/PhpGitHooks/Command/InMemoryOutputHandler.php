@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Command;
 
 /**
- * Class InMemoryOutputHandler
- * @package PhpGitHooks\Command
+ * Class InMemoryOutputHandler.
  */
 class InMemoryOutputHandler implements OutputHandlerInterface
 {

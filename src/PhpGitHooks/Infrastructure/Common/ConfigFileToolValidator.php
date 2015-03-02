@@ -3,8 +3,7 @@
 namespace PhpGitHooks\Infrastructure\Common;
 
 /**
- * Class ConfigFileToolValidator
- * @package PhpGitHooks\Infrastructure\Common
+ * Class ConfigFileToolValidator.
  */
 class ConfigFileToolValidator implements FilesValidatorInterface
 {
