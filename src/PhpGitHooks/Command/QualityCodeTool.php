@@ -24,7 +24,7 @@ class QualityCodeTool extends Application
     private $outputTitleHandler;
 
     const PHP_FILES_IN_SRC = '/^src\/(.*)(\.php)$/';
-    const COMPOSER_FILES    = '/^composer\.(json|lock)$/';
+    const COMPOSER_FILES = '/^composer\.(json|lock)$/';
 
     public function __construct()
     {
@@ -69,30 +69,37 @@ class QualityCodeTool extends Application
     }
 
     /**
-     * @return bool
+     * @return array
      */
-    private function isProcessingAnyPhpFile()
+    private function processingFiles()
     {
+        $files = [
+            'php' => false,
+            'composer' => false,
+        ];
+
         foreach ($this->files as $file) {
             $isPhpFile = preg_match(self::PHP_FILES_IN_SRC, $file);
             if ($isPhpFile) {
-                return true;
+                $files['php'] = true;
             }
             $isComposerFile = preg_match(self::COMPOSER_FILES, $file);
             if ($isComposerFile) {
-                return true;
+                $files['composer'] = true;
             }
         }
 
-        return false;
+        return $files;
     }
 
     private function execute()
     {
-        if ($this->isProcessingAnyPhpFile()) {
+        if ($this->isProcessingAnyComposerFile()) {
             $this->container->get('check.composer.files.pre.commit.executer')
                 ->run($this->output, $this->files);
+        }
 
+        if ($this->isProcessingAnyPhpFile()) {
             $this->container->get('check.php.syntax.lint.pre.commit.executer')
                 ->run($this->output, $this->files);
 
@@ -107,5 +114,25 @@ class QualityCodeTool extends Application
 
             $this->container->get('unit.test.pre.commit.executer')->run($this->output);
         }
+    }
+
+    /**
+     * @return bool
+     */
+    private function isProcessingAnyComposerFile()
+    {
+        $files = $this->processingFiles();
+
+        return $files['composer'];
+    }
+
+    /**
+     * @return bool
+     */
+    private function isProcessingAnyPhpFile()
+    {
+        $files = $this->processingFiles();
+
+        return $files['php'];
     }
 }
