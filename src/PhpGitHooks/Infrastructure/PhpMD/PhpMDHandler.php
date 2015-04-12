@@ -50,6 +50,10 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
             }
         }
 
+        $errors = array_filter($errors, function($var) {
+            return !is_null($var);
+        });
+
         if ($errors) {
             throw new PHPMDViolationsException(implode('', $errors));
         }
