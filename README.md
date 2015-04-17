@@ -18,7 +18,7 @@ Library based in git hook scripts for PHP projects, using in [Atrápalo](http://
 
 You must add the following line to the `composer.json` file:
 
-``` json
+```json
 {
     "require-dev": {
         "bruli/php-git-hooks": "1.*@dev"
@@ -27,13 +27,13 @@ You must add the following line to the `composer.json` file:
 ```
 Or you can write in your console:
 
-``` bash
+```bash
 $ composer require bruli/php-git-hooks --dev
 ```
 
 If you don't have composer, you need download the  binary file and run it:
 
-``` bash
+```bash
 wget http://getcomposer.org/composer.phar
 # or
 curl -O http://getcomposer.org/composer.phar
@@ -50,7 +50,8 @@ After download all repositories, composer ask you about configuration.
 ### Composer configuration in Symfony2 projects.
 
 In Symfony2 projects you need add this lines in your composer.json:
-``` json
+
+```json
 "scripts": {
     "post-install-cmd": [
       ...other lines...
@@ -61,11 +62,22 @@ In Symfony2 projects you need add this lines in your composer.json:
       "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
     ]
 ```
+### Bin directory configuration.
+
+If your project haven't a "bin" directory, you can add this in your compose.json file.
+
+```json
+ "config": {
+        "bin-dir": "bin"
+    }
+```
+
+**Note: Not necessary for Symfony projects.**
 
 ### Manual config file for git hooks.
 You can configure php-git-hooks, creating a php-git-hooks.yml file with...
 
-``` yaml
+```yaml
 pre-commit:
   enabled: true
   execute:
@@ -96,13 +108,13 @@ The most easy way to enable hook is copy hook file into your .git/hooks director
 
 You can enable this hooks with composer or manually executing
 
-``` bash
+```bash
  $cp vendor/bruli/php-git-hooks/hooks/pre-commit .git/hooks
 ```
 
 #For commit-msg hook:
 
-``` bash
+```bash
  $cp vendor/bruli/php-git-hooks/hooks/commit-msg .git/hooks
 ```
 
