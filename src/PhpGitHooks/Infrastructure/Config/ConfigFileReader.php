@@ -4,29 +4,35 @@ namespace PhpGitHooks\Infrastructure\Config;
 
 use Symfony\Component\Yaml\Yaml;
 
-/**
- * Class ConfigFileReader.
- */
-class ConfigFileReader implements FileReaderInterface
+final class ConfigFileReader implements ConfigFileReaderInterface
 {
-    /** @var CheckConfigFile */
-    private $checkConfigFile;
+    const CONFIG_FILE = 'php-git-hooks.yml';
 
     /**
-     * @param CheckConfigFile $checkConfigFile
+     * @return array
      */
-    public function __construct(CheckConfigFile $checkConfigFile)
+    public function getFileContents()
     {
-        $this->checkConfigFile = $checkConfigFile;
+        if (true === $this->configFileExists()) {
+            return $this->getConfigData();
+        }
+
+        return [];
+    }
+
+    /**
+     * @return bool
+     */
+    private function configFileExists()
+    {
+        return file_exists(self::CONFIG_FILE);
     }
 
     /**
      * @return array
      */
-    public function getData()
+    private function getConfigData()
     {
-        $yaml = new Yaml();
-
-        return $yaml->parse(file_get_contents($this->checkConfigFile->getFile()));
+        return Yaml::parse(file_get_contents(self::CONFIG_FILE));
     }
 }

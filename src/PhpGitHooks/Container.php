@@ -14,7 +14,9 @@ class Container
     const SERVICES_FILE = 'services.xml';
     const CONFIG_PATH = '/../../config/';
 
-    /** @var ContainerBuilder */
+    /**
+     * @var ContainerBuilder
+     */
     private $container;
 
     public function __construct()

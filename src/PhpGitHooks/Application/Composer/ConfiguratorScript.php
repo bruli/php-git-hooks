@@ -5,28 +5,19 @@ namespace PhpGitHooks\Application\Composer;
 use Composer\Script\Event;
 use PhpGitHooks\Container;
 
-/**
- * Class ConfiguratorScript.
- */
-class ConfiguratorScript
+final class ConfiguratorScript
 {
-    /**
-     * @param Event $event
-     *
-     * @return bool|void
-     */
     public static function buildConfig(Event $event)
     {
-        if (false === $event->isDevMode()) {
-            return;
+        if (true === $event->isDevMode()) {
+            $container = new Container();
+            /**
+             * @var ConfiguratorProcessor
+             */
+            $processor = $container->get('configurator.processor');
+            $processor->setIO($event->getIO());
+
+            return $processor->process();
         }
-
-        $container = new Container();
-
-        /** @var ConfiguratorProcessor $processor */
-        $processor = $container->get('configurator.processor');
-        $processor->setIO($event->getIO());
-
-        return $processor->process();
     }
 }
