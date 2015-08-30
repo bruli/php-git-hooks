@@ -59,6 +59,8 @@ class CommitMessageValidator extends ToolHandler
         $this->outputHandler->getTitle();
         $commitMessage = $this->extractCommitMessage->extract($this->input->getFirstArgument());
 
+        var_dump($commitMessage);
+        die;
         if (!$this->isValidMessage($commitMessage)) {
             throw new InvalidCommitMessageException();
         }
@@ -74,8 +76,6 @@ class CommitMessageValidator extends ToolHandler
     private function isValidMessage($commitMessage)
     {
         $data = $this->configFile->getMessageCommitConfiguration();
-        var_dump($commitMessage);
-        die;
 
         return $this->mergeValidator->isMerge() || preg_match('/'.$data['regular-expression'].'/', $commitMessage);
     }
