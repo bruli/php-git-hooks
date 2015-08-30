@@ -59,8 +59,6 @@ class CommitMessageValidator extends ToolHandler
         $this->outputHandler->getTitle();
         $commitMessage = $this->extractCommitMessage->extract($this->input->getFirstArgument());
 
-        var_dump($this->isValidMessage($commitMessage));
-        die;
         if (!$this->isValidMessage($commitMessage)) {
             throw new InvalidCommitMessageException();
         }
