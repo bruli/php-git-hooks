@@ -62,7 +62,8 @@ final class ConfiguratorProcessor
 
         $commitMsgConfig = $this->commitMsg($configData);
 
-        $merge = array_merge($preCommitConfig, $commitMsgConfig);
+        $merge['pre-commit'] = $preCommitConfig['pre-commit'];
+        $merge['commit-msg'] = $commitMsgConfig['commit-msg'];
 
         $this->configFileWriter->write($merge);
     }

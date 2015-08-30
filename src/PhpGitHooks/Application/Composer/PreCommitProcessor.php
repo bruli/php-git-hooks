@@ -77,14 +77,14 @@ final class PreCommitProcessor extends Processor
 
             $this->configData['pre-commit']['execute'][$tool]['enabled'] = 'Y' === strtoupper($answer) ? true : false;
 
-            if ('Y' === strtoupper($answer)) {
-                $answerLevel = $this->setQuestion(
-                    sprintf('Set a default Level for %s tool', strtoupper($tool)),
-                    '[PSR0|psr1|psr2|symfony]',
-                    'psr0'
-                );
-                $this->configData['pre-commit']['execute'][$tool]['level'] = $answerLevel;
-            }
+        }
+        if (!isset($this->configData['pre-commit']['execute'][$tool]['level'])) {
+            $answerLevel = $this->setQuestion(
+                sprintf('Set a default Level for %s tool', strtoupper($tool)),
+                '[PSR0|psr1|psr2|symfony]',
+                'psr0'
+            );
+            $this->configData['pre-commit']['execute'][$tool]['level'] = $answerLevel;
         }
     }
 
