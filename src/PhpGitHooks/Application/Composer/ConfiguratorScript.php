@@ -11,7 +11,7 @@ final class ConfiguratorScript
     {
         if (true === $event->isDevMode()) {
             $container = new Container();
-            /**
+            /*
              * @var ConfiguratorProcessor
              */
             $processor = $container->get('configurator.processor');

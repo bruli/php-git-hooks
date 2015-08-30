@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\Config;
+namespace PhpGitHooks\Infrastructure\Disk\Config;
 
 final class InMemoryConfigFileReader implements ConfigFileReaderInterface
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpGitHooks\Infrastructure\Config;
+namespace PhpGitHooks\Infrastructure\Disk\Config;
 
 use Symfony\Component\Yaml\Yaml;
 
 final class ConfigFileReader implements ConfigFileReaderInterface
 {
-    const CONFIG_FILE = 'php-git-hooks.yml';
+    const CONFIG_FILE = 'php-git-hooks.ymlaa';
 
     /**
      * @return array

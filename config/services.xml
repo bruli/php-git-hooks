@@ -6,8 +6,17 @@
     <services>
         <service id="configurator.processor" class="PhpGitHooks\Application\Composer\ConfiguratorProcessor">
             <argument type="service" id="config.file.reader"/>
+            <argument type="service" id="pre.commit.processor"/>
+            <argument type="service" id="commit.msg.processor"/>
+            <argument type="service" id="config.file.writer"/>
         </service>
-        <service id="config.file.reader" class="PhpGitHooks\Infrastructure\Config\ConfigFileReader">
+        <service id="config.file.reader" class="PhpGitHooks\Infrastructure\Disk\Config\ConfigFileReader">
+        </service>
+        <service id="pre.commit.processor" class="PhpGitHooks\Application\Composer\PreCommitProcessor">
+        </service>
+        <service id="commit.msg.processor" class="PhpGitHooks\Application\Composer\CommitMsgProcessor">
+        </service>
+        <service id="config.file.writer" class="PhpGitHooks\Infrastructure\Disk\Config\ConfigFileWriter">
         </service>
     </services>
 </container>
