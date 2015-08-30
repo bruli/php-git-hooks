@@ -38,11 +38,26 @@ class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commitMsgDisabledHook()
+    public function commitMsgDisabledHookWithoutData()
     {
         $this->IO->shouldReceive('ask')->once()->andReturn('n');
 
         $commitMsg = $this->commitMsgProcessor->execute([]);
+
+        $this->assertArrayHasKey('commit-msg', $commitMsg);
+        $this->assertFalse($commitMsg['commit-msg']['enabled']);
+    }
+
+    /**
+     * @test
+     */
+    public function commitMsgDisabledHookWithData()
+    {
+        $commitMsg = $this->commitMsgProcessor->execute([
+            'commit-msg' => [
+                'enabled' => false
+            ]
+        ]);
 
         $this->assertArrayHasKey('commit-msg', $commitMsg);
         $this->assertFalse($commitMsg['commit-msg']['enabled']);
