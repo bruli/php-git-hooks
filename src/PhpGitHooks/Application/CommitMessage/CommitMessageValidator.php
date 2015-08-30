@@ -74,7 +74,7 @@ class CommitMessageValidator extends ToolHandler
     private function isValidMessage($commitMessage)
     {
         $data = $this->configFile->getMessageCommitConfiguration();
-        var_dump($data);
+        var_dump($commitMessage);
         die;
 
         return $this->mergeValidator->isMerge() || preg_match('/'.$data['regular-expression'].'/', $commitMessage);
