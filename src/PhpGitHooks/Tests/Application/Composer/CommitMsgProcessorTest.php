@@ -72,6 +72,6 @@ class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
 
         $commitMsg = $this->commitMsgProcessor->execute([]);
 
-        $this->assertSame('#[0-9]{2,7}', $commitMsg['commit-msg']['expression-regular']);
+        $this->assertSame('#[0-9]{2,7}', $commitMsg['commit-msg']['regular-expression']);
     }
 }

@@ -55,18 +55,17 @@ class CommitMessageValidator extends ToolHandler
      */
     public function validate()
     {
-        var_dump($this->configFile->getMessageCommitConfiguration());
-        die;
+        if (true === $this->isEnabled()) {
+            $this->outputHandler->setTitle('Checking commit message');
+            $this->outputHandler->getTitle();
+            $commitMessage = $this->extractCommitMessage->extract($this->input->getFirstArgument());
 
-        $this->outputHandler->setTitle('Checking commit message');
-        $this->outputHandler->getTitle();
-        $commitMessage = $this->extractCommitMessage->extract($this->input->getFirstArgument());
+            if (!$this->isValidMessage($commitMessage)) {
+                throw new InvalidCommitMessageException();
+            }
 
-        if (!$this->isValidMessage($commitMessage)) {
-            throw new InvalidCommitMessageException();
+            $this->outputHandler->getSuccessfulStepMessage();
         }
-
-        $this->outputHandler->getSuccessfulStepMessage();
     }
 
     /**
@@ -79,5 +78,15 @@ class CommitMessageValidator extends ToolHandler
         $data = $this->configFile->getMessageCommitConfiguration();
 
         return $this->mergeValidator->isMerge() || preg_match('/'.$data['regular-expression'].'/', $commitMessage);
+    }
+
+    /**
+     * @return bool
+     */
+    private function isEnabled()
+    {
+        $data = $this->configFile->getMessageCommitConfiguration();
+
+        return $data['enabled'];
     }
 }

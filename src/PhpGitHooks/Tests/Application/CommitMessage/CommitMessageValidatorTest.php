@@ -4,6 +4,8 @@ namespace PhpGitHooks\Tests\Application\CommitMessage;
 
 use Mockery\Mock;
 use PhpGitHooks\Application\CommitMessage\CommitMessageValidator;
+use PhpGitHooks\Application\CommitMessage\InvalidCommitMessageException;
+use PhpGitHooks\Application\Config\ConfigFile;
 use PhpGitHooks\Command\OutputHandler;
 use PhpGitHooks\Infrastructure\Common\InMemoryFileExtractInterface;
 use PhpGitHooks\Infrastructure\Component\InMemoryInputInterface;
@@ -39,9 +41,9 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
         $this->mergeValidator = new InMemoryMergeValidator();
         $this->mergeValidator->setMerge(false);
         $this->extractCommitMessage = new InMemoryFileExtractInterface();
-        $this->configFile = \Mockery::mock('PhpGitHooks\Application\Config\ConfigFile');
+        $this->configFile = \Mockery::mock(ConfigFile::class);
         $this->configFile->shouldReceive('getMessageCommitConfiguration')
-            ->andReturn(array('regular-expression' => '#[0-9]{2,7}'));
+            ->andReturn(array('regular-expression' => '#[0-9]{2,7}', 'enabled' =>true));
 
         $this->commitMessageValidator = new CommitMessageValidator(
             $this->outputHandler,
@@ -56,7 +58,7 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidCommitMessageReturnsException()
     {
-        $this->setExpectedException('\PhpGitHooks\Application\CommitMessage\InvalidCommitMessageException');
+        $this->setExpectedException(InvalidCommitMessageException::class);
 
         $this->extractCommitMessage->setExtract('invalid commit message');
 

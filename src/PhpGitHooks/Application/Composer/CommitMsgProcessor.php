@@ -43,9 +43,9 @@ final class CommitMsgProcessor extends Processor
 
     private function setExpressionRegular()
     {
-        if (!isset($this->configData['commit-msg']['expression-regular'])) {
+        if (!isset($this->configData['commit-msg']['regular-expression'])) {
             $answer = $this->setQuestion('Write an expression regular', '[#[0-9]{2,7}]', '#[0-9]{2,7}');
-            $this->configData['commit-msg']['expression-regular'] = $answer;
+            $this->configData['commit-msg']['regular-expression'] = $answer;
         }
     }
 }
