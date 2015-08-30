@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="configurator.processor" class="PhpGitHooks\Application\Composer\ConfiguratorProcessor">
+        <service id="configurator.processor" class="PhpGitHooks\Infrastructure\Composer\ConfiguratorProcessor">
             <argument type="service" id="config.file.reader"/>
             <argument type="service" id="pre.commit.processor"/>
             <argument type="service" id="commit.msg.processor"/>

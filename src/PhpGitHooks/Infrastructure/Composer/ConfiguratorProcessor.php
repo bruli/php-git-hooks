@@ -1,8 +1,10 @@
 <?php
 
-namespace PhpGitHooks\Application\Composer;
+namespace PhpGitHooks\Infrastructure\Composer;
 
 use Composer\IO\IOInterface;
+use PhpGitHooks\Application\Composer\CommitMsgProcessor;
+use PhpGitHooks\Application\Composer\PreCommitProcessor;
 use PhpGitHooks\Infrastructure\Disk\Config\ConfigFileReaderInterface;
 use PhpGitHooks\Infrastructure\Disk\Config\ConfigFileWriterInterface;
 
