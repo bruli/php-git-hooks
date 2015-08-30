@@ -70,5 +70,20 @@
         </service>
         <service id="phpunit.process.builder" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder">
         </service>
+        <service id="commit.message.validator" class="PhpGitHooks\Application\CommitMessage\CommitMessageValidator">
+            <argument type="service" id="output.handler" />
+            <argument type="service" id="merge.validator" />
+            <argument type="service" id="extract.commit.message" />
+            <argument type="service" id="config.file" />
+        </service>
+        <service id="merge.validator" class="PhpGitHooks\Infrastructure\Git\MergeValidator">
+        </service>
+        <service id="extract.commit.message" class="PhpGitHooks\Infrastructure\CommitMessage\ExtractCommitMessage">
+        </service>
+        <service id="config.file" class="PhpGitHooks\Application\Config\ConfigFile">
+            <argument type="service" id="config.file.reader" />
+        </service>
+        <service id="check.config.file" class="PhpGitHooks\Infrastructure\Config\CheckConfigFile">
+        </service>
     </services>
 </container>

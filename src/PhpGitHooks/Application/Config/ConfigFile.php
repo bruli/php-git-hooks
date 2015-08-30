@@ -2,28 +2,23 @@
 
 namespace PhpGitHooks\Application\Config;
 
-use PhpGitHooks\Infrastructure\Config\ConfigFileReader;
-use PhpGitHooks\Infrastructure\Config\FileReaderInterface;
 use PhpGitHooks\Infrastructure\Config\InvalidConfigStructureException;
+use PhpGitHooks\Infrastructure\Disk\Config\ConfigFileReaderInterface;
 
 /**
  * Class ConfigFile.
  */
 class ConfigFile
 {
-    /** @var  ConfigFileValidator */
-    private $configFileValidator;
-    /** @var ConfigFileReader */
+    /** @var ConfigFileReaderInterface */
     private $configFileReader;
 
     /**
-     * @param ConfigFileValidator $configFileValidator
-     * @param FileReaderInterface $configFileReader
+     * @param ConfigFileReaderInterface $configFileReaderInterface
      */
-    public function __construct(ConfigFileValidator $configFileValidator, FileReaderInterface $configFileReader)
+    public function __construct(ConfigFileReaderInterface $configFileReaderInterface)
     {
-        $this->configFileValidator = $configFileValidator;
-        $this->configFileReader = $configFileReader;
+        $this->configFileReader = $configFileReaderInterface;
     }
 
     /**
@@ -31,18 +26,16 @@ class ConfigFile
      */
     private function getConfigurationData()
     {
-        return $this->configFileReader->getData();
+        return $this->configFileReader->getFileContents();
     }
 
     /**
-     * @return array
+     * @return mixed
      *
-     * @throws ConfigFileNotFoundException
      * @throws InvalidConfigStructureException
      */
     public function getPreCommitConfiguration()
     {
-        $this->configFileValidator->validate();
         $data = $this->getConfigurationData();
 
         if (!isset($data['pre-commit']) || !isset($data['pre-commit']['execute'])) {

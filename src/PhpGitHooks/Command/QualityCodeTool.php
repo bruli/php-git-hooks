@@ -23,6 +23,8 @@ class QualityCodeTool extends Application
     private $outputTitleHandler;
 
     const PHP_FILES_IN_SRC = '/^src\/(.*)(\.php)$/';
+    const JSON_FILES_IN_SRC = '/^src\/(.*)(\.json)$/';
+    const YML_FILES_IN_SRC = '/^src\/(.*)(\.yml)$/';
     const COMPOSER_FILES = '/^composer\.(json|lock)$/';
 
     public function __construct()
@@ -34,7 +36,7 @@ class QualityCodeTool extends Application
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      */
     public function doRun(InputInterface $input, OutputInterface $output)
@@ -72,20 +74,16 @@ class QualityCodeTool extends Application
      */
     private function processingFiles()
     {
-        $files = [
-            'php' => false,
-            'composer' => false,
-        ];
+        $files = [];
 
         foreach ($this->files as $file) {
-            $isPhpFile = preg_match(self::PHP_FILES_IN_SRC, $file);
-            if ($isPhpFile) {
-                $files['php'] = true;
-            }
-            $isComposerFile = preg_match(self::COMPOSER_FILES, $file);
-            if ($isComposerFile) {
-                $files['composer'] = true;
-            }
+            $files = [
+                'php' => preg_match(self::PHP_FILES_IN_SRC, $file),
+                'composer' => preg_match(self::COMPOSER_FILES, $file),
+                'json' => preg_match(self::JSON_FILES_IN_SRC, $file),
+                'yml' => preg_match(self::YML_FILES_IN_SRC, $file)
+            ];
+
         }
 
         return $files;

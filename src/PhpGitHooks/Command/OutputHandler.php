@@ -29,7 +29,7 @@ class OutputHandler implements OutputHandlerInterface
     public function getTitle()
     {
         $text = $this->title;
-        $length = $this->getlength();
+        $length = $this->getLength();
 
         for ($i = 0; $i < $length; $i++) {
             $text .= self::TITLE_SEPARATOR;
@@ -41,7 +41,7 @@ class OutputHandler implements OutputHandlerInterface
     /**
      * @return int
      */
-    private function getlength()
+    private function getLength()
     {
         return self::MAX_LENGTH - strlen($this->title);
     }
