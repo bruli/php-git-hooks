@@ -36,10 +36,10 @@ final class ConfiguratorProcessor
 
     /**
      * @param ConfigFileReaderInterface $configFileReader
-     * @param PreCommitProcessor $preCommitProcessor
-     * @param CommitMsgProcessor $commitMsgProcessor
+     * @param PreCommitProcessor        $preCommitProcessor
+     * @param CommitMsgProcessor        $commitMsgProcessor
      * @param ConfigFileWriterInterface $configFileWriter
-     * @param HooksFileCopier $hooksFileCopier
+     * @param HooksFileCopier           $hooksFileCopier
      */
     public function __construct(
         ConfigFileReaderInterface $configFileReader,
@@ -56,11 +56,11 @@ final class ConfiguratorProcessor
     }
 
     /**
-     * @param IOInterface $IOInterface
+     * @param IOInterface $iOInterface
      */
-    public function setIO(IOInterface $IOInterface)
+    public function setIO(IOInterface $iOInterface)
     {
-        $this->IO = $IOInterface;
+        $this->IO = $iOInterface;
     }
 
     public function process()
@@ -104,7 +104,7 @@ final class ConfiguratorProcessor
 
     /**
      * @param string $hook
-     * @param bool $enabled
+     * @param bool   $enabled
      */
     private function copyHook($hook, $enabled)
     {

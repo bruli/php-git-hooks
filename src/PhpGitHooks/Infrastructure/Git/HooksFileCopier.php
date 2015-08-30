@@ -2,7 +2,6 @@
 
 namespace PhpGitHooks\Infrastructure\Git;
 
-use PhpGitHooks\Infrastructure\Common\FileCopierInterface;
 use Symfony\Component\Process\Process;
 
 /**
@@ -14,13 +13,13 @@ class HooksFileCopier
 
     /**
      * @param string $hook
-     * @param bool $enabled
+     * @param bool   $enabled
      */
     public function copy($hook, $enabled)
     {
         if (true === $enabled) {
             if (false === file_exists(self::GIT_HOOKS_PATH.$hook)) {
-                $copy = new Process('cp ' . __DIR__ . '/../../../../hooks/' . $hook . ' .git/hooks/' . $hook);
+                $copy = new Process('cp '.__DIR__.'/../../../../hooks/'.$hook.' .git/hooks/'.$hook);
                 $copy->run();
             }
         }

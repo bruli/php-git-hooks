@@ -3,7 +3,7 @@
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-//use PhpGitHooks\Command\QualityCodeTool;
-//
-//$console = new QualityCodeTool();
-//$console->run();
+use PhpGitHooks\Command\QualityCodeTool;
+
+$console = new QualityCodeTool();
+$console->run();

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PhpGitHooks\Tests\Application\Composer;
-
 
 use Composer\IO\IOInterface;
 use Mockery\Mock;
@@ -55,8 +53,8 @@ class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
     {
         $commitMsg = $this->commitMsgProcessor->execute([
             'commit-msg' => [
-                'enabled' => false
-            ]
+                'enabled' => false,
+            ],
         ]);
 
         $this->assertArrayHasKey('commit-msg', $commitMsg);

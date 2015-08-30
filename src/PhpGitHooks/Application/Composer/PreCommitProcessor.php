@@ -76,7 +76,6 @@ final class PreCommitProcessor extends Processor
             $answer = $this->setQuestionTool($tool);
 
             $this->configData['pre-commit']['execute'][$tool]['enabled'] = 'Y' === strtoupper($answer) ? true : false;
-
         }
         if (!isset($this->configData['pre-commit']['execute'][$tool]['level'])) {
             $answerLevel = $this->setQuestion(

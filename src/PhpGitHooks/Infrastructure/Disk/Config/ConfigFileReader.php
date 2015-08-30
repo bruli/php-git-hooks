@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 
 final class ConfigFileReader implements ConfigFileReaderInterface
 {
-    const CONFIG_FILE = 'php-git-hooks.ymlaa';
+    const CONFIG_FILE = 'php-git-hooks.yml';
 
     /**
      * @return array
