@@ -22,16 +22,16 @@ class InMemoryPhpCsFixerHandler implements InteractiveToolInterface
     }
 
     /**
-     * @param string $filesToAnalize
+     * @param array $files
      */
-    public function setFilesToAnalize($filesToAnalize)
+    public function setFiles(array $files)
     {
     }
 
     /**
-     * @param array $files
+     * @param string $filesToAnalyze
      */
-    public function setFiles(array $files)
+    public function setFilesToAnalyze($filesToAnalyze)
     {
     }
 }

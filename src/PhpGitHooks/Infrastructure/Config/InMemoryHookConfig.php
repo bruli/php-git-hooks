@@ -2,12 +2,13 @@
 
 namespace PhpGitHooks\Infrastructure\Config;
 
+use PhpGitHooks\Application\Config\HookConfigExtraToolInterface;
 use PhpGitHooks\Application\Config\HookConfigInterface;
 
 /**
  * Class InMemoryHookConfig.
  */
-class InMemoryHookConfig implements HookConfigInterface
+class InMemoryHookConfig implements HookConfigInterface, HookConfigExtraToolInterface
 {
     /** @var  bool */
     private $enabled;
@@ -28,5 +29,14 @@ class InMemoryHookConfig implements HookConfigInterface
     public function isEnabled($hook)
     {
         return $this->enabled;
+    }
+
+    /**
+     * @param array $tool
+     *
+     * @return array
+     */
+    public function extraOptions($tool)
+    {
     }
 }

@@ -55,6 +55,9 @@ class CommitMessageValidator extends ToolHandler
      */
     public function validate()
     {
+        var_dump($this->configFile);
+        die;
+
         $this->outputHandler->setTitle('Checking commit message');
         $this->outputHandler->getTitle();
         $commitMessage = $this->extractCommitMessage->extract($this->input->getFirstArgument());
