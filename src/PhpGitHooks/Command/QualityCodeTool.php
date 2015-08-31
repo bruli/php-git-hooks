@@ -24,7 +24,6 @@ class QualityCodeTool extends Application
 
     const PHP_FILES_IN_SRC = '/^src\/(.*)(\.php)$/';
     const JSON_FILES_IN_SRC = '/^src\/(.*)(\.json)$/';
-    const YML_FILES_IN_SRC = '/^src\/(.*)(\.yml)$/';
     const COMPOSER_FILES = '/^composer\.(json|lock)$/';
 
     public function __construct()
@@ -74,16 +73,24 @@ class QualityCodeTool extends Application
      */
     private function processingFiles()
     {
-        $files = [];
+        $files = [
+            'php' => false,
+            'composer' => false,
+            'json' => false
+        ];
 
         foreach ($this->files as $file) {
-            $files = [
-                'php' => preg_match(self::PHP_FILES_IN_SRC, $file),
-                'composer' => preg_match(self::COMPOSER_FILES, $file),
-                'json' => preg_match(self::JSON_FILES_IN_SRC, $file),
-                'yml' => preg_match(self::YML_FILES_IN_SRC, $file)
-            ];
+            if (true === (bool)preg_match(self::PHP_FILES_IN_SRC, $file)) {
+                $files['php'] = true;
+            }
 
+            if (true === (bool)preg_match(self::COMPOSER_FILES, $file)) {
+                $files['composer'] = true;
+            }
+
+            if (true === (bool)preg_match(self::JSON_FILES_IN_SRC, $file)) {
+                $files['json'] = true;
+            }
         }
 
         return $files;
@@ -91,12 +98,12 @@ class QualityCodeTool extends Application
 
     private function execute()
     {
-        if ($this->isProcessingAnyComposerFile()) {
+        if (true === $this->isProcessingAnyComposerFile()) {
             $this->container->get('check.composer.files.pre.commit.executor')
                 ->run($this->output, $this->files);
         }
 
-        if ($this->isProcessingAnyPhpFile()) {
+        if (true === $this->isProcessingAnyPhpFile()) {
             $this->container->get('check.php.syntax.lint.pre.commit.executor')
                 ->run($this->output, $this->files);
 
@@ -110,6 +117,10 @@ class QualityCodeTool extends Application
                 ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
 
             $this->container->get('unit.test.pre.commit.executor')->run($this->output);
+        }
+        if (true === $this->isProcessingAnyJsonFile()) {
+            $this->container->get('check.json.syntax.pre.commit.executor')
+                ->run($this->output, $this->files, self::JSON_FILES_IN_SRC);
         }
     }
 
@@ -131,5 +142,15 @@ class QualityCodeTool extends Application
         $files = $this->processingFiles();
 
         return $files['php'];
+    }
+
+    /**
+     * @return bool
+     */
+    private function isProcessingAnyJsonFile()
+    {
+        $files = $this->processingFiles();
+
+        return $files['json'];
     }
 }

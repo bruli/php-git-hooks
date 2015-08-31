@@ -4,7 +4,7 @@ namespace PhpGitHooks\Application\Composer;
 
 final class PreCommitProcessor extends Processor
 {
-    private $simpleTools = ['phpunit', 'phpcs', 'phplint', 'phpmd'];
+    private $simpleTools = ['phpunit', 'phpcs','jsonlint', 'phplint', 'phpmd'];
 
     /**
      * @param array $configData

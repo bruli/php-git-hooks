@@ -50,8 +50,8 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigNewSimpleToolWithoutConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(7)
-            ->andReturn('y', 'n', 'y', 'y', 'y');
+            ->times(8)
+            ->andReturn('y', 'n', 'y', 'y', 'y', 'y');
 
         $configData = $this->preCommitProcessor->execute([]);
 
@@ -61,6 +61,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($execute['phplint']);
         $this->assertTrue($execute['phpcs']);
         $this->assertTrue($execute['phpmd']);
+        $this->assertTrue($execute['jsonlint']);
     }
 
     /**
@@ -69,7 +70,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigSimpleToolWithConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(3)
+            ->times(4)
             ->andReturn('y');
 
         $configData = $this->preCommitProcessor->execute(
@@ -99,7 +100,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitAddPhpCsFixer()
     {
         $this->IO->shouldReceive('ask')
-            ->twice()
+            ->times(2)
             ->andReturn('y', 'psr2');
 
         $configData = $this->preCommitProcessor->execute(
@@ -110,6 +111,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                         'phpcs' => true,
                         'phplint' => true,
                         'phpmd' => true,
+                        'jsonlint' => true
                     ],
                     'enabled' => true,
                 ],
