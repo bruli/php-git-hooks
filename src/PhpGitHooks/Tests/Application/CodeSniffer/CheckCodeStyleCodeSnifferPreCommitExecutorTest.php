@@ -4,6 +4,7 @@ namespace PhpGitHooks\Tests\Application\CodeSniffer;
 
 use Mockery\Mock;
 use PhpGitHooks\Application\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecutor;
+use PhpGitHooks\Infrastructure\CodeSniffer\CodeSnifferHandler;
 use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
 use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 
@@ -25,7 +26,7 @@ class CheckCodeStyleCodeSnifferPreCommitExecutorTest extends \PHPUnit_Framework_
     {
         $this->outputInterface = new InMemoryOutputInterface();
         $this->preCommitConfig = new InMemoryHookConfig();
-        $this->codeSnifferHandler = \Mockery::mock('PhpGitHooks\Infrastructure\CodeSniffer\CodeSnifferHandler');
+        $this->codeSnifferHandler = \Mockery::mock(CodeSnifferHandler::class);
         $this->checkCodeStyleCodeSnifferPreCommitExecutor  = new CheckCodeStyleCodeSnifferPreCommitExecutor(
             $this->preCommitConfig,
             $this->codeSnifferHandler

@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class InMemoryPhpCsFixerHandler.
  */
-class InMemoryPhpCsFixerHandler implements InteractiveToolInterface
+class InMemoryPhpCsFixerHandler implements InteractiveToolInterface, PhpCsFixerHandlerInterface
 {
     /**
      * @param OutputInterface $outputInterface
@@ -32,6 +32,13 @@ class InMemoryPhpCsFixerHandler implements InteractiveToolInterface
      * @param string $filesToAnalyze
      */
     public function setFilesToAnalyze($filesToAnalyze)
+    {
+    }
+
+    /**
+     * @param string $level
+     */
+    public function setLevel($level)
     {
     }
 }

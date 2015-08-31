@@ -12,6 +12,8 @@ class InMemoryHookConfig implements HookConfigInterface, HookConfigExtraToolInte
 {
     /** @var  bool */
     private $enabled;
+    /** @var array  */
+    private $extraOptions = [];
 
     /**
      * @param bool $enabled
@@ -32,11 +34,20 @@ class InMemoryHookConfig implements HookConfigInterface, HookConfigExtraToolInte
     }
 
     /**
+     * @param array $extraOptions
+     */
+    public function setExtraOptions($extraOptions)
+    {
+        $this->extraOptions = $extraOptions;
+    }
+
+    /**
      * @param array $tool
      *
      * @return array
      */
     public function extraOptions($tool)
     {
+        return $this->extraOptions;
     }
 }

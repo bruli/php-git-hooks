@@ -4,6 +4,7 @@ namespace PhpGitHooks\Tests\Infrastructure\Config;
 
 use PhpGitHooks\Application\Config\PreCommitConfig;
 use PhpGitHooks\Infrastructure\Disk\Config\InMemoryConfigFileReader;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class PreCommitConfigTest.
@@ -27,7 +28,7 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
     public function invalidConfigData()
     {
         $data = ['pre-commit' => ['execute' => ['phpunit' => 'dfaa'],
-            ],
+        ],
         ];
 
         $this->configFileReader->fileContents = $data;
@@ -41,12 +42,12 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
     public function serviceNameNotExists()
     {
         $data = ['pre-commit' => ['execute' => ['phpunit' => true],
-            ],
+        ],
         ];
 
         $this->configFileReader->fileContents = $data;
 
-        $this->assertFalse($this->preCommitConfig->isEnabled('servicename'));
+        $this->assertFalse($this->preCommitConfig->isEnabled('serviceName'));
     }
 
     /**
@@ -55,11 +56,36 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
     public function serviceIsEnabled()
     {
         $data = ['pre-commit' => ['execute' => ['phpunit' => true],
-            ],
+        ],
         ];
 
         $this->configFileReader->fileContents = $data;
 
         $this->assertTrue($this->preCommitConfig->isEnabled('phpunit'));
+    }
+
+    /**
+     * @test
+     */
+    public function noServiceDataThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+
+        $this->configFileReader->fileContents = [];
+
+        $this->preCommitConfig->isEnabled('phpunit');
+    }
+
+    /**
+     * @test
+     */
+    public function getExtraOptions()
+    {
+        $this->configFileReader->fileContents = ['pre-commit' => ['execute' => ['php-cs-fixer' => [
+                'enabled' => true,
+                'level' => 'psr0',
+            ]]]];
+
+        $this->preCommitConfig->extraOptions('php-cs-fixer');
     }
 }

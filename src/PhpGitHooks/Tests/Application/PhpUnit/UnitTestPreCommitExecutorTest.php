@@ -5,9 +5,13 @@ namespace PhpGitHooks\Tests\Application\PhpUnit;
 use Mockery\Mock;
 use PhpGitHooks\Application\PhpUnit\PhpUnitHandler;
 use PhpGitHooks\Application\PhpUnit\UnitTestPreCommitExecutor;
+use PhpGitHooks\Application\PhpUnit\UnitTestsException;
 use PhpGitHooks\Command\InMemoryOutputHandler;
 use PhpGitHooks\Infrastructure\Component\InMemoryOutputInterface;
 use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
+use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * Class UnitTestPreCommitExecutorTest.
@@ -36,9 +40,9 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
         $this->preCommitConfig = new InMemoryHookConfig();
         $this->outputInterface = new InMemoryOutputInterface();
         $this->outputHandler = new InMemoryOutputHandler();
-        $this->phpunitProcessBuilder = \Mockery::mock('PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder');
-        $this->processBuilder = \Mockery::mock('Symfony\Component\Process\ProcessBuilder');
-        $this->process = \Mockery::mock('Symfony\Component\Process\Process');
+        $this->phpunitProcessBuilder = \Mockery::mock(PhpUnitProcessBuilder::class);
+        $this->processBuilder = \Mockery::mock(ProcessBuilder::class);
+        $this->process = \Mockery::mock(Process::class);
         $this->process->shouldReceive('run')->andReturn(1);
         $this->process->shouldReceive('stop');
 
@@ -79,7 +83,7 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
      */
     public function isEnabledAndThrow()
     {
-        $this->setExpectedException('PhpGitHooks\Application\PhpUnit\UnitTestsException');
+        $this->setExpectedException(UnitTestsException::class);
 
         $this->preCommitConfig->setEnabled(true);
         $this->process->shouldReceive('isSuccessful')->andReturn(false);

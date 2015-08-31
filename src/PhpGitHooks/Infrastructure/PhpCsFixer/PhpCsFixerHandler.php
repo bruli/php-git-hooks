@@ -6,7 +6,7 @@ use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
-class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface
+class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface, PhpCsFixerHandlerInterface
 {
     /** @var array */
     private $files;
