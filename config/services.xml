@@ -21,7 +21,7 @@
         </service>
         <service id="hook.file.copier" class="PhpGitHooks\Infrastructure\Git\HooksFileCopier">
         </service>
-        <service id="check.composer.files.pre.commit.executor" class="PhpGitHooks\Application\Composer\CheckComposerFilesPreCommitExecuter">
+        <service id="check.composer.files.pre.commit.executor" class="PhpGitHooks\Application\Composer\CheckComposerFilesPreCommitExecutor">
             <argument type="service" id="composer.files.validator"/>
         </service>
         <service id="composer.files.validator" class="PhpGitHooks\Application\Composer\ComposerFilesValidator">
