@@ -30,7 +30,7 @@ class ConfigFile
     }
 
     /**
-     * @return mixed
+     * @return array
      *
      * @throws InvalidConfigStructureException
      */
@@ -46,11 +46,20 @@ class ConfigFile
     }
 
     /**
-     * @return string
+     * @return array
+     *
+     * @throws InvalidConfigStructureException
      */
     public function getMessageCommitConfiguration()
     {
         $data = $this->getConfigurationData();
+
+        if (!isset($data['commit-msg']) ||
+            !isset($data['commit-msg']['enabled']) ||
+            !isset($data['commit-msg']['regular-expression'])
+        ) {
+            throw new InvalidConfigStructureException();
+        }
 
         return $data['commit-msg'];
     }
