@@ -102,6 +102,11 @@ class QualityCodeTool extends Application
             $this->container->get('check.composer.files.pre.commit.executor')
                 ->run($this->output, $this->files);
         }
+        
+        if (true === $this->isProcessingAnyJsonFile()) {
+            $this->container->get('check.json.syntax.pre.commit.executor')
+                ->run($this->output, $this->files, self::JSON_FILES_IN_SRC);
+        }
 
         if (true === $this->isProcessingAnyPhpFile()) {
             $this->container->get('check.php.syntax.lint.pre.commit.executor')
@@ -117,10 +122,6 @@ class QualityCodeTool extends Application
                 ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
 
             $this->container->get('unit.test.pre.commit.executor')->run($this->output);
-        }
-        if (true === $this->isProcessingAnyJsonFile()) {
-            $this->container->get('check.json.syntax.pre.commit.executor')
-                ->run($this->output, $this->files, self::JSON_FILES_IN_SRC);
         }
     }
 
