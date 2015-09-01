@@ -25,7 +25,9 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function preCommitHookEnabled()
     {
-        $this->IO->shouldReceive('ask')->andReturn('y');
+        $this->IO->shouldReceive('ask')
+            ->times(8)
+            ->andReturn('y', 'y', 'y', 'y', 'y', 'y', 'y', 'psr0');
         $configData = $this->preCommitProcessor->execute([]);
 
         $this->assertTrue($configData['pre-commit']['enabled']);
@@ -51,7 +53,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     {
         $this->IO->shouldReceive('ask')
             ->times(8)
-            ->andReturn('y', 'n', 'y', 'y', 'y', 'y');
+            ->andReturn('y', 'n', 'y', 'y', 'y', 'y', 'y', 'PSR1');
 
         $configData = $this->preCommitProcessor->execute([]);
 
@@ -71,7 +73,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     {
         $this->IO->shouldReceive('ask')
             ->times(4)
-            ->andReturn('y');
+            ->andReturn('y', 'y', 'y', 'symfony');
 
         $configData = $this->preCommitProcessor->execute(
             [
@@ -123,5 +125,34 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('php-cs-fixer', $execute);
         $this->assertTrue($execute['php-cs-fixer']['enabled']);
         $this->assertEquals('psr2', $execute['php-cs-fixer']['level']);
+    }
+
+    /**
+     * @test
+     */
+    public function preCommitAddPhpCsFixerWithInvalidLevel()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $this->IO->shouldReceive('ask')
+            ->times(2)
+            ->andReturn('y', 'invalid_level');
+
+        $configData = $this->preCommitProcessor->execute(
+            [
+                'pre-commit' => [
+                    'execute' => [
+                        'phpunit' => true,
+                        'phpcs' => true,
+                        'phplint' => true,
+                        'phpmd' => true,
+                        'jsonlint' => true
+                    ],
+                    'enabled' => true,
+                ],
+            ]
+        );
+
+        $configData['pre-commit']['execute'];
     }
 }
