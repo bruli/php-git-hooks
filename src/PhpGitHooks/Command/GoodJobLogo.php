@@ -9,7 +9,7 @@ final class GoodJobLogo
      */
     public static function paint()
     {
-        return '
+        return '<fg=yellow;options=bold;>
                  @@@@@@@@@@@@                 _   _
                @@            @@              | |_| |  __   _   _
      @@@@     @@               @@            |  _  | / _\ \ \/ /
@@ -28,6 +28,6 @@ final class GoodJobLogo
   @@@@@@@@@@   @@               @@
                   @@@@@@@@@@@@@
 
-        ';
+        </fg=yellow;options=bold;>';
     }
 }

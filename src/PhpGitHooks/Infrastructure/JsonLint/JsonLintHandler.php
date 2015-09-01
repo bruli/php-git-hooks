@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\JsonLint;
 
+use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
@@ -45,6 +46,7 @@ final class JsonLintHandler extends ToolHandler implements RecursiveToolInterfac
         });
 
         if ($errors) {
+            $this->output->writeln(BadJobLogo::paint());
             throw new JsonLintViolationsException(implode('', $errors));
         }
 

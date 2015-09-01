@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\CodeSniffer;
 
+use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
@@ -38,6 +39,7 @@ class CodeSnifferHandler extends ToolHandler
             if (false === $phpCs->isSuccessful()) {
                 $this->outputHandler->setError($phpCs->getOutput());
                 $this->output->writeln($this->outputHandler->getError());
+                $this->output->writeln(BadJobLogo::paint());
 
                 throw new InvalidCodingStandardException();
             }

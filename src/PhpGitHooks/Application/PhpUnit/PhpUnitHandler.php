@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\PhpUnit;
 
+use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Command\OutputHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\ProcessBuilderInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
@@ -40,6 +41,7 @@ class PhpUnitHandler extends ToolHandler
             ->executeProcess($phpunit, $this->output);
 
         if (!$phpunit->isSuccessful()) {
+            $this->output->writeln(BadJobLogo::paint());
             throw new UnitTestsException();
         }
     }

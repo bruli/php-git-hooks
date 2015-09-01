@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpMD;
 
+use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
@@ -55,6 +56,7 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
         });
 
         if ($errors) {
+            $this->output->writeln(BadJobLogo::paint());
             throw new PHPMDViolationsException(implode('', $errors));
         }
 

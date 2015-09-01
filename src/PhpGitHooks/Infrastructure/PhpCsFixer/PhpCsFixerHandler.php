@@ -2,6 +2,8 @@
 
 namespace PhpGitHooks\Infrastructure\PhpCsFixer;
 
+use PhpGitHooks\Command\BadJobLogo;
+use PhpGitHooks\Command\GoodJobLogo;
 use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
@@ -15,6 +17,9 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
     /** @var  string */
     private $level;
 
+    /**
+     * @throws PhpCsFixerException
+     */
     public function run()
     {
         $this->outputHandler->setTitle('Checking '.strtoupper($this->level).' code style with PHP-CS-FIXER');
@@ -49,6 +54,14 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
         }
 
         if ($errors) {
+            $this->output->writeln(BadJobLogo::paint());
+            throw new PhpCsFixerException(implode('', $errors));
+        }
+
+        $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
+    }
+
+    /**
             throw new PhpCsFixerException(implode('', $errors));
         }
 

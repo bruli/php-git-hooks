@@ -2,6 +2,8 @@
 
 namespace PhpGitHooks\Command;
 
+use PhpGitHooks\Application\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecutor;
+use PhpGitHooks\Application\PhpCsFixer\FixCodeStyleCsFixerPreCommitExecutor;
 use PhpGitHooks\Container;
 use PhpGitHooks\Infrastructure\Git\ExtractCommitedFiles;
 use Symfony\Component\Console\Application;
@@ -47,7 +49,7 @@ class QualityCodeTool extends Application
 
         $this->execute();
 
-        $this->output->writeln('<fg=yellow;options=bold;>'.GoodJobLogo::paint().'</fg=yellow;options=bold;>');
+        $this->output->writeln(GoodJobLogo::paint());
     }
 
     private function extractCommitFiles()
@@ -112,11 +114,13 @@ class QualityCodeTool extends Application
             $this->container->get('check.php.syntax.lint.pre.commit.executor')
                 ->run($this->output, $this->files);
 
-            $this->container->get('fix.code.style.cs.fixer.pre.commit.executor')
-                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+            /** @var FixCodeStyleCsFixerPreCommitExecutor $csFixer */
+            $csFixer = $this->container->get('fix.code.style.cs.fixer.pre.commit.executor');
+            $csFixer->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
 
-            $this->container->get('check.code.style.code.sniffer.pre.commit.executor')
-                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+            /** @var CheckCodeStyleCodeSnifferPreCommitExecutor $codeSniffer */
+            $codeSniffer = $this->container->get('check.code.style.code.sniffer.pre.commit.executor');
+            $codeSniffer->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
 
             $this->container->get('check.php.mess.detection.pre.commit.executor')
                 ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);

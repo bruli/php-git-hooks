@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpLint;
 
+use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\FilesToolHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\Process;
@@ -39,6 +40,7 @@ class PhpLintHandler extends ToolHandler implements FilesToolHandlerInterface
         if (false === $process->isSuccessful()) {
             $this->outputHandler->setError($process->getErrorOutput());
             $this->output->writeln($this->outputHandler->getError());
+            $this->output->writeln(BadJobLogo::paint());
 
             throw new PhpLintException();
         }
