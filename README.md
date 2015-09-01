@@ -131,7 +131,10 @@ You can enable this hooks with composer or manually executing
 ```
 
 ### execute.
+####Valid pre-commit.
 <img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/pre-commit.png" />
+####Fail pre-commit.
+<img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/pre-commit-failed.png" />
 
 ## Credits
 
