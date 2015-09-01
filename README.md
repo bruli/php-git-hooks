@@ -62,7 +62,8 @@ In Symfony2 projects you need add this lines in your composer.json:
       "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
     ]
 ```
-**Important: To use 2.X version you need symfony 2.7 version.
+
+**Important: To use 2.X version you need symfony 2.7 version.**
 
 ### Bin directory configuration.
 
