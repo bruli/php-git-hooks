@@ -1,7 +1,9 @@
 pre-commit:
   enabled: true
   execute:
-    php-cs-fixer:  true
+    php-cs-fixer:
+        enabled:    true
+        level:      psr0
     phpunit:       true
     phplint:       true
     phpcs:         true

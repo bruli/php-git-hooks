@@ -81,7 +81,9 @@ You can configure php-git-hooks, creating a php-git-hooks.yml file with...
 pre-commit:
   enabled: true
   execute:
-    php-cs-fixer:  true
+    php-cs-fixer:
+        enabled:  true
+        level:    psr0
     phpunit:       true
     phplint:       true
     phpcs:         true
@@ -92,6 +94,13 @@ commit-msg:
 ```
 
 ... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.
+
+### Update from v1.3.*
+
+Php-cs-fixer configuration in php-git-hooks.yml file, is not compatible with 2.0 version. 
+You should remove php-cs-fixer entry and execute "composer install".
+
+Most easy way to update is delete php-git-hooks.yml and execute "composer install". You will see all the configuration questions again.
 
 ### Config file for phpunit.
 If you want use phpunit tool, you must create a phpunit.xml.dist in your project root directory. 
