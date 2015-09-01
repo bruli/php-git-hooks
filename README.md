@@ -21,7 +21,7 @@ You must add the following line to the `composer.json` file:
 ```json
 {
     "require-dev": {
-        "bruli/php-git-hooks": "1.*@dev"
+        "bruli/php-git-hooks": "2.*@dev"
     }
 }
 ```
@@ -62,6 +62,8 @@ In Symfony2 projects you need add this lines in your composer.json:
       "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
     ]
 ```
+**Important: To use 2.X version you need symfony 2.7 version.
+
 ### Bin directory configuration.
 
 If your project haven't a "bin" directory, you can add this in your compose.json file.
