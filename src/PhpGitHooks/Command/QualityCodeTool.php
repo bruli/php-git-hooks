@@ -61,6 +61,7 @@ class QualityCodeTool extends Application
 
         $this->files = $commitFiles->getFiles();
 
+        var_dump($this->existsFiles()); die;
         if ($this->existsFiles()) {
             $result = '0k';
         } else {
