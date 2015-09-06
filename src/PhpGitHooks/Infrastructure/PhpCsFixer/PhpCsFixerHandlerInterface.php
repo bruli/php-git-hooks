@@ -5,7 +5,7 @@ namespace PhpGitHooks\Infrastructure\PhpCsFixer;
 interface PhpCsFixerHandlerInterface
 {
     /**
-     * @param string $level
+     * @param array $levels
      */
-    public function setLevel($level);
+    public function setLevels(array $levels);
 }

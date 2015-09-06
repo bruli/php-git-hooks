@@ -83,16 +83,18 @@ final class PreCommitProcessor extends Processor
         }
 
 
-        if (!isset($this->configData['pre-commit']['execute'][$tool]['level'])) {
-            $answerLevel = strtolower($this->setQuestion(
-                sprintf('Set a default Level for %s tool', strtoupper($tool)),
-                '[PSR0|psr1|psr2|symfony]',
-                'psr0'
-            ));
+        if (!isset($this->configData['pre-commit']['execute'][$tool]['levels'])) {
+            foreach (['psr0', 'psr1', 'psr2', 'symfony'] as $level) {
+                $answerLevel = strtolower($this->setQuestion(
+                    sprintf('Enable %s level for %s tool', $level, strtoupper($tool)),
+                    '[Y/n]',
+                    'Y'
+                ));
 
-            $this->checkLevel($answerLevel);
+                $answerLevel = 'Y' === strtoupper($answerLevel) ? true : false;
 
-            $this->configData['pre-commit']['execute'][$tool]['level'] = $answerLevel;
+                $this->configData['pre-commit']['execute'][$tool]['levels'][$level] = $answerLevel;
+            }
         }
     }
 
@@ -104,18 +106,6 @@ final class PreCommitProcessor extends Processor
     private function setQuestionTool($tool)
     {
         return $this->setQuestion(sprintf('Do you want enable %s tool?', strtoupper($tool)), '[Y/n]', 'Y');
-    }
-
-    /**
-     * @param string $answerLevel
-     */
-    private function checkLevel($answerLevel)
-    {
-        $levels = ['psr0', 'psr1', 'psr2', 'symfony'];
-
-        if (false === in_array($answerLevel, $levels)) {
-            throw new \InvalidArgumentException('Invalid php-cs-fixer level.');
-        }
     }
 
     /**

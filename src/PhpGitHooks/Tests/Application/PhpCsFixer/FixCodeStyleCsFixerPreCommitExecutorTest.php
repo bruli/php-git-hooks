@@ -37,7 +37,7 @@ class FixCodeStyleCsFixerPreCommitExecutorTest extends \PHPUnit_Framework_TestCa
      */
     public function idDisabled()
     {
-        $this->preCommitConfig->setExtraOptions(['enabled' => false, 'level' => 'psr0']);
+        $this->preCommitConfig->setExtraOptions(['enabled' => false, 'levels' => []]);
         $this->fixCodeStyleCsFixerPreCommitExecutor->run(
             $this->outputInterface,
             array(),
@@ -50,7 +50,7 @@ class FixCodeStyleCsFixerPreCommitExecutorTest extends \PHPUnit_Framework_TestCa
      */
     public function isEnabled()
     {
-        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'level' => 'psr0']);
+        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'levels' => ['psr0' => true]]);
 
         $this->fixCodeStyleCsFixerPreCommitExecutor->run(
             $this->outputInterface,

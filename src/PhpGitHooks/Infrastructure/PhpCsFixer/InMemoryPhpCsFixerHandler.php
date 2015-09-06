@@ -36,9 +36,10 @@ class InMemoryPhpCsFixerHandler implements InteractiveToolInterface, PhpCsFixerH
     }
 
     /**
-     * @param string $level
+     * @param array $levels
      */
-    public function setLevel($level)
+    public function setLevels(array $levels)
     {
+        // TODO: Implement setLevels() method.
     }
 }

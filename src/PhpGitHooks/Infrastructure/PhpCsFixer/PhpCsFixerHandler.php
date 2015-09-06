@@ -14,61 +14,65 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
     private $files;
     /** @var string */
     private $filesToAnalyze;
-    /** @var  string */
-    private $level;
+    /** @var  array */
+    private $levels = [];
 
     /**
      * @throws PhpCsFixerException
      */
     public function run()
     {
-        $this->outputHandler->setTitle('Checking '.strtoupper($this->level).' code style with PHP-CS-FIXER');
-        $this->output->write($this->outputHandler->getTitle());
+        foreach ($this->levels as $level => $value) {
+            if (true === $value) {
+                $this->outputHandler->setTitle('Checking ' . strtoupper($level) . ' code style with PHP-CS-FIXER');
+                $this->output->write($this->outputHandler->getTitle());
 
-        $errors = array();
+                $errors = array();
 
-        foreach ($this->files as $file) {
-            $srcFile = preg_match($this->filesToAnalyze, $file);
+                foreach ($this->files as $file) {
+                    $srcFile = preg_match($this->filesToAnalyze, $file);
 
-            if (!$srcFile) {
-                continue;
-            }
+                    if (!$srcFile) {
+                        continue;
+                    }
 
-            $processBuilder = new ProcessBuilder(
-                array(
-                    'php',
-                    'bin/php-cs-fixer',
-                    '--dry-run',
-                    'fix',
-                    $file,
-                    '--fixers='.$this->level,
-                )
-            );
+                    $processBuilder = new ProcessBuilder(
+                        array(
+                            'php',
+                            'bin/php-cs-fixer',
+                            '--dry-run',
+                            'fix',
+                            $file,
+                            '--fixers=' . $level,
+                        )
+                    );
 
-            $phpCsFixer = $processBuilder->getProcess();
-            $phpCsFixer->run();
+                    $phpCsFixer = $processBuilder->getProcess();
+                    $phpCsFixer->run();
 
-            if (false === $phpCsFixer->isSuccessful()) {
-                $errors[] = $phpCsFixer->getOutput();
+                    if (false === $phpCsFixer->isSuccessful()) {
+                        $errors[] = $phpCsFixer->getOutput();
+                    }
+                }
+
+                if ($errors) {
+                    $this->output->writeln(BadJobLogo::paint());
+                    throw new PhpCsFixerException(implode('', $errors));
+                }
+
+                $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
             }
         }
-
-        if ($errors) {
-            $this->output->writeln(BadJobLogo::paint());
-            throw new PhpCsFixerException(implode('', $errors));
-        }
-
-        $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
     }
 
     /**
-            throw new PhpCsFixerException(implode('', $errors));
-        }
-
-        $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
-    }
-
-    /**
+     * throw new PhpCsFixerException(implode('', $errors));
+     * }
+     *
+     * $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
+     * }
+     *
+     * /**
      * @param array $files
      */
     public function setFiles(array $files)
@@ -85,10 +89,10 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
     }
 
     /**
-     * @param string $level
+     * @param array $levels
      */
-    public function setLevel($level)
+    public function setLevels(array $levels)
     {
-        $this->level = $level;
+        $this->levels = $levels;
     }
 }

@@ -27,7 +27,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitHookEnabled()
     {
         $this->IO->shouldReceive('ask')
-            ->times(8)
+            ->times(11)
             ->andReturn('y', 'y', 'y', 'y', 'y', 'y', 'y', 'psr0');
         $configData = $this->preCommitProcessor->execute([]);
 
@@ -53,8 +53,8 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigNewSimpleToolWithoutConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(8)
-            ->andReturn('y', 'n', 'y', 'y', 'y', 'y', 'y', 'PSR1');
+            ->times(11)
+            ->andReturn('y', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y');
 
         $configData = $this->preCommitProcessor->execute([]);
 
@@ -73,8 +73,8 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigSimpleToolWithConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(4)
-            ->andReturn('y', 'y', 'y', 'symfony');
+            ->times(7)
+            ->andReturn('y');
 
         $configData = $this->preCommitProcessor->execute(
             [
@@ -103,8 +103,8 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitAddPhpCsFixer()
     {
         $this->IO->shouldReceive('ask')
-            ->times(2)
-            ->andReturn('y', 'psr2');
+            ->times(5)
+            ->andReturn('y');
 
         $configData = $this->preCommitProcessor->execute(
             [
@@ -124,37 +124,16 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
         $execute = $configData['pre-commit']['execute'];
 
         $this->assertArrayHasKey('php-cs-fixer', $execute);
-        $this->assertTrue($execute['php-cs-fixer']['enabled']);
-        $this->assertEquals('psr2', $execute['php-cs-fixer']['level']);
-    }
 
-    /**
-     * @test
-     */
-    public function preCommitAddPhpCsFixerWithInvalidLevel()
-    {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $fixer = $execute['php-cs-fixer'];
+        $this->assertTrue($fixer['enabled']);
+        $this->assertArrayHasKey('levels', $fixer);
 
-        $this->IO->shouldReceive('ask')
-            ->times(2)
-            ->andReturn('y', 'invalid_level');
-
-        $configData = $this->preCommitProcessor->execute(
-            [
-                'pre-commit' => [
-                    'execute' => [
-                        'phpunit' => true,
-                        'phpcs' => true,
-                        'phplint' => true,
-                        'phpmd' => true,
-                        'jsonlint' => true
-                    ],
-                    'enabled' => true,
-                ],
-            ]
-        );
-
-        $configData['pre-commit']['execute'];
+        $levels = $fixer['levels'];
+        $this->assertTrue($levels['psr0']);
+        $this->assertTrue($levels['psr1']);
+        $this->assertTrue($levels['psr2']);
+        $this->assertTrue($levels['symfony']);
     }
 
     /**
@@ -165,7 +144,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(InvalidPhpCsFixerConfigDataException::class);
         $this->IO->shouldReceive('ask');
 
-        $configData = $this->preCommitProcessor->execute(
+        $this->preCommitProcessor->execute(
             [
                 'pre-commit' => [
                     'execute' => [
@@ -174,13 +153,36 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                         'phplint' => true,
                         'phpmd' => true,
                         'jsonlint' => true,
-                        'php-cs-fixer'  => true
+                        'php-cs-fixer' => true
                     ],
                     'enabled' => true,
                 ],
             ]
         );
+    }
 
-        $configData['pre-commit']['execute'];
+    /**
+     * @test
+     */
+    public function phpCsFixerConfigDataHasInvalidEntryEnabled()
+    {
+        $this->setExpectedException(InvalidPhpCsFixerConfigDataException::class);
+        $this->IO->shouldReceive('ask');
+
+        $this->preCommitProcessor->execute(
+            [
+                'pre-commit' => [
+                    'execute' => [
+                        'phpunit' => true,
+                        'phpcs' => true,
+                        'phplint' => true,
+                        'phpmd' => true,
+                        'jsonlint' => true,
+                        'php-cs-fixer' => []
+                    ],
+                    'enabled' => true,
+                ],
+            ]
+        );
     }
 }
