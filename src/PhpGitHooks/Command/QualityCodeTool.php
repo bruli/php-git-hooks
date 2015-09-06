@@ -48,7 +48,7 @@ class QualityCodeTool extends Application
         $this->extractCommitFiles();
 
         $this->execute();
-        
+
         if (true === $this->existsFiles()) {
             $this->output->writeln(GoodJobLogo::paint());
         }
