@@ -166,6 +166,7 @@ class QualityCodeTool extends Application
      */
     private function existsFiles()
     {
+        var_dump($this->files); die;
         return count($this->files) > 1;
     }
 }
