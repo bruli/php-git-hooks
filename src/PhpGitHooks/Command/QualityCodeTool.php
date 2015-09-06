@@ -53,7 +53,7 @@ class QualityCodeTool extends Application
     private function extractCommitFiles()
     {
         $this->outputTitleHandler->setTitle('Fetching files');
-        $this->output->write($this->outputTitleHandler->getTitle());
+        $this->output->writeln($this->outputTitleHandler->getTitle());
 
         $commitFiles = new ExtractCommitedFiles();
 
