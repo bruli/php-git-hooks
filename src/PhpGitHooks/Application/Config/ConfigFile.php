@@ -54,11 +54,14 @@ class ConfigFile
     {
         $data = $this->getConfigurationData();
 
-        if (!isset($data['commit-msg']) ||
-            !isset($data['commit-msg']['enabled']) ||
-            !isset($data['commit-msg']['regular-expression'])
-        ) {
+        if (!isset($data['commit-msg']) || !isset($data['commit-msg']['enabled'])) {
             throw new InvalidConfigStructureException();
+        }
+
+        if (true === $data['commit-msg']['enabled']) {
+            if (!isset($data['commit-msg']['regular-expression'])) {
+                throw new InvalidConfigStructureException();
+            }
         }
 
         return $data['commit-msg'];
