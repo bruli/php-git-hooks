@@ -61,13 +61,15 @@ class QualityCodeTool extends Application
 
         $this->files = $commitFiles->getFiles();
 
-        if (count($this->files) > 1) {
+        if ($this->existsFiles()) {
             $result = '0k';
         } else {
             $result = 'No files changed';
         }
 
-        $this->output->writeln($this->outputTitleHandler->getSuccessfulStepMessage($result));
+        if ($this->existsFiles()) {
+            $this->output->writeln($this->outputTitleHandler->getSuccessfulStepMessage($result));
+        }
     }
 
     /**
@@ -104,7 +106,7 @@ class QualityCodeTool extends Application
             $this->container->get('check.composer.files.pre.commit.executor')
                 ->run($this->output, $this->files);
         }
-        
+
         if (true === $this->isProcessingAnyJsonFile()) {
             $this->container->get('check.json.syntax.pre.commit.executor')
                 ->run($this->output, $this->files, self::JSON_FILES_IN_SRC);
@@ -157,5 +159,13 @@ class QualityCodeTool extends Application
         $files = $this->processingFiles();
 
         return $files['json'];
+    }
+
+    /**
+     * @return bool
+     */
+    private function existsFiles()
+    {
+        return count($this->files) > 1;
     }
 }
