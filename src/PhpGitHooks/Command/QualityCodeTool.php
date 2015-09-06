@@ -48,12 +48,16 @@ class QualityCodeTool extends Application
         $this->extractCommitFiles();
 
         $this->execute();
+        
+        if (true === $this->existsFiles()) {
+            $this->output->writeln(GoodJobLogo::paint());
+        }
     }
 
     private function extractCommitFiles()
     {
         $this->outputTitleHandler->setTitle('Fetching files');
-        $this->output->writeln($this->outputTitleHandler->getTitle());
+        $this->output->write($this->outputTitleHandler->getTitle());
 
         $commitFiles = new ExtractCommitedFiles();
 
@@ -62,9 +66,6 @@ class QualityCodeTool extends Application
         $result = true === $this->existsFiles() ? '0k' : 'No files changed';
         $this->output->writeln($this->outputTitleHandler->getSuccessfulStepMessage($result));
 
-        if (true === $this->existsFiles()) {
-            $this->output->writeln(GoodJobLogo::paint());
-        }
     }
 
     /**
