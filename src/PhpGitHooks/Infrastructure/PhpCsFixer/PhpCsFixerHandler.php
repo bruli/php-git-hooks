@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Infrastructure\PhpCsFixer;
 
 use PhpGitHooks\Command\BadJobLogo;
-use PhpGitHooks\Command\GoodJobLogo;
 use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
