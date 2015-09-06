@@ -61,14 +61,9 @@ class QualityCodeTool extends Application
 
         $this->files = $commitFiles->getFiles();
 
-        var_dump($this->existsFiles()); die;
-        if ($this->existsFiles()) {
-            $result = '0k';
-        } else {
-            $result = 'No files changed';
-        }
+        $result = true === $this->existsFiles() ? '0k' : 'No files changed';
 
-        if ($this->existsFiles()) {
+        if (true === $this->existsFiles()) {
             $this->output->writeln($this->outputTitleHandler->getSuccessfulStepMessage($result));
         }
     }
