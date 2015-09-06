@@ -21,7 +21,7 @@ You must add the following line to the `composer.json` file:
 ```json
 {
     "require-dev": {
-        "bruli/php-git-hooks": "2.*@dev"
+        "bruli/php-git-hooks": "^2.0"
     }
 }
 ```
@@ -86,7 +86,11 @@ pre-commit:
   execute:
     php-cs-fixer:
         enabled:  true
-        level:    psr0
+        levels:
+            psr0:       true
+            psr1:       true
+            psr2:       true
+            symfony:    true
     phpunit:       true
     phplint:       true
     phpcs:         true
