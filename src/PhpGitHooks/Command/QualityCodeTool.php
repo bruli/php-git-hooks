@@ -48,8 +48,6 @@ class QualityCodeTool extends Application
         $this->extractCommitFiles();
 
         $this->execute();
-
-        $this->output->writeln(GoodJobLogo::paint());
     }
 
     private function extractCommitFiles()
@@ -65,6 +63,7 @@ class QualityCodeTool extends Application
 
         if (true === $this->existsFiles()) {
             $this->output->writeln($this->outputTitleHandler->getSuccessfulStepMessage($result));
+            $this->output->writeln(GoodJobLogo::paint());
         }
     }
 
