@@ -75,4 +75,19 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
 
         $this->configFile->getMessageCommitConfiguration();
     }
+
+    /**
+     * @throws InvalidConfigStructureException
+     *
+     * @test
+     */
+    public function getCommitMsgConfigurationWithoutRegExpThrowsException()
+    {
+        $this->setExpectedException(InvalidConfigStructureException::class);
+        $this->configFileReader->fileContents = ['commit-msg' => [
+            'enabled' => true
+        ]];
+
+        $this->configFile->getMessageCommitConfiguration();
+    }
 }
