@@ -5,6 +5,7 @@ namespace PhpGitHooks\Tests\Application\Composer;
 use Composer\IO\IOInterface;
 use Mockery\Mock;
 use PhpGitHooks\Application\Composer\PreCommitProcessor;
+use PhpGitHooks\Application\PhpCsFixer\InvalidPhpCsFixerConfigDataException;
 
 class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
 {
@@ -147,6 +148,33 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                         'phplint' => true,
                         'phpmd' => true,
                         'jsonlint' => true
+                    ],
+                    'enabled' => true,
+                ],
+            ]
+        );
+
+        $configData['pre-commit']['execute'];
+    }
+
+    /**
+     * @test
+     */
+    public function phpCsFixerConfigDataHasInvalidEntry()
+    {
+        $this->setExpectedException(InvalidPhpCsFixerConfigDataException::class);
+        $this->IO->shouldReceive('ask');
+
+        $configData = $this->preCommitProcessor->execute(
+            [
+                'pre-commit' => [
+                    'execute' => [
+                        'phpunit' => true,
+                        'phpcs' => true,
+                        'phplint' => true,
+                        'phpmd' => true,
+                        'jsonlint' => true,
+                        'php-cs-fixer'  => true
                     ],
                     'enabled' => true,
                 ],

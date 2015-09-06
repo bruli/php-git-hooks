@@ -37,6 +37,8 @@ class ConfiguratorScriptTest extends \PHPUnit_Framework_TestCase
      */
     public function buildConfigReturnsProcess()
     {
+        $this->setExpectedException(\Exception::class);
+        /** @var Mock $iO */
         $iO = Mockery::mock(IOInterface::class);
         $iO->shouldReceive('ask');
 

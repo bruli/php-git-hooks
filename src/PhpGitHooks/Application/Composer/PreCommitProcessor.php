@@ -2,9 +2,11 @@
 
 namespace PhpGitHooks\Application\Composer;
 
+use PhpGitHooks\Application\PhpCsFixer\InvalidPhpCsFixerConfigDataException;
+
 final class PreCommitProcessor extends Processor
 {
-    private $simpleTools = ['phpunit', 'phpcs','jsonlint', 'phplint', 'phpmd'];
+    private $simpleTools = ['phpunit', 'phpcs', 'jsonlint', 'phplint', 'phpmd'];
 
     /**
      * @param array $configData
@@ -76,7 +78,11 @@ final class PreCommitProcessor extends Processor
             $answer = $this->setQuestionTool($tool);
 
             $this->configData['pre-commit']['execute'][$tool]['enabled'] = 'Y' === strtoupper($answer) ? true : false;
+        } else {
+            $this->checkPhpCsFixerConfigData($execute[$tool]);
         }
+
+
         if (!isset($this->configData['pre-commit']['execute'][$tool]['level'])) {
             $answerLevel = strtolower($this->setQuestion(
                 sprintf('Set a default Level for %s tool', strtoupper($tool)),
@@ -109,6 +115,26 @@ final class PreCommitProcessor extends Processor
 
         if (false === in_array($answerLevel, $levels)) {
             throw new \InvalidArgumentException('Invalid php-cs-fixer level.');
+        }
+    }
+
+    /**
+     * @param array $configData
+     *
+     * @throws InvalidPhpCsFixerConfigDataException
+     */
+    private function checkPhpCsFixerConfigData($configData)
+    {
+        if (false === is_array($configData)) {
+            throw new InvalidPhpCsFixerConfigDataException();
+        }
+
+        if (false === isset($configData['enabled'])) {
+            throw new InvalidPhpCsFixerConfigDataException();
+        }
+
+        if (false === isset($configData['levels']) || false === is_array($configData['levels'])) {
+            throw new InvalidPhpCsFixerConfigDataException();
         }
     }
 }
