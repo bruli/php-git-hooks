@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Application\Composer;
 
-use PhpGitHooks\Application\PhpCsFixer\InvalidPhpCsFixerConfigDataException;
+use PhpGitHooks\Application\PhpCsFixer\PhpCsFixerConfigData;
 
 final class PreCommitProcessor extends Processor
 {
@@ -72,30 +72,9 @@ final class PreCommitProcessor extends Processor
 
     private function configPhpCsFixer($execute)
     {
-        $tool = 'php-cs-fixer';
-
-        if (!isset($execute[$tool])) {
-            $answer = $this->setQuestionTool($tool);
-
-            $this->configData['pre-commit']['execute'][$tool]['enabled'] = 'Y' === strtoupper($answer) ? true : false;
-        } else {
-            $this->checkPhpCsFixerConfigData($execute[$tool]);
-        }
-
-
-        if (!isset($this->configData['pre-commit']['execute'][$tool]['levels'])) {
-            foreach (['psr0', 'psr1', 'psr2', 'symfony'] as $level) {
-                $answerLevel = strtolower($this->setQuestion(
-                    sprintf('Enable %s level for %s tool', $level, strtoupper($tool)),
-                    '[Y/n]',
-                    'Y'
-                ));
-
-                $answerLevel = 'Y' === strtoupper($answerLevel) ? true : false;
-
-                $this->configData['pre-commit']['execute'][$tool]['levels'][$level] = $answerLevel;
-            }
-        }
+        $phpCsFixerConfig = new PhpCsFixerConfigData($this->io);
+        $this->configData['pre-commit']['execute'][PhpCsFixerConfigData::TOOL] = $phpCsFixerConfig
+            ->createConfigData($execute);
     }
 
     /**
@@ -106,25 +85,5 @@ final class PreCommitProcessor extends Processor
     private function setQuestionTool($tool)
     {
         return $this->setQuestion(sprintf('Do you want enable %s tool?', strtoupper($tool)), '[Y/n]', 'Y');
-    }
-
-    /**
-     * @param array $configData
-     *
-     * @throws InvalidPhpCsFixerConfigDataException
-     */
-    private function checkPhpCsFixerConfigData($configData)
-    {
-        if (false === is_array($configData)) {
-            throw new InvalidPhpCsFixerConfigDataException();
-        }
-
-        if (false === isset($configData['enabled'])) {
-            throw new InvalidPhpCsFixerConfigDataException();
-        }
-
-        if (false === isset($configData['levels']) || false === is_array($configData['levels'])) {
-            throw new InvalidPhpCsFixerConfigDataException();
-        }
     }
 }

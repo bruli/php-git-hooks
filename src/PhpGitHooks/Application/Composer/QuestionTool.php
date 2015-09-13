@@ -17,6 +17,6 @@ final class QuestionTool
     public static function setQuestion(IOInterface $ioInterface, $question, $defaultAnswer, $answersAllowed)
     {
         return $ioInterface
-            ->ask(sprintf('<info>%s</info> [<comment>%s</comment>]: ', $question, $answersAllowed), $defaultAnswer);
+            ->ask(sprintf('<info>%s</info> [<comment>%s</comment>]', $question, $answersAllowed), $defaultAnswer);
     }
 }
