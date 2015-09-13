@@ -2,65 +2,31 @@
 
 namespace PhpGitHooks\Application\PhpCsFixer;
 
-use Composer\IO\IOInterface;
-use PhpGitHooks\Application\Composer\QuestionTool;
+use PhpGitHooks\Application\Config\AbstractToolConfigData;
 
-final class PhpCsFixerConfigData
+final class PhpCsFixerConfigData extends AbstractToolConfigData
 {
     const TOOL = 'php-cs-fixer';
+    /** @var array  */
     private $allowedLevels = ['psr0', 'psr1', 'psr2', 'symfony'];
-    /** @var  IOInterface */
-    private $io;
-    /** @var array */
-    private $configData = [];
-
-    /**
-     * PhpCsFixerConfigData constructor.
-     *
-     * @param IOInterface $io
-     */
-    public function __construct(IOInterface $io)
-    {
-        $this->io = $io;
-    }
 
     /**
      * @param array $data
+     *
      * @return array
+     *
      * @throws InvalidPhpCsFixerConfigDataException
      */
     public function createConfigData(array $data)
     {
         $this->configData = $data;
-        if (!isset($this->configData[self::TOOL])) {
-            $answer = $this->setQuestion(sprintf('Do you want enable %s tool: ', strtoupper(self::TOOL)), 'Y', '[Y/n]');
-            $answer = 'Y' === strtoupper($answer) ? true : false;
-        } else {
-            $this->checkConfigData();
-            $answer = $this->configData[self::TOOL]['enabled'];
-        }
-
-        $this->enableTool($answer);
+        $this->setEnabled();
         $this->createConfigLevels();
-
 
         return $this->configData[self::TOOL];
     }
 
     /**
-     * @param string $question
-     * @param string $default
-     * @param string $answersAllowed
-     *
-     * @return string
-     */
-    private function setQuestion($question, $default, $answersAllowed)
-    {
-        return QuestionTool::setQuestion($this->io, $question, $default, $answersAllowed);
-    }
-
-    /**
-     *
      * @throws InvalidPhpCsFixerConfigDataException
      */
     private function checkConfigData()
@@ -74,14 +40,6 @@ final class PhpCsFixerConfigData
         if (false === isset($configData['enabled'])) {
             throw new InvalidPhpCsFixerConfigDataException();
         }
-    }
-
-    /**
-     * @param $answer
-     */
-    private function enableTool($answer)
-    {
-        $this->configData[self::TOOL]['enabled'] = $answer;
     }
 
     private function createConfigLevels()
@@ -98,9 +56,31 @@ final class PhpCsFixerConfigData
                 $answerLevel = 'Y' === strtoupper($answerLevel) ? true : false;
 
                 $this->configData[self::TOOL]['levels'][$level] = $answerLevel;
-
             }
         }
+    }
 
+    /**
+     * @return string
+     */
+    protected function getToolName()
+    {
+        return self::TOOL;
+    }
+
+    /**
+     * @throws InvalidPhpCsFixerConfigDataException
+     */
+    private function setEnabled()
+    {
+        if (!isset($this->configData[self::TOOL])) {
+            $answer = $this->setQuestion(sprintf('Do you want enable %s tool: ', strtoupper(self::TOOL)), 'Y', '[Y/n]');
+            $answer = 'Y' === strtoupper($answer) ? true : false;
+        } else {
+            $this->checkConfigData();
+            $answer = $this->configData[self::TOOL]['enabled'];
+        }
+
+        $this->enableTool($answer);
     }
 }
