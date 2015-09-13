@@ -32,8 +32,7 @@ abstract class Processor
      */
     protected function setQuestion($question, $answers, $default)
     {
-        return $this->io
-            ->ask(sprintf('<info>%s</info> [<comment>%s</comment>]: ', $question, $answers), $default);
+        return QuestionTool::setQuestion($this->io, $question, $default, $answers);
     }
 
     /**
