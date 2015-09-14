@@ -63,12 +63,19 @@
         <service id="unit.test.pre.commit.executor" class="PhpGitHooks\Application\PhpUnit\UnitTestPreCommitExecutor">
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="phpunit.handler"/>
+            <argument type="service" id="phpunit.randomizer.handler"/>
         </service>
         <service id="phpunit.handler" class="PhpGitHooks\Application\PhpUnit\PhpUnitHandler">
             <argument type="service" id="output.handler" />
             <argument type="service" id="phpunit.process.builder"/>
         </service>
+        <service id="phpunit.randomizer.handler" class="PhpGitHooks\Application\PhpUnit\PhpUnitRandomizerHandler">
+            <argument type="service" id="output.handler" />
+            <argument type="service" id="phpunit.randomizer.process.builder" />
+        </service>
         <service id="phpunit.process.builder" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder">
+        </service>
+        <service id="phpunit.randomizer.process.builder" class="PhpGitHooks\Infrastructure\PhpUnit\PhpUnitRandomizerProcessBuilder">
         </service>
         <service id="commit.message.validator" class="PhpGitHooks\Application\CommitMessage\CommitMessageValidator">
             <argument type="service" id="output.handler" />

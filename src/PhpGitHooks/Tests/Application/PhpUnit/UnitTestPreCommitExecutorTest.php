@@ -12,6 +12,7 @@ use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
+use PhpGitHooks\Application\PhpUnit\PhpUnitRandomizerHandler;
 
 /**
  * Class UnitTestPreCommitExecutorTest.
@@ -34,6 +35,8 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
     private $processBuilder;
     /** @var  Mock */
     private $process;
+    /** @var  Mock */
+    private $phpunitRandomizerBuilder;
 
     protected function setUp()
     {
@@ -41,6 +44,7 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
         $this->outputInterface = new InMemoryOutputInterface();
         $this->outputHandler = new InMemoryOutputHandler();
         $this->phpunitProcessBuilder = \Mockery::mock(PhpUnitProcessBuilder::class);
+        $this->phpunitRandomizerBuilder = \Mockery::mock(PhpUnitRandomizerHandler::class);
         $this->processBuilder = \Mockery::mock(ProcessBuilder::class);
         $this->process = \Mockery::mock(Process::class);
         $this->process->shouldReceive('run')->andReturn(1);
@@ -49,7 +53,8 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
         $this->phpUnitHandler = new PhpUnitHandler($this->outputHandler, $this->phpunitProcessBuilder);
         $this->unitTestPreCommitExecutor = new UnitTestPreCommitExecutor(
             $this->preCommitConfig,
-            $this->phpUnitHandler
+            $this->phpUnitHandler,
+            $this->phpunitRandomizerBuilder
         );
     }
 
@@ -58,7 +63,7 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
      */
     public function isDisabled()
     {
-        $this->preCommitConfig->setEnabled(false);
+        $this->preCommitConfig->setExtraOptions(['enabled' => false]);
 
         $this->unitTestPreCommitExecutor->run($this->outputInterface);
     }
@@ -69,7 +74,7 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
     public function isEnabledAndSuccessful()
     {
         $this->process->shouldReceive('isSuccessful')->andReturn(true);
-        $this->preCommitConfig->setEnabled(true);
+        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'random-mode' => false]);
         $this->enabledMocks();
 
         $this->phpunitProcessBuilder->shouldReceive('getProcessBuilder')->andReturn($this->processBuilder);
@@ -84,8 +89,10 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
     public function isEnabledAndThrow()
     {
         $this->setExpectedException(UnitTestsException::class);
+        $this->phpunitRandomizerBuilder->shouldReceive('setOutput');
+        $this->phpunitRandomizerBuilder->shouldReceive('run');
 
-        $this->preCommitConfig->setEnabled(true);
+        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'random-mode' => false]);
         $this->process->shouldReceive('isSuccessful')->andReturn(false);
         $this->enabledMocks();
 

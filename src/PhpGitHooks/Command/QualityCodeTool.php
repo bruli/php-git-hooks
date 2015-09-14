@@ -4,6 +4,8 @@ namespace PhpGitHooks\Command;
 
 use PhpGitHooks\Application\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecutor;
 use PhpGitHooks\Application\PhpCsFixer\FixCodeStyleCsFixerPreCommitExecutor;
+use PhpGitHooks\Application\PhpMD\CheckPhpMessDetectionPreCommitExecutor;
+use PhpGitHooks\Application\PhpUnit\UnitTestPreCommitExecutor;
 use PhpGitHooks\Container;
 use PhpGitHooks\Infrastructure\Git\ExtractCommitedFiles;
 use Symfony\Component\Console\Application;
@@ -120,10 +122,13 @@ class QualityCodeTool extends Application
             $codeSniffer = $this->container->get('check.code.style.code.sniffer.pre.commit.executor');
             $codeSniffer->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
 
-            $this->container->get('check.php.mess.detection.pre.commit.executor')
-                ->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+            /** @var CheckPhpMessDetectionPreCommitExecutor $messDetector */
+            $messDetector = $this->container->get('check.php.mess.detection.pre.commit.executor');
+            $messDetector->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
 
-            $this->container->get('unit.test.pre.commit.executor')->run($this->output);
+            /** @var UnitTestPreCommitExecutor $phpUnit */
+            $phpUnit = $this->container->get('unit.test.pre.commit.executor');
+            $phpUnit->run($this->output);
         }
     }
 

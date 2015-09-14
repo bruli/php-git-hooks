@@ -27,7 +27,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitHookEnabled()
     {
         $this->IO->shouldReceive('ask')
-            ->times(11)
+            ->times(12)
             ->andReturn('y', 'y', 'y', 'y', 'y', 'y', 'y', 'psr0');
         $configData = $this->preCommitProcessor->execute([]);
 
@@ -53,16 +53,17 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigNewSimpleToolWithoutConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(11)
+            ->times(12)
             ->andReturn('y', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y');
 
         $configData = $this->preCommitProcessor->execute([]);
 
         $execute = $configData['pre-commit']['execute'];
 
-        $this->assertFalse($execute['phpunit']);
+        $this->assertArrayHasKey('enabled', $execute['phpunit']);
+        $this->assertArrayHasKey('random-mode', $execute['phpunit']);
         $this->assertTrue($execute['phplint']);
-        $this->assertTrue($execute['phpcs']);
+        $this->assertFalse($execute['phpcs']);
         $this->assertTrue($execute['phpmd']);
         $this->assertTrue($execute['jsonlint']);
     }
@@ -80,7 +81,10 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
             [
                 'pre-commit' => [
                     'execute' => [
-                        'phpunit' => true,
+                        'phpunit' => [
+                            'enabled' => true,
+                            'random-mode' => true
+                        ],
                         'phpcs' => true,
                         'phplint' => true,
                     ],
@@ -91,7 +95,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
 
         $execute = $configData['pre-commit']['execute'];
 
-        $this->assertTrue($execute['phpunit']);
+        $this->assertTrue($execute['phpunit']['enabled']);
         $this->assertTrue($execute['phplint']);
         $this->assertTrue($execute['phpcs']);
         $this->assertTrue($execute['phpmd']);
@@ -110,7 +114,10 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
             [
                 'pre-commit' => [
                     'execute' => [
-                        'phpunit' => true,
+                        'phpunit' => [
+                            'enabled' => true,
+                            'random-mode' => true
+                        ],
                         'phpcs' => true,
                         'phplint' => true,
                         'phpmd' => true,
