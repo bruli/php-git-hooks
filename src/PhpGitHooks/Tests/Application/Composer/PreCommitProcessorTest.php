@@ -6,6 +6,7 @@ use Composer\IO\IOInterface;
 use Mockery\Mock;
 use PhpGitHooks\Application\Composer\PreCommitProcessor;
 use PhpGitHooks\Application\PhpCsFixer\InvalidPhpCsFixerConfigDataException;
+use PhpGitHooks\Application\PhpUnit\PhpUnitConfigDataException;
 
 class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
 {
@@ -186,6 +187,58 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                         'phpmd' => true,
                         'jsonlint' => true,
                         'php-cs-fixer' => []
+                    ],
+                    'enabled' => true,
+                ],
+            ]
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function phpUnitConfigDataIsNotArray()
+    {
+        $this->setExpectedException(PhpUnitConfigDataException::class);
+        $this->IO->shouldReceive('ask')
+            ->times(5)
+            ->andReturn('y');
+
+        $this->preCommitProcessor->execute(
+            [
+                'pre-commit' => [
+                    'execute' => [
+                        'phpunit' => true,
+                        'phpcs' => true,
+                        'phplint' => true,
+                        'phpmd' => true,
+                        'jsonlint' => true
+                    ],
+                    'enabled' => true,
+                ],
+            ]
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function phpUnitConfigDataInvalidEnabled()
+    {
+        $this->setExpectedException(PhpUnitConfigDataException::class);
+        $this->IO->shouldReceive('ask')
+            ->times(5)
+            ->andReturn('y');
+
+        $this->preCommitProcessor->execute(
+            [
+                'pre-commit' => [
+                    'execute' => [
+                        'phpunit' => [],
+                        'phpcs' => true,
+                        'phplint' => true,
+                        'phpmd' => true,
+                        'jsonlint' => true
                     ],
                     'enabled' => true,
                 ],
