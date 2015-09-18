@@ -91,7 +91,9 @@ pre-commit:
             psr1:       true
             psr2:       true
             symfony:    true
-    phpunit:       true
+    phpunit:
+        enabled:     true
+        random-mode: true
     phplint:       true
     phpcs:         true
     phpmd:         true
