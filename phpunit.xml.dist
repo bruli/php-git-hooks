@@ -9,7 +9,8 @@
          syntaxCheck="true"
          stopOnError="false"
          stopOnFailure="false"
-         backupGlobals="false">
+         backupGlobals="false"
+         bootstrap="./vendor/autoload.php">
     <testsuites>
         <testsuite name="PhpGitHooks Unit Tests">
             <directory>./src/PhpGitHooks/Tests/</directory>

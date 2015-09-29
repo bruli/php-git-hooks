@@ -28,8 +28,8 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitHookEnabled()
     {
         $this->IO->shouldReceive('ask')
-            ->times(12)
-            ->andReturn('y', 'y', 'y', 'y', 'y', 'y', 'y', 'psr0');
+            ->times(13)
+            ->andReturn('y', 'y', 'y', 'y', 'y', 'PSR2', 'y', 'y', 'psr0');
         $configData = $this->preCommitProcessor->execute([]);
 
         $this->assertTrue($configData['pre-commit']['enabled']);
@@ -54,8 +54,8 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigNewSimpleToolWithoutConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(12)
-            ->andReturn('y', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y');
+            ->times(13)
+            ->andReturn('y', 'y', 'y', 'n', 'y', 'PSR2', 'y', 'y', 'y', 'y', 'y');
 
         $configData = $this->preCommitProcessor->execute([]);
 
@@ -64,8 +64,9 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('enabled', $execute['phpunit']);
         $this->assertArrayHasKey('random-mode', $execute['phpunit']);
         $this->assertTrue($execute['phplint']);
-        $this->assertFalse($execute['phpcs']);
-        $this->assertTrue($execute['phpmd']);
+        $this->assertArrayHasKey('enabled', $execute['phpcs']);
+        $this->assertTrue($execute['phpcs']['enabled']);
+        $this->assertFalse($execute['phpmd']);
         $this->assertTrue($execute['jsonlint']);
     }
 
@@ -75,7 +76,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigSimpleToolWithConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(7)
+            ->times(8)
             ->andReturn('y');
 
         $configData = $this->preCommitProcessor->execute(
@@ -86,7 +87,9 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                             'enabled' => true,
                             'random-mode' => true
                         ],
-                        'phpcs' => true,
+                        'phpcs' => [
+                            'enabled' => true,
+                        ],
                         'phplint' => true,
                     ],
                     'enabled' => true,
@@ -98,7 +101,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($execute['phpunit']['enabled']);
         $this->assertTrue($execute['phplint']);
-        $this->assertTrue($execute['phpcs']);
+        $this->assertTrue($execute['phpcs']['enabled']);
         $this->assertTrue($execute['phpmd']);
     }
 
@@ -108,7 +111,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitAddPhpCsFixer()
     {
         $this->IO->shouldReceive('ask')
-            ->times(5)
+            ->times(6)
             ->andReturn('y');
 
         $configData = $this->preCommitProcessor->execute(
@@ -119,7 +122,9 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                             'enabled' => true,
                             'random-mode' => true
                         ],
-                        'phpcs' => true,
+                        'phpcs' => [
+                            'enabled' => true,
+                        ],
                         'phplint' => true,
                         'phpmd' => true,
                         'jsonlint' => true
@@ -157,7 +162,6 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                 'pre-commit' => [
                     'execute' => [
                         'phpunit' => true,
-                        'phpcs' => true,
                         'phplint' => true,
                         'phpmd' => true,
                         'jsonlint' => true,
@@ -182,7 +186,6 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                 'pre-commit' => [
                     'execute' => [
                         'phpunit' => true,
-                        'phpcs' => true,
                         'phplint' => true,
                         'phpmd' => true,
                         'jsonlint' => true,
@@ -201,7 +204,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(PhpUnitConfigDataException::class);
         $this->IO->shouldReceive('ask')
-            ->times(5)
+            ->times(7)
             ->andReturn('y');
 
         $this->preCommitProcessor->execute(
@@ -209,7 +212,6 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                 'pre-commit' => [
                     'execute' => [
                         'phpunit' => true,
-                        'phpcs' => true,
                         'phplint' => true,
                         'phpmd' => true,
                         'jsonlint' => true
@@ -227,7 +229,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(PhpUnitConfigDataException::class);
         $this->IO->shouldReceive('ask')
-            ->times(5)
+            ->times(7)
             ->andReturn('y');
 
         $this->preCommitProcessor->execute(
@@ -235,7 +237,6 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
                 'pre-commit' => [
                     'execute' => [
                         'phpunit' => [],
-                        'phpcs' => true,
                         'phplint' => true,
                         'phpmd' => true,
                         'jsonlint' => true

@@ -13,7 +13,9 @@ pre-commit:
         enabled:        true
         random-mode:    true
     phplint:       true
-    phpcs:         true
+    phpcs:
+        enabled:  true
+        standard: PSR2
     phpmd:         true
 commit-msg:
     enabled:       true
