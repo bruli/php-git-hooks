@@ -19,7 +19,9 @@ class HooksFileCopier
     {
         if (true === $enabled) {
             if (false === file_exists(self::GIT_HOOKS_PATH . $hook)) {
-                $copy = new Process('cp ' . __DIR__ . '/../../../../hooks/' . $hook . self::GIT_HOOKS_PATH . $hook);
+                $copy = new Process(
+                    'cp ' . __DIR__ . '/../../../../hooks/' . $hook . ' ' . self::GIT_HOOKS_PATH . $hook
+                );
                 $copy->run();
 
                 $permissions = new Process('chmod 775 ' . self::GIT_HOOKS_PATH . $hook);
