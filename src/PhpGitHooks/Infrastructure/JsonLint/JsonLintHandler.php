@@ -29,7 +29,7 @@ final class JsonLintHandler extends ToolHandler implements RecursiveToolInterfac
             $processBuilder = new ProcessBuilder(
                 array(
                     'php',
-                    'bin/jsonlint',
+                    PHPGITHOOKS_BIN_DIR . '/jsonlint',
                     $file
                 )
             );
