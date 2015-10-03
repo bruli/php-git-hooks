@@ -94,9 +94,11 @@ pre-commit:
     phpunit:
         enabled:     true
         random-mode: true
-    phplint:       true
-    phpcs:         true
-    phpmd:         true
+    phplint:         true
+    phpcs:
+        enabled:     true
+        standard:    PSR2
+    phpmd:           true
 commit-msg:
     enabled: true
     regular-expression: '#[0-9]{2,7}'
