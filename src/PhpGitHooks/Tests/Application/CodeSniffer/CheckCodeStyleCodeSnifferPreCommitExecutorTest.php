@@ -26,7 +26,10 @@ class CheckCodeStyleCodeSnifferPreCommitExecutorTest extends \PHPUnit_Framework_
     {
         $this->outputInterface = new InMemoryOutputInterface();
         $this->preCommitConfig = new InMemoryHookConfig();
-        $this->codeSnifferHandler = \Mockery::mock(CodeSnifferHandler::class);
+        $this->codeSnifferHandler = $this->getMockBuilder('\PhpGitHooks\Infrastructure\CodeSniffer\CodeSnifferHandler')
+            ->setMethods(['run'])
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->checkCodeStyleCodeSnifferPreCommitExecutor  = new CheckCodeStyleCodeSnifferPreCommitExecutor(
             $this->preCommitConfig,
             $this->codeSnifferHandler
@@ -36,33 +39,28 @@ class CheckCodeStyleCodeSnifferPreCommitExecutorTest extends \PHPUnit_Framework_
     /**
      * @test
      */
-    public function isDisabled()
+    public function idDisabled()
     {
-        $this->preCommitConfig->setEnabled(false);
+        $this->preCommitConfig->setExtraOptions(['enabled' => false, 'standard' => '']);
 
         $this->checkCodeStyleCodeSnifferPreCommitExecutor->run(
             $this->outputInterface,
             array(),
-            'needle'
+            'neddle'
         );
     }
 
     /**
      * @test
      */
-    public function isEnable()
+    public function isEnabled()
     {
-        $this->preCommitConfig->setEnabled(true);
-
-        $this->codeSnifferHandler->shouldReceive('setOutput');
-        $this->codeSnifferHandler->shouldReceive('setFiles');
-        $this->codeSnifferHandler->shouldReceive('setNeddle');
-        $this->codeSnifferHandler->shouldReceive('run');
+        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'standard' => 'PSR2' ]);
 
         $this->checkCodeStyleCodeSnifferPreCommitExecutor->run(
             $this->outputInterface,
             array(),
-            'needle'
+            'neddle'
         );
     }
 }

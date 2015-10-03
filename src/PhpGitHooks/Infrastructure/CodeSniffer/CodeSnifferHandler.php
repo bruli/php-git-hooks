@@ -12,11 +12,12 @@ use Symfony\Component\Process\ProcessBuilder;
  */
 class CodeSnifferHandler extends ToolHandler
 {
-    const STANDARD = 'PSR2';
     /** @var array */
     private $files;
     /** @var string */
     private $neddle;
+    /** @var string */
+    private $standard = 'PSR2';
 
     /**
      * @throws InvalidCodingStandardException
@@ -31,7 +32,7 @@ class CodeSnifferHandler extends ToolHandler
                 continue;
             }
 
-            $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard='.self::STANDARD.'', $file));
+            $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard='.$this->standard, $file));
             /** @var Process $phpCs */
             $phpCs = $processBuilder->getProcess();
             $phpCs->run();
@@ -62,5 +63,13 @@ class CodeSnifferHandler extends ToolHandler
     public function setFiles($files)
     {
         $this->files = $files;
+    }
+
+    /**
+     * @param array $standard
+     */
+    public function setStandard($standard)
+    {
+        $this->standard = $standard;
     }
 }

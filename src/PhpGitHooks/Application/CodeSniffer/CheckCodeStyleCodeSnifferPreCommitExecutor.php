@@ -35,10 +35,13 @@ class CheckCodeStyleCodeSnifferPreCommitExecutor extends PreCommitExecutor
      */
     public function run(OutputInterface $output, array $files, $needle)
     {
-        if ($this->isEnabled()) {
+        $data = $this->preCommitConfig->extraOptions($this->commandName());
+
+        if (true === $data['enabled']) {
             $this->codeSnifferHandler->setOutput($output);
             $this->codeSnifferHandler->setFiles($files);
             $this->codeSnifferHandler->setNeddle($needle);
+            $this->codeSnifferHandler->setStandard($data['standard']);
             $this->codeSnifferHandler->run();
         }
     }

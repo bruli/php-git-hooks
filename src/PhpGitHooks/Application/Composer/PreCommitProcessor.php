@@ -2,12 +2,13 @@
 
 namespace PhpGitHooks\Application\Composer;
 
+use PhpGitHooks\Application\CodeSniffer\PhpCsConfigData;
 use PhpGitHooks\Application\PhpCsFixer\PhpCsFixerConfigData;
 use PhpGitHooks\Application\PhpUnit\PhpUnitConfigData;
 
 final class PreCommitProcessor extends Processor
 {
-    private $simpleTools = ['phpcs', 'jsonlint', 'phplint', 'phpmd'];
+    private $simpleTools = ['jsonlint', 'phplint', 'phpmd'];
 
     /**
      * @param array $configData
@@ -68,10 +69,20 @@ final class PreCommitProcessor extends Processor
      */
     private function configComplexTools(array $execute)
     {
+        $this->configPhpCs($execute);
         $this->configPhpCsFixer($execute);
         $this->configPhpUnit($execute);
     }
 
+    /**
+     * @param array $execute
+     */
+    private function configPhpCs(array $execute)
+    {
+        $phpCsConfig = new PhpCsConfigData($this->io);
+        $this->configData['pre-commit']['execute'][PhpCsConfigData::TOOL] = $phpCsConfig
+            ->createConfigData($execute);
+    }
 
     /**
      * @param array $execute
@@ -83,6 +94,13 @@ final class PreCommitProcessor extends Processor
             ->createConfigData($execute);
     }
 
+    private function configPhpUnit(array $execute)
+    {
+        $phpUnitconfig = new PhpUnitConfigData($this->io);
+        $this->configData['pre-commit']['execute'][PhpUnitConfigData::TOOL] = $phpUnitconfig
+            ->createConfigData($execute);
+    }
+
     /**
      * @param string $tool
      *
@@ -91,12 +109,5 @@ final class PreCommitProcessor extends Processor
     private function setQuestionTool($tool)
     {
         return $this->setQuestion(sprintf('Do you want enable %s tool?', strtoupper($tool)), '[Y/n]', 'Y');
-    }
-
-    private function configPhpUnit(array $execute)
-    {
-        $phpUnitconfig = new PhpUnitConfigData($this->io);
-        $this->configData['pre-commit']['execute'][PhpUnitConfigData::TOOL] = $phpUnitconfig
-            ->createConfigData($execute);
     }
 }
