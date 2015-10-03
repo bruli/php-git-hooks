@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Tests\Application\Composer;
 
 use PhpGitHooks\Application\Composer\CheckComposerFilesPreCommitExecutor;
-use PhpGitHooks\Application\Composer\InMemoryComposerFilesValidator;
+use PhpGitHooks\Application\Composer\ComposerFilesValidator;
 use PhpGitHooks\Command\InMemoryOutputHandler;
 use PhpGitHooks\Infrastructure\Config\InMemoryHookConfig;
 use PhpGitHooks\Infrastructure\Common\InMemoryFilesValidator;
@@ -27,11 +27,6 @@ class CheckComposerFilesPreCommitExecutorTest extends \PHPUnit_Framework_TestCas
         $this->outputHandler = new InMemoryOutputHandler();
         $this->preCommitConfig = new InMemoryHookConfig();
         $this->outputInterface = new InMemoryOutputInterface();
-        $this->composerFilesValidator = new InMemoryComposerFilesValidator();
-        $this->checkComposerFilesPreCommitExecutor = new CheckComposerFilesPreCommitExecutor(
-            $this->preCommitConfig,
-            $this->composerFilesValidator
-        );
     }
 
     /**
@@ -39,6 +34,21 @@ class CheckComposerFilesPreCommitExecutorTest extends \PHPUnit_Framework_TestCas
      */
     public function runSuccessful()
     {
+        $this->preCommitConfig->setEnabled(true);
+
+        $this->composerFilesValidator = $this->getMockBuilder(ComposerFilesValidator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->composerFilesValidator
+            ->expects($this->once())
+            ->method('validate');
+
+        $this->checkComposerFilesPreCommitExecutor = new CheckComposerFilesPreCommitExecutor(
+            $this->preCommitConfig,
+            $this->composerFilesValidator
+        );
+
         $this->checkComposerFilesPreCommitExecutor->run($this->outputInterface, array());
     }
 
@@ -48,6 +58,19 @@ class CheckComposerFilesPreCommitExecutorTest extends \PHPUnit_Framework_TestCas
     public function toolIsDisabled()
     {
         $this->preCommitConfig->setEnabled(false);
+
+        $this->composerFilesValidator = $this->getMockBuilder(ComposerFilesValidator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->composerFilesValidator
+            ->expects($this->never())
+            ->method('validate');
+
+        $this->checkComposerFilesPreCommitExecutor = new CheckComposerFilesPreCommitExecutor(
+            $this->preCommitConfig,
+            $this->composerFilesValidator
+        );
 
         $this->checkComposerFilesPreCommitExecutor->run($this->outputInterface, array());
     }
