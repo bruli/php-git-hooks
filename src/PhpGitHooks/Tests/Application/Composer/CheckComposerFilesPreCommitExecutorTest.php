@@ -17,12 +17,12 @@ class CheckComposerFilesPreCommitExecutorTest extends \PHPUnit_Framework_TestCas
     /** @var  InMemoryOutputHandler */
     private $outputHandler;
     /** @var  InMemoryOutputInterface */
-    private $outuputInterface;
+    private $outputInterface;
 
     protected function setUp()
     {
         $this->outputHandler = new InMemoryOutputHandler();
-        $this->outuputInterface = new InMemoryOutputInterface();
+        $this->outputInterface = new InMemoryOutputInterface();
         $this->composerFilesValidator = new InMemoryComposerFilesValidator();
         $this->checkComposerFilesPreCommitExecutor = new CheckComposerFilesPreCommitExecutor(
             $this->composerFilesValidator
@@ -34,6 +34,6 @@ class CheckComposerFilesPreCommitExecutorTest extends \PHPUnit_Framework_TestCas
      */
     public function runSuccessful()
     {
-        $this->checkComposerFilesPreCommitExecutor->run($this->outuputInterface, array());
+        $this->checkComposerFilesPreCommitExecutor->run($this->outputInterface, array());
     }
 }
