@@ -8,7 +8,7 @@ use PhpGitHooks\Application\PhpUnit\PhpUnitConfigData;
 
 final class PreCommitProcessor extends Processor
 {
-    private $simpleTools = ['jsonlint', 'phplint', 'phpmd'];
+    private $simpleTools = ['composer', 'jsonlint', 'phplint', 'phpmd'];
 
     /**
      * @param array $configData
