@@ -26,8 +26,8 @@ class QualityCodeTool extends Application
     /** @var  OutputHandler */
     private $outputTitleHandler;
 
-    const PHP_FILES_IN_SRC = '/^(.*)(\.php)$/';
-    const JSON_FILES_IN_SRC = '/^(.*)(\.json)$/';
+    const PHP_FILES = '/^(.*)(\.php)$/';
+    const JSON_FILES = '/^(.*)(\.json)$/';
     const COMPOSER_FILES = '/^composer\.(json|lock)$/';
 
     public function __construct()
@@ -82,7 +82,7 @@ class QualityCodeTool extends Application
         ];
 
         foreach ($this->files as $file) {
-            if (true === (bool)preg_match(self::PHP_FILES_IN_SRC, $file)) {
+            if (true === (bool)preg_match(self::PHP_FILES, $file)) {
                 $files['php'] = true;
             }
 
@@ -90,7 +90,7 @@ class QualityCodeTool extends Application
                 $files['composer'] = true;
             }
 
-            if (true === (bool)preg_match(self::JSON_FILES_IN_SRC, $file)) {
+            if (true === (bool)preg_match(self::JSON_FILES, $file)) {
                 $files['json'] = true;
             }
         }
@@ -107,7 +107,7 @@ class QualityCodeTool extends Application
 
         if (true === $this->isProcessingAnyJsonFile()) {
             $this->container->get('check.json.syntax.pre.commit.executor')
-                ->run($this->output, $this->files, self::JSON_FILES_IN_SRC);
+                ->run($this->output, $this->files, self::JSON_FILES);
         }
 
         if (true === $this->isProcessingAnyPhpFile()) {
@@ -116,15 +116,15 @@ class QualityCodeTool extends Application
 
             /** @var FixCodeStyleCsFixerPreCommitExecutor $csFixer */
             $csFixer = $this->container->get('fix.code.style.cs.fixer.pre.commit.executor');
-            $csFixer->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+            $csFixer->run($this->output, $this->files, self::PHP_FILES);
 
             /** @var CheckCodeStyleCodeSnifferPreCommitExecutor $codeSniffer */
             $codeSniffer = $this->container->get('check.code.style.code.sniffer.pre.commit.executor');
-            $codeSniffer->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+            $codeSniffer->run($this->output, $this->files, self::PHP_FILES);
 
             /** @var CheckPhpMessDetectionPreCommitExecutor $messDetector */
             $messDetector = $this->container->get('check.php.mess.detection.pre.commit.executor');
-            $messDetector->run($this->output, $this->files, self::PHP_FILES_IN_SRC);
+            $messDetector->run($this->output, $this->files, self::PHP_FILES);
 
             /** @var UnitTestPreCommitExecutor $phpUnit */
             $phpUnit = $this->container->get('unit.test.pre.commit.executor');
