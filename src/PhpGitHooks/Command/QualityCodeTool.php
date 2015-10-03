@@ -26,8 +26,8 @@ class QualityCodeTool extends Application
     /** @var  OutputHandler */
     private $outputTitleHandler;
 
-    const PHP_FILES_IN_SRC = '/^src\/(.*)(\.php)$/';
-    const JSON_FILES_IN_SRC = '/^src\/(.*)(\.json)$/';
+    const PHP_FILES_IN_SRC = '/^(.*)(\.php)$/';
+    const JSON_FILES_IN_SRC = '/^(.*)(\.json)$/';
     const COMPOSER_FILES = '/^composer\.(json|lock)$/';
 
     public function __construct()
