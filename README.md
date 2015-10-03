@@ -99,6 +99,7 @@ pre-commit:
         enabled:     true
         standard:    PSR2
     phpmd:           true
+    composer:        true
 commit-msg:
     enabled: true
     regular-expression: '#[0-9]{2,7}'
