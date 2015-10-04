@@ -14,7 +14,7 @@ $autoload = __DIR__ . '/../../vendor/autoload.php';
 
 if (
     false !== $home &&
-    false !== preg_match('~' . $home . '~', __DIR__)
+    0 !== preg_match('~' . $home . '~', __DIR__)
 ) {
     $binDir = $home . '/vendor/bin';
     $autoload = __DIR__ . '/../../../../vendor/autoload.php';
