@@ -16,6 +16,18 @@ Library based in git hook scripts for PHP projects.
 
 ### Step 1: Composer
 
+If you don't have composer, you need download the  binary file and run it:
+
+```bash
+wget http://getcomposer.org/composer.phar
+# or
+curl -O http://getcomposer.org/composer.phar
+
+php composer.phar install
+```
+
+#### Local install (in a project)
+
 You must add the following line to the `composer.json` file:
 
 ```json
@@ -31,14 +43,16 @@ Or you can write in your console:
 $ composer require bruli/php-git-hooks --dev
 ```
 
-If you don't have composer, you need download the  binary file and run it:
+#### [Global install](https://getcomposer.org/doc/03-cli.md#global)
+
+Global installation can be usefull if you work on large number of repos which use the same dev dependencies or in continuous integration environment like Jenkins.
+
+Write same lines as local installation but in global composer file which should be in `~/.composer/` directory by [default](https://getcomposer.org/doc/03-cli.md#composer-home).
+
+Or you can write in your console:
 
 ```bash
-wget http://getcomposer.org/composer.phar
-# or
-curl -O http://getcomposer.org/composer.phar
-
-php composer.phar install
+$ composer global require bruli/php-git-hooks --dev
 ```
 
 ## Step 2: Configuration
@@ -75,7 +89,7 @@ If your project haven't a "bin" directory, you can add this in your compose.json
     }
 ```
 
-**Note: Not necessary for Symfony projects.**
+**Note: Not necessary for Symfony projects or in global installation.**
 
 ### Manual config file for git hooks.
 You can configure php-git-hooks, creating a php-git-hooks.yml file with...
@@ -107,6 +121,8 @@ commit-msg:
 
 ... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.
 
+Manual configuration is necessary in global installation.
+
 ### Update from v1.3.*
 
 Php-cs-fixer configuration in php-git-hooks.yml file, is not compatible with 2.0 version. 
@@ -133,10 +149,24 @@ You can enable this hooks with composer or manually executing
  $cp vendor/bruli/php-git-hooks/hooks/pre-commit .git/hooks
 ```
 
+Global installation:
+
+```bash
+$ ln -s ~/.composer/vendor/bruli/php-git-hooks/hooks/pre-commit .git/hooks
+```
+
 #For commit-msg hook:
+
+Local installation:
 
 ```bash
  $cp vendor/bruli/php-git-hooks/hooks/commit-msg .git/hooks
+```
+
+Global installation:
+
+```bash
+$ ln -s ~/.composer/vendor/bruli/php-git-hooks/hooks/commit-msg .git/hooks
 ```
 
 ### execute.

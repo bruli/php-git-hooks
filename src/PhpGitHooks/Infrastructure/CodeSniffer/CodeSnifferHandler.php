@@ -7,6 +7,10 @@ use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
+if (!defined('PHPGITHOOKS_BIN_DIR')) {
+    define('PHPGITHOOKS_BIN_DIR', 'bin');
+}
+
 /**
  * Class CodeSnifferHandler.
  */
@@ -32,7 +36,7 @@ class CodeSnifferHandler extends ToolHandler
                 continue;
             }
 
-            $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard='.$this->standard, $file));
+            $processBuilder = new ProcessBuilder(array('php', PHPGITHOOKS_BIN_DIR . '/phpcs', '--standard='.$this->standard, $file));
             /** @var Process $phpCs */
             $phpCs = $processBuilder->getProcess();
             $phpCs->run();

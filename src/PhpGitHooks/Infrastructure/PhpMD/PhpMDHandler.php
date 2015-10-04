@@ -7,6 +7,10 @@ use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
+if (!defined('PHPGITHOOKS_BIN_DIR')) {
+    define('PHPGITHOOKS_BIN_DIR', 'bin');
+}
+
 /**
  * Class PhpMDHandler.
  */
@@ -35,7 +39,7 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
             $processBuilder = new ProcessBuilder(
                 array(
                     'php',
-                    'bin/phpmd',
+                    PHPGITHOOKS_BIN_DIR . '/phpmd',
                     $file,
                     'text',
                     'PmdRules.xml',

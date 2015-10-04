@@ -7,6 +7,10 @@ use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
+if (!defined('PHPGITHOOKS_BIN_DIR')) {
+    define('PHPGITHOOKS_BIN_DIR', 'bin');
+}
+
 class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface, PhpCsFixerHandlerInterface
 {
     /** @var array */
@@ -38,7 +42,7 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
                     $processBuilder = new ProcessBuilder(
                         array(
                             'php',
-                            'bin/php-cs-fixer',
+                            PHPGITHOOKS_BIN_DIR . '/php-cs-fixer',
                             '--dry-run',
                             'fix',
                             $file,

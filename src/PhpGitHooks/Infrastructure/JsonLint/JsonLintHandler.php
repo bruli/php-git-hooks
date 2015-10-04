@@ -7,6 +7,10 @@ use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
+if (!defined('PHPGITHOOKS_BIN_DIR')) {
+    define('PHPGITHOOKS_BIN_DIR', 'bin');
+}
+
 final class JsonLintHandler extends ToolHandler implements RecursiveToolInterface
 {
     /** @var array  */
@@ -29,7 +33,7 @@ final class JsonLintHandler extends ToolHandler implements RecursiveToolInterfac
             $processBuilder = new ProcessBuilder(
                 array(
                     'php',
-                    'bin/jsonlint',
+                    PHPGITHOOKS_BIN_DIR . '/jsonlint',
                     $file
                 )
             );
