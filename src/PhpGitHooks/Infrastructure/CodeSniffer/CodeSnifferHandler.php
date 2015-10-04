@@ -32,7 +32,7 @@ class CodeSnifferHandler extends ToolHandler
                 continue;
             }
 
-            $processBuilder = new ProcessBuilder(array('php', PHPGITHOOKS_BIN_DIR . 'bin/phpcs', '--standard='.$this->standard, $file));
+            $processBuilder = new ProcessBuilder(array('php', PHPGITHOOKS_BIN_DIR . '/phpcs', '--standard='.$this->standard, $file));
             /** @var Process $phpCs */
             $phpCs = $processBuilder->getProcess();
             $phpCs->run();
