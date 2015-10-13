@@ -42,6 +42,10 @@ class CheckCodeStyleCodeSnifferPreCommitExecutor extends PreCommitExecutor
             $this->codeSnifferHandler->setFiles($files);
             $this->codeSnifferHandler->setNeddle($needle);
             $this->codeSnifferHandler->setStandard($data['standard']);
+            if (isset($data['sniffs'])) {
+                $this->codeSnifferHandler->setSniffs($data['sniffs']);
+
+            }
             $this->codeSnifferHandler->run();
         }
     }

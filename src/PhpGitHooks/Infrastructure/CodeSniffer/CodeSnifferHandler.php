@@ -18,6 +18,8 @@ class CodeSnifferHandler extends ToolHandler
     private $neddle;
     /** @var string */
     private $standard = 'PSR2';
+    /** @var  string */
+    private $sniffs;
 
     /**
      * @throws InvalidCodingStandardException
@@ -32,7 +34,11 @@ class CodeSnifferHandler extends ToolHandler
                 continue;
             }
 
-            $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard='.$this->standard, $file));
+            $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard=' . $this->standard, $file));
+            if ($this->sniffs) {
+                $processBuilder->add('--sniffs=' . $this->sniffs);
+
+            }
             /** @var Process $phpCs */
             $phpCs = $processBuilder->getProcess();
             $phpCs->run();
@@ -71,5 +77,13 @@ class CodeSnifferHandler extends ToolHandler
     public function setStandard($standard)
     {
         $this->standard = $standard;
+    }
+
+    /**
+     * @param string $sniffs
+     */
+    public function setSniffs($sniffs)
+    {
+        $this->sniffs = $sniffs;
     }
 }
