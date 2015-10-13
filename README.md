@@ -107,6 +107,16 @@ commit-msg:
 
 ... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.
 
+For using Squiz with custom sniffs configuration could look like:
+
+```yaml
+ phpcs:
+        enabled:     true
+        standard:    Squiz
+        sniffs:      Squiz.Commenting.FunctionComment,Squiz.Commenting.FunctionCommentThrowTag,Squiz.Commenting.ClassComment,Squiz.Commenting.FileComment,Squiz.Commenting.VariableComment
+
+```
+
 ### Update from v1.3.*
 
 Php-cs-fixer configuration in php-git-hooks.yml file, is not compatible with 2.0 version. 
