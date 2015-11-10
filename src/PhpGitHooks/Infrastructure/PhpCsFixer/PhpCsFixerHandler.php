@@ -23,7 +23,7 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
     {
         foreach ($this->levels as $level => $value) {
             if (true === $value) {
-                $this->outputHandler->setTitle('Checking ' . strtoupper($level) . ' code style with PHP-CS-FIXER');
+                $this->outputHandler->setTitle('Checking '.strtoupper($level).' code style with PHP-CS-FIXER');
                 $this->output->write($this->outputHandler->getTitle());
 
                 $errors = array();
@@ -42,7 +42,7 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
                             '--dry-run',
                             'fix',
                             $file,
-                            '--fixers=' . $level,
+                            '--level='.$level,
                         )
                     );
 
@@ -66,7 +66,7 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
 
     /**
      * throw new PhpCsFixerException(implode('', $errors));
-     * }
+     * }.
      *
      * $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());
      * }
