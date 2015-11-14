@@ -33,7 +33,8 @@
         "symfony/dependency-injection": "~2.7",
         "symfony/config": "~2.7",
         "symfony/yaml": "~2.7",
-        "fiunchinho/phpunit-randomizer": "~2.0"
+        "fiunchinho/phpunit-randomizer": "~2.0",
+        "seld/jsonlint": "1.3.*"
     },
     "require-dev": {
         "composer/composer": "^1.0@dev"
