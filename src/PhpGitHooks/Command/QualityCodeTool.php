@@ -114,21 +114,8 @@ class QualityCodeTool extends Application
             $this->container->get('check.php.syntax.lint.pre.commit.executor')
                 ->run($this->output, $this->files);
 
-            /** @var FixCodeStyleCsFixerPreCommitExecutor $csFixer */
-            $csFixer = $this->container->get('fix.code.style.cs.fixer.pre.commit.executor');
-            $csFixer->run($this->output, $this->files, self::PHP_FILES);
-
-            /** @var CheckCodeStyleCodeSnifferPreCommitExecutor $codeSniffer */
-            $codeSniffer = $this->container->get('check.code.style.code.sniffer.pre.commit.executor');
-            $codeSniffer->run($this->output, $this->files, self::PHP_FILES);
-
-            /** @var CheckPhpMessDetectionPreCommitExecutor $messDetector */
-            $messDetector = $this->container->get('check.php.mess.detection.pre.commit.executor');
-            $messDetector->run($this->output, $this->files, self::PHP_FILES);
-
-            /** @var UnitTestPreCommitExecutor $phpUnit */
-            $phpUnit = $this->container->get('unit.test.pre.commit.executor');
-            $phpUnit->run($this->output);
+            $phpUnitMinCodeCoverage = $this->container->get('min.code.coverage.executor');
+            $phpUnitMinCodeCoverage->run($this->output);
         }
     }
 
