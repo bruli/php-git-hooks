@@ -46,4 +46,12 @@ abstract class AbstractToolConfigData
     {
         $this->configData[$this->getToolName()]['enabled'] = $answer;
     }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     *
+     */
+    public abstract function createConfigData(array $data);
 }

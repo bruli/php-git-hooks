@@ -28,8 +28,8 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitHookEnabled()
     {
         $this->IO->shouldReceive('ask')
-            ->times(14)
-            ->andReturn('y', 'y', 'y', 'y', 'y', 'y', 'PSR2', 'y', 'y', 'psr0');
+            ->times(16)
+            ->andReturn('y', 'y', 'y', 'y', 'y', 'y', 'PSR2', 'y', 'y', 'psr0','y');
         $configData = $this->preCommitProcessor->execute([]);
 
         $this->assertTrue($configData['pre-commit']['enabled']);
@@ -54,8 +54,8 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigNewSimpleToolWithoutConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(14)
-            ->andReturn('y', 'y', 'y', 'y', 'n', 'y', 'PSR2', 'y', 'y', 'y', 'y', 'y');
+            ->times(16)
+            ->andReturn('y', 'y', 'y', 'y', 'n', 'y', 'PSR2', 'y', 'y', 'y', 'y', 'y', 'y');
 
         $configData = $this->preCommitProcessor->execute([]);
 
@@ -77,7 +77,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitConfigSimpleToolWithConfigData()
     {
         $this->IO->shouldReceive('ask')
-            ->times(9)
+            ->times(11)
             ->andReturn('y');
 
         $configData = $this->preCommitProcessor->execute(
@@ -113,7 +113,7 @@ class PreCommitProcessorTest extends \PHPUnit_Framework_TestCase
     public function preCommitAddPhpCsFixer()
     {
         $this->IO->shouldReceive('ask')
-            ->times(7)
+            ->times(9)
             ->andReturn('y');
 
         $configData = $this->preCommitProcessor->execute(

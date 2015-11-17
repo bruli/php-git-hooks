@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\Composer;
 
+use PhpGitHooks\Application\CodeCoverage\CheckCodeCoverageConfigData;
 use PhpGitHooks\Application\CodeSniffer\PhpCsConfigData;
 use PhpGitHooks\Application\PhpCsFixer\PhpCsFixerConfigData;
 use PhpGitHooks\Application\PhpUnit\PhpUnitConfigData;
@@ -72,6 +73,7 @@ final class PreCommitProcessor extends Processor
         $this->configPhpCs($execute);
         $this->configPhpCsFixer($execute);
         $this->configPhpUnit($execute);
+        $this->configCheckCodeCoverage($execute);
     }
 
     /**
@@ -98,6 +100,13 @@ final class PreCommitProcessor extends Processor
     {
         $phpUnitconfig = new PhpUnitConfigData($this->io);
         $this->configData['pre-commit']['execute'][PhpUnitConfigData::TOOL] = $phpUnitconfig
+            ->createConfigData($execute);
+    }
+
+    private function configCheckCodeCoverage(array $execute)
+    {
+        $checkCodeCoverageConfig = new CheckCodeCoverageConfigData($this->io);
+        $this->configData['pre-commit']['execute'][CheckCodeCoverageConfigData::TOOL] = $checkCodeCoverageConfig
             ->createConfigData($execute);
     }
 

@@ -46,7 +46,7 @@ class PhpUnitHandler extends ToolHandler
         }
     }
 
-    private function setTitle()
+    protected function setTitle()
     {
         $this->outputHandler->setTitle('Running unit tests');
         $this->output->write($this->outputHandler->getTitle());
