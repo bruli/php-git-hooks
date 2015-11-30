@@ -26,6 +26,6 @@ final class BadJobLogo
              @@@@@@@@@@@@@@@@@@@@@
                 @@@@@@@@@@@@@@@
         </fg=red;options=bold;>\n
-        <fg=white;bg=red;options=bold;>   FIX YOUR FUCKING CODE!!!    </fg=white;bg=red;options=bold;>\n";
+        <fg=white;bg=red;options=bold;>   FIX YOUR CODE!!!    </fg=white;bg=red;options=bold;>\n";
     }
 }
