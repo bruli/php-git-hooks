@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5ae75982186d305656a4a29ddfe0b075",
-    "content-hash": "6429eefdfc273a516f420fe65c7d4f4c",
+    "hash": "286488bbfb7632bd0fadb42988bad35a",
+    "content-hash": "5e5357ee5309fcb1e9de783ad9e40cfc",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -1477,26 +1477,26 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.8.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "f21c97aec1b5302d2dc0d17047ea8f4e4ff93aae"
+                "reference": "40bae8658dbbb500ebc19aa9fde22dc4295fc290"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/f21c97aec1b5302d2dc0d17047ea8f4e4ff93aae",
-                "reference": "f21c97aec1b5302d2dc0d17047ea8f4e4ff93aae",
+                "url": "https://api.github.com/repos/symfony/config/zipball/40bae8658dbbb500ebc19aa9fde22dc4295fc290",
+                "reference": "40bae8658dbbb500ebc19aa9fde22dc4295fc290",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
-                "symfony/filesystem": "~2.3|~3.0.0"
+                "php": ">=5.5.9",
+                "symfony/filesystem": "~2.8|~3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -1523,7 +1523,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-23 20:38:01"
+            "time": "2015-11-02 20:34:04"
         },
         {
             "name": "symfony/console",
