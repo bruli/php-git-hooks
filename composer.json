@@ -32,7 +32,7 @@
         "phpmd/phpmd": "~2.2",
         "symfony/dependency-injection": "~2.7",
         "symfony/config": "~2.7",
-        "symfony/yaml": "~2.7",
+        "symfony/yaml": "~3.0",
         "fiunchinho/phpunit-randomizer": "~2.0",
         "seld/jsonlint": "1.3.*"
     },
