@@ -2,8 +2,6 @@
 
 namespace PhpGitHooks\Application\Composer;
 
-use PhpGitHooks\Application\Message\MessageConfigData;
-
 final class CommitMsgProcessor extends Processor
 {
     const HOOK_NAME = 'commit-msg';
@@ -17,7 +15,6 @@ final class CommitMsgProcessor extends Processor
     {
         if ($this->enableHook($configData)) {
             $this->setExpressionRegular();
-            $this->setMessages($configData);
         }
 
         return $this->configData;
@@ -51,14 +48,6 @@ final class CommitMsgProcessor extends Processor
         if (!isset($this->configData[self::HOOK_NAME]['regular-expression'])) {
             $answer = $this->setQuestion('Write an expression regular', '[#[0-9]{2,7}]', '#[0-9]{2,7}');
             $this->configData[self::HOOK_NAME]['regular-expression'] = $answer;
-        }
-    }
-
-    private function setMessages(array $configData)
-    {
-        if (!isset($configData[self::HOOK_NAME][MessageConfigData::TOOL])) {
-            $message = new MessageConfigData($this->io, self::HOOK_NAME);
-            $this->configData[self::HOOK_NAME][MessageConfigData::TOOL] = $message->config($configData);
         }
     }
 }

@@ -25,7 +25,7 @@ class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function commitMsgEnabledHook()
     {
-        $this->IO->shouldReceive('ask')->times(4)->andReturn('y');
+        $this->IO->shouldReceive('ask')->twice()->andReturn('y');
 
         $commitMsg = $this->commitMsgProcessor->execute([]);
 
@@ -67,7 +67,7 @@ class CommitMsgProcessorTest extends \PHPUnit_Framework_TestCase
     public function commitMsgExpressionRegular()
     {
         $this->IO->shouldReceive('ask')
-            ->times(4)
+            ->twice()
             ->andReturn('y', '#[0-9]{2,7}');
 
         $commitMsg = $this->commitMsgProcessor->execute([]);
