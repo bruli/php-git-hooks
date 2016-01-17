@@ -17,10 +17,6 @@ class InMemoryPhpCsFixerHandler implements InteractiveToolInterface, PhpCsFixerH
     {
     }
 
-    public function run()
-    {
-    }
-
     /**
      * @param array $files
      */
@@ -39,6 +35,15 @@ class InMemoryPhpCsFixerHandler implements InteractiveToolInterface, PhpCsFixerH
      * @param array $levels
      */
     public function setLevels(array $levels)
+    {
+    }
+
+    /**
+     * @param array $messages
+     *
+     * @return mixed
+     */
+    public function run(array $messages)
     {
     }
 }

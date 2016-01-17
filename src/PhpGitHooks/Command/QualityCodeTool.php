@@ -3,6 +3,8 @@
 namespace PhpGitHooks\Command;
 
 use PhpGitHooks\Application\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecutor;
+use PhpGitHooks\Application\Config\HookConfigInterface;
+use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Application\PhpCsFixer\FixCodeStyleCsFixerPreCommitExecutor;
 use PhpGitHooks\Application\PhpMD\CheckPhpMessDetectionPreCommitExecutor;
 use PhpGitHooks\Application\PhpUnit\UnitTestPreCommitExecutor;
@@ -25,6 +27,8 @@ class QualityCodeTool extends Application
     private $container;
     /** @var  OutputHandler */
     private $outputTitleHandler;
+    /** @var HookConfigInterface */
+    private $configData;
 
     const PHP_FILES = '/^(.*)(\.php)$/';
     const JSON_FILES = '/^(.*)(\.json)$/';
@@ -34,12 +38,13 @@ class QualityCodeTool extends Application
     {
         $this->container = new Container();
         $this->outputTitleHandler = new OutputHandler();
+        $this->configData = $this->container->get('pre.commit.config');
 
         parent::__construct('Code Quality Tool');
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     public function doRun(InputInterface $input, OutputInterface $output)
@@ -52,7 +57,7 @@ class QualityCodeTool extends Application
         $this->execute();
 
         if (true === $this->existsFiles()) {
-            $this->output->writeln(GoodJobLogo::paint());
+            $this->output->writeln(GoodJobLogo::paint($this->getRightMessage()));
         }
     }
 
@@ -67,7 +72,6 @@ class QualityCodeTool extends Application
 
         $result = true === $this->existsFiles() ? '0k' : 'No files changed';
         $this->output->writeln($this->outputTitleHandler->getSuccessfulStepMessage($result));
-
     }
 
     /**
@@ -78,19 +82,19 @@ class QualityCodeTool extends Application
         $files = [
             'php' => false,
             'composer' => false,
-            'json' => false
+            'json' => false,
         ];
 
         foreach ($this->files as $file) {
-            if (true === (bool)preg_match(self::PHP_FILES, $file)) {
+            if (true === (bool) preg_match(self::PHP_FILES, $file)) {
                 $files['php'] = true;
             }
 
-            if (true === (bool)preg_match(self::COMPOSER_FILES, $file)) {
+            if (true === (bool) preg_match(self::COMPOSER_FILES, $file)) {
                 $files['composer'] = true;
             }
 
-            if (true === (bool)preg_match(self::JSON_FILES, $file)) {
+            if (true === (bool) preg_match(self::JSON_FILES, $file)) {
                 $files['json'] = true;
             }
         }
@@ -168,5 +172,15 @@ class QualityCodeTool extends Application
     private function existsFiles()
     {
         return count($this->files) > 1 ? true : false;
+    }
+
+    /**
+     * @return string
+     */
+    private function getRightMessage()
+    {
+        $messages = $this->configData->getMessages();
+
+        return $messages[MessageConfigData::KEY_RIGHT_MESSAGE];
     }
 }

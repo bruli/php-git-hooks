@@ -47,7 +47,7 @@ class FixCodeStyleCsFixerPreCommitExecutor extends PreCommitExecutor
             $this->phpCsFixerHandler->setFiles($files);
             $this->phpCsFixerHandler->setLevels($data['levels']);
             $this->phpCsFixerHandler->setFilesToAnalyze($needle);
-            $this->phpCsFixerHandler->run();
+            $this->phpCsFixerHandler->run($this->getMessages());
         }
     }
 }

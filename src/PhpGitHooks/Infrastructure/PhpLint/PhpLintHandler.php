@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpLint;
 
+use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\FilesToolHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
@@ -18,9 +19,13 @@ class PhpLintHandler extends ToolHandler implements FilesToolHandlerInterface
     private $files;
 
     /**
+     * @param array $messages
+     *
+     * @return mixed|void
+     *
      * @throws PhpLintException
      */
-    public function run()
+    public function run(array $messages)
     {
         $this->outputHandler->setTitle('Running PHPLint');
         $this->output->write($this->outputHandler->getTitle());
@@ -40,7 +45,7 @@ class PhpLintHandler extends ToolHandler implements FilesToolHandlerInterface
         if (false === $process->isSuccessful()) {
             $this->outputHandler->setError($process->getErrorOutput());
             $this->output->writeln($this->outputHandler->getError());
-            $this->output->writeln(BadJobLogo::paint());
+            $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
 
             throw new PhpLintException();
         }

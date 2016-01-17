@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\CodeSniffer;
 
+use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\Process;
@@ -20,9 +21,11 @@ class CodeSnifferHandler extends ToolHandler
     private $standard = 'PSR2';
 
     /**
+     * @param array $messages
+     *
      * @throws InvalidCodingStandardException
      */
-    public function run()
+    public function run(array $messages)
     {
         $this->outputHandler->setTitle('Checking code style with PHPCS');
         $this->output->write($this->outputHandler->getTitle());
@@ -40,7 +43,7 @@ class CodeSnifferHandler extends ToolHandler
             if (false === $phpCs->isSuccessful()) {
                 $this->outputHandler->setError($phpCs->getOutput());
                 $this->output->writeln($this->outputHandler->getError());
-                $this->output->writeln(BadJobLogo::paint());
+                $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
 
                 throw new InvalidCodingStandardException();
             }

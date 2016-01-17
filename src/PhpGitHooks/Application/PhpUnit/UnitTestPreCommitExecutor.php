@@ -42,10 +42,10 @@ class UnitTestPreCommitExecutor extends PreCommitExecutor
         if (true === $extraOptions['enabled']) {
             if (true === $extraOptions['random-mode']) {
                 $this->phpUnitRandomizerHandler->setOutput($outputInterface);
-                $this->phpUnitRandomizerHandler->run();
+                $this->phpUnitRandomizerHandler->run($this->getMessages());
             } else {
                 $this->phpunitHandler->setOutput($outputInterface);
-                $this->phpunitHandler->run();
+                $this->phpunitHandler->run($this->getMessages());
             }
         }
     }

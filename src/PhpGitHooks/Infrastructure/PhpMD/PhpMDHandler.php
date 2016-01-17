@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpMD;
 
+use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
@@ -18,9 +19,11 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
     private $needle;
 
     /**
+     * @param array $messages
+     *
      * @throws PHPMDViolationsException
      */
-    public function run()
+    public function run(array $messages)
     {
         $this->outputHandler->setTitle('Checking code mess with PHPMD');
         $this->output->write($this->outputHandler->getTitle());
@@ -56,7 +59,7 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
         });
 
         if ($errors) {
-            $this->output->writeln(BadJobLogo::paint());
+            $this->output->writeln(BadJobLogo::paint(MessageConfigData::KEY_ERROR_MESSAGE));
             throw new PHPMDViolationsException(implode('', $errors));
         }
 

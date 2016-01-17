@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\PhpCsFixer;
 
+use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
@@ -19,7 +20,7 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
     /**
      * @throws PhpCsFixerException
      */
-    public function run()
+    public function run(array $messages)
     {
         foreach ($this->levels as $level => $value) {
             if (true === $value) {
@@ -55,7 +56,7 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
                 }
 
                 if ($errors) {
-                    $this->output->writeln(BadJobLogo::paint());
+                    $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
                     throw new PhpCsFixerException(implode('', $errors));
                 }
 

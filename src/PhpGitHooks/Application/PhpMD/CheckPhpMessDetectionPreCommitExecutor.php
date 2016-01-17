@@ -50,7 +50,7 @@ class CheckPhpMessDetectionPreCommitExecutor extends PreCommitExecutor
             $this->phpMDHandler->setOutput($output);
             $this->phpMDHandler->setFiles($files);
             $this->phpMDHandler->setNeedle($needle);
-            $this->phpMDHandler->run();
+            $this->phpMDHandler->run($this->getMessages());
         }
     }
 }

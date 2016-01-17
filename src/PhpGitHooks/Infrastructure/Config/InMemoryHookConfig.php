@@ -4,6 +4,7 @@ namespace PhpGitHooks\Infrastructure\Config;
 
 use PhpGitHooks\Application\Config\HookConfigExtraToolInterface;
 use PhpGitHooks\Application\Config\HookConfigInterface;
+use PhpGitHooks\Application\Message\MessageConfigData;
 
 /**
  * Class InMemoryHookConfig.
@@ -14,6 +15,11 @@ class InMemoryHookConfig implements HookConfigInterface, HookConfigExtraToolInte
     private $enabled;
     /** @var array  */
     private $extraOptions = [];
+
+    private $messages = [
+        MessageConfigData::KEY_ERROR_MESSAGE => 'error',
+        MessageConfigData::KEY_RIGHT_MESSAGE => 'perfect',
+    ];
 
     /**
      * @param bool $enabled
@@ -49,5 +55,13 @@ class InMemoryHookConfig implements HookConfigInterface, HookConfigExtraToolInte
     public function extraOptions($tool)
     {
         return $this->extraOptions;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

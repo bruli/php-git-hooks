@@ -14,10 +14,6 @@ class InMemoryPhpMDHandler implements RecursiveToolInterface
     {
     }
 
-    public function run()
-    {
-    }
-
     /**
      * @param string $needle
      */
@@ -29,6 +25,13 @@ class InMemoryPhpMDHandler implements RecursiveToolInterface
      * @param array $files
      */
     public function setFiles($files)
+    {
+    }
+
+    /**
+     * @param array $messages
+     */
+    public function run(array $messages)
     {
     }
 }

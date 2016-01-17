@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Infrastructure\JsonLint;
 
+use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
@@ -14,7 +15,12 @@ final class JsonLintHandler extends ToolHandler implements RecursiveToolInterfac
     /** @var  string */
     private $needle;
 
-    public function run()
+    /**
+     * @param array $messages
+     *
+     * @throws JsonLintViolationsException
+     */
+    public function run(array $messages)
     {
         $this->outputHandler->setTitle(sprintf('Checking json code with %s', strtoupper('jsonlint')));
         $this->output->write($this->outputHandler->getTitle());
@@ -30,7 +36,7 @@ final class JsonLintHandler extends ToolHandler implements RecursiveToolInterfac
                 array(
                     'php',
                     'bin/jsonlint',
-                    $file
+                    $file,
                 )
             );
             $process = $processBuilder->getProcess();
@@ -46,7 +52,7 @@ final class JsonLintHandler extends ToolHandler implements RecursiveToolInterfac
         });
 
         if ($errors) {
-            $this->output->writeln(BadJobLogo::paint());
+            $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
             throw new JsonLintViolationsException(implode('', $errors));
         }
 

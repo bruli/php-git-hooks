@@ -14,7 +14,12 @@ interface InteractiveToolInterface
      */
     public function setOutput(OutputInterface $outputInterface);
 
-    public function run();
+    /**
+     * @param array $messages
+     *
+     * @return mixed
+     */
+    public function run(array $messages);
 
     /**
      * @param string $filesToAnalyze

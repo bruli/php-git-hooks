@@ -5,11 +5,13 @@ namespace PhpGitHooks\Command;
 final class BadJobLogo
 {
     /**
+     * @param string $message
+     *
      * @return string
      */
-    public static function paint()
+    public static function paint($message)
     {
-        return "<fg=red;options=bold;>
+        return sprintf("<fg=red;options=bold;>
                 @@@@@@@@@@@@@@@
              @@@@@@@@@@@@@@@@@@@@
            @@@@@@@@  @@@@@  @@@@@@@
@@ -26,6 +28,6 @@ final class BadJobLogo
              @@@@@@@@@@@@@@@@@@@@@
                 @@@@@@@@@@@@@@@
         </fg=red;options=bold;>\n
-        <fg=white;bg=red;options=bold;>   FIX YOUR FUCKING CODE!!!    </fg=white;bg=red;options=bold;>\n";
+        <fg=white;bg=red;options=bold;>   %s    </fg=white;bg=red;options=bold;>\n", $message);
     }
 }

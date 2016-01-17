@@ -17,14 +17,17 @@ class InMemoryPhpLintHandler implements FilesToolHandlerInterface
     {
     }
 
-    public function run()
-    {
-    }
-
     /**
      * @param array $files
      */
     public function setFiles(array $files)
+    {
+    }
+
+    /**
+     * @param array $messages
+     */
+    public function run(array $messages)
     {
     }
 }

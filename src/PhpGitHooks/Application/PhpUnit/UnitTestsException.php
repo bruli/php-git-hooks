@@ -7,5 +7,5 @@ namespace PhpGitHooks\Application\PhpUnit;
  */
 class UnitTestsException extends \Exception
 {
-    protected $message = 'Fix the fucking unit tests!';
+    protected $message = 'Fix unit tests!';
 }

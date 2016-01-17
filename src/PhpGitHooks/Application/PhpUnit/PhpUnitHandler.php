@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\PhpUnit;
 
+use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Command\OutputHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\ProcessBuilderInterface;
@@ -28,9 +29,11 @@ class PhpUnitHandler extends ToolHandler
     }
 
     /**
+     * @param array $messages
+     *
      * @throws UnitTestsException
      */
-    public function run()
+    public function run(array $messages)
     {
         $this->setTitle();
 
@@ -41,7 +44,7 @@ class PhpUnitHandler extends ToolHandler
             ->executeProcess($phpunit, $this->output);
 
         if (!$phpunit->isSuccessful()) {
-            $this->output->writeln(BadJobLogo::paint());
+            $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
             throw new UnitTestsException();
         }
     }

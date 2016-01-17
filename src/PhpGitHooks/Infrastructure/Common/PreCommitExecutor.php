@@ -21,6 +21,14 @@ abstract class PreCommitExecutor
     }
 
     /**
+     * @return array
+     */
+    protected function getMessages()
+    {
+        return $this->preCommitConfig->getMessages();
+    }
+
+    /**
      * @return string
      */
     abstract protected function commandName();

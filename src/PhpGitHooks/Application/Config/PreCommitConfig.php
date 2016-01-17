@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\Config;
 
+use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Infrastructure\Disk\Config\ConfigFileReaderInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
@@ -10,6 +11,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
  */
 class PreCommitConfig implements HookConfigInterface, HookConfigExtraToolInterface
 {
+    const HOOK_NAME = 'pre-commit';
     /** @var  ConfigFileReaderInterface */
     private $configFileReader;
 
@@ -50,7 +52,17 @@ class PreCommitConfig implements HookConfigInterface, HookConfigExtraToolInterfa
             throw new Exception('php-git-hooks.yml file not found');
         }
 
-        return $data['pre-commit']['execute'];
+        return $data[self::HOOK_NAME]['execute'];
+    }
+
+    /**
+     * @return array
+     */
+    public function getMessages()
+    {
+        $data = $this->configFileReader->getFileContents();
+
+        return $data[self::HOOK_NAME][MessageConfigData::TOOL];
     }
 
     /**

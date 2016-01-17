@@ -38,7 +38,7 @@ final class CheckJsonSyntaxPreCommitExecutor extends PreCommitExecutor
             $this->jsonLintHandler->setOutput($outputInterface);
             $this->jsonLintHandler->setFiles($files);
             $this->jsonLintHandler->setNeedle($needle);
-            $this->jsonLintHandler->run();
+            $this->jsonLintHandler->run($this->getMessages());
         }
     }
 }

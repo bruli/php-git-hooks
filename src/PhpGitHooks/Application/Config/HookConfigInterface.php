@@ -13,4 +13,9 @@ interface HookConfigInterface
      * @return bool
      */
     public function isEnabled($hook);
+
+    /**
+     * @return array
+     */
+    public function getMessages();
 }

@@ -39,7 +39,7 @@ class CheckPhpSyntaxLintPreCommitExecutor extends PreCommitExecutor
         if ($this->isEnabled()) {
             $this->phpLintHandler->setOutput($output);
             $this->phpLintHandler->setFiles($files);
-            $this->phpLintHandler->run();
+            $this->phpLintHandler->run($this->getMessages());
         }
     }
 

@@ -11,7 +11,10 @@ interface RecursiveToolInterface
      */
     public function setOutput(OutputInterface $outputInterface);
 
-    public function run();
+    /**
+     * @param array $messages
+     */
+    public function run(array $messages);
 
     /**
      * @param string $needle

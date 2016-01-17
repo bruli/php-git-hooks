@@ -14,10 +14,6 @@ final class InMemoryJsonLintHandler implements RecursiveToolInterface
     {
     }
 
-    public function run()
-    {
-    }
-
     /**
      * @param string $needle
      */
@@ -29,6 +25,13 @@ final class InMemoryJsonLintHandler implements RecursiveToolInterface
      * @param array $files
      */
     public function setFiles($files)
+    {
+    }
+
+    /**
+     * @param array $messages
+     */
+    public function run(array $messages)
     {
     }
 }
