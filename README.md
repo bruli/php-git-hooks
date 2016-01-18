@@ -16,15 +16,17 @@ Library based in git hook scripts for PHP projects.
 
 ### Step 1: Composer
 
-You must add the following line to the `composer.json` file:
+You must add the following line to the `composer.json` file to use with Symfony 3.0:
 
 ```json
 {
     "require-dev": {
-        "bruli/php-git-hooks": "^2.0"
+        "bruli/php-git-hooks": "~3.0"
     }
 }
 ```
+You can use "~2.0" for Symfony version 2.X.
+
 Or you can write in your console:
 
 ```bash
