@@ -102,6 +102,9 @@ pre-commit:
         standard:    PSR2
     phpmd:           true
     composer:        true
+  message: 
+    right-message: 'HEY, GOOD JOB!!'
+    error-message: 'FIX YOUR CODE!!'
 commit-msg:
     enabled: true
     regular-expression: '#[0-9]{2,7}'
