@@ -11,6 +11,10 @@ use Symfony\Component\Config\Definition\Exception\Exception;
  */
 class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
 {
+    const RIGHT_MESSAGE_KEY = 'right-message';
+    const ERROR_MESSAGE_KEY = 'error-message';
+    const RIGHT_MESSAGE = 'ok';
+    const ERROR_MESSAGE = 'error';
     /** @var  PreCommitConfig */
     private $preCommitConfig;
     /** @var  InMemoryConfigFileReader */
@@ -27,8 +31,10 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidConfigData()
     {
-        $data = ['pre-commit' => ['execute' => ['phpunit' => 'dfaa'],
-        ],
+        $data = [
+            'pre-commit' => [
+                'execute' => ['phpunit' => 'dfaa'],
+            ],
         ];
 
         $this->configFileReader->fileContents = $data;
@@ -41,8 +47,10 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function serviceNameNotExists()
     {
-        $data = ['pre-commit' => ['execute' => ['phpunit' => true],
-        ],
+        $data = [
+            'pre-commit' => [
+                'execute' => ['phpunit' => true],
+            ],
         ];
 
         $this->configFileReader->fileContents = $data;
@@ -55,8 +63,10 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function serviceIsEnabled()
     {
-        $data = ['pre-commit' => ['execute' => ['phpunit' => true],
-        ],
+        $data = [
+            'pre-commit' => [
+                'execute' => ['phpunit' => true],
+            ],
         ];
 
         $this->configFileReader->fileContents = $data;
@@ -81,11 +91,39 @@ class PreCommitConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function getExtraOptions()
     {
-        $this->configFileReader->fileContents = ['pre-commit' => ['execute' => ['php-cs-fixer' => [
-                'enabled' => true,
-                'level' => 'psr0',
-            ]]]];
+        $this->configFileReader->fileContents = [
+            'pre-commit' => [
+                'execute' => [
+                    'php-cs-fixer' => [
+                        'enabled' => true,
+                        'level' => 'psr0',
+                    ],
+                ],
+            ],
+        ];
 
         $this->preCommitConfig->extraOptions('php-cs-fixer');
+    }
+
+    /**
+     * @test
+     */
+    public function getMessagesIsNotNull()
+    {
+        $this->configFileReader->fileContents = [
+            'pre-commit' => [
+                'message' => [
+                        self::RIGHT_MESSAGE_KEY => self::RIGHT_MESSAGE,
+                        self::ERROR_MESSAGE_KEY => self::ERROR_MESSAGE,
+                    ],
+            ],
+        ];
+
+        $messages = $this->preCommitConfig->getMessages();
+
+        $this->assertArrayHasKey(self::RIGHT_MESSAGE_KEY, $messages);
+        $this->assertArrayHasKey(self::ERROR_MESSAGE_KEY, $messages);
+        $this->assertSame(self::RIGHT_MESSAGE, $messages[self::RIGHT_MESSAGE_KEY]);
+        $this->assertSame(self::ERROR_MESSAGE, $messages[self::ERROR_MESSAGE_KEY]);
     }
 }

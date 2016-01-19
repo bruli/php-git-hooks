@@ -9,6 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UnitTestPreCommitExecutor extends PreCommitExecutor
 {
+    const TOOL = 'phpunit';
+    const ENABLED_KEY = 'enabled';
+    const RANDOM_MODE_KEY = 'random-mode';
     /** @var PhpUnitHandler */
     private $phpunitHandler;
     /** @var PhpUnitRandomizerHandler */
@@ -39,8 +42,8 @@ class UnitTestPreCommitExecutor extends PreCommitExecutor
         /** @var HookConfigExtraToolInterface $data */
         $data = $this->preCommitConfig;
         $extraOptions = $data->extraOptions(PhpUnitConfigData::TOOL);
-        if (true === $extraOptions['enabled']) {
-            if (true === $extraOptions['random-mode']) {
+        if (true === $extraOptions[self::ENABLED_KEY]) {
+            if (true === $extraOptions[self::RANDOM_MODE_KEY]) {
                 $this->phpUnitRandomizerHandler->setOutput($outputInterface);
                 $this->phpUnitRandomizerHandler->run($this->getMessages());
             } else {
@@ -55,6 +58,6 @@ class UnitTestPreCommitExecutor extends PreCommitExecutor
      */
     protected function commandName()
     {
-        return 'phpunit';
+        return self::TOOL;
     }
 }
