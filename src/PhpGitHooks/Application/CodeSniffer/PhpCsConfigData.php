@@ -7,6 +7,10 @@ use PhpGitHooks\Application\Config\AbstractToolConfigData;
 final class PhpCsConfigData extends AbstractToolConfigData
 {
     const TOOL = 'phpcs';
+    const STANDARD_KEY = 'standard';
+    const STANDARDS_LIST = '[PSR2/PHPCS/MySource/Zend/Squiz/PSR1/PEAR]';
+    const ENABLED_KEY = 'enabled';
+    const DEFAULT_ANSWER = 'Y';
     /** @var string */
     private $standard = 'PSR2';
 
@@ -14,8 +18,6 @@ final class PhpCsConfigData extends AbstractToolConfigData
      * @param array $data
      *
      * @return array
-     *
-     * @throws InvalidPhpCsConfigDataException
      */
     public function createConfigData(array $data)
     {
@@ -27,22 +29,6 @@ final class PhpCsConfigData extends AbstractToolConfigData
     }
 
     /**
-     * @throws InvalidPhpCsConfigDataException
-     */
-    private function checkConfigData()
-    {
-        $configData = $this->configData[self::TOOL];
-
-        if (false === is_array($configData)) {
-            throw new InvalidPhpCsConfigDataException();
-        }
-
-        if (false === isset($configData['enabled'])) {
-            throw new InvalidPhpCsConfigDataException();
-        }
-    }
-
-    /**
      * @return string
      */
     protected function getToolName()
@@ -50,38 +36,31 @@ final class PhpCsConfigData extends AbstractToolConfigData
         return self::TOOL;
     }
 
-    /**
-     * @throws InvalidPhpCsConfigDataException
-     */
     private function setEnabled()
     {
         if (!isset($this->configData[self::TOOL])) {
             $answer = $this->setQuestion(
                 sprintf('Do you want enable %s tool: ', strtoupper(self::TOOL)),
-                'Y',
+                self::DEFAULT_ANSWER,
                 '[Y/n]'
             );
-            $answer = 'Y' === strtoupper($answer) ? true : false;
+            $answer = self::DEFAULT_ANSWER === strtoupper($answer) ? true : false;
         } else {
-            $this->checkConfigData();
-            $answer = $this->configData[self::TOOL]['enabled'];
+            $answer = $this->configData[self::TOOL][self::ENABLED_KEY];
         }
 
         $this->enableTool($answer);
     }
 
-    /**
-     * @throws InvalidPhpCsConfigDataException
-     */
     private function setStandard()
     {
-        if (!isset($this->configData[self::TOOL]['standard'])) {
+        if (!isset($this->configData[self::TOOL][self::STANDARD_KEY])) {
             $answer = $this->setQuestion(
                 sprintf('Which standard do you want to use for %s tool: ', strtoupper(self::TOOL)),
                 $this->standard,
-                '[PSR2/PHPCS/MySource/Zend/Squiz/PSR1/PEAR]'
+                self::STANDARDS_LIST
             );
-            $this->configData[self::TOOL]['standard'] = $answer;
+            $this->configData[self::TOOL][self::STANDARD_KEY] = $answer;
         }
     }
 }

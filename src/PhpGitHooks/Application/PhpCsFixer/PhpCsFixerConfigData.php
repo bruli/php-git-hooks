@@ -7,6 +7,9 @@ use PhpGitHooks\Application\Config\AbstractToolConfigData;
 final class PhpCsFixerConfigData extends AbstractToolConfigData
 {
     const TOOL = 'php-cs-fixer';
+    const ENABLED_KEY = 'enabled';
+    const DEFAULT_ANSWER = 'Y';
+    const LEVELS_KEY = 'levels';
     /** @var array  */
     private $allowedLevels = ['psr0', 'psr1', 'psr2', 'symfony'];
 
@@ -37,7 +40,7 @@ final class PhpCsFixerConfigData extends AbstractToolConfigData
             throw new InvalidPhpCsFixerConfigDataException();
         }
 
-        if (false === isset($configData['enabled'])) {
+        if (false === isset($configData[self::ENABLED_KEY])) {
             throw new InvalidPhpCsFixerConfigDataException();
         }
     }
@@ -46,16 +49,16 @@ final class PhpCsFixerConfigData extends AbstractToolConfigData
     {
         $configData = $this->configData[self::TOOL];
         foreach ($this->allowedLevels as $level) {
-            if (!isset($configData['levels'][$level])) {
+            if (!isset($configData[self::LEVELS_KEY][$level])) {
                 $answerLevel = strtolower($this->setQuestion(
                     sprintf('Enable %s level for %s tool', $level, strtoupper(self::TOOL)),
-                    'Y',
+                    self::DEFAULT_ANSWER,
                     '[Y/n]'
                 ));
 
-                $answerLevel = 'Y' === strtoupper($answerLevel) ? true : false;
+                $answerLevel = self::DEFAULT_ANSWER === strtoupper($answerLevel) ? true : false;
 
-                $this->configData[self::TOOL]['levels'][$level] = $answerLevel;
+                $this->configData[self::TOOL][self::LEVELS_KEY][$level] = $answerLevel;
             }
         }
     }
@@ -74,11 +77,15 @@ final class PhpCsFixerConfigData extends AbstractToolConfigData
     private function setEnabled()
     {
         if (!isset($this->configData[self::TOOL])) {
-            $answer = $this->setQuestion(sprintf('Do you want enable %s tool: ', strtoupper(self::TOOL)), 'Y', '[Y/n]');
-            $answer = 'Y' === strtoupper($answer) ? true : false;
+            $answer = $this->setQuestion(
+                sprintf('Do you want enable %s tool: ', strtoupper(self::TOOL)),
+                self::DEFAULT_ANSWER,
+                '[Y/n]'
+            );
+            $answer = self::DEFAULT_ANSWER === strtoupper($answer) ? true : false;
         } else {
             $this->checkConfigData();
-            $answer = $this->configData[self::TOOL]['enabled'];
+            $answer = $this->configData[self::TOOL][self::ENABLED_KEY];
         }
 
         $this->enableTool($answer);
