@@ -52,7 +52,7 @@ class MessageConfigData
     private function configMessages()
     {
         if (!isset($this->configData[self::TOOL])) {
-            $this->configData = null;
+            $this->configData = [];
             $rightMessage = $this->setMessage(
                 sprintf('Write a right message for %s hook:', $this->hook),
                 self::DEFAULT_RIGHT_MESSAGE

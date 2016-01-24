@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Infrastructure\PhpMD;
 
 use PhpGitHooks\Application\Message\MessageConfigData;
-use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
@@ -59,8 +58,10 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
         });
 
         if ($errors) {
-            $this->output->writeln(BadJobLogo::paint(MessageConfigData::KEY_ERROR_MESSAGE));
-            throw new PHPMDViolationsException(implode('', $errors));
+            $this->writeOutputError(
+                new PHPMDViolationsException(implode('', $errors)),
+                MessageConfigData::KEY_ERROR_MESSAGE
+            );
         }
 
         $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());

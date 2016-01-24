@@ -3,14 +3,13 @@
 namespace PhpGitHooks\Infrastructure\JsonLint;
 
 use PhpGitHooks\Application\Message\MessageConfigData;
-use PhpGitHooks\Command\BadJobLogo;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
 
 final class JsonLintHandler extends ToolHandler implements RecursiveToolInterface
 {
-    /** @var array  */
+    /** @var array */
     private $files = [];
     /** @var  string */
     private $needle;
@@ -52,8 +51,10 @@ final class JsonLintHandler extends ToolHandler implements RecursiveToolInterfac
         });
 
         if ($errors) {
-            $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
-            throw new JsonLintViolationsException(implode('', $errors));
+            $this->writeOutputError(
+                new JsonLintViolationsException(implode('', $errors)),
+                $messages[MessageConfigData::KEY_ERROR_MESSAGE]
+            );
         }
 
         $this->output->writeln($this->outputHandler->getSuccessfulStepMessage());

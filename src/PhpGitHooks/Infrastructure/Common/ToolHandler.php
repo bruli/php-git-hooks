@@ -30,4 +30,14 @@ abstract class ToolHandler
     {
         $this->output = $outputInterface;
     }
+
+    /**
+     * @param \Exception $exceptionClass
+     * @param string     $errorText
+     */
+    protected function writeOutputError(\Exception $exceptionClass, $errorText)
+    {
+        ErrorOutput::write($errorText);
+        throw new $exceptionClass();
+    }
 }
