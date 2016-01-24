@@ -48,7 +48,7 @@ class PreCommitConfig implements HookConfigInterface, HookConfigExtraToolInterfa
     {
         $data = $this->configFileReader->getFileContents();
 
-        if (!$data) {
+        if (empty($data)) {
             throw new Exception('php-git-hooks.yml file not found');
         }
 
