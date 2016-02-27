@@ -11,7 +11,7 @@ class InMemoryMergeValidator implements MergeValidatorInterface
     private $merge;
 
     /**
-     * @param boolean $merge
+     * @param bool $merge
      */
     public function setMerge($merge)
     {

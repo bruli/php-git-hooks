@@ -13,18 +13,18 @@ class HooksFileCopier
 
     /**
      * @param string $hook
-     * @param bool $enabled
+     * @param bool   $enabled
      */
     public function copy($hook, $enabled)
     {
         if (true === $enabled) {
-            if (false === file_exists(self::GIT_HOOKS_PATH . $hook)) {
+            if (false === file_exists(self::GIT_HOOKS_PATH.$hook)) {
                 $copy = new Process(
-                    'cp ' . __DIR__ . '/../../../../hooks/' . $hook . ' ' . self::GIT_HOOKS_PATH . $hook
+                    'cp '.__DIR__.'/../../../../hooks/'.$hook.' '.self::GIT_HOOKS_PATH.$hook
                 );
                 $copy->run();
 
-                $permissions = new Process('chmod 775 ' . self::GIT_HOOKS_PATH . $hook);
+                $permissions = new Process('chmod 775 '.self::GIT_HOOKS_PATH.$hook);
                 $permissions->run();
             }
         }

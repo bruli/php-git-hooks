@@ -44,8 +44,11 @@
             <argument type="service" id="pre.commit.config"/>
             <argument type="service" id="php.cs.fixer.handler"/>
         </service>
+        <service id="ignore.files" class="IgnoreFiles\IgnoreFiles">
+        </service>
         <service id="php.cs.fixer.handler" class="PhpGitHooks\Infrastructure\PhpCsFixer\PhpCsFixerHandler">
             <argument type="service" id="output.handler" />
+            <argument type="service" id="ignore.files"/>
         </service>
         <service id="check.code.style.code.sniffer.pre.commit.executor" class="PhpGitHooks\Application\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecutor">
             <argument type="service" id="pre.commit.config"/>
@@ -99,6 +102,9 @@
         </service>
         <service id="json.lint.handler" class="PhpGitHooks\Infrastructure\JsonLint\JsonLintHandler">
             <argument type="service" id="output.handler" />
+        </service>
+        <service id="file.reader" class="IgnoreFiles\Infrastructure\Disk\FileReader">
+            <argument type="string">ignore_files</argument>
         </service>
     </services>
 </container>

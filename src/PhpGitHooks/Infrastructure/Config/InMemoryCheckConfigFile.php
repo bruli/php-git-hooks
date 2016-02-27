@@ -27,7 +27,7 @@ class InMemoryCheckConfigFile implements CheckFileInterface
     }
 
     /**
-     * @param boolean $exists
+     * @param bool $exists
      */
     public function setExists($exists)
     {

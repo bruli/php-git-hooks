@@ -31,7 +31,7 @@ class OutputHandler implements OutputHandlerInterface
         $text = $this->title;
         $length = $this->getLength();
 
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             $text .= self::TITLE_SEPARATOR;
         }
 

@@ -24,7 +24,7 @@ class OutputHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $this->outputTitleHandler->setTitle('title test');
 
-        $this->assertSame(OutputHandler::MAX_LENGTH+13, strlen($this->outputTitleHandler->getTitle()));
+        $this->assertSame(OutputHandler::MAX_LENGTH + 13, strlen($this->outputTitleHandler->getTitle()));
     }
 
     /**

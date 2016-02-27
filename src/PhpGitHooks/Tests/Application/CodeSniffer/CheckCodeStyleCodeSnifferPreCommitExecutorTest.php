@@ -30,7 +30,7 @@ class CheckCodeStyleCodeSnifferPreCommitExecutorTest extends \PHPUnit_Framework_
             ->setMethods(['run'])
             ->disableOriginalConstructor()
             ->getMock();
-        $this->checkCodeStyleCodeSnifferPreCommitExecutor  = new CheckCodeStyleCodeSnifferPreCommitExecutor(
+        $this->checkCodeStyleCodeSnifferPreCommitExecutor = new CheckCodeStyleCodeSnifferPreCommitExecutor(
             $this->preCommitConfig,
             $this->codeSnifferHandler
         );
@@ -55,7 +55,7 @@ class CheckCodeStyleCodeSnifferPreCommitExecutorTest extends \PHPUnit_Framework_
      */
     public function isEnabled()
     {
-        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'standard' => 'PSR2' ]);
+        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'standard' => 'PSR2']);
 
         $this->checkCodeStyleCodeSnifferPreCommitExecutor->run(
             $this->outputInterface,

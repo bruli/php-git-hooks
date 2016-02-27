@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpGitHooks\Infrastructure\PhpCsFixer;
 
 /**
@@ -6,5 +7,5 @@ namespace PhpGitHooks\Infrastructure\PhpCsFixer;
  */
 class PhpCsFixerException extends \Exception
 {
-    protected $message = "There are some PhpCsFixer styling errors!.";
+    protected $message = 'There are some PhpCsFixer styling errors!.';
 }

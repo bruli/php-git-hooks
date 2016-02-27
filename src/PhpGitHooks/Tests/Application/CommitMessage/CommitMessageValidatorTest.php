@@ -43,7 +43,7 @@ class CommitMessageValidatorTest extends \PHPUnit_Framework_TestCase
         $this->extractCommitMessage = new InMemoryFileExtractInterface();
         $this->configFile = \Mockery::mock(ConfigFile::class);
         $this->configFile->shouldReceive('getMessageCommitConfiguration')
-            ->andReturn(array('regular-expression' => '#[0-9]{2,7}', 'enabled' =>true));
+            ->andReturn(array('regular-expression' => '#[0-9]{2,7}', 'enabled' => true));
 
         $this->commitMessageValidator = new CommitMessageValidator(
             $this->outputHandler,

@@ -2,7 +2,9 @@
 
 namespace PhpGitHooks\Infrastructure\PhpCsFixer;
 
+use IgnoreFiles\IgnoreFiles;
 use PhpGitHooks\Application\Message\MessageConfigData;
+use PhpGitHooks\Command\OutputHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\InteractiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
@@ -15,6 +17,22 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
     private $filesToAnalyze;
     /** @var  array */
     private $levels = [];
+    /**
+     * @var IgnoreFiles
+     */
+    private $ignoreFiles;
+
+    /**
+     * PhpCsFixerHandler constructor.
+     *
+     * @param OutputHandlerInterface $outputHandler
+     * @param IgnoreFiles            $ignoreFiles
+     */
+    public function __construct(OutputHandlerInterface $outputHandler, IgnoreFiles $ignoreFiles)
+    {
+        parent::__construct($outputHandler);
+        $this->ignoreFiles = $ignoreFiles;
+    }
 
     /**
      * @throws PhpCsFixerException
@@ -29,28 +47,30 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
                 $errors = array();
 
                 foreach ($this->files as $file) {
-                    $srcFile = preg_match($this->filesToAnalyze, $file);
+                    if (false === $this->ignoreFiles->isIgnored($file)) {
+                        $srcFile = preg_match($this->filesToAnalyze, $file);
 
-                    if (!$srcFile) {
-                        continue;
-                    }
+                        if (!$srcFile) {
+                            continue;
+                        }
 
-                    $processBuilder = new ProcessBuilder(
-                        array(
-                            'php',
-                            'bin/php-cs-fixer',
-                            '--dry-run',
-                            'fix',
-                            $file,
-                            '--level='.$level,
-                        )
-                    );
+                        $processBuilder = new ProcessBuilder(
+                            array(
+                                'php',
+                                'bin/php-cs-fixer',
+                                '--dry-run',
+                                'fix',
+                                $file,
+                                '--level='.$level,
+                            )
+                        );
 
-                    $phpCsFixer = $processBuilder->getProcess();
-                    $phpCsFixer->run();
+                        $phpCsFixer = $processBuilder->getProcess();
+                        $phpCsFixer->run();
 
-                    if (false === $phpCsFixer->isSuccessful()) {
-                        $errors[] = $phpCsFixer->getOutput();
+                        if (false === $phpCsFixer->isSuccessful()) {
+                            $errors[] = $phpCsFixer->getOutput();
+                        }
                     }
                 }
 

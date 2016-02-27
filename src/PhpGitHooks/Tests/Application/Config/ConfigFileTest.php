@@ -85,7 +85,7 @@ class ConfigFileTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidConfigStructureException::class);
         $this->configFileReader->fileContents = ['commit-msg' => [
-            'enabled' => true
+            'enabled' => true,
         ]];
 
         $this->configFile->getMessageCommitConfiguration();

@@ -34,7 +34,8 @@
         "symfony/config": "~3.0",
         "symfony/yaml": "~3.0",
         "fiunchinho/phpunit-randomizer": "~2.0",
-        "seld/jsonlint": "1.3.*"
+        "seld/jsonlint": "1.3.*",
+        "bruli/ignore-files": "dev-master"
     },
     "require-dev": {
         "composer/composer": "^1.0@dev"
