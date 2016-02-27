@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/ignore-files.git",
-                "reference": "2ef733e558262443cbb3337f722f3ab117196149"
+                "reference": "27593f57b3ef13fac945066dd117416bfed060f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/ignore-files/zipball/2ef733e558262443cbb3337f722f3ab117196149",
-                "reference": "2ef733e558262443cbb3337f722f3ab117196149",
+                "url": "https://api.github.com/repos/bruli/ignore-files/zipball/27593f57b3ef13fac945066dd117416bfed060f3",
+                "reference": "27593f57b3ef13fac945066dd117416bfed060f3",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 }
             ],
             "description": "Ignore files",
-            "time": "2016-02-27 17:22:26"
+            "time": "2016-02-27 18:07:43"
         },
         {
             "name": "doctrine/instantiator",

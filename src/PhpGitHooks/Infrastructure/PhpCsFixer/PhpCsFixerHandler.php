@@ -47,13 +47,13 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
                 $errors = array();
 
                 foreach ($this->files as $file) {
+                    $srcFile = preg_match($this->filesToAnalyze, $file);
+
+                    if (!$srcFile) {
+                        continue;
+                    }
+
                     if (false === $this->ignoreFiles->isIgnored($file)) {
-                        $srcFile = preg_match($this->filesToAnalyze, $file);
-
-                        if (!$srcFile) {
-                            continue;
-                        }
-
                         $processBuilder = new ProcessBuilder(
                             array(
                                 'php',

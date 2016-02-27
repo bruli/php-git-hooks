@@ -56,6 +56,7 @@
         </service>
         <service id="code.sniffer.handler" class="PhpGitHooks\Infrastructure\CodeSniffer\CodeSnifferHandler">
             <argument type="service" id="output.handler" />
+            <argument type="service" id="ignore.files" />
         </service>
         <service id="check.php.mess.detection.pre.commit.executor" class="PhpGitHooks\Application\PhpMD\CheckPhpMessDetectionPreCommitExecutor">
             <argument type="service" id="pre.commit.config"/>
@@ -63,6 +64,7 @@
         </service>
         <service id="phpmd.handler" class="PhpGitHooks\Infrastructure\PhpMD\PhpMDHandler">
             <argument type="service" id="output.handler" />
+            <argument type="service" id="ignore.files" />
         </service>
         <service id="unit.test.pre.commit.executor" class="PhpGitHooks\Application\PhpUnit\UnitTestPreCommitExecutor">
             <argument type="service" id="pre.commit.config"/>
@@ -104,7 +106,7 @@
             <argument type="service" id="output.handler" />
         </service>
         <service id="file.reader" class="IgnoreFiles\Infrastructure\Disk\FileReader">
-            <argument type="string">ignore_files</argument>
+            <argument type="string">"ignore-files"</argument>
         </service>
     </services>
 </container>

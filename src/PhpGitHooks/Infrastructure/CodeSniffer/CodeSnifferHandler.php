@@ -2,8 +2,10 @@
 
 namespace PhpGitHooks\Infrastructure\CodeSniffer;
 
+use IgnoreFiles\IgnoreFiles;
 use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Command\BadJobLogo;
+use PhpGitHooks\Command\OutputHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
@@ -19,6 +21,22 @@ class CodeSnifferHandler extends ToolHandler
     private $neddle;
     /** @var string */
     private $standard = 'PSR2';
+    /**
+     * @var IgnoreFiles
+     */
+    private $ignoreFiles;
+
+    /**
+     * CodeSnifferHandler constructor.
+     *
+     * @param OutputHandlerInterface $outputHandler
+     * @param IgnoreFiles            $ignoreFiles
+     */
+    public function __construct(OutputHandlerInterface $outputHandler, IgnoreFiles $ignoreFiles)
+    {
+        parent::__construct($outputHandler);
+        $this->ignoreFiles = $ignoreFiles;
+    }
 
     /**
      * @param array $messages
@@ -35,17 +53,19 @@ class CodeSnifferHandler extends ToolHandler
                 continue;
             }
 
-            $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard='.$this->standard, $file));
-            /** @var Process $phpCs */
-            $phpCs = $processBuilder->getProcess();
-            $phpCs->run();
+            if (false === $this->ignoreFiles->isIgnored($file)) {
+                $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard='.$this->standard, $file));
+                /** @var Process $phpCs */
+                $phpCs = $processBuilder->getProcess();
+                $phpCs->run();
 
-            if (false === $phpCs->isSuccessful()) {
-                $this->outputHandler->setError($phpCs->getOutput());
-                $this->output->writeln($this->outputHandler->getError());
-                $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
+                if (false === $phpCs->isSuccessful()) {
+                    $this->outputHandler->setError($phpCs->getOutput());
+                    $this->output->writeln($this->outputHandler->getError());
+                    $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
 
-                throw new InvalidCodingStandardException();
+                    throw new InvalidCodingStandardException();
+                }
             }
         }
 

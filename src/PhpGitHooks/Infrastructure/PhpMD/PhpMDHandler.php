@@ -2,7 +2,9 @@
 
 namespace PhpGitHooks\Infrastructure\PhpMD;
 
+use IgnoreFiles\IgnoreFiles;
 use PhpGitHooks\Application\Message\MessageConfigData;
+use PhpGitHooks\Command\OutputHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
 use Symfony\Component\Process\ProcessBuilder;
@@ -16,6 +18,22 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
     private $files;
     /** @var  string */
     private $needle;
+    /**
+     * @var IgnoreFiles
+     */
+    private $ignoreFiles;
+
+    /**
+     * PhpMDHandler constructor.
+     *
+     * @param OutputHandlerInterface $outputHandler
+     * @param IgnoreFiles            $ignoreFiles
+     */
+    public function __construct(OutputHandlerInterface $outputHandler, IgnoreFiles $ignoreFiles)
+    {
+        parent::__construct($outputHandler);
+        $this->ignoreFiles = $ignoreFiles;
+    }
 
     /**
      * @param array $messages
@@ -34,22 +52,24 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
                 continue;
             }
 
-            $processBuilder = new ProcessBuilder(
-                array(
-                    'php',
-                    'bin/phpmd',
-                    $file,
-                    'text',
-                    'PmdRules.xml',
-                    '--minimumpriority',
-                    1,
-                )
-            );
-            $process = $processBuilder->getProcess();
-            $process->run();
+            if (false === $this->ignoreFiles->isIgnored($file)) {
+                $processBuilder = new ProcessBuilder(
+                    array(
+                        'php',
+                        'bin/phpmd',
+                        $file,
+                        'text',
+                        'PmdRules.xml',
+                        '--minimumpriority',
+                        1,
+                    )
+                );
+                $process = $processBuilder->getProcess();
+                $process->run();
 
-            if (false === $process->isSuccessful()) {
-                $errors[] = $process->getOutput();
+                if (false === $process->isSuccessful()) {
+                    $errors[] = $process->getOutput();
+                }
             }
         }
 
