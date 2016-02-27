@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "bruli/ignore-files",
-            "version": "1.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/ignore-files.git",
-                "reference": "e997f44e2cfd549103184c703927e3231c46ef42"
+                "reference": "78645e2efc5c019cc4d5add96f52981133146a4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/ignore-files/zipball/e997f44e2cfd549103184c703927e3231c46ef42",
-                "reference": "e997f44e2cfd549103184c703927e3231c46ef42",
+                "url": "https://api.github.com/repos/bruli/ignore-files/zipball/78645e2efc5c019cc4d5add96f52981133146a4b",
+                "reference": "78645e2efc5c019cc4d5add96f52981133146a4b",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 }
             ],
             "description": "Ignore files",
-            "time": "2016-02-27 19:14:00"
+            "time": "2016-02-27 20:06:58"
         },
         {
             "name": "doctrine/instantiator",
