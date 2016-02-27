@@ -105,8 +105,5 @@
         <service id="json.lint.handler" class="PhpGitHooks\Infrastructure\JsonLint\JsonLintHandler">
             <argument type="service" id="output.handler" />
         </service>
-        <service id="file.reader" class="IgnoreFiles\Infrastructure\Disk\FileReader">
-            <argument type="string">"ignore-files"</argument>
-        </service>
     </services>
 </container>

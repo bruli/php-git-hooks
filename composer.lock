@@ -4,25 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4fded80d74efbb5570ba5d558a0a80f5",
-    "content-hash": "1053282e2055981dd2c18a2699075d35",
+    "hash": "2a49f643595b2f5abab1ca52852c523e",
+    "content-hash": "818f994a8ce21f23bdcb7d5e18b611f1",
     "packages": [
         {
             "name": "bruli/ignore-files",
-            "version": "dev-master",
+            "version": "1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/ignore-files.git",
-                "reference": "27593f57b3ef13fac945066dd117416bfed060f3"
+                "reference": "e997f44e2cfd549103184c703927e3231c46ef42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/ignore-files/zipball/27593f57b3ef13fac945066dd117416bfed060f3",
-                "reference": "27593f57b3ef13fac945066dd117416bfed060f3",
+                "url": "https://api.github.com/repos/bruli/ignore-files/zipball/e997f44e2cfd549103184c703927e3231c46ef42",
+                "reference": "e997f44e2cfd549103184c703927e3231c46ef42",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3",
+                "php": ">=5.6",
                 "symfony/config": ">=2.7",
                 "symfony/dependency-injection": ">=2.7"
             },
@@ -47,7 +47,7 @@
                 }
             ],
             "description": "Ignore files",
-            "time": "2016-02-27 18:07:43"
+            "time": "2016-02-27 19:14:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -2414,7 +2414,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bruli/ignore-files": 20,
         "composer/composer": 20
     },
     "prefer-stable": false,
