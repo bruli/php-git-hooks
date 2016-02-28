@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2a49f643595b2f5abab1ca52852c523e",
-    "content-hash": "818f994a8ce21f23bdcb7d5e18b611f1",
+    "hash": "9e3cb09a3d639def95d5be3d9911485d",
+    "content-hash": "92547bf947274dd5e8d462d55ee1db81",
     "packages": [
         {
             "name": "bruli/ignore-files",
