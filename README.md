@@ -36,50 +36,50 @@ $ composer require bruli/php-git-hooks --dev
 If you don't have composer, you need download the  binary file and run it:
 
 ```bash
-wget http://getcomposer.org/composer.phar
+$ wget http://getcomposer.org/composer.phar
 # or
-curl -O http://getcomposer.org/composer.phar
+$ curl -O http://getcomposer.org/composer.phar
 
-php composer.phar install
+$ php composer.phar install
 ```
 
 ## Step 2: Configuration
-### Composer configuration.
-After download all repositories, composer ask you about configuration.
 
-<img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/composer-config.png" />
+### Using Composer
 
-### Composer configuration in Symfony2 projects.
-
-In Symfony2 projects you need add this lines in your composer.json:
+First, you will need to add the following lines to your `composer.json`
 
 ```json
 "scripts": {
     "post-install-cmd": [
-      ...other lines...
       "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
     ],
     "post-update-cmd": [
-      ...other lines...
       "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
     ]
+}
 ```
 
-**Important: To use 2.X version you need symfony 2.7 version.**
+Then, launch `$ composer install` and composer should ask you about configuration
+
+<img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/composer-config.png" />
+
+**Important:** To use 2.X version you need symfony 2.7 version.
 
 ### Bin directory configuration.
 
-If your project haven't a "bin" directory, you can add this in your compose.json file.
+If your project doesn't have a "bin/" directory, you can add this in your `composer.json` file.
 
 ```json
- "config": {
-        "bin-dir": "bin"
-    }
+"config": {
+    "bin-dir": "bin"
+}
 ```
 
-**Note: Not necessary for Symfony projects.**
+**Note:** This is not necessary for Symfony projects.
 
 ### Manual config file for git hooks.
+
 You can configure php-git-hooks, creating a php-git-hooks.yml file with...
 
 ```yaml
@@ -102,7 +102,7 @@ pre-commit:
         standard:    PSR2
     phpmd:           true
     composer:        true
-  message: 
+  message:
     right-message: 'HEY, GOOD JOB!!'
     error-message: 'FIX YOUR CODE!!'
 commit-msg:
@@ -114,16 +114,18 @@ commit-msg:
 
 ### Update from v1.3.*
 
-Php-cs-fixer configuration in php-git-hooks.yml file, is not compatible with 2.0 version. 
+Php-cs-fixer configuration in php-git-hooks.yml file, is not compatible with 2.0 version.
 You should remove php-cs-fixer entry and execute "composer install".
 
 Most easy way to update is delete php-git-hooks.yml and execute "composer install". You will see all the configuration questions again.
 
 ### Config file for phpunit.
-If you want use phpunit tool, you must create a phpunit.xml.dist in your project root directory. 
+
+If you want use phpunit tool, you must create a phpunit.xml.dist in your project root directory.
 Alternatively you can copy from vendor/bruli/php-git-hooks/phpunit.xml.dist in your project root directory.
 
 ### Config file for phpmd.
+
 The same case that phpunit. You must create a PmdRules.xml in your project root directory or copy from php-git-hook directory.
 
 ## Step 3: Enabling hooks.
@@ -135,19 +137,23 @@ The most easy way to enable hook is copy hook file into your .git/hooks director
 You can enable this hooks with composer or manually executing
 
 ```bash
- $cp vendor/bruli/php-git-hooks/hooks/pre-commit .git/hooks
+$ cp vendor/bruli/php-git-hooks/hooks/pre-commit .git/hooks
 ```
 
 #For commit-msg hook:
 
 ```bash
- $cp vendor/bruli/php-git-hooks/hooks/commit-msg .git/hooks
+$ cp vendor/bruli/php-git-hooks/hooks/commit-msg .git/hooks
 ```
 
 ### execute.
+
 ####Valid pre-commit.
+
 <img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/pre-commit.png" />
+
 ####Fail pre-commit.
+
 <img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/pre-commit-failed.png" />
 
 ## Credits
@@ -157,4 +163,4 @@ You can enable this hooks with composer or manually executing
 
 ## License
 
-php-git-hooks is released under the MIT License. See the bundled LICENSE file for details.
+php-git-hooks is released under the [MIT License](https://opensource.org/licenses/MIT). See the bundled LICENSE file for details.
