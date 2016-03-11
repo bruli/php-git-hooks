@@ -75,7 +75,7 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
                     }
                 }
 
-                if ($errors) {
+                if (!empty($errors)) {
                     $this->outputHandler->setError($this->getErrors($errors));
                     $this->output->writeln($this->outputHandler->getError());
                     $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));

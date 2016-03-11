@@ -74,10 +74,10 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
         }
 
         $errors = array_filter($errors, function ($var) {
-            return !is_null($var);
+            return trim($var);
         });
 
-        if ($errors) {
+        if (!empty($errors)) {
             $this->writeOutputError(
                 new PHPMDViolationsException(implode('', $errors)),
                 MessageConfigData::KEY_ERROR_MESSAGE
