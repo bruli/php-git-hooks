@@ -49,6 +49,14 @@ class PhpUnitHandler extends ToolHandler
         }
     }
 
+    /**
+     * @param $suite
+     */
+    public function setSuite($suite)
+    {
+        $this->phpUnitProcessBuilder->setSuite($suite);
+    }
+
     private function setTitle()
     {
         $this->outputHandler->setTitle('Running unit tests');

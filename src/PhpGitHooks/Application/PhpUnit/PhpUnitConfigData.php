@@ -9,6 +9,7 @@ final class PhpUnitConfigData extends AbstractToolConfigData
     const TOOL = 'phpunit';
     const ENABLED_KEY = 'enabled';
     const RANDOM_MODE_KEY = 'random-mode';
+    const SUITE_KEY = 'suite';
     const DEFAULT_ANSWER = 'Y';
 
     /**
@@ -23,6 +24,7 @@ final class PhpUnitConfigData extends AbstractToolConfigData
         $this->configData = $data;
         $this->setEnabled();
         $this->setRandomizerOption();
+        $this->setTestSuiteOption();
 
         return $this->configData[self::TOOL];
     }
@@ -48,6 +50,31 @@ final class PhpUnitConfigData extends AbstractToolConfigData
     protected function getToolName()
     {
         return self::TOOL;
+    }
+
+    private function setTestSuiteOption()
+    {
+        if (!isset($this->configData[self::TOOL][self::SUITE_KEY])) {
+            $answer = $this
+                ->setQuestion(
+                    sprintf('Do you want run %s tool for a specific test suite?', strtoupper(self::TOOL)),
+                    self::DEFAULT_ANSWER,
+                    'Y/n'
+                );
+            $answer = self::DEFAULT_ANSWER === strtoupper($answer) ? true : false;
+            if ($answer) {
+                $answer = $this
+                    ->setQuestion(
+                        sprintf('Name the specific test suite to be run in %s', strtoupper(self::TOOL)),
+                        'PhpGitHooks Unit Tests',
+                        'PhpGitHooks Unit Tests'
+                    );
+            }
+        } else {
+            $answer = $this->configData[self::TOOL][self::SUITE_KEY];
+        }
+
+        $this->configData[self::TOOL][self::SUITE_KEY] = $answer;
     }
 
     private function setRandomizerOption()
