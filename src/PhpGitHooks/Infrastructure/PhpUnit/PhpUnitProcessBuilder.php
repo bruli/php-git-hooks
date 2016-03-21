@@ -22,6 +22,7 @@ class PhpUnitProcessBuilder implements ProcessBuilderInterface
             $params[] = '--testsuite';
             $params[] = $this->suite;
         }
+
         return new ProcessBuilder($params);
     }
 

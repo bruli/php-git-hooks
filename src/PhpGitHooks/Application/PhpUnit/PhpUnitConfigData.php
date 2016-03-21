@@ -66,8 +66,8 @@ final class PhpUnitConfigData extends AbstractToolConfigData
                 $answer = $this
                     ->setQuestion(
                         sprintf('Name the specific test suite to be run in %s', strtoupper(self::TOOL)),
-                        'Unit Tests',
-                        'Unit Tests'
+                        'PhpGitHooks Unit Tests',
+                        'PhpGitHooks Unit Tests'
                     );
             }
         } else {

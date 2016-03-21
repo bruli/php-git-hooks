@@ -89,7 +89,11 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
     public function isEnabledAndSuccessfulWithSuite()
     {
         $this->process->shouldReceive('isSuccessful')->andReturn(true);
-        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'random-mode' => false, 'suite' => 'PhpGitHooks Unit Tests']);
+        $this->preCommitConfig->setExtraOptions([
+            'enabled' => true,
+            'random-mode' => false,
+            'suite' => 'PhpGitHooks Unit Tests',
+        ]);
         $this->enabledMocks();
 
         $this->phpunitProcessBuilder->shouldReceive('setSuite');

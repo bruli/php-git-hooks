@@ -16,6 +16,7 @@ final class PhpUnitRandomizerProcessBuilder extends PhpUnitProcessBuilder
             $params[] = '--testsuite';
             $params[] = $this->suite;
         }
+
         return new ProcessBuilder($params);
     }
 }
