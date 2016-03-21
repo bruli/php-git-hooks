@@ -21,7 +21,7 @@ class ExtractCommitedFiles
             $against = 'HEAD';
         }
 
-        exec("git diff-index --cached --name-status $against | egrep '^(A|M)' | awk '{print $2;}'", $this->output);
+        exec("git diff --name-only $against", $this->output);
     }
 
     /**
