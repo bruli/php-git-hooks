@@ -13,11 +13,30 @@ use Symfony\Component\Process\ProcessBuilder;
 class PhpUnitProcessBuilder implements ProcessBuilderInterface
 {
     /**
+     * @var bool|string
+     */
+    protected $suite = false;
+
+    /**
      * @return ProcessBuilder
      */
     public function getProcessBuilder()
     {
-        return new ProcessBuilder(array('php', 'bin/phpunit'));
+        $params = array('php', 'bin/phpunit');
+        if ($this->suite) {
+            $params[] = '--testsuite';
+            $params[] = $this->suite;
+        }
+
+        return new ProcessBuilder($params);
+    }
+
+    /**
+     * @param $suite
+     */
+    public function setSuite($suite)
+    {
+        $this->suite = $suite;
     }
 
     /**
