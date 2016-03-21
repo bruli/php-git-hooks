@@ -11,6 +11,11 @@ final class PhpUnitRandomizerProcessBuilder extends PhpUnitProcessBuilder
      */
     public function getProcessBuilder()
     {
-        return new ProcessBuilder(array('php', 'bin/phpunit-randomizer', '--order', 'rand'));
+        $params = array('php', 'bin/phpunit-randomizer', '--order', 'rand');
+        if ($this->suite) {
+            $params[] = '--testsuite';
+            $params[] = $this->suite;
+        }
+        return new ProcessBuilder($params);
     }
 }

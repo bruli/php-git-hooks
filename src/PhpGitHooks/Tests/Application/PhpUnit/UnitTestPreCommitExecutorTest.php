@@ -74,9 +74,25 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
     public function isEnabledAndSuccessful()
     {
         $this->process->shouldReceive('isSuccessful')->andReturn(true);
-        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'random-mode' => false]);
+        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'random-mode' => false, 'suite' => false]);
         $this->enabledMocks();
 
+        $this->phpunitProcessBuilder->shouldReceive('getProcessBuilder')->andReturn($this->processBuilder);
+        $this->phpunitProcessBuilder->shouldReceive('executeProcess');
+
+        $this->unitTestPreCommitExecutor->run($this->outputInterface);
+    }
+
+    /**
+     * @test
+     */
+    public function isEnabledAndSuccessfulWithSuite()
+    {
+        $this->process->shouldReceive('isSuccessful')->andReturn(true);
+        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'random-mode' => false, 'suite' => 'PhpGitHooks Unit Tests']);
+        $this->enabledMocks();
+
+        $this->phpunitProcessBuilder->shouldReceive('setSuite');
         $this->phpunitProcessBuilder->shouldReceive('getProcessBuilder')->andReturn($this->processBuilder);
         $this->phpunitProcessBuilder->shouldReceive('executeProcess');
 
@@ -92,7 +108,7 @@ class UnitTestPreCommitExecutorTest extends \PHPUnit_Framework_TestCase
         $this->phpunitRandomizerBuilder->shouldReceive('setOutput');
         $this->phpunitRandomizerBuilder->shouldReceive('run');
 
-        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'random-mode' => false]);
+        $this->preCommitConfig->setExtraOptions(['enabled' => true, 'random-mode' => false, 'suite' => false]);
         $this->process->shouldReceive('isSuccessful')->andReturn(false);
         $this->enabledMocks();
 

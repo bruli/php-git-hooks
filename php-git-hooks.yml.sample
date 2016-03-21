@@ -12,6 +12,7 @@ pre-commit:
     phpunit:
         enabled:        true
         random-mode:    true
+        suite:          false
     phplint:        true
     phpcs:
         enabled:    true

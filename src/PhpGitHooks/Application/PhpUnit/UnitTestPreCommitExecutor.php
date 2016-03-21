@@ -12,6 +12,7 @@ class UnitTestPreCommitExecutor extends PreCommitExecutor
     const TOOL = 'phpunit';
     const ENABLED_KEY = 'enabled';
     const RANDOM_MODE_KEY = 'random-mode';
+    const SUITE_KEY = 'suite';
     /** @var PhpUnitHandler */
     private $phpunitHandler;
     /** @var PhpUnitRandomizerHandler */
@@ -44,9 +45,15 @@ class UnitTestPreCommitExecutor extends PreCommitExecutor
         $extraOptions = $data->extraOptions(PhpUnitConfigData::TOOL);
         if (true === $extraOptions[self::ENABLED_KEY]) {
             if (true === $extraOptions[self::RANDOM_MODE_KEY]) {
+                if ($extraOptions[self::SUITE_KEY]) {
+                    $this->phpUnitRandomizerHandler->setSuite($extraOptions[self::SUITE_KEY]);
+                }
                 $this->phpUnitRandomizerHandler->setOutput($outputInterface);
                 $this->phpUnitRandomizerHandler->run($this->getMessages());
             } else {
+                if ($extraOptions[self::SUITE_KEY]) {
+                    $this->phpunitHandler->setSuite($extraOptions[self::SUITE_KEY]);
+                }
                 $this->phpunitHandler->setOutput($outputInterface);
                 $this->phpunitHandler->run($this->getMessages());
             }
