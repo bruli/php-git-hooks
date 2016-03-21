@@ -13,6 +13,11 @@ use Symfony\Component\Process\ProcessBuilder;
 class PhpUnitProcessBuilder implements ProcessBuilderInterface
 {
     /**
+     * @var bool|string
+     */
+    protected $suite = false;
+
+    /**
      * @return ProcessBuilder
      */
     public function getProcessBuilder()
