@@ -15,7 +15,7 @@ use PhpGitHooks\Infrastructure\PhpUnit\PhpUnitProcessBuilder;
 class PhpUnitHandler extends ToolHandler
 {
     /** @var PhpUnitProcessBuilder  */
-    private $phpUnitProcessBuilder;
+    protected $phpUnitProcessBuilder;
 
     /**
      * @param OutputHandlerInterface  $outputHandler
@@ -37,7 +37,7 @@ class PhpUnitHandler extends ToolHandler
     {
         $this->setTitle();
 
-        $processBuilder = $this->phpUnitProcessBuilder->getProcessBuilder();
+        $processBuilder = $this->processBuilder();
         $processBuilder->setTimeout(3600);
         $phpunit = $processBuilder->getProcess();
         $this->phpUnitProcessBuilder
@@ -47,6 +47,14 @@ class PhpUnitHandler extends ToolHandler
             $this->output->writeln(BadJobLogo::paint($messages[MessageConfigData::KEY_ERROR_MESSAGE]));
             throw new UnitTestsException();
         }
+    }
+
+    /**
+     * @return \Symfony\Component\Process\ProcessBuilder
+     */
+    protected function processBuilder()
+    {
+        return $this->phpUnitProcessBuilder->getProcessBuilder($this->getBinPath('phpunit'));
     }
 
     /**

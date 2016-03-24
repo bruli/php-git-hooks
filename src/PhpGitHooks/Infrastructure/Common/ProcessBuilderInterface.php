@@ -12,9 +12,11 @@ use Symfony\Component\Process\ProcessBuilder;
 interface ProcessBuilderInterface
 {
     /**
+     * @param string $bin
+     *
      * @return ProcessBuilder
      */
-    public function getProcessBuilder();
+    public function getProcessBuilder($bin);
 
     /**
      * @param Process         $process

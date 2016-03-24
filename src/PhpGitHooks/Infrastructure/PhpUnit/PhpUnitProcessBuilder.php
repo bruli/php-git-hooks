@@ -18,11 +18,13 @@ class PhpUnitProcessBuilder implements ProcessBuilderInterface
     protected $suite = false;
 
     /**
+     * @param string $bin
+     *
      * @return ProcessBuilder
      */
-    public function getProcessBuilder()
+    public function getProcessBuilder($bin)
     {
-        $params = array('php', 'bin/phpunit');
+        $params = array('php', $bin);
         if ($this->suite) {
             $params[] = '--testsuite';
             $params[] = $this->suite;

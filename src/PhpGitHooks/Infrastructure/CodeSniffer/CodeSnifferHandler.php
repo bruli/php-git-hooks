@@ -54,7 +54,14 @@ class CodeSnifferHandler extends ToolHandler
             }
 
             if (false === $this->ignoreFiles->isIgnored($file)) {
-                $processBuilder = new ProcessBuilder(array('php', 'bin/phpcs', '--standard='.$this->standard, $file));
+                $processBuilder = new ProcessBuilder(
+                    array(
+                        'php',
+                        $this->getBinPath('phpcs'),
+                        '--standard='.$this->standard,
+                        $file,
+                    )
+                );
                 /** @var Process $phpCs */
                 $phpCs = $processBuilder->getProcess();
                 $phpCs->run();
