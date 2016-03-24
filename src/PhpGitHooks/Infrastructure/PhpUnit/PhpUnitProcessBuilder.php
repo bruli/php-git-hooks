@@ -13,11 +13,13 @@ use Symfony\Component\Process\ProcessBuilder;
 class PhpUnitProcessBuilder implements ProcessBuilderInterface
 {
     /**
+     * @param string $bin
+     *
      * @return ProcessBuilder
      */
-    public function getProcessBuilder()
+    public function getProcessBuilder($bin)
     {
-        return new ProcessBuilder(array('php', 'bin/phpunit'));
+        return new ProcessBuilder(array('php', $bin));
     }
 
     /**
