@@ -56,7 +56,7 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
                 $processBuilder = new ProcessBuilder(
                     array(
                         'php',
-                        'bin/phpmd',
+                        $this->getBinPath('phpmd'),
                         $file,
                         'text',
                         'PmdRules.xml',

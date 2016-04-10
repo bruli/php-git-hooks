@@ -58,7 +58,7 @@ class PhpCsFixerHandler extends ToolHandler implements InteractiveToolInterface,
                         $processBuilder = new ProcessBuilder(
                             array(
                                 'php',
-                                'bin/php-cs-fixer',
+                                $this->getBinPath('php-cs-fixer'),
                                 '--dry-run',
                                 'fix',
                                 $file,
