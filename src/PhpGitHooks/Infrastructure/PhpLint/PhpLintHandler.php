@@ -14,7 +14,7 @@ use Symfony\Component\Process\ProcessBuilder;
  */
 class PhpLintHandler extends ToolHandler implements FilesToolHandlerInterface
 {
-    const NEEDLE = '/(\.php)|(\.inc)$/';
+    const NEEDLE = "/[(\.php)|(\.inc)]$/";
     /** @var array */
     private $files;
 
