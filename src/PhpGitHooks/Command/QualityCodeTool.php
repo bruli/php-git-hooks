@@ -4,6 +4,7 @@ namespace PhpGitHooks\Command;
 
 use PhpGitHooks\Application\CodeSniffer\CheckCodeStyleCodeSnifferPreCommitExecutor;
 use PhpGitHooks\Application\Config\HookConfigInterface;
+use PhpGitHooks\Application\Config\PreCommitConfig;
 use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Application\PhpCsFixer\FixCodeStyleCsFixerPreCommitExecutor;
 use PhpGitHooks\Application\PhpMD\CheckPhpMessDetectionPreCommitExecutor;
@@ -34,11 +35,11 @@ class QualityCodeTool extends Application
     const JSON_FILES = '/^(.*)(\.json)$/';
     const COMPOSER_FILES = '/^composer\.(json|lock)$/';
 
-    public function __construct()
+    public function __construct($hookName = 'pre-commit')
     {
         $this->container = new Container();
         $this->outputTitleHandler = new OutputHandler();
-        $this->configData = $this->container->get('pre.commit.config');
+        $this->configData = $this->container->get($this->getHookConfig($hookName));
 
         parent::__construct('Code Quality Tool');
     }
@@ -182,5 +183,15 @@ class QualityCodeTool extends Application
         $messages = $this->configData->getMessages();
 
         return $messages[MessageConfigData::KEY_RIGHT_MESSAGE];
+    }
+
+    /**
+     * @param $hookName
+     *
+     * @return string
+     */
+    private function getHookConfig($hookName)
+    {
+        return PreCommitConfig::HOOK_NAME === $hookName ? 'pre.commit.config' : 'pre.push.config';
     }
 }
