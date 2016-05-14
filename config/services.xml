@@ -40,6 +40,9 @@
         <service id="pre.commit.config" class="PhpGitHooks\Application\Config\PreCommitConfig">
             <argument type="service" id="config.file.reader" />
         </service>
+        <service id="pre.push.config" class="PhpGitHooks\Application\Config\PrePushConfig">
+            <argument type="service" id="config.file.reader" />
+        </service>
         <service id="php.lint.handler" class="PhpGitHooks\Infrastructure\PhpLint\PhpLintHandler">
             <argument type="service" id="output.handler" />
         </service>
