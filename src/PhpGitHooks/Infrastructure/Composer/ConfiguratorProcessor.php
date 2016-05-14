@@ -5,6 +5,7 @@ namespace PhpGitHooks\Infrastructure\Composer;
 use Composer\IO\IOInterface;
 use PhpGitHooks\Application\Composer\CommitMsgProcessor;
 use PhpGitHooks\Application\Composer\PreCommitProcessor;
+use PhpGitHooks\Application\Composer\PrePushProcessor;
 use PhpGitHooks\Infrastructure\Disk\Config\ConfigFileReaderInterface;
 use PhpGitHooks\Infrastructure\Disk\Config\ConfigFileWriterInterface;
 use PhpGitHooks\Infrastructure\Git\HooksFileCopier;
@@ -33,6 +34,10 @@ final class ConfiguratorProcessor
     private $configFileWriter;
     /** @var  HooksFileCopier */
     private $hookFileCopier;
+    /**
+     * @var PrePushProcessor
+     */
+    private $prePushProcessor;
 
     /**
      * @param ConfigFileReaderInterface $configFileReader
@@ -40,19 +45,22 @@ final class ConfiguratorProcessor
      * @param CommitMsgProcessor        $commitMsgProcessor
      * @param ConfigFileWriterInterface $configFileWriter
      * @param HooksFileCopier           $hooksFileCopier
+     * @param PrePushProcessor          $prePushProcessor
      */
     public function __construct(
         ConfigFileReaderInterface $configFileReader,
         PreCommitProcessor $preCommitProcessor,
         CommitMsgProcessor $commitMsgProcessor,
         ConfigFileWriterInterface $configFileWriter,
-        HooksFileCopier $hooksFileCopier
+        HooksFileCopier $hooksFileCopier,
+        PrePushProcessor $prePushProcessor
     ) {
         $this->configFileReader = $configFileReader;
         $this->preCommitProcessor = $preCommitProcessor;
         $this->commitMsgProcessor = $commitMsgProcessor;
         $this->configFileWriter = $configFileWriter;
         $this->hookFileCopier = $hooksFileCopier;
+        $this->prePushProcessor = $prePushProcessor;
     }
 
     /**
@@ -72,8 +80,12 @@ final class ConfiguratorProcessor
         $commitMsgConfig = $this->commitMsg($configData);
         $this->copyHook('commit-msg', $commitMsgConfig['commit-msg']['enabled']);
 
+        $prePushConfig = $this->prePush($configData);
+        $this->copyHook('pre-push', $prePushConfig['pre-push']['enabled']);
+
         $merge['pre-commit'] = $preCommitConfig['pre-commit'];
         $merge['commit-msg'] = $commitMsgConfig['commit-msg'];
+        $merge['pre-push'] = $prePushConfig['pre-push'];
 
         $this->configFileWriter->write($merge);
     }
@@ -109,5 +121,17 @@ final class ConfiguratorProcessor
     private function copyHook($hook, $enabled)
     {
         $this->hookFileCopier->copy($hook, $enabled);
+    }
+
+    /**
+     * @param $configData
+     *
+     * @return array
+     */
+    private function prePush($configData)
+    {
+        $this->prePushProcessor->setIO($this->IO);
+
+        return $this->prePushProcessor->execute($configData);
     }
 }

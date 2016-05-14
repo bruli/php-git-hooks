@@ -10,6 +10,7 @@
             <argument type="service" id="commit.msg.processor"/>
             <argument type="service" id="config.file.writer"/>
             <argument type="service" id="hook.file.copier"/>
+            <argument type="service" id="pre.push.processor"/>
         </service>
         <service id="config.file.reader" class="PhpGitHooks\Infrastructure\Disk\Config\ConfigFileReader">
         </service>
@@ -20,6 +21,8 @@
         <service id="config.file.writer" class="PhpGitHooks\Infrastructure\Disk\Config\ConfigFileWriter">
         </service>
         <service id="hook.file.copier" class="PhpGitHooks\Infrastructure\Git\HooksFileCopier">
+        </service>
+        <service id="pre.push.processor" class="PhpGitHooks\Application\Composer\PrePushProcessor">
         </service>
         <service id="check.composer.files.pre.commit.executor" class="PhpGitHooks\Application\Composer\CheckComposerFilesPreCommitExecutor">
             <argument type="service" id="pre.commit.config"/>

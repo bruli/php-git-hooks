@@ -2,10 +2,10 @@
 
 namespace PhpGitHooks\Application\Composer;
 
-final class CommitMsgProcessor extends Processor
-{
-    const HOOK_NAME = 'commit-msg';
+use PhpGitHooks\Infrastructure\Composer\ProcessorInterface;
 
+final class CommitMsgProcessor extends Processor implements ProcessorInterface
+{
     /**
      * @param array $configData
      *
@@ -27,11 +27,11 @@ final class CommitMsgProcessor extends Processor
      */
     private function enableHook(array $configData)
     {
-        if (!isset($configData[self::HOOK_NAME])) {
+        if (!isset($configData[$this->hookName()])) {
             $enable = $this->setQuestion('Do you want enable commit-msg hook?', '[Y/n]', 'Y');
             $enabled = 'Y' === strtoupper($enable) ? true : false;
 
-            $this->configData[self::HOOK_NAME] = [
+            $this->configData[$this->hookName()] = [
                 'enabled' => $enabled,
             ];
 
@@ -40,14 +40,22 @@ final class CommitMsgProcessor extends Processor
 
         $this->configData = $configData;
 
-        return $configData[self::HOOK_NAME]['enabled'];
+        return $configData[$this->hookName()]['enabled'];
     }
 
     private function setExpressionRegular()
     {
-        if (!isset($this->configData[self::HOOK_NAME]['regular-expression'])) {
+        if (!isset($this->configData[$this->hookName()]['regular-expression'])) {
             $answer = $this->setQuestion('Write an expression regular', '[#[0-9]{2,7}]', '#[0-9]{2,7}');
-            $this->configData[self::HOOK_NAME]['regular-expression'] = $answer;
+            $this->configData[$this->hookName()]['regular-expression'] = $answer;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function hookName()
+    {
+        return 'commit-msg';
     }
 }
