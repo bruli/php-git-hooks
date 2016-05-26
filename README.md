@@ -21,7 +21,7 @@ You must add the following line to the `composer.json` file to use with Symfony 
 ```json
 {
     "require-dev": {
-        "bruli/php-git-hooks": "~3.0"
+        "bruli/php-git-hooks": "~4.1"
     }
 }
 ```
