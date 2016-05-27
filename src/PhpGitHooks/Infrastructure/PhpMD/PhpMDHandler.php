@@ -79,8 +79,8 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
 
         if (!empty($errors)) {
             $this->writeOutputError(
-                new PHPMDViolationsException(implode('', $errors)),
-                MessageConfigData::KEY_ERROR_MESSAGE
+                new PHPMDViolationsException(MessageConfigData::KEY_ERROR_MESSAGE),
+                implode("\n", $errors)
             );
         }
 
