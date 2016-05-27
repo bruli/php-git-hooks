@@ -60,7 +60,7 @@ abstract class ToolHandler
      */
     protected function writeOutputError(\Exception $exceptionClass, $errorText)
     {
-        ErrorOutput::write($errorText);
+        $this->output->writeln(ErrorOutput::write($errorText));
         throw new $exceptionClass();
     }
 
