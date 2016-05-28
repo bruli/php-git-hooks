@@ -21,7 +21,7 @@ abstract class ToolHandler
     /** @var array */
     private $tools = array(
         'phpcs' => 'squizlabs/php_codesniffer',
-        'php-cs-fixer' => 'fabpot/php-cs-fixer',
+        'php-cs-fixer' => 'friendsofphp/php-cs-fixer',
         'phpmd' => 'phpmd/phpmd',
         'phpunit' => 'phpunit/phpunit',
         'phpunit-randomizer' => 'fiunchinho/phpunit-randomizer',
