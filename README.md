@@ -100,7 +100,9 @@ pre-commit:
     phpcs:
         enabled:     true
         standard:    PSR2
-    phpmd:           true
+    phpmd:
+        enabled: true
+        minimum-priority: -1  # -1 => don't apply
     composer:        true
   message:
     right-message: 'HEY, GOOD JOB!!'

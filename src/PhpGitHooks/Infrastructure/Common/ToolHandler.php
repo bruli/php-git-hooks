@@ -56,12 +56,13 @@ abstract class ToolHandler
 
     /**
      * @param \Exception $exceptionClass
-     * @param string     $errorText
+     * @param string $errorText
+     * @throws \Exception
      */
     protected function writeOutputError(\Exception $exceptionClass, $errorText)
     {
         $this->output->writeln(ErrorOutput::write($errorText));
-        throw new $exceptionClass();
+        throw $exceptionClass;
     }
 
     /**
