@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="configurator.processor" class="Module\Configuration\Service\ConfigurationProcessor">
+            <argument type="service" id="configuration.data.finder"/>
+            <argument type="service" id="pre.commit.processor"/>
+            <argument type="service" id="commit.msg.processor"/>
+        </service>
+        <service id="configuration.data.finder" class="Module\Configuration\Service\ConfigurationDataFinder">
+            <argument type="service" id="configuration.file.reader" />
+        </service>
+        <service id="pre.commit.processor" class="Module\Configuration\Service\PreCommitProcessor"/>
+        <service id="commit.msg.processor" class="Module\Configuration\Service\CommitMsgProcessor"/>
+    </services>
+</container>
