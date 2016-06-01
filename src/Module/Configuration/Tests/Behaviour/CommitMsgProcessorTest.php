@@ -33,18 +33,4 @@ class CommitMsgProcessorTest extends ConfigurationUnitTestCase
         $this->assertFalse($commitMsg->isEnabled());
         $this->assertNull($commitMsg->getRegularExpression()->value());
     }
-
-    /**
-     * @test
-     */
-    public function itShouldNotSetAnyQuestion()
-    {
-        $commitMsgData = CommitMsgStub::random();
-
-        $commitMsg = $this->commitMsgProcessor->process($commitMsgData, $this->getIOInterface());
-
-        $this->assertSame($commitMsgData->isUndefined(), $commitMsg->isUndefined());
-        $this->assertSame($commitMsgData->isEnabled(), $commitMsg->isEnabled());
-        $this->assertSame($commitMsgData->getRegularExpression(), $commitMsg->getRegularExpression());
-    }
 }
