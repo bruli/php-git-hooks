@@ -23,7 +23,8 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
             new ConfigurationDataFinder($this->getConfigurationFileReader()),
             new PreCommitProcessor(),
             new CommitMsgProcessor(),
-            $this->getConfigurationFileWriter()
+            $this->getConfigurationFileWriter(),
+            $this->getHookCopier()
         );
     }
 
@@ -74,11 +75,13 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
         $this->shouldAsk(HookQuestions::PHPUNIT_RANDOM_MODE, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldAsk(HookQuestions::PHPUNIT_OPTIONS, null, ConfigArrayDataStub::PHPUNIT_OPTIONS);
         $this->shouldAsk(HookQuestions::COMMIT_MSG_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
+        $this->shouldCopyPreCommitHook();
         $this->shouldAsk(
             HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION,
             HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER,
             ConfigArrayDataStub::REGULAR_EXPRESSION
         );
+        $this->shouldCopyCommitMsgHook();
 
         $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 

@@ -6,6 +6,7 @@ use Composer\IO\IOInterface;
 use Module\Configuration\Domain\CommitMsg;
 use Module\Configuration\Domain\Config;
 use Module\Configuration\Domain\PreCommit;
+use Module\Configuration\Infrastructure\Hook\HookCopier;
 use Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileWriter;
 use Module\Configuration\Model\ConfigurationFileWriterInterface;
 
@@ -35,6 +36,10 @@ class ConfigurationProcessor
      * @var ConfigurationFileWriterInterface
      */
     private $configurationFileWriter;
+    /**
+     * @var HookCopier
+     */
+    private $hookCopier;
 
     /**
      * ConfigurationProcessor constructor.
@@ -42,17 +47,20 @@ class ConfigurationProcessor
      * @param PreCommitProcessor $preCommitProcessor
      * @param CommitMsgProcessor $commitMsgProcessor
      * @param ConfigurationFileWriterInterface $configurationFileWriter
+     * @param HookCopier $hookCopier
      */
     public function __construct(
         ConfigurationDataFinder $configurationDataFinder,
         PreCommitProcessor $preCommitProcessor,
         CommitMsgProcessor $commitMsgProcessor,
-        ConfigurationFileWriterInterface $configurationFileWriter
+        ConfigurationFileWriterInterface $configurationFileWriter,
+        HookCopier $hookCopier
     ) {
         $this->configurationDataFinder = $configurationDataFinder;
         $this->preCommitProcessor = $preCommitProcessor;
         $this->commitMsgProcessor = $commitMsgProcessor;
         $this->configurationFileWriter = $configurationFileWriter;
+        $this->hookCopier = $hookCopier;
     }
 
     /**
@@ -64,7 +72,17 @@ class ConfigurationProcessor
 
         $this->configData = $this->configurationDataFinder->find();
         $preCommit = $this->preCommitProcess();
+        
+        if (true === $preCommit->isEnabled()) {
+            $this->hookCopier->copyPreCommitHook();
+        }
+        
         $commitMsg = $this->commitMsgProcess();
+        
+        if (true == $commitMsg->isEnabled()) {
+            $this->hookCopier->copyCommitMsgHook();
+        }
+        
         $configArray = ConfigurationArrayTransformer::transform($preCommit, $commitMsg);
         $this->configurationFileWriter->write($configArray);
     }

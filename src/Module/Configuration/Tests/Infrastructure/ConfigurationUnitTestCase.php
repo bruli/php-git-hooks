@@ -3,6 +3,7 @@
 namespace Module\Configuration\Tests\Infrastructure;
 
 use Composer\IO\IOInterface;
+use Module\Configuration\Infrastructure\Hook\HookCopier;
 use Module\Configuration\Model\ConfigurationFileReaderInterface;
 use Module\Configuration\Model\ConfigurationFileWriterInterface;
 use Module\Tests\Infrastructure\UnitTestCase\BaseUnitTestCase;
@@ -21,6 +22,10 @@ abstract class ConfigurationUnitTestCase extends BaseUnitTestCase
      * @var ConfigurationFileWriterInterface
      */
     private $configurationFileWriter;
+    /**
+     * @var HookCopier
+     */
+    private $hookCopier;
 
     /**
      * @return \Mockery\MockInterface|ConfigurationFileReaderInterface
@@ -47,6 +52,14 @@ abstract class ConfigurationUnitTestCase extends BaseUnitTestCase
         return $this->configurationFileWriter = $this->configurationFileWriter ?: $this->mock(
             ConfigurationFileWriterInterface::class
         );
+    }
+
+    /**
+     * @return \Mockery\MockInterface|HookCopier
+     */
+    protected function getHookCopier()
+    {
+        return $this->hookCopier = $this->hookCopier ?: $this->mock(HookCopier::class);
     }
 
     /**
@@ -85,5 +98,19 @@ abstract class ConfigurationUnitTestCase extends BaseUnitTestCase
             ->shouldReceive('write')
             ->once()
             ->with($configurationData);
+    }
+
+    protected function shouldCopyPreCommitHook()
+    {
+        $this->getHookCopier()
+            ->shouldReceive('copyPreCommitHook')
+            ->once();
+    }
+    
+    protected function shouldCopyCommitMsgHook()
+    {
+        $this->getHookCopier()
+            ->shouldReceive('copyCommitMsgHook')
+            ->once();
     }
 }

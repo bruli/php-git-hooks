@@ -10,6 +10,7 @@
             <argument type="service" id="pre.commit.processor"/>
             <argument type="service" id="commit.msg.processor"/>
             <argument type="service" id="configuration.file.writer"/>
+            <argument type="service" id="hook.copier"/>
         </service>
         <service id="configuration.data.finder" class="Module\Configuration\Service\ConfigurationDataFinder">
             <argument type="service" id="configuration.file.reader" />
