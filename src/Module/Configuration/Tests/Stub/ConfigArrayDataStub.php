@@ -13,21 +13,6 @@ class ConfigArrayDataStub
     const REGULAR_EXPRESSION = '#[0-9]{2,7}';
 
     const ERROR_MESSAGE = 'fix your code';
-
-    public static function hooksEnabledWithoutTools()
-    {
-        return [
-            'pre-commit' => [
-                'enabled' => true,
-                'execute' => []
-            ],
-            'commit-msg' => [
-                'enabled' => true,
-                'regular-expression' => self::REGULAR_EXPRESSION
-
-            ]
-        ];
-    }
     
     public static function hooksEnabledWithEnabledTools()
     {
@@ -41,7 +26,7 @@ class ConfigArrayDataStub
                     'phpmd' => true,
                     'phpcs' => [
                         'enabled' => true,
-                        'standard' => self::PHPCS_STANDARD
+                        'standard' => static::PHPCS_STANDARD
                     ],
                     'php-cs-fixer' => [
                         'enabled' => true,
@@ -55,17 +40,17 @@ class ConfigArrayDataStub
                     'phpunit' => [
                         'enabled' => true,
                         'random-mode' => true,
-                        'options' => self::PHPUNIT_OPTIONS
+                        'options' => static::PHPUNIT_OPTIONS
                     ]
                 ],
                 'messages' => [
-                    'right-message' => self::RIGHT_MESSAGE,
-                    'error-message' => self::ERROR_MESSAGE
+                    'right-message' => static::RIGHT_MESSAGE,
+                    'error-message' => static::ERROR_MESSAGE
                 ]
             ],
             'commit-msg' => [
                 'enabled' => true,
-                'regular-expression' => self::REGULAR_EXPRESSION
+                'regular-expression' => static::REGULAR_EXPRESSION
 
             ]
         ];

@@ -29,24 +29,11 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
     }
 
     /**
-     * @return array
-     */
-    public function configHookArrayProvider()
-    {
-        return [
-            [[]],
-//            [ConfigArrayDataStub::hooksEnabledWithoutTools()],
-        ];
-    }
-
-    /**
      * @test
-     * @param array $data
-     * @dataProvider configHookArrayProvider
      */
-    public function itShouldMakeAllQuestions(array $data)
+    public function itShouldMakeAllQuestions()
     {
-        $this->shouldReadConfigurationData($data);
+        $this->shouldReadConfigurationData([]);
 
         $yes = 'y';
         $this->shouldAsk(HookQuestions::PRE_COMMIT_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
@@ -84,6 +71,20 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
         $this->shouldCopyCommitMsgHook();
 
         $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
+
+        $this->configurationProcessor->process($this->getIOInterface());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldMakeAnyQuestions()
+    {
+        $data = ConfigArrayDataStub::hooksEnabledWithEnabledTools();
+        $this->shouldReadConfigurationData($data);
+        $this->shouldCopyPreCommitHook();
+        $this->shouldCopyCommitMsgHook();
+        $this->shouldWriteConfigurationData($data);
 
         $this->configurationProcessor->process($this->getIOInterface());
     }
