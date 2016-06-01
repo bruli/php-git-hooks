@@ -9,6 +9,7 @@
             <argument type="service" id="configuration.data.finder"/>
             <argument type="service" id="pre.commit.processor"/>
             <argument type="service" id="commit.msg.processor"/>
+            <argument type="service" id="configuration.file.writer"/>
         </service>
         <service id="configuration.data.finder" class="Module\Configuration\Service\ConfigurationDataFinder">
             <argument type="service" id="configuration.file.reader" />
