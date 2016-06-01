@@ -10,7 +10,7 @@ class ConfigurationFileWriter implements ConfigurationFileWriterInterface
     /**
      * @param array $data
      */
-    public static function write(array $data)
+    public function write(array $data)
     {
         $yaml = Yaml::dump($data);
 

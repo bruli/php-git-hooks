@@ -20,7 +20,7 @@ class ConfigurationDataFinderTest extends ConfigurationUnitTestCase
     protected function setUp()
     {
         $this->configurationDataFinder = new ConfigurationDataFinder(
-            $this->getConfiguratorFileReader()
+            $this->getConfigurationFileReader()
         );
     }
 

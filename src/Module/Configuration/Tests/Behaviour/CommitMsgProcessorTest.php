@@ -37,28 +37,6 @@ class CommitMsgProcessorTest extends ConfigurationUnitTestCase
     /**
      * @test
      */
-    public function itShouldEnableHook()
-    {
-        $this->shouldAsk(HookQuestions::COMMIT_MSG_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, 'y');
-        $this->shouldAsk(
-            HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION,
-            HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER,
-            HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER
-        );
-
-        $commitMsg = $this->commitMsgProcessor->process(CommitMsgStub::setUndefined(), $this->getIOInterface());
-
-        $this->assertFalse($commitMsg->isUndefined());
-        $this->assertTrue($commitMsg->isEnabled());
-        $this->assertSame(
-            HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER,
-            $commitMsg->getRegularExpression()->value()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function itShouldNotSetAnyQuestion()
     {
         $commitMsgData = CommitMsgStub::random();

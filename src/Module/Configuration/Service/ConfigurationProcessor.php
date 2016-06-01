@@ -31,21 +31,28 @@ class ConfigurationProcessor
      * @var CommitMsgProcessor
      */
     private $commitMsgProcessor;
+    /**
+     * @var ConfigurationFileWriterInterface
+     */
+    private $configurationFileWriter;
 
     /**
      * ConfigurationProcessor constructor.
      * @param ConfigurationDataFinder $configurationDataFinder
      * @param PreCommitProcessor $preCommitProcessor
      * @param CommitMsgProcessor $commitMsgProcessor
+     * @param ConfigurationFileWriterInterface $configurationFileWriter
      */
     public function __construct(
         ConfigurationDataFinder $configurationDataFinder,
         PreCommitProcessor $preCommitProcessor,
-        CommitMsgProcessor $commitMsgProcessor
+        CommitMsgProcessor $commitMsgProcessor,
+        ConfigurationFileWriterInterface $configurationFileWriter
     ) {
         $this->configurationDataFinder = $configurationDataFinder;
         $this->preCommitProcessor = $preCommitProcessor;
         $this->commitMsgProcessor = $commitMsgProcessor;
+        $this->configurationFileWriter = $configurationFileWriter;
     }
 
     /**
@@ -59,7 +66,7 @@ class ConfigurationProcessor
         $preCommit = $this->preCommitProcess();
         $commitMsg = $this->commitMsgProcess();
         $configArray = ConfigurationArrayTransformer::transform($preCommit, $commitMsg);
-        ConfigurationFileWriter::write($configArray);
+        $this->configurationFileWriter->write($configArray);
     }
 
     /**

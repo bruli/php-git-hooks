@@ -7,5 +7,5 @@ interface ConfigurationFileWriterInterface
     /**
      * @param array $data
      */
-    public static function write(array $data);
+    public function write(array $data);
 }
