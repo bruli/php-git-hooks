@@ -10,8 +10,6 @@ Git hooks for PHP projects.
 
 Library based in git hook scripts for PHP projects.
 
-[Original scripts](http://carlosbuenosvinos.com/write-your-git-hooks-in-php-and-keep-them-under-git-control/)
-
 ## Installation
 
 ### Step 1: Composer
