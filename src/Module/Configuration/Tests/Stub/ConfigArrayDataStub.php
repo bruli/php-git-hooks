@@ -13,7 +13,10 @@ class ConfigArrayDataStub
     const REGULAR_EXPRESSION = '#[0-9]{2,7}';
 
     const ERROR_MESSAGE = 'fix your code';
-    
+
+    /**
+     * @return array
+     */
     public static function hooksEnabledWithEnabledTools()
     {
         return [
@@ -51,7 +54,6 @@ class ConfigArrayDataStub
             'commit-msg' => [
                 'enabled' => true,
                 'regular-expression' => static::REGULAR_EXPRESSION
-
             ]
         ];
     }

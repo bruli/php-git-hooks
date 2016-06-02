@@ -78,7 +78,7 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
     /**
      * @test
      */
-    public function itShouldMakeAnyQuestions()
+    public function itShouldNotMakeAnyQuestions()
     {
         $data = ConfigArrayDataStub::hooksEnabledWithEnabledTools();
         $this->shouldReadConfigurationData($data);
