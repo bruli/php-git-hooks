@@ -88,4 +88,19 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
 
         $this->configurationProcessor->process($this->getIOInterface());
     }
+
+    /**
+     * @test
+     */
+    public function itShouldAskAboutComposer()
+    {
+        $data = ConfigArrayDataStub::hooksEnabledWithoutComposerTool();
+        $this->shouldReadConfigurationData($data);
+        $this->shouldAsk(HookQuestions::COMPOSER_TOOL, HookQuestions::DEFAULT_TOOL_ANSWER, 'y');
+        $this->shouldCopyPreCommitHook();
+        $this->shouldCopyCommitMsgHook();
+        $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
+
+        $this->configurationProcessor->process($this->getIOInterface());
+    }
 }

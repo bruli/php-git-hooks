@@ -29,7 +29,7 @@ class ConfigArrayDataStub
                     'phpmd' => true,
                     'phpcs' => [
                         'enabled' => true,
-                        'standard' => static::PHPCS_STANDARD
+                        'standard' => static::PHPCS_STANDARD,
                     ],
                     'php-cs-fixer' => [
                         'enabled' => true,
@@ -43,18 +43,61 @@ class ConfigArrayDataStub
                     'phpunit' => [
                         'enabled' => true,
                         'random-mode' => true,
-                        'options' => static::PHPUNIT_OPTIONS
-                    ]
+                        'options' => static::PHPUNIT_OPTIONS,
+                    ],
                 ],
                 'messages' => [
                     'right-message' => static::RIGHT_MESSAGE,
-                    'error-message' => static::ERROR_MESSAGE
-                ]
+                    'error-message' => static::ERROR_MESSAGE,
+                ],
             ],
             'commit-msg' => [
                 'enabled' => true,
-                'regular-expression' => static::REGULAR_EXPRESSION
-            ]
+                'regular-expression' => static::REGULAR_EXPRESSION,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function hooksEnabledWithoutComposerTool()
+    {
+        return [
+            'pre-commit' => [
+                'enabled' => true,
+                'execute' => [
+                    'jsonlint' => true,
+                    'phplint' => true,
+                    'phpmd' => true,
+                    'phpcs' => [
+                        'enabled' => true,
+                        'standard' => static::PHPCS_STANDARD,
+                    ],
+                    'php-cs-fixer' => [
+                        'enabled' => true,
+                        'levels' => [
+                            'psr0' => true,
+                            'psr1' => true,
+                            'psr2' => true,
+                            'symfony' => true,
+                        ],
+                    ],
+                    'phpunit' => [
+                        'enabled' => true,
+                        'random-mode' => true,
+                        'options' => static::PHPUNIT_OPTIONS,
+                    ],
+                ],
+                'messages' => [
+                    'right-message' => static::RIGHT_MESSAGE,
+                    'error-message' => static::ERROR_MESSAGE,
+                ],
+            ],
+            'commit-msg' => [
+                'enabled' => true,
+                'regular-expression' => static::REGULAR_EXPRESSION,
+            ],
         ];
     }
 }
