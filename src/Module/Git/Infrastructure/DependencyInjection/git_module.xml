@@ -5,7 +5,6 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <imports>
-        <import resource="./../../src/Module/Configuration/Infrastructure/DependencyInjection/configuration_module.xml" />
-        <import resource="./../../src/Module/Git/Infrastructure/DependencyInjection/git_module.xml" />
+        <import resource="git_service_public.xml" />
     </imports>
 </container>

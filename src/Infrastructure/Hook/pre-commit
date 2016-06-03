@@ -3,7 +3,7 @@
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use Module\Git\Service\PreCommitTool;
+use Infrastructure\Hook\PreCommit;
 
-$hook = new PreCommitTool();
+$hook = new PreCommit();
 $hook->run();

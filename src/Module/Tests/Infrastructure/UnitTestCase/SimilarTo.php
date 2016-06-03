@@ -2,37 +2,16 @@
 
 namespace Module\Tests\Infrastructure\UnitTestCase;
 
-use Faker\Factory;
-use Mockery\Matcher\Closure;
-use Mockery\MockInterface;
 use ReflectionClass;
 
-abstract class BaseUnitTestCase extends \PHPUnit_Framework_TestCase
+class SimilarTo
 {
     /**
-     * @return \Faker\Generator
-     */
-    protected function getFaker()
-    {
-        return Factory::create();
-    }
-
-    /**
-     * @param mixed $class
+     * @param $class
      *
-     * @return MockInterface
+     * @return \Mockery\Matcher\Closure
      */
-    protected function mock($class)
-    {
-        return \Mockery::mock($class);
-    }
-
-    /**
-     * @param mixed $class
-     *
-     * @return Closure
-     */
-    protected function similarTo($class)
+    public function compare($class)
     {
         $comparator = is_object($class) ? $this->getObjectComparator($class) : $this->getNumericComparator($class);
 
@@ -65,17 +44,5 @@ abstract class BaseUnitTestCase extends \PHPUnit_Framework_TestCase
 
             return !(get_class($classA) !== get_class($classB)) || ($propertiesA != $propertiesB);
         };
-    }
-
-    /**
-     * Returns given string without consecutive spaces or new lines.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
-    protected function getStringWithoutWhitespaces($string)
-    {
-        return trim(preg_replace('/\s+/', ' ', $string));
     }
 }

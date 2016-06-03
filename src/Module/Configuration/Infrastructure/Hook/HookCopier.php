@@ -12,7 +12,8 @@ class HookCopier
     {
         $file = 'pre-commit';
         if (false === $this->hookExists($file)) {
-            $this->copyFile(sprintf('%s/%s', __DIR__, $file));
+            $this->copyFile(sprintf('%s/%s', __DIR__.'/../../../../Infrastructure/Hook', $file));
+            $this->setPermissions($file);
         }
     }
 
@@ -21,7 +22,8 @@ class HookCopier
         $file = 'commit-msg';
 
         if (false === $this->hookExists($file)) {
-            $this->copyFile(sprintf('%s/%s', __DIR__, $file));
+            $this->copyFile(sprintf('%s/%s', __DIR__.'/../../../../Infrastructure/Hook', $file));
+            $this->setPermissions($file);
         }
     }
 
@@ -40,10 +42,15 @@ class HookCopier
      */
     private function copyFile($hookFile)
     {
-
         $copy = new Process(sprintf('cp %s %s', $hookFile, $this->hookDir));
         $copy->run();
+    }
 
+    /**
+     * @param $hookFile
+     */
+    private function setPermissions($hookFile)
+    {
         $permissions = new Process(sprintf('chmod 775 %s%s', $this->hookDir, $hookFile));
         $permissions->run();
     }
