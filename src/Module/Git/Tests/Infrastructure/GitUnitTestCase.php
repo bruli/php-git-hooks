@@ -2,7 +2,7 @@
 
 namespace Module\Git\Tests\Infrastructure;
 
-use Module\Composer\Test\Infrastructure\ComposerToolCommandHandlerTrait;
+use Module\Composer\Tests\Infrastructure\ComposerToolCommandHandlerTrait;
 use Module\Configuration\Tests\Infrastructure\ConfigurationDataFinderQueryHandlerTrait;
 use Module\JsonLint\Tests\Infrastructure\JsonLintToolCommandHandlerTrait;
 use Module\PhpCs\Tests\Infrastructure\PhpCSToolCommandHandlerTrait;

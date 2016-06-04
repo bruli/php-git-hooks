@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\Composer\Test\Infrastructure;
+namespace Module\Composer\Tests\Infrastructure;
 
 use Module\Composer\Contract\Command\ComposerToolCommand;
 use Module\Composer\Contract\CommandHandler\ComposerToolCommandHandler;

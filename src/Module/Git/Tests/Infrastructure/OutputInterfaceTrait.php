@@ -30,4 +30,14 @@ trait OutputInterfaceTrait
             ->once()
             ->with($message);
     }
+    /**
+     * @param string $message
+     */
+    protected function shouldWriteOutput($message)
+    {
+        $this->getOutputInterface()
+            ->shouldReceive('write')
+            ->once()
+            ->with($message);
+    }
 }
