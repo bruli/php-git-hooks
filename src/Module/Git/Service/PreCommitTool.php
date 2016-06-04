@@ -6,6 +6,7 @@ use Module\Composer\Contract\Command\ComposerToolCommand;
 use Module\Composer\Contract\CommandHandler\ComposerToolCommandHandler;
 use Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler;
 use Module\Configuration\Contract\Response\ConfigurationDataResponse;
+use Module\Git\Contract\Response\GoodJobLogoResponse;
 use Module\Git\Infrastructure\Files\FilesCommittedExtractor;
 use Module\JsonLint\Contract\Command\JsonLintToolCommand;
 use Module\JsonLint\Contract\CommandHandler\JsonLintToolCommandHandler;
@@ -64,16 +65,18 @@ class PreCommitTool
      * PreCommitTool constructor.
      *
      *
-     * @param FilesCommittedExtractor             $filesCommittedExtractor
-     * @param ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler
-     * @param ComposerToolCommandHandler          $composerToolCommandHandler
-     * @param JsonLintToolCommandHandler          $jsonLintToolCommandHandler
-     * @param PhpLintToolCommandHandler           $phpLintToolCommandHandler
-     * @param PhpCsToolCommandHandler             $phpCsToolCommandHandler
-     * @param PhpCsFixerToolCommandHandler        $phpCsFixerToolCommandHandler
-     * @param PhpUnitToolCommandHandler           $phpUnitToolCommandHandler
+     * @param OutputInterface $output
+     * @internal param FilesCommittedExtractor $filesCommittedExtractor
+     * @internal param ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler
+     * @internal param ComposerToolCommandHandler $composerToolCommandHandler
+     * @internal param JsonLintToolCommandHandler $jsonLintToolCommandHandler
+     * @internal param PhpLintToolCommandHandler $phpLintToolCommandHandler
+     * @internal param PhpCsToolCommandHandler $phpCsToolCommandHandler
+     * @internal param PhpCsFixerToolCommandHandler $phpCsFixerToolCommandHandler
+     * @internal param PhpUnitToolCommandHandler $phpUnitToolCommandHandler
      */
     public function __construct(
+        OutputInterface $output,
         FilesCommittedExtractor $filesCommittedExtractor,
         ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler,
         ComposerToolCommandHandler $composerToolCommandHandler,
@@ -91,14 +94,11 @@ class PreCommitTool
         $this->phpCsToolCommandHandler = $phpCsToolCommandHandler;
         $this->phpCsFixerToolCommandHandler = $phpCsFixerToolCommandHandler;
         $this->phpUnitToolCommandHandler = $phpUnitToolCommandHandler;
-    }
-
-    /**
-     * @param OutputInterface $output
-     */
-    public function execute(OutputInterface $output)
-    {
         $this->output = $output;
+    }
+    
+    public function execute()
+    {
 
         $outputMessage = static::NO_FILES_CHANGED_MESSAGE;
 
@@ -111,6 +111,7 @@ class PreCommitTool
                 $this->executeTools($configurationData, $committedFiles);
             }
 
+            $this->output->writeln(GoodJobLogoResponse::paint($configurationData->getRightMessage()));
             $outputMessage = self::OK_MESSAGE;
         }
 

@@ -6,6 +6,7 @@ use Module\Composer\Contract\Command\ComposerToolCommand;
 use Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use Module\Git\Contract\Command\PreCommitToolCommand;
 use Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
+use Module\Git\Contract\Response\GoodJobLogoResponse;
 use Module\Git\Service\PreCommitTool;
 use Module\Git\Tests\Infrastructure\GitUnitTestCase;
 use Module\Git\Tests\Stub\FilesCommittedStub;
@@ -21,15 +22,12 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
      * @var PreCommitToolCommandHandler
      */
     private $preCommitToolCommandHandler;
-    /**
-     * @var PreCommitToolCommand
-     */
-    private $preCommitToolCommand;
 
     protected function setUp()
     {
         $this->preCommitToolCommandHandler = new PreCommitToolCommandHandler(
             new PreCommitTool(
+                $this->getOutputInterface(),
                 $this->getFilesCommittedExtractor(),
                 $this->getConfigurationDataFinderQueryHandler(),
                 $this->getComposerToolCommandHandler(),
@@ -40,8 +38,6 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
                 $this->getPhpUnitToolCommandHandler()
             )
         );
-
-        $this->preCommitToolCommand = new PreCommitToolCommand($this->getOutputInterface());
     }
 
     /**
@@ -52,7 +48,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $this->shouldGetFilesCommitted([]);
         $this->shouldWriteLnOutput(PreCommitTool::NO_FILES_CHANGED_MESSAGE);
 
-        $this->preCommitToolCommandHandler->handle($this->preCommitToolCommand);
+        $this->preCommitToolCommandHandler->handle();
     }
 
     /**
@@ -90,8 +86,9 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
             )
         );
 
+        $this->shouldWriteLnOutput(GoodJobLogoResponse::paint($configurationDataResponse->getRightMessage()));
         $this->shouldWriteLnOutput(PreCommitTool::OK_MESSAGE);
 
-        $this->preCommitToolCommandHandler->handle($this->preCommitToolCommand);
+        $this->preCommitToolCommandHandler->handle();
     }
 }

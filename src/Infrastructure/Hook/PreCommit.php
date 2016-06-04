@@ -31,6 +31,6 @@ class PreCommit extends Application
     {
         /** @var PreCommitToolCommandHandler $command */
         $command = $this->container->get('pre.commit.tool.command.handler');
-        $command->handle(new PreCommitToolCommand($output));
+        $command->handle();
     }
 }
