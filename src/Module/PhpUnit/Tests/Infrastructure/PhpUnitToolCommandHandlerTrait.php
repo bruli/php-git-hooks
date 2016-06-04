@@ -16,7 +16,7 @@ trait PhpUnitToolCommandHandlerTrait
     private $phpUnitToolCommandHandler;
 
     /**
-     * @return \Mockery\MockInterface|PhpCsFixerToolCommandHandler
+     * @return \Mockery\MockInterface|PhpUnitToolCommandHandler
      */
     protected function getPhpUnitToolCommandHandler()
     {

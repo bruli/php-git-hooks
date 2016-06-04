@@ -72,11 +72,21 @@ class ConfigurationDataResponse
      * @var null|string
      */
     private $regularExpression;
+    /**
+     * @var null|string
+     */
+    private $rightMessage;
+    /**
+     * @var null|string
+     */
+    private $errorMessage;
 
     /**
      * ConfigurationDataResponse constructor.
      *
      * @param bool        $preCommit
+     * @param string|null $rightMessage
+     * @param string|null $errorMessage
      * @param bool        $composer
      * @param bool        $jsonLint
      * @param bool        $phpLint
@@ -96,6 +106,8 @@ class ConfigurationDataResponse
      */
     public function __construct(
         $preCommit,
+        $rightMessage,
+        $errorMessage,
         $composer,
         $jsonLint,
         $phpLint,
@@ -130,6 +142,8 @@ class ConfigurationDataResponse
         $this->preCommit = $preCommit;
         $this->commitMsg = $commitMsg;
         $this->regularExpression = $regularExpression;
+        $this->rightMessage = $rightMessage;
+        $this->errorMessage = $errorMessage;
     }
 
     /**
@@ -162,6 +176,22 @@ class ConfigurationDataResponse
     public function isPhpMd()
     {
         return $this->phpMd;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getRightMessage()
+    {
+        return $this->rightMessage;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
     }
 
     /**

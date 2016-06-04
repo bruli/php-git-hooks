@@ -125,7 +125,7 @@ class PreCommitTool
     {
         if (true === $configurationData->isComposer()) {
             $this->composerToolCommandHandler->handle(
-                new ComposerToolCommand($committedFiles)
+                new ComposerToolCommand($committedFiles, $configurationData->getErrorMessage())
             );
         }
 

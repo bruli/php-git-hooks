@@ -4,12 +4,16 @@ namespace Module\Configuration\Tests\Stub;
 
 use Module\Configuration\Contract\Response\ConfigurationDataResponse;
 
-class ConfigurationDataResponseStub
+final class ConfigurationDataResponseStub
 {
     const PHPCS_STANDARD = 'PSR2';
+    const FIX_YOUR_CODE = 'Fix your code';
+    const GOOD_JOB = 'Good job';
 
     /**
      * @param bool        $preCommit
+     * @param string|null $rightMessage
+     * @param string|null $errorMessage
      * @param bool        $composer
      * @param bool        $jsonLint
      * @param bool        $phpLint
@@ -31,6 +35,8 @@ class ConfigurationDataResponseStub
      */
     public static function create(
         $preCommit,
+        $rightMessage,
+        $errorMessage,
         $composer,
         $jsonLint,
         $phpLint,
@@ -50,6 +56,8 @@ class ConfigurationDataResponseStub
     ) {
         return new ConfigurationDataResponse(
             $preCommit,
+            $rightMessage,
+            $errorMessage,
             $composer,
             $jsonLint,
             $phpLint,
@@ -76,14 +84,16 @@ class ConfigurationDataResponseStub
     {
         $bool = true;
 
-        return self::create(
+        return static::create(
+            $bool,
+            static::GOOD_JOB,
+            static::FIX_YOUR_CODE,
             $bool,
             $bool,
             $bool,
             $bool,
             $bool,
-            $bool,
-            self::PHPCS_STANDARD,
+            static::PHPCS_STANDARD,
             $bool,
             $bool,
             $bool,

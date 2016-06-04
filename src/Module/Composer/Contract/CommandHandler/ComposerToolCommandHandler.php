@@ -27,6 +27,6 @@ class ComposerToolCommandHandler
      */
     public function handle(ComposerToolCommand $composerToolCommand)
     {
-        $this->composerTool->execute($composerToolCommand->getFiles());
+        $this->composerTool->execute($composerToolCommand->getFiles(), $composerToolCommand->getErrorMessage());
     }
 }

@@ -48,8 +48,22 @@ class FilesCommittedStub
                 '/path1/path2/file1.php',
                 '/path1/path2/file2.php',
                 '/path1/path2/file3.php',
-                'file2.php',
-                'file3.php'
+                'file1.json',
+                'file2.json'
+            ]
+        );
+    }
+    
+    public static function createWithoutJsonFiles()
+    {
+        $generator = StubCreator::faker();
+
+        return self::create(
+            [
+                $generator->sha1,
+                '/path1/path2/file1.php',
+                '/path1/path2/file2.php',
+                '/path1/path2/file3.php'
             ]
         );
     }

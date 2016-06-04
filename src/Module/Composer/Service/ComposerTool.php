@@ -3,6 +3,7 @@
 namespace Module\Composer\Service;
 
 use Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
+use Module\Git\Contract\Response\BadJobLogoResponse;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ComposerTool
@@ -27,13 +28,14 @@ class ComposerTool
     /**
      * @param array $files
      *
+     * @param string $errorMessage
      * @throws ComposerFilesNotFoundException
      */
-    public function execute(array $files)
+    public function execute(array $files, $errorMessage)
     {
         if (true === $this->checkComposerFiles($files)) {
             $this->output->write(static::CHECKING_MESAGE);
-            $this->executeTool($files);
+            $this->executeTool($files, $errorMessage);
             $this->output->writeln(static::OK);
         }
     }
@@ -58,9 +60,10 @@ class ComposerTool
     /**
      * @param array $files
      *
+     * @param string $errorMessage
      * @throws ComposerFilesNotFoundException
      */
-    private function executeTool(array $files)
+    private function executeTool(array $files, $errorMessage)
     {
         $composerJsonDetected = false;
         $composerLockDetected = false;
@@ -78,6 +81,7 @@ class ComposerTool
         if (true === $composerJsonDetected && true === $composerLockDetected) {
             return;
         }
+        $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
         throw new ComposerFilesNotFoundException();
     }
 }

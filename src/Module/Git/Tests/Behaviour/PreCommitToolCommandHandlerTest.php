@@ -3,7 +3,6 @@
 namespace Module\Git\Tests\Behaviour;
 
 use Module\Composer\Contract\Command\ComposerToolCommand;
-use Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use Module\Git\Contract\Command\PreCommitToolCommand;
 use Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
@@ -66,7 +65,9 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
 
         $this->shouldGetFilesCommitted($files);
         $this->shouldHandleConfigurationDataQuery($configurationDataResponse);
-        $this->shouldHandleComposerToolCommand(new ComposerToolCommand($files));
+        $this->shouldHandleComposerToolCommand(
+            new ComposerToolCommand($files, $configurationDataResponse->getErrorMessage())
+        );
         $this->shouldHandleJsonLintToolCommand(new JsonLintToolCommand($files));
         $this->shouldHandlePhpLintToolCommand(new PhpLintToolCommand($files));
         $this->shouldHandlePhpCsToolCommand(

@@ -7,6 +7,7 @@ use Module\Configuration\Domain\CommitMsg;
 use Module\Configuration\Domain\PhpCs;
 use Module\Configuration\Domain\PhpCsFixer;
 use Module\Configuration\Domain\PhpUnit;
+use Module\Configuration\Domain\PreCommit;
 use Module\Configuration\Service\ConfigurationDataFinder;
 
 class ConfigurationDataFinderQueryHandler
@@ -33,6 +34,7 @@ class ConfigurationDataFinderQueryHandler
     {
         $data = $this->configurationDataFinder->find();
 
+        /** @var PreCommit $preCommit */
         $preCommit = $data->getPreCommit();
         /** @var CommitMsg $commitMsg */
         $commitMsg = $data->getCommitMsg();
@@ -51,6 +53,8 @@ class ConfigurationDataFinderQueryHandler
 
         return new ConfigurationDataResponse(
             $preCommit->isEnabled(),
+            $preCommit->getMessages()->getRightMessage()->value(),
+            $preCommit->getMessages()->getErrorMessage()->value(),
             $composer->isEnabled(),
             $jsonLint->isEnabled(),
             $phpLint->isEnabled(),
