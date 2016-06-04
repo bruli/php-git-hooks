@@ -2,24 +2,27 @@
 
 namespace Module\Git\Service;
 
-use Module\Configuration\Domain\Composer;
-use Module\Configuration\Domain\JsonLint;
-use Module\Configuration\Domain\PhpCs;
-use Module\Configuration\Domain\PhpCsFixer;
-use Module\Configuration\Domain\PhpLint;
-use Module\Configuration\Domain\PhpMd;
-use Module\Configuration\Domain\PhpUnit;
-use Module\Configuration\Model\ExecuteInterface;
-use Module\Configuration\Service\ConfigurationDataFinder;
+use Module\Composer\Contract\Command\ComposerToolCommand;
+use Module\Composer\Contract\CommandHandler\ComposerToolCommandHandler;
+use Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler;
+use Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use Module\Git\Infrastructure\Files\FilesCommittedExtractor;
+use Module\JsonLint\Contract\Command\JsonLintToolCommand;
+use Module\JsonLint\Contract\CommandHandler\JsonLintToolCommandHandler;
+use Module\PhpCs\Contract\Command\PhpCsToolCommand;
+use Module\PhpCs\Contract\CommandHandler\PhpCsToolCommandHandler;
+use Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
+use Module\PhpCsFixer\Contract\CommandHandler\PhpCsFixerToolCommandHandler;
+use Module\PhpLint\Contract\Command\PhpLintToolCommand;
+use Module\PhpLint\Contract\CommandHandler\PhpLintToolCommandHandler;
+use Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
+use Module\PhpUnit\Contract\CommandHandler\PhpUnitToolCommandHandler;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PreCommitTool
 {
-    /**
-     * @var ConfigurationDataFinder
-     */
-    private $configurationDataFinder;
+    const NO_FILES_CHANGED_MESSAGE = '<comment>No files changed.</comment>';
+    const OK_MESSAGE = '<comment>0K</comment>';
     /**
      * @var OutputInterface
      */
@@ -28,19 +31,66 @@ class PreCommitTool
      * @var FilesCommittedExtractor
      */
     private $filesCommittedExtractor;
+    /**
+     * @var ConfigurationDataFinderQueryHandler
+     */
+    private $configurationDataFinderQueryHandler;
+    /**
+     * @var ComposerToolCommandHandler
+     */
+    private $composerToolCommandHandler;
+    /**
+     * @var JsonLintToolCommandHandler
+     */
+    private $jsonLintToolCommandHandler;
+    /**
+     * @var PhpLintToolCommandHandler
+     */
+    private $phpLintToolCommandHandler;
+    /**
+     * @var PhpCsToolCommandHandler
+     */
+    private $phpCsToolCommandHandler;
+    /**
+     * @var PhpCsFixerToolCommandHandler
+     */
+    private $phpCsFixerToolCommandHandler;
+    /**
+     * @var PhpUnitToolCommandHandler
+     */
+    private $phpUnitToolCommandHandler;
 
     /**
      * PreCommitTool constructor.
      *
-     * @param ConfigurationDataFinder $configurationDataFinder
-     * @param FilesCommittedExtractor $filesCommittedExtractor
+     *
+     * @param FilesCommittedExtractor             $filesCommittedExtractor
+     * @param ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler
+     * @param ComposerToolCommandHandler          $composerToolCommandHandler
+     * @param JsonLintToolCommandHandler          $jsonLintToolCommandHandler
+     * @param PhpLintToolCommandHandler           $phpLintToolCommandHandler
+     * @param PhpCsToolCommandHandler             $phpCsToolCommandHandler
+     * @param PhpCsFixerToolCommandHandler        $phpCsFixerToolCommandHandler
+     * @param PhpUnitToolCommandHandler           $phpUnitToolCommandHandler
      */
     public function __construct(
-        ConfigurationDataFinder $configurationDataFinder,
-        FilesCommittedExtractor $filesCommittedExtractor
+        FilesCommittedExtractor $filesCommittedExtractor,
+        ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler,
+        ComposerToolCommandHandler $composerToolCommandHandler,
+        JsonLintToolCommandHandler $jsonLintToolCommandHandler,
+        PhpLintToolCommandHandler $phpLintToolCommandHandler,
+        PhpCsToolCommandHandler $phpCsToolCommandHandler,
+        PhpCsFixerToolCommandHandler $phpCsFixerToolCommandHandler,
+        PhpUnitToolCommandHandler $phpUnitToolCommandHandler
     ) {
-        $this->configurationDataFinder = $configurationDataFinder;
         $this->filesCommittedExtractor = $filesCommittedExtractor;
+        $this->configurationDataFinderQueryHandler = $configurationDataFinderQueryHandler;
+        $this->composerToolCommandHandler = $composerToolCommandHandler;
+        $this->jsonLintToolCommandHandler = $jsonLintToolCommandHandler;
+        $this->phpLintToolCommandHandler = $phpLintToolCommandHandler;
+        $this->phpCsToolCommandHandler = $phpCsToolCommandHandler;
+        $this->phpCsFixerToolCommandHandler = $phpCsFixerToolCommandHandler;
+        $this->phpUnitToolCommandHandler = $phpUnitToolCommandHandler;
     }
 
     /**
@@ -50,47 +100,72 @@ class PreCommitTool
     {
         $this->output = $output;
 
-        if (0 > count($this->filesCommittedExtractor->getFiles())) {
-            $configurationData = $this->configurationDataFinder->find();
-            $preCommit = $configurationData->getPreCommit();
+        $outputMessage = static::NO_FILES_CHANGED_MESSAGE;
 
-            if (true === $preCommit->isEnabled()) {
-                $this->executeTools($preCommit->getExecute());
+        $committedFiles = $this->filesCommittedExtractor->getFiles();
+
+        if (!empty($committedFiles)) {
+            $configurationData = $this->configurationDataFinderQueryHandler->handle();
+
+            if (true === $configurationData->isPreCommit()) {
+                $this->executeTools($configurationData, $committedFiles);
             }
+
+            $outputMessage = self::OK_MESSAGE;
         }
+
+        $this->output->writeln($outputMessage);
     }
 
     /**
-     * @param ExecuteInterface $execute
+     * @param ConfigurationDataResponse $configurationData
+     * @param array                     $committedFiles
      */
-    private function executeTools(ExecuteInterface $execute)
+    private function executeTools(ConfigurationDataResponse $configurationData, array $committedFiles)
     {
-        foreach ($execute->execute() as $tool) {
-            if (true === $tool->isEnabled()) {
-                switch (get_class($tool)) {
-                    case Composer::class:
-                        $this->output->writeln('composer');
-                        break;
-                    case JsonLint::class:
-                        $this->output->writeln('jsonlint');
-                        break;
-                    case PhpLint::class:
-                        $this->output->writeln('phplint');
-                        break;
-                    case PhpMd::class:
-                        $this->output->writeln('phpmd');
-                        break;
-                    case PhpCs::class:
-                        $this->output->writeln('phpcs');
-                        break;
-                    case PhpCsFixer::class:
-                        $this->output->writeln('phpCsFixer');
-                        break;
-                    case PhpUnit::class:
-                        $this->output->writeln('phpunit');
-                        break;
-                }
-            }
+        if (true === $configurationData->isComposer()) {
+            $this->composerToolCommandHandler->handle(
+                new ComposerToolCommand($committedFiles)
+            );
+        }
+
+        if (true == $configurationData->isJsonLint()) {
+            $this->jsonLintToolCommandHandler->handle(
+                new JsonLintToolCommand($committedFiles)
+            );
+        }
+
+        if (true === $configurationData->isPhpLint()) {
+            $this->phpLintToolCommandHandler->handle(
+                new PhpLintToolCommand($committedFiles)
+            );
+        }
+
+        if (true === $configurationData->isPhpCs()) {
+            $this->phpCsToolCommandHandler->handle(
+                new PhpCsToolCommand($committedFiles, $configurationData->getPhpCsStandard())
+            );
+        }
+
+        if (true === $configurationData->isPhpCsFixer()) {
+            $this->phpCsFixerToolCommandHandler->handle(
+                new PhpCsFixerToolCommand(
+                    $committedFiles,
+                    $configurationData->isPhpCsFixerPsr0(),
+                    $configurationData->isPhpCsFixerPsr1(),
+                    $configurationData->isPhpCsFixerPsr2(),
+                    $configurationData->isPhpCsFixerSymfony()
+                )
+            );
+        }
+
+        if (true === $configurationData->isPhpunit()) {
+            $this->phpUnitToolCommandHandler->handle(
+                new PhpUnitToolCommand(
+                    $configurationData->isPhpunitRandomMode(),
+                    $configurationData->getPhpunitOptions()
+                )
+            );
         }
     }
 }

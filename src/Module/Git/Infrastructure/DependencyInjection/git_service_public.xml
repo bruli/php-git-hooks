@@ -5,8 +5,8 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="pre.commit.tool" class="Module\Git\Service\PreCommitTool">
-            <argument type="service" id="configuration.data.finder" />
+        <service id="pre.commit.tool.command.handler" class="Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler">
+            <argument type="service" id="pre.commit.tool"/>
         </service>
     </services>
 </container>

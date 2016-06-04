@@ -7,5 +7,6 @@
     <imports>
         <import resource="configuration_service_public.xml" />
         <import resource="configuration_infrastructure.xml" />
+        <import resource="configuration_service_private.xml" />
     </imports>
 </container>

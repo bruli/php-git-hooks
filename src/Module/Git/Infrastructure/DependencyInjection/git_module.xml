@@ -6,5 +6,6 @@
 
     <imports>
         <import resource="git_service_public.xml" />
+        <import resource="git_service_private.xml" />
     </imports>
 </container>

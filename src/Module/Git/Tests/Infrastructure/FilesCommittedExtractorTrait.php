@@ -23,4 +23,15 @@ trait FilesCommittedExtractorTrait
             FilesCommittedExtractor::class
         );
     }
+
+    /**
+     * @param array $return
+     */
+    protected function shouldGetFilesCommitted(array $return)
+    {
+        $this->getFilesCommittedExtractor()
+             ->shouldReceive('getFiles')
+             ->once()
+             ->andReturn($return);
+    }
 }

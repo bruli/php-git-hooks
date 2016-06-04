@@ -5,17 +5,13 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="configurator.processor" class="Module\Configuration\Service\ConfigurationProcessor">
-            <argument type="service" id="configuration.data.finder"/>
-            <argument type="service" id="pre.commit.processor"/>
-            <argument type="service" id="commit.msg.processor"/>
-            <argument type="service" id="configuration.file.writer"/>
-            <argument type="service" id="hook.copier"/>
+        <service id="configuration.processor.command.handler" class="Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler">
+            <argument type="service" id="configuration.processor"/>
+            <tag name="command_handler" handles="\Module\Configuration\Contract\Command\ConfigurationProcessorCommand"/>
         </service>
-        <service id="configuration.data.finder" class="Module\Configuration\Service\ConfigurationDataFinder">
-            <argument type="service" id="configuration.file.reader" />
+        <service id="configuration.data.finder.query.handler" class="Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler">
+            <argument type="service" id="configuration.data.finder" />
+            <tag name="command_handler" handles="" />
         </service>
-        <service id="pre.commit.processor" class="Module\Configuration\Service\PreCommitProcessor"/>
-        <service id="commit.msg.processor" class="Module\Configuration\Service\CommitMsgProcessor"/>
     </services>
 </container>

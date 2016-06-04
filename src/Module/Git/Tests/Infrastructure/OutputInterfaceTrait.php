@@ -21,13 +21,13 @@ trait OutputInterfaceTrait
     }
 
     /**
-     * @param array $return
+     * @param string $message
      */
-    protected function shouldGetFilesCommitted(array $return)
+    protected function shouldWriteLnOutput($message)
     {
-        $this->getFilesCommittedExtractor()
-             ->shouldReceive('getFiles')
-             ->once()
-             ->andReturn($return);
+        $this->getOutputInterface()
+            ->shouldReceive('writeln')
+            ->once()
+            ->with($message);
     }
 }

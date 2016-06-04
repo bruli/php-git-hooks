@@ -2,10 +2,11 @@
 
 namespace Infrastructure\Composer;
 
-require_once __DIR__ . '/../../../app/AppKernel.php';
+require_once __DIR__.'/../../../app/AppKernel.php';
 use AppKernel;
 use Composer\Script\Event;
-use Module\Configuration\Service\ConfigurationProcessor;
+use Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
+use Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler;
 
 class ConfiguratorScript
 {
@@ -18,10 +19,10 @@ class ConfiguratorScript
     {
         if (true === $event->isDevMode()) {
             $container = new AppKernel();
-            /** @var ConfigurationProcessor $processor */
-            $processor = $container->get('configurator.processor');
+            /** @var ConfigurationProcessorCommandHandler $processor */
+            $processor = $container->get('configuration.processor.command.handler');
 
-            $processor->process($event->getIO());
+            $processor->handle(new ConfigurationProcessorCommand($event->getIO()));
         }
     }
 }

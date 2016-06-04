@@ -5,6 +5,11 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="files.committed.extractor" class="Module\Git\Infrastructure\Files\FilesCommittedExtractor" public="false"/>
+        <service id="pre.commit.tool" class="Module\Git\Service\PreCommitTool" public="false">
+            <argument type="service" id="files.committed.extractor"/>
+            <argument type="service" id="configuration.data.finder.query.handler"/>
+        </service>
+        <service id="files.committed.extractor" class="Module\Git\Infrastructure\Files\FilesCommittedExtractor"
+                 public="false"/>
     </services>
 </container>
