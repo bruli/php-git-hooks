@@ -98,13 +98,13 @@ class PreCommitTool
 
     public function execute()
     {
-
         $committedFiles = $this->filesCommittedExtractor->getFiles();
 
-        if (1 > count($committedFiles)) {
+        if (1 === count($committedFiles)) {
             $this->output->writeln(static::NO_FILES_CHANGED_MESSAGE);
             return;
         }
+
         $configurationData = $this->configurationDataFinderQueryHandler->handle();
 
         if (true === $configurationData->isPreCommit()) {
