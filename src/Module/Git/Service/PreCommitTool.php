@@ -23,7 +23,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class PreCommitTool
 {
     const NO_FILES_CHANGED_MESSAGE = '<comment>No files changed.</comment>';
-    const OK_MESSAGE = '<comment>0K</comment>';
     /**
      * @var OutputInterface
      */
@@ -65,15 +64,15 @@ class PreCommitTool
      * PreCommitTool constructor.
      *
      *
-     * @param OutputInterface                     $output
-     * @param FilesCommittedExtractor             $filesCommittedExtractor
+     * @param OutputInterface $output
+     * @param FilesCommittedExtractor $filesCommittedExtractor
      * @param ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler
-     * @param ComposerToolCommandHandler          $composerToolCommandHandler
-     * @param JsonLintToolCommandHandler          $jsonLintToolCommandHandler
-     * @param PhpLintToolCommandHandler           $phpLintToolCommandHandler
-     * @param PhpCsToolCommandHandler             $phpCsToolCommandHandler
-     * @param PhpCsFixerToolCommandHandler        $phpCsFixerToolCommandHandler
-     * @param PhpUnitToolCommandHandler           $phpUnitToolCommandHandler
+     * @param ComposerToolCommandHandler $composerToolCommandHandler
+     * @param JsonLintToolCommandHandler $jsonLintToolCommandHandler
+     * @param PhpLintToolCommandHandler $phpLintToolCommandHandler
+     * @param PhpCsToolCommandHandler $phpCsToolCommandHandler
+     * @param PhpCsFixerToolCommandHandler $phpCsFixerToolCommandHandler
+     * @param PhpUnitToolCommandHandler $phpUnitToolCommandHandler
      */
     public function __construct(
         OutputInterface $output,
@@ -99,27 +98,25 @@ class PreCommitTool
 
     public function execute()
     {
-        $outputMessage = static::NO_FILES_CHANGED_MESSAGE;
 
         $committedFiles = $this->filesCommittedExtractor->getFiles();
 
-        if (1 < count($committedFiles)) {
-            $configurationData = $this->configurationDataFinderQueryHandler->handle();
+        if (1 > count($committedFiles)) {
+            $this->output->writeln(static::NO_FILES_CHANGED_MESSAGE);
+        }
+        $configurationData = $this->configurationDataFinderQueryHandler->handle();
 
-            if (true === $configurationData->isPreCommit()) {
-                $this->executeTools($configurationData, $committedFiles);
-            }
-
-            $this->output->writeln(GoodJobLogoResponse::paint($configurationData->getRightMessage()));
-            $outputMessage = self::OK_MESSAGE;
+        if (true === $configurationData->isPreCommit()) {
+            $this->executeTools($configurationData, $committedFiles);
         }
 
-        $this->output->writeln($outputMessage);
+        $this->output->writeln(GoodJobLogoResponse::paint($configurationData->getRightMessage()));
+
     }
 
     /**
      * @param ConfigurationDataResponse $configurationData
-     * @param array                     $committedFiles
+     * @param array $committedFiles
      */
     private function executeTools(ConfigurationDataResponse $configurationData, array $committedFiles)
     {
