@@ -4,10 +4,8 @@ namespace Module\JsonLint\Service;
 
 use Module\Git\Contract\Response\BadJobLogoResponse;
 use Module\JsonLint\Contract\Exception\JsonLintViolationsException;
-use Module\JsonLint\Infrastructure\Tool\JsonLintProcessor;
 use Module\JsonLint\Model\JsonLintProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
 
 class JsonLintToolExecutor
 {
