@@ -12,24 +12,32 @@ class JsonLintTool
      * @var OutputInterface
      */
     private $output;
+    /**
+     * @var JsonLintToolExecutor
+     */
+    private $jsonLintToolExecutor;
 
     /**
      * JsonLintTool constructor.
      *
      * @param OutputInterface $output
+     * @param JsonLintToolExecutor $jsonLintToolExecutor
      */
-    public function __construct(OutputInterface $output)
+    public function __construct(OutputInterface $output, JsonLintToolExecutor $jsonLintToolExecutor)
     {
         $this->output = $output;
+        $this->jsonLintToolExecutor = $jsonLintToolExecutor;
     }
 
     /**
      * @param array $files
+     * @param string $errorMessage
      */
-    public function execute(array $files)
+    public function execute(array $files, $errorMessage)
     {
         if (true === $this->jsonFilesExists($files)) {
             $this->output->write(self::CHECKING_MESSAGE);
+            $this->jsonLintToolExecutor->execute($files, $errorMessage);
             $this->output->writeln(self::OK);
         }
     }

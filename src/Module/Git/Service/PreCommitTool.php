@@ -132,7 +132,7 @@ class PreCommitTool
 
         if (true == $configurationData->isJsonLint()) {
             $this->jsonLintToolCommandHandler->handle(
-                new JsonLintToolCommand($committedFiles)
+                new JsonLintToolCommand($committedFiles, $configurationData->getErrorMessage())
             );
         }
 

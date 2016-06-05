@@ -26,6 +26,6 @@ class JsonLintToolCommandHandler
      */
     public function handle(JsonLintToolCommand $jsonLintToolCommand)
     {
-        $this->jsonLintTool->execute($jsonLintToolCommand->getFiles());
+        $this->jsonLintTool->execute($jsonLintToolCommand->getFiles(), $jsonLintToolCommand->getErrorMessage());
     }
 }
