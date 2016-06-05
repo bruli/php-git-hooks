@@ -103,7 +103,7 @@ class PreCommitTool
 
         $committedFiles = $this->filesCommittedExtractor->getFiles();
 
-        if (!empty($committedFiles)) {
+        if (1 < count($committedFiles)) {
             $configurationData = $this->configurationDataFinderQueryHandler->handle();
 
             if (true === $configurationData->isPreCommit()) {
