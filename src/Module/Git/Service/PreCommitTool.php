@@ -65,15 +65,15 @@ class PreCommitTool
      * PreCommitTool constructor.
      *
      *
-     * @param OutputInterface $output
-     * @internal param FilesCommittedExtractor $filesCommittedExtractor
-     * @internal param ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler
-     * @internal param ComposerToolCommandHandler $composerToolCommandHandler
-     * @internal param JsonLintToolCommandHandler $jsonLintToolCommandHandler
-     * @internal param PhpLintToolCommandHandler $phpLintToolCommandHandler
-     * @internal param PhpCsToolCommandHandler $phpCsToolCommandHandler
-     * @internal param PhpCsFixerToolCommandHandler $phpCsFixerToolCommandHandler
-     * @internal param PhpUnitToolCommandHandler $phpUnitToolCommandHandler
+     * @param OutputInterface                     $output
+     * @param FilesCommittedExtractor             $filesCommittedExtractor
+     * @param ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler
+     * @param ComposerToolCommandHandler          $composerToolCommandHandler
+     * @param JsonLintToolCommandHandler          $jsonLintToolCommandHandler
+     * @param PhpLintToolCommandHandler           $phpLintToolCommandHandler
+     * @param PhpCsToolCommandHandler             $phpCsToolCommandHandler
+     * @param PhpCsFixerToolCommandHandler        $phpCsFixerToolCommandHandler
+     * @param PhpUnitToolCommandHandler           $phpUnitToolCommandHandler
      */
     public function __construct(
         OutputInterface $output,
@@ -96,10 +96,9 @@ class PreCommitTool
         $this->phpUnitToolCommandHandler = $phpUnitToolCommandHandler;
         $this->output = $output;
     }
-    
+
     public function execute()
     {
-
         $outputMessage = static::NO_FILES_CHANGED_MESSAGE;
 
         $committedFiles = $this->filesCommittedExtractor->getFiles();

@@ -6,8 +6,15 @@
 
     <services>
         <service id="pre.commit.tool" class="Module\Git\Service\PreCommitTool" public="false">
+            <argument type="service" id="console.output"/>
             <argument type="service" id="files.committed.extractor"/>
             <argument type="service" id="configuration.data.finder.query.handler"/>
+            <argument type="service" id="composer.tool.command.handler"/>
+            <argument type="service" id="jsonlint.tool.command.handler"/>
+            <argument type="service" id="phplint.tool.command.handler"/>
+            <argument type="service" id="phpcs.tool.command.handler"/>
+            <argument type="service" id="phpcsfixer.tool.command.handler"/>
+            <argument type="service" id="phpunit.tool.command.handler"/>
         </service>
         <service id="files.committed.extractor" class="Module\Git\Infrastructure\Files\FilesCommittedExtractor"
                  public="false"/>
