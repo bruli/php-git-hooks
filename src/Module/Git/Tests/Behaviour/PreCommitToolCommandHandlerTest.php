@@ -14,6 +14,7 @@ use Module\PhpCs\Contract\Command\PhpCsToolCommand;
 use Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
+use Module\Tests\Infrastructure\Stub\StubCreator;
 
 class PreCommitToolCommandHandlerTest extends GitUnitTestCase
 {
@@ -44,7 +45,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
      */
     public function itShouldNoExecuteTools()
     {
-        $this->shouldGetFilesCommitted([]);
+        $this->shouldGetFilesCommitted([StubCreator::faker()->sha1]);
         $this->shouldWriteLnOutput(PreCommitTool::NO_FILES_CHANGED_MESSAGE);
 
         $this->preCommitToolCommandHandler->handle();
@@ -89,7 +90,6 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         );
 
         $this->shouldWriteLnOutput(GoodJobLogoResponse::paint($configurationDataResponse->getRightMessage()));
-        $this->shouldWriteLnOutput(PreCommitTool::OK_MESSAGE);
 
         $this->preCommitToolCommandHandler->handle();
     }
