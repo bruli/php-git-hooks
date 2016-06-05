@@ -103,6 +103,7 @@ class PreCommitTool
 
         if (1 > count($committedFiles)) {
             $this->output->writeln(static::NO_FILES_CHANGED_MESSAGE);
+            return;
         }
         $configurationData = $this->configurationDataFinderQueryHandler->handle();
 
