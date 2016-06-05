@@ -6,6 +6,7 @@
 
     <services>
         <service id="composer.tool" class="Module\Composer\Service\ComposerTool" public="false">
+            <argument type="service" id="composer.files.extractor.query.handler"/>
             <argument type="service" id="console.output"/>
         </service>
     </services>

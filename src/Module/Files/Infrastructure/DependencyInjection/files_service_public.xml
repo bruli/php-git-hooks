@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="composer.files.extractor.query.handler" class="Module\Files\Contract\QueryHandler\ComposerFilesExtractorQueryHandler">
+            <argument type="service" id="composer.files.extractor"/>
+        </service>
+        <service id="json.files.extractor.query.handler" class="Module\Files\Contract\QueryHandler\JsonFilesExtractorQueryHandler">
+            <argument type="service" id="json.files.extractor"/>
+        </service>
+    </services>
+</container>

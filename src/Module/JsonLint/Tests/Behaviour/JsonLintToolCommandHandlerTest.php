@@ -3,6 +3,8 @@
 namespace Module\JsonLint\Tests\Behaviour;
 
 use Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
+use Module\Files\Contract\Query\JsonFilesExtractorQuery;
+use Module\Files\Tests\Stub\JsonFilesResponseStub;
 use Module\Git\Contract\Response\BadJobLogoResponse;
 use Module\Git\Tests\Stub\FilesCommittedStub;
 use Module\JsonLint\Contract\Command\JsonLintToolCommand;
@@ -31,7 +33,8 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
                 new JsonLintToolExecutor(
                     $this->getJsonLintProcessor(),
                     $this->getOutputInterface()
-                )
+                ),
+                $this->getJsonFilesExtractorQueryHandler()
             )
         );
 
@@ -43,8 +46,15 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
      */
     public function itShouldNotExecuteTool()
     {
+        $files = FilesCommittedStub::createWithoutJsonFiles();
+
+        $this->shouldHandleJsonFilesExtractorQuery(
+            new JsonFilesExtractorQuery($files),
+            JsonFilesResponseStub::createNoData()
+        );
+
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintToolCommand(FilesCommittedStub::createWithoutJsonFiles(), $this->errorMessage)
+            new JsonLintToolCommand($files, $this->errorMessage)
         );
     }
 
@@ -53,18 +63,22 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
      */
     public function itShouldExecuteTool()
     {
-        $files = FilesCommittedStub::createAllFiles();
+        $files = JsonFilesResponseStub::createWithJsonData();
+
+        $this->shouldHandleJsonFilesExtractorQuery(
+            new JsonFilesExtractorQuery($files->getFiles()),
+            $files
+        );
 
         $this->shouldWriteOutput(JsonLintTool::CHECKING_MESSAGE);
 
-        foreach ($files as $file) {
+        foreach ($files->getFiles() as $file) {
             $this->shouldProcessJsonLint($file, []);
         }
-
         $this->shouldWriteLnOutput(JsonLintTool::OK);
 
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintToolCommand($files, $this->errorMessage)
+            new JsonLintToolCommand($files->getFiles(), $this->errorMessage)
         );
     }
 
@@ -75,18 +89,22 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
     {
         $this->expectException(JsonLintViolationsException::class);
 
-        $files = FilesCommittedStub::createAllFiles();
+        $jsonFilesResponse = JsonFilesResponseStub::createWithJsonData();
 
+        $this->shouldHandleJsonFilesExtractorQuery(
+            new JsonFilesExtractorQuery($jsonFilesResponse->getFiles()),
+            $jsonFilesResponse
+        );
         $this->shouldWriteOutput(JsonLintTool::CHECKING_MESSAGE);
-        
-        foreach ($files as $file) {
-            $this->shouldProcessJsonLint($file, 'error_text');
+
+        foreach ($jsonFilesResponse->getFiles() as $file) {
+            $this->shouldProcessJsonLint($file, $this->errorMessage);
         }
 
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
 
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintToolCommand($files, $this->errorMessage)
+            new JsonLintToolCommand($jsonFilesResponse->getFiles(), $this->errorMessage)
         );
     }
 }

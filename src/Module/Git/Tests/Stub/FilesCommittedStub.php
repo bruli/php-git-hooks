@@ -86,4 +86,19 @@ class FilesCommittedStub
 
         return self::create($files[array_rand($files)]);
     }
+
+    /**
+     * @return array
+     */
+    public static function createWithoutPhpFiles()
+    {
+        $files = [
+            StubCreator::faker()->sha1,
+            'composer.json',
+            'composer.lock',
+            'file1.json'
+        ];
+
+        return self::create($files);
+    }
 }

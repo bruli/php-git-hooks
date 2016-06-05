@@ -68,7 +68,9 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
             new JsonLintToolCommand($files, $configurationDataResponse->getErrorMessage()),
             $configurationDataResponse->getErrorMessage()
         );
-        $this->shouldHandlePhpLintToolCommand(new PhpLintToolCommand($files));
+        $this->shouldHandlePhpLintToolCommand(
+            new PhpLintToolCommand($files, $configurationDataResponse->getErrorMessage())
+        );
         $this->shouldHandlePhpCsToolCommand(
             new PhpCsToolCommand($files, $configurationDataResponse->getPhpCsStandard())
         );

@@ -5,6 +5,7 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="phplint.tool.command.handler" class="Module\PhpLint\Contract\CommandHandler\PhpLintToolCommandHandler">
+            <argument type="service" id="phplint.tool"/>
         </service>
     </services>
 </container>

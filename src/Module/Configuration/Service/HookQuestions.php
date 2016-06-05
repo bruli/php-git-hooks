@@ -8,10 +8,10 @@ class HookQuestions
     const PRE_COMMIT_HOOK = '<info>Do you want enable PRE-COMMIT hook?:</info> <comment>[Y/n]</comment>';
     const PRE_COMMIT_RIGHT_MESSAGE = '<info>Write a right message for pre-commit hook:</info> ' .
     '<comment>' . self::PRE_COMMIT_RIGHT_MESSAGE_DEFAULT . '</comment>';
-    const PRE_COMMIT_RIGHT_MESSAGE_DEFAULT = '[HEY, GOOD JOB!!]';
+    const PRE_COMMIT_RIGHT_MESSAGE_DEFAULT = 'HEY, GOOD JOB!!';
     const PRE_COMMIT_ERROR_MESSAGE = '<info>Write a error message for pre-commit hook:</info> ' .
     '<comment>' . self::PRE_COMMIT_ERROR_MESSAGE_DEFAULT . '</comment>';
-    const PRE_COMMIT_ERROR_MESSAGE_DEFAULT = '[FIX YOUR FUCKING CODE!!]';
+    const PRE_COMMIT_ERROR_MESSAGE_DEFAULT = 'FIX YOUR FUCKING CODE!!';
     const COMPOSER_TOOL = '<info>Do you want enable COMPOSER tool?:</info> <comment>[Y/n]</comment>';
     const JSONLINT_TOOL = '<info>Do you want enable JSONLINT tool?:</info> <comment>[Y/n]</comment>';
     const PHPLINT_TOOL = '<info>Do you want enable PHPLINT tool?:</info> <comment>[Y/n]</comment>';

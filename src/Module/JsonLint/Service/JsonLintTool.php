@@ -2,6 +2,8 @@
 
 namespace Module\JsonLint\Service;
 
+use Module\Files\Contract\Query\JsonFilesExtractorQuery;
+use Module\Files\Contract\QueryHandler\JsonFilesExtractorQueryHandler;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class JsonLintTool
@@ -16,28 +18,39 @@ class JsonLintTool
      * @var JsonLintToolExecutor
      */
     private $jsonLintToolExecutor;
+    /**
+     * @var JsonFilesExtractorQueryHandler
+     */
+    private $jsonFilesExtractorQueryHandler;
 
     /**
      * JsonLintTool constructor.
      *
-     * @param OutputInterface $output
-     * @param JsonLintToolExecutor $jsonLintToolExecutor
+     * @param OutputInterface                $output
+     * @param JsonLintToolExecutor           $jsonLintToolExecutor
+     * @param JsonFilesExtractorQueryHandler $jsonFilesExtractorQueryHandler
      */
-    public function __construct(OutputInterface $output, JsonLintToolExecutor $jsonLintToolExecutor)
-    {
+    public function __construct(
+        OutputInterface $output,
+        JsonLintToolExecutor $jsonLintToolExecutor,
+        JsonFilesExtractorQueryHandler $jsonFilesExtractorQueryHandler
+    ) {
         $this->output = $output;
         $this->jsonLintToolExecutor = $jsonLintToolExecutor;
+        $this->jsonFilesExtractorQueryHandler = $jsonFilesExtractorQueryHandler;
     }
 
     /**
-     * @param array $files
+     * @param array  $files
      * @param string $errorMessage
      */
     public function execute(array $files, $errorMessage)
     {
-        if (true === $this->jsonFilesExists($files)) {
+        $jsonFiles = $this->jsonFilesExtractorQueryHandler->handle(new JsonFilesExtractorQuery($files));
+
+        if (true === $this->jsonFilesExists($jsonFiles->getFiles())) {
             $this->output->write(self::CHECKING_MESSAGE);
-            $this->jsonLintToolExecutor->execute($files, $errorMessage);
+            $this->jsonLintToolExecutor->execute($jsonFiles->getFiles(), $errorMessage);
             $this->output->writeln(self::OK);
         }
     }
@@ -49,13 +62,6 @@ class JsonLintTool
      */
     private function jsonFilesExists(array $files)
     {
-        $exist = false;
-        foreach ($files as $file) {
-            if (true === (bool) preg_match('/^(.*)(\.json)$/', $file)) {
-                $exist = true;
-            }
-        }
-
-        return $exist;
+        return 0 < count($files);
     }
 }

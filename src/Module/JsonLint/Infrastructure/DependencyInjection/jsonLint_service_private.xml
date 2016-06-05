@@ -8,6 +8,7 @@
         <service id="jsonlint.tool" class="Module\JsonLint\Service\JsonLintTool" public="false">
             <argument type="service" id="console.output"/>
             <argument type="service" id="jsonlint.tool.executor"/>
+            <argument type="service" id="json.files.extractor.query.handler"/>
         </service>
         <service id="jsonlint.tool.executor" class="Module\JsonLint\Service\JsonLintToolExecutor" public="false">
             <argument type="service" id="jsonlint.processor"/>

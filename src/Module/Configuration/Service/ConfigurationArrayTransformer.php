@@ -27,7 +27,7 @@ class ConfigurationArrayTransformer
         return [
             'pre-commit' => [
                 'enabled' => $preCommit->isEnabled(),
-                'execute' => [
+                'process' => [
                     'composer' => $composer->isEnabled(),
                     'jsonlint' => $jsonLint->isEnabled(),
                     'phplint' => $phpLint->isEnabled(),

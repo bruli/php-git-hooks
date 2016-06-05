@@ -13,6 +13,7 @@
         <import resource="./../../src/Module/PhpCs/Infrastructure/DependencyInjection/phpCs_module.xml" />
         <import resource="./../../src/Module/PhpCsFixer/Infrastructure/DependencyInjection/phpCsFixer_module.xml" />
         <import resource="./../../src/Module/PhpUnit/Infrastructure/DependencyInjection/phpUnit_module.xml" />
+        <import resource="./../../src/Module/Files/Infrastructure/DependencyInjection/files_module.xml" />
     </imports>
     <services>
         <service id="console.output" class="Symfony\Component\Console\Output\ConsoleOutput">

@@ -135,7 +135,7 @@ class PreCommitTool
 
         if (true === $configurationData->isPhpLint()) {
             $this->phpLintToolCommandHandler->handle(
-                new PhpLintToolCommand($committedFiles)
+                new PhpLintToolCommand($committedFiles, $configurationData->getErrorMessage())
             );
         }
 
