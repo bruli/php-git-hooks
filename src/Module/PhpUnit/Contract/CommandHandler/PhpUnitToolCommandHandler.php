@@ -2,14 +2,16 @@
 
 namespace Module\PhpUnit\Contract\CommandHandler;
 
-use Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
+use Infrastructure\CommandBus\CommandHandlerInterface;
+use Infrastructure\CommandBus\CommandInterface;
 
-class PhpUnitToolCommandHandler
+class PhpUnitToolCommandHandler implements CommandHandlerInterface
 {
     /**
-     * @param PhpUnitToolCommand $phpUnitToolCommand
+     * @param CommandInterface $command
      */
-    public function handle(PhpUnitToolCommand $phpUnitToolCommand)
+    public function handle(CommandInterface $command)
     {
+        // TODO: Implement handle() method.
     }
 }

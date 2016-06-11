@@ -2,7 +2,9 @@
 
 namespace Module\PhpLint\Contract\Command;
 
-class PhpLintToolCommand
+use Infrastructure\CommandBus\CommandInterface;
+
+class PhpLintToolCommand implements CommandInterface
 {
     /**
      * @var array

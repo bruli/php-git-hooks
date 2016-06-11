@@ -2,10 +2,12 @@
 
 namespace Module\PhpLint\Contract\CommandHandler;
 
+use Infrastructure\CommandBus\CommandHandlerInterface;
+use Infrastructure\CommandBus\CommandInterface;
 use Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use Module\PhpLint\Service\PhpLintTool;
 
-class PhpLintToolCommandHandler
+class PhpLintToolCommandHandler implements CommandHandlerInterface
 {
     /**
      * @var PhpLintTool
@@ -14,6 +16,7 @@ class PhpLintToolCommandHandler
 
     /**
      * PhpLintToolCommandHandler constructor.
+     *
      * @param PhpLintTool $phpLintTool
      */
     public function __construct(PhpLintTool $phpLintTool)
@@ -22,10 +25,10 @@ class PhpLintToolCommandHandler
     }
 
     /**
-     * @param PhpLintToolCommand $phpLintToolCommand
+     * @param CommandInterface|PhpLintToolCommand $command
      */
-    public function handle(PhpLintToolCommand $phpLintToolCommand)
+    public function handle(CommandInterface $command)
     {
-        $this->phpLintTool->execute($phpLintToolCommand->getFiles(), $phpLintToolCommand->getErrorMessage());
+        $this->phpLintTool->execute($command->getFiles(), $command->getErrorMessage());
     }
 }

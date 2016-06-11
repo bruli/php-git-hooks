@@ -2,7 +2,9 @@
 
 namespace Module\PhpCsFixer\Contract\Command;
 
-class PhpCsFixerToolCommand
+use Infrastructure\CommandBus\CommandInterface;
+
+class PhpCsFixerToolCommand implements CommandInterface
 {
     /**
      * @var array

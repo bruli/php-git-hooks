@@ -2,10 +2,12 @@
 
 namespace Module\Composer\Contract\CommandHandler;
 
+use Infrastructure\CommandBus\CommandHandlerInterface;
+use Infrastructure\CommandBus\CommandInterface;
 use Module\Composer\Contract\Command\ComposerToolCommand;
 use Module\Composer\Service\ComposerTool;
 
-class ComposerToolCommandHandler
+class ComposerToolCommandHandler implements CommandHandlerInterface
 {
     /**
      * @var ComposerTool
@@ -23,10 +25,10 @@ class ComposerToolCommandHandler
     }
 
     /**
-     * @param ComposerToolCommand $composerToolCommand
+     * @param CommandInterface|ComposerToolCommand $command
      */
-    public function handle(ComposerToolCommand $composerToolCommand)
+    public function handle(CommandInterface $command)
     {
-        $this->composerTool->execute($composerToolCommand->getFiles(), $composerToolCommand->getErrorMessage());
+        $this->composerTool->execute($command->getFiles(), $command->getErrorMessage());
     }
 }

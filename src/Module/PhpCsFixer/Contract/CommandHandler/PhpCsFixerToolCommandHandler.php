@@ -2,14 +2,16 @@
 
 namespace Module\PhpCsFixer\Contract\CommandHandler;
 
+use Infrastructure\CommandBus\CommandHandlerInterface;
+use Infrastructure\CommandBus\CommandInterface;
 use Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 
-class PhpCsFixerToolCommandHandler
+class PhpCsFixerToolCommandHandler implements CommandHandlerInterface
 {
     /**
-     * @param PhpCsFixerToolCommand $phpCsFixerToolCommand
+     * @param CommandInterface|PhpCsFixerToolCommand $command
      */
-    public function handle(PhpCsFixerToolCommand $phpCsFixerToolCommand)
+    public function handle(CommandInterface $command)
     {
     }
 }

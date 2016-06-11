@@ -2,7 +2,9 @@
 
 namespace Module\Composer\Contract\Command;
 
-class ComposerToolCommand
+use Infrastructure\CommandBus\CommandInterface;
+
+class ComposerToolCommand implements CommandInterface
 {
     /**
      * @var array

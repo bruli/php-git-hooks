@@ -2,10 +2,11 @@
 
 namespace Module\Git\Contract\CommandHandler;
 
-use Module\Git\Contract\Command\PreCommitToolCommand;
+use Infrastructure\CommandBus\CommandHandlerInterface;
+use Infrastructure\CommandBus\CommandInterface;
 use Module\Git\Service\PreCommitTool;
 
-class PreCommitToolCommandHandler
+class PreCommitToolCommandHandler implements CommandHandlerInterface
 {
     /**
      * @var PreCommitTool
@@ -22,7 +23,10 @@ class PreCommitToolCommandHandler
         $this->preCommitTool = $preCommitTool;
     }
 
-    public function handle(PreCommitToolCommand $preCommitToolCommand)
+    /**
+     * @param CommandInterface $command
+     */
+    public function handle(CommandInterface $command)
     {
         $this->preCommitTool->execute();
     }

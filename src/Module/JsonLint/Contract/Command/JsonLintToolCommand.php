@@ -2,7 +2,9 @@
 
 namespace Module\JsonLint\Contract\Command;
 
-class JsonLintToolCommand
+use Infrastructure\CommandBus\CommandInterface;
+
+class JsonLintToolCommand implements CommandInterface
 {
     /**
      * @var array

@@ -2,7 +2,9 @@
 
 namespace Module\PhpUnit\Contract\Command;
 
-class PhpUnitToolCommand
+use Infrastructure\CommandBus\CommandInterface;
+
+class PhpUnitToolCommand implements CommandInterface
 {
     /**
      * @var bool

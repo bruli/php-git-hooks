@@ -3,8 +3,9 @@
 namespace Module\Configuration\Contract\Command;
 
 use Composer\IO\IOInterface;
+use Infrastructure\CommandBus\CommandInterface;
 
-class ConfigurationProcessorCommand
+class ConfigurationProcessorCommand implements CommandInterface
 {
     /**
      * @var IOInterface

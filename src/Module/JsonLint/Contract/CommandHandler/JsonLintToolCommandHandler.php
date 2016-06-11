@@ -2,10 +2,12 @@
 
 namespace Module\JsonLint\Contract\CommandHandler;
 
+use Infrastructure\CommandBus\CommandHandlerInterface;
+use Infrastructure\CommandBus\CommandInterface;
 use Module\JsonLint\Contract\Command\JsonLintToolCommand;
 use Module\JsonLint\Service\JsonLintTool;
 
-class JsonLintToolCommandHandler
+class JsonLintToolCommandHandler implements CommandHandlerInterface
 {
     /**
      * @var JsonLintTool
@@ -14,6 +16,7 @@ class JsonLintToolCommandHandler
 
     /**
      * JsonLintToolCommandHandler constructor.
+     *
      * @param JsonLintTool $jsonLintTool
      */
     public function __construct(JsonLintTool $jsonLintTool)
@@ -22,10 +25,10 @@ class JsonLintToolCommandHandler
     }
 
     /**
-     * @param JsonLintToolCommand $jsonLintToolCommand
+     * @param CommandInterface|JsonLintToolCommand $command
      */
-    public function handle(JsonLintToolCommand $jsonLintToolCommand)
+    public function handle(CommandInterface $command)
     {
-        $this->jsonLintTool->execute($jsonLintToolCommand->getFiles(), $jsonLintToolCommand->getErrorMessage());
+        $this->jsonLintTool->execute($command->getFiles(), $command->getErrorMessage());
     }
 }

@@ -2,10 +2,12 @@
 
 namespace Module\Configuration\Contract\CommandHandler;
 
+use Infrastructure\CommandBus\CommandHandlerInterface;
+use Infrastructure\CommandBus\CommandInterface;
 use Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
 use Module\Configuration\Service\ConfigurationProcessor;
 
-class ConfigurationProcessorCommandHandler
+class ConfigurationProcessorCommandHandler implements CommandHandlerInterface
 {
     /**
      * @var ConfigurationProcessor
@@ -23,10 +25,10 @@ class ConfigurationProcessorCommandHandler
     }
 
     /**
-     * @param ConfigurationProcessorCommand $configuratorProcessorCommand
+     * @param CommandInterface|ConfigurationProcessorCommand $command
      */
-    public function handle(ConfigurationProcessorCommand $configuratorProcessorCommand)
+    public function handle(CommandInterface $command)
     {
-        $this->configurationProcessor->process($configuratorProcessorCommand->getIOInterface());
+        $this->configurationProcessor->process($command->getIOInterface());
     }
 }

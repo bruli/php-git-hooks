@@ -34,9 +34,9 @@ class CommandBus
     }
 
     /**
-     * @param object $command
+     * @param CommandInterface $command
      */
-    public function handle($command)
+    public function handle(CommandInterface $command)
     {
         $this->container->get($this->commandHandlers['\\'.get_class($command)])->handle($command);
     }

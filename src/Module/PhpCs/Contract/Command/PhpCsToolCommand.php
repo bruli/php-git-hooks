@@ -2,7 +2,9 @@
 
 namespace Module\PhpCs\Contract\Command;
 
-class PhpCsToolCommand
+use Infrastructure\CommandBus\CommandInterface;
+
+class PhpCsToolCommand implements CommandInterface
 {
     /**
      * @var array
