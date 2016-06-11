@@ -19,6 +19,7 @@ class ConfigurationProcessorCommandHandler
      */
     public function __construct(ConfigurationProcessor $configurationProcessor)
     {
+        var_dump('hola'); die;
         $this->configurationProcessor = $configurationProcessor;
     }
 

@@ -5,6 +5,8 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <imports>
+        <import resource="command_bus.xml"/>
+        <import resource="./../../src/Module/Configuration/Infrastructure/DependencyInjection/configuration_module.xml" />
         <import resource="./../../src/Module/Configuration/Infrastructure/DependencyInjection/configuration_module.xml" />
         <import resource="./../../src/Module/Git/Infrastructure/DependencyInjection/git_module.xml" />
         <import resource="./../../src/Module/Composer/Infrastructure/DependencyInjection/composer_module.xml" />

@@ -34,5 +34,5 @@ class AppKernel
     public function get($serviceName)
     {
         return $this->container->get($serviceName);
-    }    
+    }
 }

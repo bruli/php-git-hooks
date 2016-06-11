@@ -7,6 +7,7 @@ use AppKernel;
 use Composer\Script\Event;
 use Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
 use Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler;
+use SimpleBus\Message\Bus\MessageBus;
 
 class ConfiguratorScript
 {
@@ -23,6 +24,9 @@ class ConfiguratorScript
             $processor = $container->get('configuration.processor.command.handler');
 
             $processor->handle(new ConfigurationProcessorCommand($event->getIO()));
+//            /** @var MessageBus $commandBus */
+//            $commandBus = $container->get('command_bus');
+//            $commandBus->handle(new ConfigurationProcessorCommand($event->getIO()));
         }
     }
 }
