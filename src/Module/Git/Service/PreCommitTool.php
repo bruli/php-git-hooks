@@ -3,8 +3,10 @@
 namespace Module\Git\Service;
 
 use Infrastructure\CommandBus\CommandBus;
+use Infrastructure\QueryBus\QueryBus;
 use Module\Composer\Contract\Command\ComposerToolCommand;
 use Module\Composer\Contract\CommandHandler\ComposerToolCommandHandler;
+use Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler;
 use Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use Module\Git\Contract\Response\GoodJobLogoResponse;
@@ -33,13 +35,13 @@ class PreCommitTool
      */
     private $filesCommittedExtractor;
     /**
-     * @var ConfigurationDataFinderQueryHandler
-     */
-    private $configurationDataFinderQueryHandler;
-    /**
      * @var CommandBus
      */
     private $commandBus;
+    /**
+     * @var QueryBus
+     */
+    private $queryBus;
 
     /**
      * PreCommitTool constructor.
@@ -47,25 +49,19 @@ class PreCommitTool
      *
      * @param OutputInterface $output
      * @param FilesCommittedExtractor $filesCommittedExtractor
-     * @param ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler
+     * @param QueryBus $queryBus
      * @param CommandBus $commandBus
-     * @internal param ComposerToolCommandHandler $composerToolCommandHandler
-     * @internal param JsonLintToolCommandHandler $jsonLintToolCommandHandler
-     * @internal param PhpLintToolCommandHandler $phpLintToolCommandHandler
-     * @internal param PhpCsToolCommandHandler $phpCsToolCommandHandler
-     * @internal param PhpCsFixerToolCommandHandler $phpCsFixerToolCommandHandler
-     * @internal param PhpUnitToolCommandHandler $phpUnitToolCommandHandler
      */
     public function __construct(
         OutputInterface $output,
         FilesCommittedExtractor $filesCommittedExtractor,
-        ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler,
+        QueryBus $queryBus,
         CommandBus $commandBus
     ) {
         $this->filesCommittedExtractor = $filesCommittedExtractor;
-        $this->configurationDataFinderQueryHandler = $configurationDataFinderQueryHandler;
         $this->output = $output;
         $this->commandBus = $commandBus;
+        $this->queryBus = $queryBus;
     }
 
     public function execute()
@@ -77,7 +73,7 @@ class PreCommitTool
             return;
         }
 
-        $configurationData = $this->configurationDataFinderQueryHandler->handle();
+        $configurationData = $this->queryBus->handle(new ConfigurationDataFinderQuery());
 
         if (true === $configurationData->isPreCommit()) {
             $this->executeTools($configurationData, $committedFiles);

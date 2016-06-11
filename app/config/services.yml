@@ -14,3 +14,6 @@ services:
   command.bus:
     class: Infrastructure\CommandBus\CommandBus
     arguments: ["@service_container"]
+  query.bus:
+    class: Infrastructure\QueryBus\QueryBus
+    arguments: ["@service_container"]

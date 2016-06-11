@@ -5,7 +5,7 @@ services:
     arguments:
       - "@console.output"
       - "@files.commited.extractor"
-      - "@configuration.data.finder.query.handler"
+      - "@query.bus"
       - "@command.bus"
   files.commited.extractor:
     class: Module\Git\Infrastructure\Files\FilesCommittedExtractor

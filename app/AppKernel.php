@@ -1,6 +1,7 @@
 <?php
 
 use Infrastructure\CommandBus\CommandBusCompilerPass;
+use Infrastructure\QueryBus\QueryBusCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -19,6 +20,7 @@ class AppKernel
     {
         $this->container = new ContainerBuilder();
         $this->container->addCompilerPass(new CommandBusCompilerPass());
+        $this->container->addCompilerPass(new QueryBusCompilerPass());
         $this->getConfigServices();
         $this->container->compile();
     }

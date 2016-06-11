@@ -2,6 +2,8 @@
 
 namespace Module\Configuration\Contract\QueryHandler;
 
+use Infrastructure\QueryBus\QueryHandlerInterface;
+use Infrastructure\QueryBus\QueryInterface;
 use Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use Module\Configuration\Domain\CommitMsg;
 use Module\Configuration\Domain\PhpCs;
@@ -10,7 +12,7 @@ use Module\Configuration\Domain\PhpUnit;
 use Module\Configuration\Domain\PreCommit;
 use Module\Configuration\Service\ConfigurationDataFinder;
 
-class ConfigurationDataFinderQueryHandler
+class ConfigurationDataFinderQueryHandler implements QueryHandlerInterface
 {
     /**
      * @var ConfigurationDataFinder
@@ -28,9 +30,10 @@ class ConfigurationDataFinderQueryHandler
     }
 
     /**
+     * @param QueryInterface $query
      * @return ConfigurationDataResponse
      */
-    public function handle()
+    public function handle(QueryInterface $query)
     {
         $data = $this->configurationDataFinder->find();
 

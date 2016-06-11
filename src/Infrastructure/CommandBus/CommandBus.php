@@ -2,13 +2,10 @@
 
 namespace Infrastructure\CommandBus;
 
-use Module\Git\Contract\Command\PreCommitToolCommand;
-use Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CommandBus
 {
-
     private $commandHandlers = [];
     /**
      * @var ContainerInterface
@@ -17,6 +14,7 @@ class CommandBus
 
     /**
      * CommandBus constructor.
+     *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
