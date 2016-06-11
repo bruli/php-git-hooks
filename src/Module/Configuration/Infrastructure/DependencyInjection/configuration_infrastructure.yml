@@ -1,0 +1,7 @@
+services:
+  configuration.file.reader:
+    class: Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileReader
+  configuration.file.writer:
+    class: Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileWriter
+  hook.copier:
+    class: Module\Configuration\Infrastructure\Hook\HookCopier

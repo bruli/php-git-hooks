@@ -1,0 +1,3 @@
+services:
+  jsonlint.processor:
+    class: Module\JsonLint\Infrastructure\Tool\JsonLintProcessor

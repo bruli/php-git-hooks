@@ -1,0 +1,13 @@
+services:
+  jsonlint.tool:
+    class: Module\JsonLint\Service\JsonLintTool
+    public: false
+    arguments:
+      - "@console.output"
+      - "@jsonlint.tool.executor"
+      - "@json.files.extractor.query.handler"
+  jsonlint.tool.executor:
+    class: Module\JsonLint\Service\JsonLintToolExecutor
+    arguments:
+      - "@jsonlint.processor"
+      - "@console.output"

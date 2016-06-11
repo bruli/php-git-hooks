@@ -1,0 +1,6 @@
+services:
+  jsonlint.tool.command.handler:
+    class: Module\JsonLint\Contract\CommandHandler\JsonLintToolCommandHandler
+    arguments: ["@jsonlint.tool"]
+    tags:
+     - { name: command_handler, handles: \Module\JsonLint\Contract\Command\JsonLintToolCommand }

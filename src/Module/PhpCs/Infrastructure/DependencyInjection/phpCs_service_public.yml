@@ -1,0 +1,5 @@
+services:
+  php.tool.command.handler:
+    class: Module\PhpCs\Contract\CommandHandler\PhpCsToolCommandHandler
+    tags:
+      - { name: command_handler, handles: \Module\PhpCs\Contract\Command\PhpCsToolCommand }

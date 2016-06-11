@@ -1,0 +1,3 @@
+services:
+  phplint.tool.processor:
+    class: Module\PhpLint\Infrastructure\Tool\PhpLintToolProcessor

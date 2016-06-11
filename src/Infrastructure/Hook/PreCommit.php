@@ -10,6 +10,7 @@ use Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class PreCommit extends Application
 {
@@ -30,7 +31,7 @@ class PreCommit extends Application
     public function doRun(InputInterface $input, OutputInterface $output)
     {
         /** @var PreCommitToolCommandHandler $command */
-        $command = $this->container->get('pre.commit.tool.command.handler');
-        $command->handle();
+        $command = $this->container->get('command.bus');
+        $command->handle(new PreCommitToolCommand());
     }
 }

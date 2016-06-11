@@ -1,0 +1,6 @@
+services:
+  composer.tool.command.handler:
+    class: Module\Composer\Contract\CommandHandler\ComposerToolCommandHandler
+    arguments: ["@composer.tool"]
+    tags:
+      - { name: command_handler, handles: \Module\Composer\Contract\Command\ComposerToolCommand }

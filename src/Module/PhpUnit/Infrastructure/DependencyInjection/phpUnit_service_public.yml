@@ -1,0 +1,5 @@
+services:
+  phpunit.tool.command.handler:
+    class: Module\PhpUnit\Contract\CommandHandler\PhpUnitToolCommandHandler
+    tags:
+      - {name: command_handler, handles: \Module\PhpUnit\Contract\Command\PhpUnitToolCommand }

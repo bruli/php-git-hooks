@@ -1,0 +1,7 @@
+services:
+  composer.files.extractor.query.handler:
+    class: Module\Files\Contract\QueryHandler\ComposerFilesExtractorQueryHandler
+    arguments: ["@composer.files.extractor"]
+  json.files.extractor.query.handler:
+    class: Module\Files\Contract\QueryHandler\JsonFilesExtractorQueryHandler
+    arguments: ["@json.files.extractor"]

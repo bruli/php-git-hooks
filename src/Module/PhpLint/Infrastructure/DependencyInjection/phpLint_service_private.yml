@@ -1,0 +1,11 @@
+services:
+  phplint.tool:
+    class: Module\PhpLint\Service\PhpLintTool
+    public: false
+    arguments: ["@phplint.tool.executor"]
+  phplint.tool.executor:
+    class: Module\PhpLint\Service\PhpLintToolExecutor
+    public: false
+    arguments:
+      - "@phplint.tool.processor"
+      - "@console.output"

@@ -1,0 +1,12 @@
+services:
+  pre.commit.tool:
+    class: Module\Git\Service\PreCommitTool
+    public: false
+    arguments:
+      - "@console.output"
+      - "@files.commited.extractor"
+      - "@configuration.data.finder.query.handler"
+      - "@command.bus"
+  files.commited.extractor:
+    class: Module\Git\Infrastructure\Files\FilesCommittedExtractor
+    public: false

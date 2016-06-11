@@ -1,0 +1,7 @@
+services:
+  composer.files.extractor:
+    class: Module\Files\Service\ComposerFilesExtractor
+    public: false
+  json.files.extractor:
+    class: Module\Files\Service\JsonFilesExtractor
+    public: false

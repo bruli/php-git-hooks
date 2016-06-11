@@ -1,0 +1,16 @@
+imports:
+  - { resource: "./../../src/Module/Configuration/Infrastructure/DependencyInjection/configuration_module.yml" }
+  - { resource: "./../../src/Module/Git/Infrastructure/DependencyInjection/git_module.yml" }
+  - { resource: "./../../src/Module/Composer/Infrastructure/DependencyInjection/composer_module.yml" }
+  - { resource: "./../../src/Module/JsonLint/Infrastructure/DependencyInjection/jsonLint_module.yml" }
+  - { resource: "./../../src/Module/PhpLint/Infrastructure/DependencyInjection/phpLint_module.yml" }
+  - { resource: "./../../src/Module/PhpCs/Infrastructure/DependencyInjection/phpCs_module.yml" }
+  - { resource: "./../../src/Module/PhpCsFixer/Infrastructure/DependencyInjection/phpCsFixer_module.yml" }
+  - { resource: "./../../src/Module/PhpUnit/Infrastructure/DependencyInjection/phpUnit_module.yml" }
+  - { resource: "./../../src/Module/Files/Infrastructure/DependencyInjection/files_module.yml" }
+services:
+  console.output:
+    class: Symfony\Component\Console\Output\ConsoleOutput
+  command.bus:
+    class: Infrastructure\CommandBus\CommandBus
+    arguments: ["@service_container"]

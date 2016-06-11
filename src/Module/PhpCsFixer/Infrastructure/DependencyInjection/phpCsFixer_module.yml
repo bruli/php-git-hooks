@@ -1,0 +1,2 @@
+imports:
+  - { resource: "phpCsFixer_service_public.yml" }

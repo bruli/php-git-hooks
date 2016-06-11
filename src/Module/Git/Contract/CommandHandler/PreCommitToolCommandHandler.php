@@ -2,6 +2,7 @@
 
 namespace Module\Git\Contract\CommandHandler;
 
+use Module\Git\Contract\Command\PreCommitToolCommand;
 use Module\Git\Service\PreCommitTool;
 
 class PreCommitToolCommandHandler
@@ -21,7 +22,7 @@ class PreCommitToolCommandHandler
         $this->preCommitTool = $preCommitTool;
     }
 
-    public function handle()
+    public function handle(PreCommitToolCommand $preCommitToolCommand)
     {
         $this->preCommitTool->execute();
     }

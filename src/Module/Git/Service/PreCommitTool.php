@@ -2,6 +2,7 @@
 
 namespace Module\Git\Service;
 
+use Infrastructure\CommandBus\CommandBus;
 use Module\Composer\Contract\Command\ComposerToolCommand;
 use Module\Composer\Contract\CommandHandler\ComposerToolCommandHandler;
 use Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler;
@@ -36,29 +37,9 @@ class PreCommitTool
      */
     private $configurationDataFinderQueryHandler;
     /**
-     * @var ComposerToolCommandHandler
+     * @var CommandBus
      */
-    private $composerToolCommandHandler;
-    /**
-     * @var JsonLintToolCommandHandler
-     */
-    private $jsonLintToolCommandHandler;
-    /**
-     * @var PhpLintToolCommandHandler
-     */
-    private $phpLintToolCommandHandler;
-    /**
-     * @var PhpCsToolCommandHandler
-     */
-    private $phpCsToolCommandHandler;
-    /**
-     * @var PhpCsFixerToolCommandHandler
-     */
-    private $phpCsFixerToolCommandHandler;
-    /**
-     * @var PhpUnitToolCommandHandler
-     */
-    private $phpUnitToolCommandHandler;
+    private $commandBus;
 
     /**
      * PreCommitTool constructor.
@@ -67,33 +48,24 @@ class PreCommitTool
      * @param OutputInterface $output
      * @param FilesCommittedExtractor $filesCommittedExtractor
      * @param ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler
-     * @param ComposerToolCommandHandler $composerToolCommandHandler
-     * @param JsonLintToolCommandHandler $jsonLintToolCommandHandler
-     * @param PhpLintToolCommandHandler $phpLintToolCommandHandler
-     * @param PhpCsToolCommandHandler $phpCsToolCommandHandler
-     * @param PhpCsFixerToolCommandHandler $phpCsFixerToolCommandHandler
-     * @param PhpUnitToolCommandHandler $phpUnitToolCommandHandler
+     * @param CommandBus $commandBus
+     * @internal param ComposerToolCommandHandler $composerToolCommandHandler
+     * @internal param JsonLintToolCommandHandler $jsonLintToolCommandHandler
+     * @internal param PhpLintToolCommandHandler $phpLintToolCommandHandler
+     * @internal param PhpCsToolCommandHandler $phpCsToolCommandHandler
+     * @internal param PhpCsFixerToolCommandHandler $phpCsFixerToolCommandHandler
+     * @internal param PhpUnitToolCommandHandler $phpUnitToolCommandHandler
      */
     public function __construct(
         OutputInterface $output,
         FilesCommittedExtractor $filesCommittedExtractor,
         ConfigurationDataFinderQueryHandler $configurationDataFinderQueryHandler,
-        ComposerToolCommandHandler $composerToolCommandHandler,
-        JsonLintToolCommandHandler $jsonLintToolCommandHandler,
-        PhpLintToolCommandHandler $phpLintToolCommandHandler,
-        PhpCsToolCommandHandler $phpCsToolCommandHandler,
-        PhpCsFixerToolCommandHandler $phpCsFixerToolCommandHandler,
-        PhpUnitToolCommandHandler $phpUnitToolCommandHandler
+        CommandBus $commandBus
     ) {
         $this->filesCommittedExtractor = $filesCommittedExtractor;
         $this->configurationDataFinderQueryHandler = $configurationDataFinderQueryHandler;
-        $this->composerToolCommandHandler = $composerToolCommandHandler;
-        $this->jsonLintToolCommandHandler = $jsonLintToolCommandHandler;
-        $this->phpLintToolCommandHandler = $phpLintToolCommandHandler;
-        $this->phpCsToolCommandHandler = $phpCsToolCommandHandler;
-        $this->phpCsFixerToolCommandHandler = $phpCsFixerToolCommandHandler;
-        $this->phpUnitToolCommandHandler = $phpUnitToolCommandHandler;
         $this->output = $output;
+        $this->commandBus = $commandBus;
     }
 
     public function execute()
@@ -122,31 +94,31 @@ class PreCommitTool
     private function executeTools(ConfigurationDataResponse $configurationData, array $committedFiles)
     {
         if (true === $configurationData->isComposer()) {
-            $this->composerToolCommandHandler->handle(
+            $this->commandBus->handle(
                 new ComposerToolCommand($committedFiles, $configurationData->getErrorMessage())
             );
         }
 
         if (true == $configurationData->isJsonLint()) {
-            $this->jsonLintToolCommandHandler->handle(
+            $this->commandBus->handle(
                 new JsonLintToolCommand($committedFiles, $configurationData->getErrorMessage())
             );
         }
 
         if (true === $configurationData->isPhpLint()) {
-            $this->phpLintToolCommandHandler->handle(
+            $this->commandBus->handle(
                 new PhpLintToolCommand($committedFiles, $configurationData->getErrorMessage())
             );
         }
 
         if (true === $configurationData->isPhpCs()) {
-            $this->phpCsToolCommandHandler->handle(
+            $this->commandBus->handle(
                 new PhpCsToolCommand($committedFiles, $configurationData->getPhpCsStandard())
             );
         }
 
         if (true === $configurationData->isPhpCsFixer()) {
-            $this->phpCsFixerToolCommandHandler->handle(
+            $this->commandBus->handle(
                 new PhpCsFixerToolCommand(
                     $committedFiles,
                     $configurationData->isPhpCsFixerPsr0(),
@@ -158,7 +130,7 @@ class PreCommitTool
         }
 
         if (true === $configurationData->isPhpunit()) {
-            $this->phpUnitToolCommandHandler->handle(
+            $this->commandBus->handle(
                 new PhpUnitToolCommand(
                     $configurationData->isPhpunitRandomMode(),
                     $configurationData->getPhpunitOptions()

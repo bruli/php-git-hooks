@@ -1,12 +1,13 @@
 <?php
 
+use Infrastructure\CommandBus\CommandBusCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class AppKernel
 {
-    const SERVICES_FILE = 'services.xml';
+    const SERVICES_FILE = 'services.yml';
     const CONFIG_PATH = '/config/';
 
     /**
@@ -17,12 +18,14 @@ class AppKernel
     public function __construct()
     {
         $this->container = new ContainerBuilder();
+        $this->container->addCompilerPass(new CommandBusCompilerPass());
         $this->getConfigServices();
+        $this->container->compile();
     }
 
     private function getConfigServices()
     {
-        $loader = new XmlFileLoader($this->container, new FileLocator(__DIR__.self::CONFIG_PATH));
+        $loader = new YamlFileLoader($this->container, new FileLocator(__DIR__.self::CONFIG_PATH));
         $loader->load(self::SERVICES_FILE);
     }
 

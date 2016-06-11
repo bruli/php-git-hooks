@@ -1,0 +1,2 @@
+imports:
+  - { resource: "phpCs_service_public.yml"}
