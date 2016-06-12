@@ -73,6 +73,7 @@ class PreCommitTool
             return;
         }
 
+        /** @var ConfigurationDataResponse $configurationData */
         $configurationData = $this->queryBus->handle(new ConfigurationDataFinderQuery());
 
         if (true === $configurationData->isPreCommit()) {

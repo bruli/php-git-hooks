@@ -6,6 +6,7 @@ use Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use Module\Files\Contract\Query\JsonFilesExtractorQuery;
 use Module\Files\Tests\Stub\JsonFilesResponseStub;
 use Module\Git\Contract\Response\BadJobLogoResponse;
+use Module\Git\Service\PreCommitOutputWriter;
 use Module\Git\Tests\Stub\FilesCommittedStub;
 use Module\JsonLint\Contract\Command\JsonLintToolCommand;
 use Module\JsonLint\Contract\CommandHandler\JsonLintToolCommandHandler;
@@ -64,18 +65,19 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
     public function itShouldExecuteTool()
     {
         $files = JsonFilesResponseStub::createWithJsonData();
+        $output = new PreCommitOutputWriter(JsonLintToolExecutor::CHECKING_MESSAGE);
 
         $this->shouldHandleJsonFilesExtractorQuery(
             new JsonFilesExtractorQuery($files->getFiles()),
             $files
         );
 
-        $this->shouldWriteOutput(JsonLintTool::CHECKING_MESSAGE);
+        $this->shouldWriteOutput($output->getMessage());
 
         foreach ($files->getFiles() as $file) {
             $this->shouldProcessJsonLint($file, []);
         }
-        $this->shouldWriteLnOutput(JsonLintTool::OK);
+        $this->shouldWriteLnOutput($output->getSuccessfulMessage());
 
         $this->jsonLintToolCommandHandler->handle(
             new JsonLintToolCommand($files->getFiles(), $this->errorMessage)
@@ -88,6 +90,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
     public function itShouldThrowsException()
     {
         $this->expectException(JsonLintViolationsException::class);
+        $output = new PreCommitOutputWriter(JsonLintToolExecutor::CHECKING_MESSAGE);
 
         $jsonFilesResponse = JsonFilesResponseStub::createWithJsonData();
 
@@ -95,7 +98,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
             new JsonFilesExtractorQuery($jsonFilesResponse->getFiles()),
             $jsonFilesResponse
         );
-        $this->shouldWriteOutput(JsonLintTool::CHECKING_MESSAGE);
+        $this->shouldWriteOutput($output->getMessage());
 
         foreach ($jsonFilesResponse->getFiles() as $file) {
             $this->shouldProcessJsonLint($file, $this->errorMessage);

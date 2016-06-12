@@ -6,12 +6,12 @@ use Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
 use Module\Files\Contract\Query\ComposerFilesExtractorQuery;
 use Module\Files\Contract\QueryHandler\ComposerFilesExtractorQueryHandler;
 use Module\Git\Contract\Response\BadJobLogoResponse;
+use Module\Git\Service\PreCommitOutputWriter;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ComposerTool
 {
-    const CHECKING_MESAGE = '<info>Checking composer files.... </info>';
-    const OK = '<comment>0K</comment>';
+    const CHECKING_MESSAGE = 'Checking composer files';
     /**
      * @var OutputInterface
      */
@@ -46,13 +46,15 @@ class ComposerTool
         $composerFilesResponse = $this->getComposerFilesResponse($files);
 
         if (true === $composerFilesResponse->isExists()) {
-            $this->output->write(static::CHECKING_MESAGE);
+            $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
+            $this->output->write($outputMessage->getMessage());
+
             $this->executeTool(
                 $composerFilesResponse->isJsonFile(),
                 $composerFilesResponse->isLockFile(),
                 $errorMessage
             );
-            $this->output->writeln(static::OK);
+            $this->output->writeln($outputMessage->getSuccessfulMessage());
         }
     }
 

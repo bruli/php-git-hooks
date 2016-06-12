@@ -3,7 +3,9 @@
 namespace Module\Git\Tests\Behaviour;
 
 use Module\Composer\Contract\Command\ComposerToolCommand;
+use Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
+use Module\Git\Contract\Command\PreCommitToolCommand;
 use Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
 use Module\Git\Contract\Response\GoodJobLogoResponse;
 use Module\Git\Service\PreCommitTool;
@@ -29,13 +31,8 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
             new PreCommitTool(
                 $this->getOutputInterface(),
                 $this->getFilesCommittedExtractor(),
-                $this->getConfigurationDataFinderQueryHandler(),
-                $this->getComposerToolCommandHandler(),
-                $this->getJsonLintToolCommandHandler(),
-                $this->getPhpLintToolCommandHandler(),
-                $this->getPhpCsToolCommandHandler(),
-                $this->getPhpCsFixerToolCommandHandler(),
-                $this->getPhpUnitToolCommandHandler()
+                $this->getQueryBus(),
+                $this->getCommandBus()
             )
         );
     }
@@ -48,7 +45,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $this->shouldGetFilesCommitted([StubCreator::faker()->sha1]);
         $this->shouldWriteLnOutput(PreCommitTool::NO_FILES_CHANGED_MESSAGE);
 
-        $this->preCommitToolCommandHandler->handle();
+        $this->preCommitToolCommandHandler->handle(new PreCommitToolCommand());
     }
 
     /**
@@ -60,21 +57,12 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $configurationDataResponse = ConfigurationDataResponseStub::createAllEnabled();
 
         $this->shouldGetFilesCommitted($files);
-        $this->shouldHandleConfigurationDataQuery($configurationDataResponse);
-        $this->shouldHandleComposerToolCommand(
-            new ComposerToolCommand($files, $configurationDataResponse->getErrorMessage())
-        );
-        $this->shouldHandleJsonLintToolCommand(
-            new JsonLintToolCommand($files, $configurationDataResponse->getErrorMessage()),
-            $configurationDataResponse->getErrorMessage()
-        );
-        $this->shouldHandlePhpLintToolCommand(
-            new PhpLintToolCommand($files, $configurationDataResponse->getErrorMessage())
-        );
-        $this->shouldHandlePhpCsToolCommand(
-            new PhpCsToolCommand($files, $configurationDataResponse->getPhpCsStandard())
-        );
-        $this->shouldHandlePhpCsFixerToolCommand(
+        $this->shouldHandleQuery(new ConfigurationDataFinderQuery(), $configurationDataResponse);
+        $this->shouldHandleCommand(new ComposerToolCommand($files, $configurationDataResponse->getErrorMessage()));
+        $this->shouldHandleCommand(new JsonLintToolCommand($files, $configurationDataResponse->getErrorMessage()));
+        $this->shouldHandleCommand(new PhpLintToolCommand($files, $configurationDataResponse->getErrorMessage()));
+        $this->shouldHandleCommand(new PhpCsToolCommand($files, $configurationDataResponse->getPhpCsStandard()));
+        $this->shouldHandleCommand(
             new PhpCsFixerToolCommand(
                 $files,
                 $configurationDataResponse->isPhpCsFixerPsr0(),
@@ -83,8 +71,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
                 $configurationDataResponse->isPhpCsFixerSymfony()
             )
         );
-
-        $this->shouldHandlePhpUnitToolCommand(
+        $this->shouldHandleCommand(
             new PhpUnitToolCommand(
                 $configurationDataResponse->isPhpunitRandomMode(),
                 $configurationDataResponse->getPhpunitOptions()
@@ -93,6 +80,6 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
 
         $this->shouldWriteLnOutput(GoodJobLogoResponse::paint($configurationDataResponse->getRightMessage()));
 
-        $this->preCommitToolCommandHandler->handle();
+        $this->preCommitToolCommandHandler->handle(new PreCommitToolCommand());
     }
 }

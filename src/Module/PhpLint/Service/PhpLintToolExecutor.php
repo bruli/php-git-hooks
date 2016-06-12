@@ -3,6 +3,7 @@
 namespace Module\PhpLint\Service;
 
 use Module\Git\Contract\Response\BadJobLogoResponse;
+use Module\Git\Service\PreCommitOutputWriter;
 use Module\PhpLint\Contract\Exception\PhpLintException;
 use Module\PhpLint\Model\PhpLintToolProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,6 +39,8 @@ class PhpLintToolExecutor
      */
     public function execute(array $files, $errorMessage)
     {
+        $outputMessage = new PreCommitOutputWriter('Running PHPLINT');
+        $this->output->write($outputMessage->getMessage());
         unset($files[0]);
         $errors = [];
         foreach ($files as $file) {
@@ -51,5 +54,7 @@ class PhpLintToolExecutor
 
             throw new PhpLintException();
         }
+
+        $this->output->writeln($outputMessage->getSuccessfulMessage());
     }
 }

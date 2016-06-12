@@ -9,16 +9,13 @@ use Module\PhpCs\Tests\Infrastructure\PhpCSToolCommandHandlerTrait;
 use Module\PhpCsFixer\Tests\Infrastructure\PhpCsFixerToolCommandHandlerTrait;
 use Module\PhpLint\Tests\Infrastructure\PhpLintToolCommandHandlerTrait;
 use Module\PhpUnit\Tests\Infrastructure\PhpUnitToolCommandHandlerTrait;
+use Module\Shared\Tests\Infrastructure\CommandBusTrait;
+use Module\Shared\Tests\Infrastructure\QueryBusTrait;
 
 abstract class GitUnitTestCase extends \PHPUnit_Framework_TestCase
 {
-    use ConfigurationDataFinderQueryHandlerTrait;
+    use QueryBusTrait;
+    use CommandBusTrait;
     use FilesCommittedExtractorTrait;
     use OutputInterfaceTrait;
-    use ComposerToolCommandHandlerTrait;
-    use JsonLintToolCommandHandlerTrait;
-    use PhpLintToolCommandHandlerTrait;
-    use PhpCSToolCommandHandlerTrait;
-    use PhpCsFixerToolCommandHandlerTrait;
-    use PhpUnitToolCommandHandlerTrait;
 }

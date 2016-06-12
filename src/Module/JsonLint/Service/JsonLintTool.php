@@ -8,8 +8,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class JsonLintTool
 {
-    const CHECKING_MESSAGE = '<info>Checking json files....... </info>';
-    const OK = '<comment>0K</comment>';
     /**
      * @var OutputInterface
      */
@@ -49,9 +47,7 @@ class JsonLintTool
         $jsonFiles = $this->jsonFilesExtractorQueryHandler->handle(new JsonFilesExtractorQuery($files));
 
         if (true === $this->jsonFilesExists($jsonFiles->getFiles())) {
-            $this->output->write(self::CHECKING_MESSAGE);
             $this->jsonLintToolExecutor->execute($jsonFiles->getFiles(), $errorMessage);
-            $this->output->writeln(self::OK);
         }
     }
 
