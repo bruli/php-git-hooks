@@ -1,3 +1,4 @@
 services:
   php.cs.tool.processor:
     class: Module\PhpCs\Infrastructure\Tool\PhpCsToolProcessor
+    arguments: ["@tool.path.finder"]

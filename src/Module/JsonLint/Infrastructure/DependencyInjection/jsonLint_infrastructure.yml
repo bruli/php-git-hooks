@@ -1,3 +1,4 @@
 services:
   jsonlint.processor:
     class: Module\JsonLint\Infrastructure\Tool\JsonLintProcessor
+    arguments: ["@tool.path.finder"]

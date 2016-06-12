@@ -2,12 +2,28 @@
 
 namespace Module\JsonLint\Infrastructure\Tool;
 
+use Infrastructure\Tool\ToolPathFinder;
 use Module\JsonLint\Model\JsonLintProcessorInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 class JsonLintProcessor implements JsonLintProcessorInterface
 {
+    /**
+     * @var ToolPathFinder
+     */
+    private $toolPathFinder;
+
+    /**
+     * JsonLintProcessor constructor.
+     *
+     * @param ToolPathFinder $toolPathFinder
+     */
+    public function __construct(ToolPathFinder $toolPathFinder)
+    {
+        $this->toolPathFinder = $toolPathFinder;
+    }
+
     /**
      * @param string $file
      *
@@ -30,7 +46,7 @@ class JsonLintProcessor implements JsonLintProcessorInterface
         $processBuilder = new ProcessBuilder(
             [
                 'php',
-                'bin/jsonlint',
+                $this->toolPathFinder->find('jsonlint'),
                 $file,
             ]
         );

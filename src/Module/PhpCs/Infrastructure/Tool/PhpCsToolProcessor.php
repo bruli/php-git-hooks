@@ -2,12 +2,27 @@
 
 namespace Module\PhpCs\Infrastructure\Tool;
 
+use Infrastructure\Tool\ToolPathFinder;
 use Module\PhpCs\Model\PhpCsToolProcessorInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 class PhpCsToolProcessor implements PhpCsToolProcessorInterface
 {
+    /**
+     * @var ToolPathFinder
+     */
+    private $toolPathFinder;
+
+    /**
+     * PhpCsToolProcessor constructor.
+     * @param ToolPathFinder $toolPathFinder
+     */
+    public function __construct(ToolPathFinder $toolPathFinder)
+    {
+        $this->toolPathFinder = $toolPathFinder;
+    }
+
     /**
      * @param string $file
      * @param string $standard
@@ -32,7 +47,7 @@ class PhpCsToolProcessor implements PhpCsToolProcessorInterface
         $processBuilder = new ProcessBuilder(
             [
                 'php',
-                'bin/phpcs',
+                $this->toolPathFinder->find('phpcs'),
                 '--standard='.$standard,
                 $file,
             ]

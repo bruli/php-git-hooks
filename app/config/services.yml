@@ -17,3 +17,5 @@ services:
   query.bus:
     class: Infrastructure\QueryBus\QueryBus
     arguments: ["@service_container"]
+  tool.path.finder:
+    class: Infrastructure\Tool\ToolPathFinder
