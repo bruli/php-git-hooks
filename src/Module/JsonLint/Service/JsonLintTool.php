@@ -36,10 +36,10 @@ class JsonLintTool
      */
     public function execute(array $files, $errorMessage)
     {
-        $jsonFiles = $this->queryBus->handle(new JsonFilesExtractorQuery($files));
+        $jsonFilesResponse = $this->queryBus->handle(new JsonFilesExtractorQuery($files));
 
-        if (true === $this->jsonFilesExists($jsonFiles->getFiles())) {
-            $this->jsonLintToolExecutor->execute($jsonFiles->getFiles(), $errorMessage);
+        if (true === $this->jsonFilesExists($jsonFilesResponse->getFiles())) {
+            $this->jsonLintToolExecutor->execute($jsonFilesResponse->getFiles(), $errorMessage);
         }
     }
 

@@ -26,23 +26,29 @@ class PhpCsFixerToolCommand implements CommandInterface
      * @var bool
      */
     private $symfony;
+    /**
+     * @var string
+     */
+    private $errorMessage;
 
     /**
      * PhpCsFixerToolCommand constructor.
      *
-     * @param array $files
-     * @param bool  $psr0
-     * @param bool  $psr1
-     * @param bool  $psr2
-     * @param bool  $symfony
+     * @param array  $files
+     * @param bool   $psr0
+     * @param bool   $psr1
+     * @param bool   $psr2
+     * @param bool   $symfony
+     * @param string $errorMessage
      */
-    public function __construct(array $files, $psr0, $psr1, $psr2, $symfony)
+    public function __construct(array $files, $psr0, $psr1, $psr2, $symfony, $errorMessage)
     {
         $this->files = $files;
         $this->psr0 = $psr0;
         $this->psr1 = $psr1;
         $this->psr2 = $psr2;
         $this->symfony = $symfony;
+        $this->errorMessage = $errorMessage;
     }
 
     /**
@@ -83,5 +89,13 @@ class PhpCsFixerToolCommand implements CommandInterface
     public function isSymfony()
     {
         return $this->symfony;
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
     }
 }

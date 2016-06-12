@@ -128,7 +128,8 @@ class PreCommitTool
                     $configurationData->isPhpCsFixerPsr0(),
                     $configurationData->isPhpCsFixerPsr1(),
                     $configurationData->isPhpCsFixerPsr2(),
-                    $configurationData->isPhpCsFixerSymfony()
+                    $configurationData->isPhpCsFixerSymfony(),
+                    $configurationData->getErrorMessage()
                 )
             );
         }
