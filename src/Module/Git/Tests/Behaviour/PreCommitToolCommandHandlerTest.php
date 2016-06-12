@@ -32,7 +32,8 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
                 $this->getOutputInterface(),
                 $this->getFilesCommittedExtractor(),
                 $this->getQueryBus(),
-                $this->getCommandBus()
+                $this->getCommandBus(),
+                $this->getToolTitleOutputWriter()
             )
         );
     }
@@ -40,8 +41,9 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
     /**
      * @test
      */
-    public function itShouldNoExecuteTools()
+    public function itShouldNotExecuteTools()
     {
+        $this->shouldWriteTitle(PreCommitTool::TITLE, 'title');
         $this->shouldGetFilesCommitted([StubCreator::faker()->sha1]);
         $this->shouldWriteLnOutput(PreCommitTool::NO_FILES_CHANGED_MESSAGE);
 
@@ -56,6 +58,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $files = FilesCommittedStub::createAllFiles();
         $configurationDataResponse = ConfigurationDataResponseStub::createAllEnabled();
 
+        $this->shouldWriteTitle(PreCommitTool::TITLE, 'title');
         $this->shouldGetFilesCommitted($files);
         $this->shouldHandleQuery(new ConfigurationDataFinderQuery(), $configurationDataResponse);
         $this->shouldHandleCommand(new ComposerToolCommand($files, $configurationDataResponse->getErrorMessage()));

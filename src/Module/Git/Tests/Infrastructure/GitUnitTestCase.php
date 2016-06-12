@@ -18,4 +18,5 @@ abstract class GitUnitTestCase extends \PHPUnit_Framework_TestCase
     use CommandBusTrait;
     use FilesCommittedExtractorTrait;
     use OutputInterfaceTrait;
+    use ToolTitleOutputWriterTrait;
 }

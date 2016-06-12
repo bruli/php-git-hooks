@@ -1,0 +1,4 @@
+services:
+  tool.title.output.writer:
+    class: Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter
+    arguments: ["@console.output"]
