@@ -5,3 +5,6 @@ services:
   json.files.extractor:
     class: Module\Files\Service\JsonFilesExtractor
     public: false
+  php.files.extractor:
+    class: Module\Files\Service\PhpFilesExtractor
+    public: false

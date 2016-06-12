@@ -113,7 +113,11 @@ class PreCommitTool
 
         if (true === $configurationData->isPhpCs()) {
             $this->commandBus->handle(
-                new PhpCsToolCommand($committedFiles, $configurationData->getPhpCsStandard())
+                new PhpCsToolCommand(
+                    $committedFiles,
+                    $configurationData->getPhpCsStandard(),
+                    $configurationData->getErrorMessage()
+                )
             );
         }
 

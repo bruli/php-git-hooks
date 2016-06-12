@@ -4,6 +4,7 @@ namespace Module\Git\Tests\Behaviour;
 
 use Module\Composer\Contract\Command\ComposerToolCommand;
 use Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
+use Module\Configuration\Service\HookQuestions;
 use Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use Module\Git\Contract\Command\PreCommitToolCommand;
 use Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
@@ -64,7 +65,13 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $this->shouldHandleCommand(new ComposerToolCommand($files, $configurationDataResponse->getErrorMessage()));
         $this->shouldHandleCommand(new JsonLintToolCommand($files, $configurationDataResponse->getErrorMessage()));
         $this->shouldHandleCommand(new PhpLintToolCommand($files, $configurationDataResponse->getErrorMessage()));
-        $this->shouldHandleCommand(new PhpCsToolCommand($files, $configurationDataResponse->getPhpCsStandard()));
+        $this->shouldHandleCommand(
+            new PhpCsToolCommand(
+                $files,
+                $configurationDataResponse->getPhpCsStandard(),
+                HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT
+            )
+        );
         $this->shouldHandleCommand(
             new PhpCsFixerToolCommand(
                 $files,

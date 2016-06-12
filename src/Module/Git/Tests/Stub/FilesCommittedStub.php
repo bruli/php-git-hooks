@@ -31,8 +31,8 @@ class FilesCommittedStub
                 '/path1/path2/file1.php',
                 '/path1/path2/file2.php',
                 '/path1/path2/file3.php',
-                'file2.php',
-                'file3.php'
+                'file2.inc',
+                'file3.inc'
             ]
         );
     }/**
@@ -97,6 +97,23 @@ class FilesCommittedStub
             'composer.json',
             'composer.lock',
             'file1.json'
+        ];
+
+        return self::create($files);
+    }
+    
+    /**
+     * @return array
+     */
+    public static function createOnlyPhpFiles()
+    {
+        $files = [
+            StubCreator::faker()->sha1,
+            '/path1/path2/file1.php',
+            '/path1/path2/file2.php',
+            '/path1/path2/file3.php',
+            'file2.inc',
+            'file3.inc'
         ];
 
         return self::create($files);

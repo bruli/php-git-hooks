@@ -2,40 +2,32 @@
 
 namespace Module\JsonLint\Service;
 
+use Infrastructure\QueryBus\QueryBus;
 use Module\Files\Contract\Query\JsonFilesExtractorQuery;
-use Module\Files\Contract\QueryHandler\JsonFilesExtractorQueryHandler;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class JsonLintTool
 {
-    /**
-     * @var OutputInterface
-     */
-    private $output;
     /**
      * @var JsonLintToolExecutor
      */
     private $jsonLintToolExecutor;
     /**
-     * @var JsonFilesExtractorQueryHandler
+     * @var QueryBus
      */
-    private $jsonFilesExtractorQueryHandler;
+    private $queryBus;
 
     /**
      * JsonLintTool constructor.
      *
-     * @param OutputInterface                $output
-     * @param JsonLintToolExecutor           $jsonLintToolExecutor
-     * @param JsonFilesExtractorQueryHandler $jsonFilesExtractorQueryHandler
+     * @param JsonLintToolExecutor $jsonLintToolExecutor
+     * @param QueryBus             $queryBus
      */
     public function __construct(
-        OutputInterface $output,
         JsonLintToolExecutor $jsonLintToolExecutor,
-        JsonFilesExtractorQueryHandler $jsonFilesExtractorQueryHandler
+        QueryBus $queryBus
     ) {
-        $this->output = $output;
         $this->jsonLintToolExecutor = $jsonLintToolExecutor;
-        $this->jsonFilesExtractorQueryHandler = $jsonFilesExtractorQueryHandler;
+        $this->queryBus = $queryBus;
     }
 
     /**
@@ -44,7 +36,7 @@ class JsonLintTool
      */
     public function execute(array $files, $errorMessage)
     {
-        $jsonFiles = $this->jsonFilesExtractorQueryHandler->handle(new JsonFilesExtractorQuery($files));
+        $jsonFiles = $this->queryBus->handle(new JsonFilesExtractorQuery($files));
 
         if (true === $this->jsonFilesExists($jsonFiles->getFiles())) {
             $this->jsonLintToolExecutor->execute($jsonFiles->getFiles(), $errorMessage);

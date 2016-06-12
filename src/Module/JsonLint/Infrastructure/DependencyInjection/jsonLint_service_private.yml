@@ -3,9 +3,8 @@ services:
     class: Module\JsonLint\Service\JsonLintTool
     public: false
     arguments:
-      - "@console.output"
       - "@jsonlint.tool.executor"
-      - "@json.files.extractor.query.handler"
+      - "@query.bus"
   jsonlint.tool.executor:
     class: Module\JsonLint\Service\JsonLintToolExecutor
     arguments:

@@ -1,0 +1,13 @@
+services:
+  php.cs.tool:
+    class: Module\PhpCs\Service\PhpCsTool
+    public: false
+    arguments:
+      - "@php.cs.tool.executor"
+      - "@query.bus"
+  php.cs.tool.executor:
+    class: Module\PhpCs\Service\PhpCsToolExecutor
+    public: false
+    arguments:
+      - "@console.output"
+      - "@php.cs.tool.processor"

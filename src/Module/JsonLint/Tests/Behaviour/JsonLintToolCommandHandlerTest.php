@@ -30,12 +30,11 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
     {
         $this->jsonLintToolCommandHandler = new JsonLintToolCommandHandler(
             new JsonLintTool(
-                $this->getOutputInterface(),
                 new JsonLintToolExecutor(
                     $this->getJsonLintProcessor(),
                     $this->getOutputInterface()
                 ),
-                $this->getJsonFilesExtractorQueryHandler()
+                $this->getQueryBus()
             )
         );
 
@@ -49,7 +48,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
     {
         $files = FilesCommittedStub::createWithoutJsonFiles();
 
-        $this->shouldHandleJsonFilesExtractorQuery(
+        $this->shouldHandleQuery(
             new JsonFilesExtractorQuery($files),
             JsonFilesResponseStub::createNoData()
         );
@@ -67,7 +66,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
         $files = JsonFilesResponseStub::createWithJsonData();
         $output = new PreCommitOutputWriter(JsonLintToolExecutor::CHECKING_MESSAGE);
 
-        $this->shouldHandleJsonFilesExtractorQuery(
+        $this->shouldHandleQuery(
             new JsonFilesExtractorQuery($files->getFiles()),
             $files
         );
@@ -94,16 +93,20 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
 
         $jsonFilesResponse = JsonFilesResponseStub::createWithJsonData();
 
-        $this->shouldHandleJsonFilesExtractorQuery(
+        $this->shouldHandleQuery(
             new JsonFilesExtractorQuery($jsonFilesResponse->getFiles()),
             $jsonFilesResponse
         );
         $this->shouldWriteOutput($output->getMessage());
 
+        $errorTxt = null;
         foreach ($jsonFilesResponse->getFiles() as $file) {
-            $this->shouldProcessJsonLint($file, $this->errorMessage);
+            $error = 'ERROR';
+            $this->shouldProcessJsonLint($file, $error);
+            $errorTxt .= $error;
         }
 
+        $this->shouldWriteLnOutput($output->setError($errorTxt));
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
 
         $this->jsonLintToolCommandHandler->handle(

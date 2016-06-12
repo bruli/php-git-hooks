@@ -1,10 +1,8 @@
 <?php
 
-namespace Module\Files\Contract\Query;
+namespace Module\Files\Contract\Response;
 
-use Infrastructure\QueryBus\QueryInterface;
-
-class JsonFilesExtractorQuery implements QueryInterface
+class PhpFilesResponse
 {
     /**
      * @var array
@@ -12,7 +10,7 @@ class JsonFilesExtractorQuery implements QueryInterface
     private $files;
 
     /**
-     * JsonFilesExtractorQuery constructor.
+     * PhpFilesResponse constructor.
      *
      * @param array $files
      */

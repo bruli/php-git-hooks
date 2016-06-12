@@ -42,4 +42,14 @@ class PreCommitOutputWriter
     {
         return '<comment>0K</comment>';
     }
+
+    /**
+     * @param string $error
+     *
+     * @return string
+     */
+    public function setError($error)
+    {
+        return sprintf('<error>%s</error>', trim($error));
+    }
 }

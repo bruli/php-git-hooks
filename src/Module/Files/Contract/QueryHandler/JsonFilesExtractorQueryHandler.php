@@ -2,12 +2,14 @@
 
 namespace Module\Files\Contract\QueryHandler;
 
+use Infrastructure\QueryBus\QueryHandlerInterface;
+use Infrastructure\QueryBus\QueryInterface;
 use Module\Files\Contract\Query\JsonFilesExtractorQuery;
 use Module\Files\Contract\Response\JsonFilesResponse;
 use Module\Files\Domain\FilesCollection;
 use Module\Files\Service\JsonFilesExtractor;
 
-class JsonFilesExtractorQueryHandler extends AbstractFilesExtractorQueryHandler
+class JsonFilesExtractorQueryHandler extends AbstractFilesExtractorQueryHandler implements QueryHandlerInterface
 {
     /**
      * @var JsonFilesExtractor
@@ -25,13 +27,13 @@ class JsonFilesExtractorQueryHandler extends AbstractFilesExtractorQueryHandler
     }
 
     /**
-     * @param JsonFilesExtractorQuery $jsonFilesExtractorQuery
+     * @param QueryInterface|JsonFilesExtractorQuery $query
      *
      * @return JsonFilesResponse
      */
-    public function handle(JsonFilesExtractorQuery $jsonFilesExtractorQuery)
+    public function handle(QueryInterface $query)
     {
-        $files = $jsonFilesExtractorQuery->getFiles();
+        $files = $query->getFiles();
 
         return $this->jsonFilesExtractor->extract(new FilesCollection($this->getFiles($files)));
     }

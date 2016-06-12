@@ -14,19 +14,33 @@ class PhpCsToolCommand implements CommandInterface
      * @var string
      */
     private $standard;
+    /**
+     * @var string
+     */
+    private $errorMessage;
 
     /**
      * PhpCsToolCommand constructor.
      *
-     * @param array  $files
+     * @param array $files
      * @param string $standard
+     * @param string $errorMessage
      */
-    public function __construct(array $files, $standard)
+    public function __construct(array $files, $standard, $errorMessage)
     {
         $this->files = $files;
         $this->standard = $standard;
+        $this->errorMessage = $errorMessage;
     }
 
+    /**
+     * @return string
+     */
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
+    }
+    
     /**
      * @return array
      */
