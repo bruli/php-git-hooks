@@ -1,0 +1,4 @@
+services:
+  php.cs.fixer.tool.processor:
+    class: Module\PhpCsFixer\Infrastructure\Tool\PhpCsFixerToolProcessor
+    arguments: ["@tool.path.finder"]

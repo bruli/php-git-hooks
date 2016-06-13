@@ -1,5 +1,6 @@
 services:
   phpcsfixer.tool.command.handler:
     class: Module\PhpCsFixer\Contract\CommandHandler\PhpCsFixerToolCommandHandler
+    arguments: ["@php.cs.fixer.tool"]
     tags:
       - { name: command_handler, handles: \Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand }
