@@ -32,6 +32,6 @@ trait PhpLintToolProcessorTrait
             ->shouldReceive('process')
             ->once()
             ->with($file)
-            ->andReturn();
+            ->andReturn($error);
     }
 }

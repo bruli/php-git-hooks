@@ -4,12 +4,13 @@ namespace Module\PhpLint\Service;
 
 use Module\Git\Contract\Response\BadJobLogoResponse;
 use Module\Git\Service\PreCommitOutputWriter;
-use Module\PhpLint\Contract\Exception\PhpLintException;
+use Module\PhpLint\Contract\Exception\PhpLintViolationsException;
 use Module\PhpLint\Model\PhpLintToolProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PhpLintToolExecutor
 {
+    const RUNNING_PHPLINT = 'Running PHPLINT';
     /**
      * @var PhpLintToolProcessorInterface
      */
@@ -35,13 +36,13 @@ class PhpLintToolExecutor
      * @param array $files
      * @param $errorMessage
      *
-     * @throws PhpLintException
+     * @throws PhpLintViolationsException
      */
     public function execute(array $files, $errorMessage)
     {
-        $outputMessage = new PreCommitOutputWriter('Running PHPLINT');
+        $outputMessage = new PreCommitOutputWriter(self::RUNNING_PHPLINT);
         $this->output->write($outputMessage->getMessage());
-        unset($files[0]);
+
         $errors = [];
         foreach ($files as $file) {
             $errors[] = $this->phpLintTool->process($file);
@@ -50,9 +51,10 @@ class PhpLintToolExecutor
         $errors = array_filter($errors);
 
         if ($errors) {
+            $this->output->writeln($outputMessage->setError(implode('', $errors)));
             $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
 
-            throw new PhpLintException();
+            throw new PhpLintViolationsException();
         }
 
         $this->output->writeln($outputMessage->getSuccessfulMessage());

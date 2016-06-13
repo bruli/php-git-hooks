@@ -2,7 +2,9 @@
 
 namespace Module\PhpLint\Service;
 
-use Module\Shared\Service\PhpFilesChecker;
+use Infrastructure\QueryBus\QueryBus;
+use Module\Files\Contract\Query\PhpFilesExtractorQuery;
+use Module\Files\Contract\Response\PhpFilesResponse;
 
 class PhpLintTool
 {
@@ -10,14 +12,21 @@ class PhpLintTool
      * @var PhpLintToolExecutor
      */
     private $phpLintToolExecutor;
+    /**
+     * @var QueryBus
+     */
+    private $queryBus;
 
     /**
      * PhpLintToolProcessor constructor.
+     *
      * @param PhpLintToolExecutor $phpLintToolExecutor
+     * @param QueryBus            $queryBus
      */
-    public function __construct(PhpLintToolExecutor $phpLintToolExecutor)
+    public function __construct(PhpLintToolExecutor $phpLintToolExecutor, QueryBus $queryBus)
     {
         $this->phpLintToolExecutor = $phpLintToolExecutor;
+        $this->queryBus = $queryBus;
     }
 
     /**
@@ -26,9 +35,11 @@ class PhpLintTool
      */
     public function execute(array $files, $errorMessage)
     {
-        //TODO, LLAMAR A QUERYBUS
-        if (true === PhpFilesChecker::exists($files)) {
-            $this->phpLintToolExecutor->execute($files, $errorMessage);
+        /** @var PhpFilesResponse $phpFilesResponse */
+        $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractorQuery($files));
+
+        if ($phpFilesResponse->getFiles()) {
+            $this->phpLintToolExecutor->execute($phpFilesResponse->getFiles(), $errorMessage);
         }
     }
 }
