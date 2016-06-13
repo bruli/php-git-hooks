@@ -1,13 +1,29 @@
 <?php
 
-namespace Module\PhpLint\Infrastructure\Tool;
+namespace Module\PhpMd\Infrastructure\Tool;
 
-use Module\PhpLint\Model\PhpLintToolProcessorInterface;
+use Infrastructure\Tool\ToolPathFinder;
+use Module\PhpMd\Model\PhpMdToolProcessorInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
-class PhpLintToolProcessor implements PhpLintToolProcessorInterface
+class PhpMdToolProcessor implements PhpMdToolProcessorInterface
 {
+    /**
+     * @var ToolPathFinder
+     */
+    private $toolPathFinder;
+
+    /**
+     * PhpMdToolProcessor constructor.
+     *
+     * @param ToolPathFinder $toolPathFinder
+     */
+    public function __construct(ToolPathFinder $toolPathFinder)
+    {
+        $this->toolPathFinder = $toolPathFinder;
+    }
+
     /**
      * @param string $file
      *
@@ -17,7 +33,7 @@ class PhpLintToolProcessor implements PhpLintToolProcessorInterface
     {
         $process = $this->execute($file);
 
-        return $this->setErrors($process);
+        return $this->setError($process);
     }
 
     /**
@@ -30,8 +46,12 @@ class PhpLintToolProcessor implements PhpLintToolProcessorInterface
         $processBuilder = new ProcessBuilder(
             [
                 'php',
-                '-l',
+                $this->toolPathFinder->find('phpmd'),
                 $file,
+                'text',
+                'PmdRules.xml',
+                '--minimumpriority',
+                1,
             ]
         );
 
@@ -46,7 +66,7 @@ class PhpLintToolProcessor implements PhpLintToolProcessorInterface
      *
      * @return null|string
      */
-    private function setErrors(Process $process)
+    private function setError(Process $process)
     {
         return false === $process->isSuccessful() ? $process->getOutput() : null;
     }

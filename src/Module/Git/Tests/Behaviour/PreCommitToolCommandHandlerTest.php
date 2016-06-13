@@ -16,6 +16,7 @@ use Module\JsonLint\Contract\Command\JsonLintToolCommand;
 use Module\PhpCs\Contract\Command\PhpCsToolCommand;
 use Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use Module\PhpLint\Contract\Command\PhpLintToolCommand;
+use Module\PhpMd\Contract\Command\PhpMdToolCommand;
 use Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use Module\Tests\Infrastructure\Stub\StubCreator;
 
@@ -79,6 +80,12 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
                 $configurationDataResponse->isPhpCsFixerPsr1(),
                 $configurationDataResponse->isPhpCsFixerPsr2(),
                 $configurationDataResponse->isPhpCsFixerSymfony(),
+                $configurationDataResponse->getErrorMessage()
+            )
+        );
+        $this->shouldHandleCommand(
+            new PhpMdToolCommand(
+                $files,
                 $configurationDataResponse->getErrorMessage()
             )
         );

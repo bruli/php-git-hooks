@@ -8,6 +8,7 @@ imports:
   - { resource: "./../../src/Module/PhpCsFixer/Infrastructure/DependencyInjection/phpCsFixer_module.yml" }
   - { resource: "./../../src/Module/PhpUnit/Infrastructure/DependencyInjection/phpUnit_module.yml" }
   - { resource: "./../../src/Module/Files/Infrastructure/DependencyInjection/files_module.yml" }
+  - { resource: "./../../src/Module/PhpMd/Infrastructure/DependencyInjection/phpMd_module.yml" }
 services:
   console.output:
     class: Symfony\Component\Console\Output\ConsoleOutput

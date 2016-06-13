@@ -26,6 +26,7 @@ class PhpLintTool
      */
     public function execute(array $files, $errorMessage)
     {
+        //TODO, LLAMAR A QUERYBUS
         if (true === PhpFilesChecker::exists($files)) {
             $this->phpLintToolExecutor->execute($files, $errorMessage);
         }

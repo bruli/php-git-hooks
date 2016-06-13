@@ -14,6 +14,7 @@ use Module\JsonLint\Contract\Command\JsonLintToolCommand;
 use Module\PhpCs\Contract\Command\PhpCsToolCommand;
 use Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use Module\PhpLint\Contract\Command\PhpLintToolCommand;
+use Module\PhpMd\Contract\Command\PhpMdToolCommand;
 use Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -46,11 +47,11 @@ class PreCommitTool
      * PreCommitTool constructor.
      *
      *
-     * @param OutputInterface         $output
+     * @param OutputInterface $output
      * @param FilesCommittedExtractor $filesCommittedExtractor
-     * @param QueryBus                $queryBus
-     * @param CommandBus              $commandBus
-     * @param ToolTittleOutputWriter  $tittleOutputWriter
+     * @param QueryBus $queryBus
+     * @param CommandBus $commandBus
+     * @param ToolTittleOutputWriter $tittleOutputWriter
      */
     public function __construct(
         OutputInterface $output,
@@ -89,7 +90,7 @@ class PreCommitTool
 
     /**
      * @param ConfigurationDataResponse $configurationData
-     * @param array                     $committedFiles
+     * @param array $committedFiles
      */
     private function executeTools(ConfigurationDataResponse $configurationData, array $committedFiles)
     {
@@ -129,6 +130,15 @@ class PreCommitTool
                     $configurationData->isPhpCsFixerPsr1(),
                     $configurationData->isPhpCsFixerPsr2(),
                     $configurationData->isPhpCsFixerSymfony(),
+                    $configurationData->getErrorMessage()
+                )
+            );
+        }
+
+        if (true === $configurationData->isPhpMd()) {
+            $this->commandBus->handle(
+                new PhpMdToolCommand(
+                    $committedFiles,
                     $configurationData->getErrorMessage()
                 )
             );
