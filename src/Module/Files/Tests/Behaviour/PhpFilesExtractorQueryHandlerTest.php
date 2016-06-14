@@ -24,7 +24,7 @@ class PhpFilesExtractorQueryHandlerTest extends FilesUnitTestCase
     /**
      * @test
      */
-    public function itShouldReturnArrayPhpFiles()
+    public function itShouldReturnArrayPhpFilesResponse()
     {
         $files = $this->phpFilesExtractorQueryHandler->handle(
             new PhpFilesExtractorQuery(FilesCommittedStub::createAllFiles())

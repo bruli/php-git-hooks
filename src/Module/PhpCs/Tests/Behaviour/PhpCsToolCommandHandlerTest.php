@@ -90,6 +90,9 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function itShouldWorksFine()
     {
         $output = new PreCommitOutputWriter(PhpCsToolExecutor::EXECUTE_MESSAGE);
