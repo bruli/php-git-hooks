@@ -4,5 +4,5 @@ namespace Module\PhpCsFixer\Contract\Exception;
 
 class PhpCsFixerViolationsException extends \Exception
 {
-    protected $message = 'Php-cs-fixer violations.';
+    protected $message = 'There are some PhpCsFixer styling errors!';
 }

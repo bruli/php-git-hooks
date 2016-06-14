@@ -18,12 +18,12 @@ class QueryBusCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $queryBus = $container->findDefinition('query.bus');
+        $queryBus = $container->findDefinition('bus.options.resolver');
         $queryHandlers = $container->findTaggedServiceIds('query_handler');
 
         foreach ($queryHandlers as $id => $tags) {
             foreach ($tags as $attributes) {
-                $queryBus->addMethodCall('addQueryHandler', [$attributes['handles'], $id]);
+                $queryBus->addMethodCall('addOption', [$attributes['handles'], $id]);
             }
         }
     }

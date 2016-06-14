@@ -19,12 +19,12 @@ class CommandBusCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $commandBus = $container->findDefinition('command.bus');
+        $commandBus = $container->findDefinition('bus.options.resolver');
         $commandHandlers = $container->findTaggedServiceIds('command_handler');
 
         foreach ($commandHandlers as $id => $tags) {
             foreach ($tags as $attributes) {
-                $commandBus->addMethodCall('addCommandHandler', [$attributes['handles'], $id]);
+                $commandBus->addMethodCall('addOption', [$attributes['handles'], $id]);
             }
         }
     }

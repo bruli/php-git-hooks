@@ -6,29 +6,25 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CommandBus
 {
-    private $commandHandlers = [];
     /**
      * @var ContainerInterface
      */
     private $container;
+    /**
+     * @var BusOptionsResolver
+     */
+    private $optionsResolver;
 
     /**
      * CommandBus constructor.
      *
      * @param ContainerInterface $container
+     * @param BusOptionsResolver $optionsResolver
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, BusOptionsResolver $optionsResolver)
     {
         $this->container = $container;
-    }
-
-    /**
-     * @param string $command
-     * @param string $commandHandler
-     */
-    public function addCommandHandler($command, $commandHandler)
-    {
-        $this->commandHandlers[$command] = $commandHandler;
+        $this->optionsResolver = $optionsResolver;
     }
 
     /**
@@ -36,6 +32,8 @@ class CommandBus
      */
     public function handle(CommandInterface $command)
     {
-        $this->container->get($this->commandHandlers['\\'.get_class($command)])->handle($command);
+        foreach ($this->optionsResolver->getOption('\\'.get_class($command)) as $handler) {
+            $this->container->get($handler)->handle($command);
+        }
     }
 }

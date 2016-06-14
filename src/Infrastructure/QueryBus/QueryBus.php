@@ -2,33 +2,30 @@
 
 namespace Infrastructure\QueryBus;
 
+use Infrastructure\CommandBus\BusOptionsResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class QueryBus
 {
-    private $queryHandlers = [];
     /**
      * @var ContainerInterface
      */
     private $container;
+    /**
+     * @var BusOptionsResolver
+     */
+    private $optionsResolver;
 
     /**
      * QueryBus constructor.
      *
      * @param ContainerInterface $container
+     * @param BusOptionsResolver $optionsResolver
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, BusOptionsResolver $optionsResolver)
     {
         $this->container = $container;
-    }
-
-    /**
-     * @param $query
-     * @param $queryHandler
-     */
-    public function addQueryHandler($query, $queryHandler)
-    {
-        $this->queryHandlers[$query] = $queryHandler;
+        $this->optionsResolver = $optionsResolver;
     }
 
     /**
@@ -38,6 +35,8 @@ class QueryBus
      */
     public function handle(QueryInterface $query)
     {
-        return $this->container->get($this->queryHandlers['\\'.get_class($query)])->handle($query);
+        foreach ($this->optionsResolver->getOption('\\'.get_class($query)) as $handler) {
+            return $this->container->get($handler)->handle($query);
+        }
     }
 }

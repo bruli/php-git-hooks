@@ -14,9 +14,15 @@ services:
     class: Symfony\Component\Console\Output\ConsoleOutput
   command.bus:
     class: Infrastructure\CommandBus\CommandBus
-    arguments: ["@service_container"]
+    arguments:
+      - "@service_container"
+      - "@bus.options.resolver"
+  bus.options.resolver:
+    class: Infrastructure\CommandBus\BusOptionsResolver
   query.bus:
     class: Infrastructure\QueryBus\QueryBus
-    arguments: ["@service_container"]
+    arguments:
+      - "@service_container"
+      - "@bus.options.resolver"
   tool.path.finder:
     class: Infrastructure\Tool\ToolPathFinder
