@@ -23,7 +23,7 @@ class QueryBusCompilerPass implements CompilerPassInterface
 
         foreach ($queryHandlers as $id => $tags) {
             foreach ($tags as $attributes) {
-                $queryBus->addMethodCall('addOption', [$attributes['handles'], $id]);
+                $queryBus->addMethodCall('addQueryOption', [$attributes['handles'], $id]);
             }
         }
     }

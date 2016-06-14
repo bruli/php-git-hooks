@@ -35,8 +35,8 @@ class QueryBus
      */
     public function handle(QueryInterface $query)
     {
-        foreach ($this->optionsResolver->getOption('\\'.get_class($query)) as $handler) {
-            return $this->container->get($handler)->handle($query);
-        }
+        $handler = $this->optionsResolver->getQueryOption('\\'.get_class($query));
+
+        return $this->container->get($handler)->handle($query);
     }
 }
