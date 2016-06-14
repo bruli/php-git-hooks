@@ -23,7 +23,7 @@ class CommandBusCompilerPass implements CompilerPassInterface
 
         foreach ($commandHandlers as $id => $tags) {
             foreach ($tags as $attributes) {
-                $commandBus->addMethodCall('addCommandOption', [$attributes['handles'], $id]);
+                $commandBus->addMethodCall('addOption', [$attributes['handles'], $id]);
             }
         }
     }

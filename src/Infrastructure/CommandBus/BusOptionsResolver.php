@@ -7,24 +7,12 @@ class BusOptionsResolver
     /**
      * @var array
      */
-    private $commandOption = [];
-    /**
-     * @var array
-     */
-    private $queryOption = [];
+    private $option = [];
 
-    /**
-     * @param string $command
-     * @param string $handler
-     */
-    public function addCommandOption($command, $handler)
-    {
-        $this->commandOption[$command][] = $handler;
-    }
 
-    public function addQueryOption($query, $handler)
+    public function addOption($command, $handler)
     {
-        $this->queryOption[$query] = $handler;
+        $this->option[$command] = $handler;
     }
 
     /**
@@ -32,18 +20,8 @@ class BusOptionsResolver
      *
      * @return array
      */
-    public function getCommandOption($command)
+    public function getOption($command)
     {
-        return $this->commandOption[$command];
-    }
-
-    /**
-     * @param string $query
-     *
-     * @return string
-     */
-    public function getQueryOption($query)
-    {
-        return $this->queryOption[$query];
+        return $this->option[$command];
     }
 }

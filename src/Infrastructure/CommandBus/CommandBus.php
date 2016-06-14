@@ -32,8 +32,6 @@ class CommandBus
      */
     public function handle(CommandInterface $command)
     {
-        foreach ($this->optionsResolver->getCommandOption('\\'.get_class($command)) as $handler) {
-            $this->container->get($handler)->handle($command);
-        }
+        $this->container->get($this->optionsResolver->getOption('\\'.get_class($command)))->handle($command);
     }
 }
