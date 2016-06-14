@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PhpMdToolExecutor
 {
-    const CHECKING_MESSAGE = 'Checking with PHPMD';
+    const CHECKING_MESSAGE = 'Checking code mess with PHPMD';
     /**
      * @var OutputInterface
      */

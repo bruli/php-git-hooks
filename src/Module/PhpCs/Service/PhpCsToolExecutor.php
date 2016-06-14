@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PhpCsToolExecutor
 {
-    const EXECUTE_MESSAGE = 'Excecuting PHPCS';
+    const EXECUTE_MESSAGE = 'Checking code style with PHPCS';
     /**
      * @var OutputInterface
      */
