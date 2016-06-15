@@ -4,7 +4,7 @@ namespace Module\PhpUnit\Infrastructure\Tool;
 
 use Infrastructure\Tool\ToolPathFinder;
 use Module\PhpUnit\Model\PhpUnitProcessorInterface;
-use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Process;
 
 class PhpUnitProcessor extends AbstractPhpUnitProcessor implements PhpUnitProcessorInterface
 {
@@ -15,14 +15,10 @@ class PhpUnitProcessor extends AbstractPhpUnitProcessor implements PhpUnitProces
      */
     public function process($options)
     {
-        $processBuilder = new ProcessBuilder(
-            [
-                'php',
-                $this->toolPathFinder->find('phpunit'),
-                $options,
-            ]
-        );
+        $tool = sprintf('php %s %s', $this->toolPathFinder->find('phpunit'), $options);
 
-        return $this->runProcess($processBuilder);
+        $process = new Process($tool);
+
+        return $this->runProcess($process);
     }
 }

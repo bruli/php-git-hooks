@@ -4,7 +4,7 @@ namespace Module\PhpUnit\Infrastructure\Tool;
 
 use Infrastructure\Tool\ToolPathFinder;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Process;
 
 abstract class AbstractPhpUnitProcessor
 {
@@ -30,13 +30,12 @@ abstract class AbstractPhpUnitProcessor
     }
 
     /**
-     * @param ProcessBuilder $processBuilder
+     * @param Process $process
      *
-     * @return bool
+     * @return mixed
      */
-    protected function runProcess(ProcessBuilder $processBuilder)
+    protected function runProcess(Process $process)
     {
-        $process = $processBuilder->getProcess();
         $output = $this->output;
 
         $process->run(
