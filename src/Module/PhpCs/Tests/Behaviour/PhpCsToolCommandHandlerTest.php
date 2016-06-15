@@ -58,6 +58,7 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
             $errorTxt .= $error;
         }
 
+        $this->shouldWriteLnOutput($output->getFailMessage());
         $this->shouldWriteLnOutput($output->setError($errorTxt));
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint(HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT));
 

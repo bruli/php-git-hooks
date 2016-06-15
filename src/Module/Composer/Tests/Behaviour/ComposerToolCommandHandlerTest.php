@@ -71,6 +71,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
             new ComposerFilesExtractorQuery($files),
             ComposerFilesResponseStub::createInvalidData()
         );
+        $this->shouldWriteLnOutput($output->getFailMessage());
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
 
         $this->composerToolCommandHandler->handle(

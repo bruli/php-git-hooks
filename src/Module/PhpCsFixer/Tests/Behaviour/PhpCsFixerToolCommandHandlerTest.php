@@ -81,6 +81,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
             $errors .= $errorText;
         }
 
+        $this->shouldWriteLnOutput($outputMessage->getFailMessage());
         $this->shouldWriteLnOutput($outputMessage->setError($errors));
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($configurationData->getErrorMessage()));
 

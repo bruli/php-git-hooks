@@ -51,6 +51,7 @@ class PhpLintToolExecutor
         $errors = array_filter($errors);
 
         if ($errors) {
+            $this->output->writeln($outputMessage->getFailMessage());
             $this->output->writeln($outputMessage->setError(implode('', $errors)));
             $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
 

@@ -71,7 +71,8 @@ class PhpMdToolCommandHandlerTest extends PhpMdUnitTestCase
             $this->shouldProcessPhpMdTool($phpFile, $error);
             $errorsText .= $error;
         }
-
+        
+        $this->shouldWriteLnOutput($outputMessage->getFailMessage());
         $this->shouldWriteLnOutput($outputMessage->setError($errorsText));
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage));
 

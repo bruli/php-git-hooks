@@ -52,6 +52,7 @@ class PhpMdToolExecutor
 
         if ($errors) {
             $outputText = $outputMessage->setError(implode('', $errors));
+            $this->output->writeln($outputMessage->getFailMessage());
             $this->output->writeln($outputText);
             $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
             throw new PhpMdViolationsException();

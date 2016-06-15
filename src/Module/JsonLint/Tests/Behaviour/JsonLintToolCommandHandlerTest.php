@@ -106,6 +106,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
             $errorTxt .= $error;
         }
 
+        $this->shouldWriteLnOutput($output->getFailMessage());
         $this->shouldWriteLnOutput($output->setError($errorTxt));
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
 

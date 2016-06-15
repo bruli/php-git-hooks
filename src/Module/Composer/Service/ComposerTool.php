@@ -13,6 +13,10 @@ class ComposerTool
 {
     const CHECKING_MESSAGE = 'Checking composer files';
     /**
+     * @var PreCommitOutputWriter
+     */
+    private $outputMessage;
+    /**
      * @var OutputInterface
      */
     private $output;
@@ -45,16 +49,16 @@ class ComposerTool
     {
         $composerFilesResponse = $this->getComposerFilesResponse($files);
 
+        $this->outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
         if (true === $composerFilesResponse->isExists()) {
-            $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
-            $this->output->write($outputMessage->getMessage());
+            $this->output->write($this->outputMessage->getMessage());
 
             $this->executeTool(
                 $composerFilesResponse->isJsonFile(),
                 $composerFilesResponse->isLockFile(),
                 $errorMessage
             );
-            $this->output->writeln($outputMessage->getSuccessfulMessage());
+            $this->output->writeln($this->outputMessage->getSuccessfulMessage());
         }
     }
 
@@ -70,6 +74,8 @@ class ComposerTool
         if (true === $jsonFile && true === $lockFile) {
             return;
         }
+        
+        $this->output->writeln($this->outputMessage->getFailMessage());
         $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
         throw new ComposerFilesNotFoundException();
     }

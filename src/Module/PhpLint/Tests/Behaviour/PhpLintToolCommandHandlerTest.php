@@ -68,7 +68,8 @@ class PhpLintToolCommandHandlerTest extends PhpLintUnitTestCase
             $this->shouldProcessPhpLintTool($file, $error);
             $errors .= $error;
         }
-        
+
+        $this->shouldWriteLnOutput($outputMessage->getFailMessage());
         $this->shouldWriteLnOutput($outputMessage->setError($errors));
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage));
 
