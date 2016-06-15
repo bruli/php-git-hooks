@@ -4,7 +4,6 @@ namespace Module\PhpUnit\Infrastructure\Tool;
 
 use Module\PhpUnit\Model\PhpUnitProcessorInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 class PhpUnitRandomizerProcessor extends AbstractPhpUnitProcessor implements PhpUnitProcessorInterface
 {
@@ -15,7 +14,7 @@ class PhpUnitRandomizerProcessor extends AbstractPhpUnitProcessor implements Php
      */
     public function process($options)
     {
-        $tool = sprintf('php %s %s', $this->toolPathFinder->find('phpunit-randomizer'), '--order rand');
+        $tool = sprintf('php %s %s %s', $this->toolPathFinder->find('phpunit-randomizer'), '--order rand', $options);
 
         $process = new Process($tool);
 

@@ -2,7 +2,6 @@
 
 namespace Module\PhpUnit\Infrastructure\Tool;
 
-use Infrastructure\Tool\ToolPathFinder;
 use Module\PhpUnit\Model\PhpUnitProcessorInterface;
 use Symfony\Component\Process\Process;
 
