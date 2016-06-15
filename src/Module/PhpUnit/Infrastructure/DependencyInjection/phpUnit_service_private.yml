@@ -5,3 +5,4 @@ services:
     arguments:
       - "@console.output"
       - "@php.unit.processor"
+      - "@php.unit.randomizer.processor"

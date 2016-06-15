@@ -28,6 +28,10 @@ class PhpUnitToolCommandHandler implements CommandHandlerInterface
      */
     public function handle(CommandInterface $command)
     {
-        $this->phpUnitToolExecutor->execute($command->getOptions(), $command->getErrorMessage());
+        $this->phpUnitToolExecutor->execute(
+            $command->isRandomMode(),
+            $command->getOptions(),
+            $command->getErrorMessage()
+        );
     }
 }

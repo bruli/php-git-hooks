@@ -24,6 +24,7 @@ class PhpUnitToolCommandHandlerTest extends PhpUnitUnitTestCase
         $this->phpUnitToolCommandHandler = new PhpUnitToolCommandHandler(
             new PhpUnitToolExecutor(
                 $this->getOutputInterface(),
+                $this->getPhpUnitProcessor(),
                 $this->getPhpUnitProcessor()
             )
         );

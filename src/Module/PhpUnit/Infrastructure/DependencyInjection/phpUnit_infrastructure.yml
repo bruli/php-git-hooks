@@ -5,3 +5,9 @@ services:
     arguments:
       - "@console.output"
       - "@tool.path.finder"
+  php.unit.randomizer.processor:
+    class: Module\PhpUnit\Infrastructure\Tool\PhpUnitRandomizerProcessor
+    public: false
+    arguments:
+      - "@console.output"
+      - "@tool.path.finder"

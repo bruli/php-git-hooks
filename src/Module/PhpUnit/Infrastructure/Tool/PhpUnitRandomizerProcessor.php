@@ -2,14 +2,13 @@
 
 namespace Module\PhpUnit\Infrastructure\Tool;
 
-use Infrastructure\Tool\ToolPathFinder;
 use Module\PhpUnit\Model\PhpUnitProcessorInterface;
 use Symfony\Component\Process\ProcessBuilder;
 
-class PhpUnitProcessor extends AbstractPhpUnitProcessor implements PhpUnitProcessorInterface
+class PhpUnitRandomizerProcessor extends AbstractPhpUnitProcessor implements PhpUnitProcessorInterface
 {
     /**
-     * @param $options
+     * @param string $options
      *
      * @return bool
      */
@@ -18,7 +17,7 @@ class PhpUnitProcessor extends AbstractPhpUnitProcessor implements PhpUnitProces
         $processBuilder = new ProcessBuilder(
             [
                 'php',
-                $this->toolPathFinder->find('phpunit'),
+                $this->toolPathFinder->find('phpunit-randomizer'),
                 $options,
             ]
         );
