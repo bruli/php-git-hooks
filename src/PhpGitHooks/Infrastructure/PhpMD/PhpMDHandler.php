@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Infrastructure\PhpMD;
 
 use IgnoreFiles\IgnoreFiles;
-use PhpGitHooks\Application\Message\MessageConfigData;
 use PhpGitHooks\Command\OutputHandlerInterface;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
 use PhpGitHooks\Infrastructure\Common\ToolHandler;
@@ -18,6 +17,8 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
     private $files;
     /** @var  string */
     private $needle;
+    /** @var  int */
+    private $minimumPriority;
     /**
      * @var IgnoreFiles
      */
@@ -52,18 +53,26 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
                 continue;
             }
 
+            $pmdRulesXml = realpath(__DIR__.self::COMPOSER_VENDOR_DIR).'/../PmdRules.xml';
+            if (!file_exists($pmdRulesXml)) {
+                throw new PHPMDViolationsException('You don\'t have specific PmdRules.xml in the root of your project. See Readme.md to create it');
+            }
+
+            $command = array(
+                'php',
+                $this->getBinPath('phpmd'),
+                $file,
+                'text',
+                '/PmdRules.xml',
+            );
+
+            if ($this->getMinimumPriority() > -1) {
+                array_push($command, '--minimumpriority');
+                array_push($command, $this->getMinimumPriority());
+            }
+
             if (false === $this->ignoreFiles->isIgnored($file)) {
-                $processBuilder = new ProcessBuilder(
-                    array(
-                        'php',
-                        $this->getBinPath('phpmd'),
-                        $file,
-                        'text',
-                        'PmdRules.xml',
-                        '--minimumpriority',
-                        1,
-                    )
-                );
+                $processBuilder = new ProcessBuilder($command);
                 $process = $processBuilder->getProcess();
                 $process->run();
 
@@ -101,5 +110,21 @@ class PhpMDHandler extends ToolHandler implements RecursiveToolInterface
     public function setFiles($files)
     {
         $this->files = $files;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinimumPriority()
+    {
+        return $this->minimumPriority;
+    }
+
+    /**
+     * @param int $minimumPriority
+     */
+    public function setMinimumPriority($minimumPriority)
+    {
+        $this->minimumPriority = $minimumPriority;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Application\PhpMD;
 
+use PhpGitHooks\Application\Config\HookConfigExtraToolInterface;
 use PhpGitHooks\Application\Config\HookConfigInterface;
 use PhpGitHooks\Infrastructure\Common\PreCommitExecutor;
 use PhpGitHooks\Infrastructure\Common\RecursiveToolInterface;
@@ -18,11 +19,11 @@ class CheckPhpMessDetectionPreCommitExecutor extends PreCommitExecutor
     private $phpMDHandler;
 
     /**
-     * @param HookConfigInterface    $hookConfigInterface
+     * @param HookConfigExtraToolInterface    $hookConfigInterface
      * @param RecursiveToolInterface $recursiveToolInterface
      */
     public function __construct(
-        HookConfigInterface $hookConfigInterface,
+        HookConfigExtraToolInterface $hookConfigInterface,
         RecursiveToolInterface $recursiveToolInterface
     ) {
         $this->phpMDHandler = $recursiveToolInterface;
@@ -46,8 +47,11 @@ class CheckPhpMessDetectionPreCommitExecutor extends PreCommitExecutor
      */
     public function run(OutputInterface $output, array $files, $needle)
     {
-        if ($this->isEnabled()) {
+        $data = $this->preCommitConfig->extraOptions($this->commandName());
+
+        if (true === $data['enabled']) {
             $this->phpMDHandler->setOutput($output);
+            $this->phpMDHandler->setMinimumPriority(isset($data['minimum-priority']) ? intval($data['minimum-priority']) : 1);
             $this->phpMDHandler->setFiles($files);
             $this->phpMDHandler->setNeedle($needle);
             $this->phpMDHandler->run($this->getMessages());
