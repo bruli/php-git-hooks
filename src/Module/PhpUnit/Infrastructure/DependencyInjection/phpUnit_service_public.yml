@@ -1,5 +1,6 @@
 services:
   phpunit.tool.command.handler:
     class: Module\PhpUnit\Contract\CommandHandler\PhpUnitToolCommandHandler
+    arguments: ["@php.unit.tool.executor"]
     tags:
       - {name: command_handler, handles: \Module\PhpUnit\Contract\Command\PhpUnitToolCommand }

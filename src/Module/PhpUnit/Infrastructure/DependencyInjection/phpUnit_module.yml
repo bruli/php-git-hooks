@@ -1,2 +1,4 @@
 imports:
   - { resource: "phpUnit_service_public.yml" }
+  - { resource: "phpUnit_service_private.yml" }
+  - { resource: "phpUnit_infrastructure.yml" }

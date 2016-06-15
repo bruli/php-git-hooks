@@ -148,7 +148,8 @@ class PreCommitTool
             $this->commandBus->handle(
                 new PhpUnitToolCommand(
                     $configurationData->isPhpunitRandomMode(),
-                    $configurationData->getPhpunitOptions()
+                    $configurationData->getPhpunitOptions(),
+                    $configurationData->getErrorMessage()
                 )
             );
         }

@@ -92,7 +92,8 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $this->shouldHandleCommand(
             new PhpUnitToolCommand(
                 $configurationDataResponse->isPhpunitRandomMode(),
-                $configurationDataResponse->getPhpunitOptions()
+                $configurationDataResponse->getPhpunitOptions(),
+                $configurationDataResponse->getErrorMessage()
             )
         );
 
