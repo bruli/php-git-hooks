@@ -2,6 +2,8 @@
 
 namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
+use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
+use PhpGitHooks\Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler;
 use PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor;
@@ -10,22 +12,25 @@ use PhpGitHooks\Module\Configuration\Service\PreCommitProcessor;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
 
-final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
+final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTestCase
 {
     /**
-     * @var ConfigurationProcessor
+     * @var ConfigurationProcessorCommandHandler
      */
-    private $configurationProcessor;
+    private $configurationProcessorCommandHandler;
 
     protected function setUp()
     {
-        $this->configurationProcessor = new ConfigurationProcessor(
-            new ConfigurationDataFinder($this->getConfigurationFileReader()),
-            new PreCommitProcessor(),
-            new CommitMsgProcessor(),
-            $this->getConfigurationFileWriter(),
-            $this->getHookCopier()
+        $this->configurationProcessorCommandHandler = new ConfigurationProcessorCommandHandler(
+            new ConfigurationProcessor(
+                new ConfigurationDataFinder($this->getConfigurationFileReader()),
+                new PreCommitProcessor(),
+                new CommitMsgProcessor(),
+                $this->getConfigurationFileWriter(),
+                $this->getHookCopier()
+            )
         );
+
     }
 
     /**
@@ -72,7 +77,9 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
 
         $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 
-        $this->configurationProcessor->process($this->getIOInterface());
+        $command = new ConfigurationProcessorCommand($this->getIOInterface());
+
+        $this->configurationProcessorCommandHandler->handle($command);
     }
 
     /**
@@ -86,7 +93,9 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
         $this->shouldCopyCommitMsgHook();
         $this->shouldWriteConfigurationData($data);
 
-        $this->configurationProcessor->process($this->getIOInterface());
+        $command = new ConfigurationProcessorCommand($this->getIOInterface());
+
+        $this->configurationProcessorCommandHandler->handle($command);
     }
 
     /**
@@ -101,6 +110,8 @@ final class ConfigurationProcessorTest extends ConfigurationUnitTestCase
         $this->shouldCopyCommitMsgHook();
         $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 
-        $this->configurationProcessor->process($this->getIOInterface());
+        $command = new ConfigurationProcessorCommand($this->getIOInterface());
+
+        $this->configurationProcessorCommandHandler->handle($command);
     }
 }
