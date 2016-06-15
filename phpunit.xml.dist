@@ -24,7 +24,7 @@
 
     <filter>
         <whitelist>
-            <directory>./src/Module/*/</directory>
+            <directory>./src/PhpGitHooks/Module/*/</directory>
             <exclude>
                 <directory>./src/PhpGitHooks/Module/*/Infrastructure</directory>
                 <directory>./src/PhpGitHooks/Module/*/Tests</directory>
