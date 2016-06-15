@@ -2,9 +2,10 @@
 
 namespace PhpGitHooks\Module\Composer\Service;
 
+use CommandBus\QueryBus\QueryBus;
 use PhpGitHooks\Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
 use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery;
-use PhpGitHooks\Module\Files\Contract\QueryHandler\ComposerFilesExtractorQueryHandler;
+use PhpGitHooks\Module\Files\Contract\Response\ComposerFilesResponse;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,22 +22,22 @@ class ComposerTool
      */
     private $output;
     /**
-     * @var ComposerFilesExtractorQueryHandler
+     * @var QueryBus
      */
-    private $composerFilesExtractorQueryHandler;
+    private $queryBus;
 
     /**
      * ComposerTool constructor.
      *
-     * @param ComposerFilesExtractorQueryHandler $composerFilesExtractorQueryHandler
-     * @param OutputInterface                    $output
+     * @param QueryBus        $queryBus
+     * @param OutputInterface $output
      */
     public function __construct(
-        ComposerFilesExtractorQueryHandler $composerFilesExtractorQueryHandler,
+        QueryBus $queryBus,
         OutputInterface $output
     ) {
         $this->output = $output;
-        $this->composerFilesExtractorQueryHandler = $composerFilesExtractorQueryHandler;
+        $this->queryBus = $queryBus;
     }
 
     /**
@@ -71,23 +72,20 @@ class ComposerTool
      */
     private function executeTool($jsonFile, $lockFile, $errorMessage)
     {
-        if (true === $jsonFile && true === $lockFile) {
-            return;
+        if (true === $jsonFile && false === $lockFile) {
+            $this->output->writeln($this->outputMessage->getFailMessage());
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            throw new ComposerFilesNotFoundException();
         }
-        
-        $this->output->writeln($this->outputMessage->getFailMessage());
-        $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
-        throw new ComposerFilesNotFoundException();
     }
 
     /**
      * @param array $files
      *
-     * @return \Module\Files\Contract\Response\ComposerFilesResponse
+     * @return ComposerFilesResponse
      */
     private function getComposerFilesResponse(array $files)
     {
-        return $this->composerFilesExtractorQueryHandler
-            ->handle(new ComposerFilesExtractorQuery($files));
+        return $this->queryBus->handle(new ComposerFilesExtractorQuery($files));
     }
 }

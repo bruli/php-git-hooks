@@ -2,7 +2,9 @@
 
 namespace PhpGitHooks\Module\Files\Contract\Query;
 
-class ComposerFilesExtractorQuery
+use CommandBus\QueryBus\QueryInterface;
+
+class ComposerFilesExtractorQuery implements QueryInterface
 {
     /**
      * @var array

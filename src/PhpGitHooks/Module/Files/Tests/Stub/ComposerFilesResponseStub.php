@@ -31,7 +31,7 @@ class ComposerFilesResponseStub
      */
     public static function createInvalidData()
     {
-        return self::create(true, false, true);
+        return self::create(true, true, false);
     }
 
     /**

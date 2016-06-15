@@ -35,7 +35,9 @@ class FilesCommittedStub
                 'file3.inc'
             ]
         );
-    }/**
+    }
+
+    /**
      * @return array
      */
     public static function createWithoutComposerFiles()
@@ -53,7 +55,7 @@ class FilesCommittedStub
             ]
         );
     }
-    
+
     public static function createWithoutJsonFiles()
     {
         $generator = StubCreator::faker();
@@ -74,17 +76,11 @@ class FilesCommittedStub
     public static function createInvalidComposerFiles()
     {
         $files = [
-            [
-                StubCreator::faker()->sha1,
-                'composer.json'
-            ],
-            [
-                StubCreator::faker()->sha1,
-                'composer.lock'
-            ]
+            StubCreator::faker()->sha1,
+            'composer.lock'
         ];
 
-        return self::create($files[array_rand($files)]);
+        return self::create($files);
     }
 
     /**
@@ -101,7 +97,7 @@ class FilesCommittedStub
 
         return self::create($files);
     }
-    
+
     /**
      * @return array
      */

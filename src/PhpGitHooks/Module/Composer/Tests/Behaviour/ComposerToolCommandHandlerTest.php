@@ -30,7 +30,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
         $this->errorMessage = ConfigurationDataResponseStub::FIX_YOUR_CODE;
         $this->composerToolCommandHandler = new ComposerToolCommandHandler(
             new ComposerTool(
-                $this->getComposerFilesExtractorQueryHandler(),
+                $this->getQueryBus(),
                 $this->getOutputInterface()
             )
         );
@@ -45,7 +45,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
 
         $output = new PreCommitOutputWriter(ComposerTool::CHECKING_MESSAGE);
         $this->shouldWriteOutput($output->getMessage());
-        $this->shouldHandleComposerFilesExtractorQuery(
+        $this->shouldHandleQuery(
             new ComposerFilesExtractorQuery($files),
             ComposerFilesResponseStub::createValidData()
         );
@@ -67,7 +67,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
         $output = new PreCommitOutputWriter(ComposerTool::CHECKING_MESSAGE);
 
         $this->shouldWriteOutput($output->getMessage());
-        $this->shouldHandleComposerFilesExtractorQuery(
+        $this->shouldHandleQuery(
             new ComposerFilesExtractorQuery($files),
             ComposerFilesResponseStub::createInvalidData()
         );
@@ -86,7 +86,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
     {
         $files = FilesCommittedStub::createWithoutComposerFiles();
 
-        $this->shouldHandleComposerFilesExtractorQuery(
+        $this->shouldHandleQuery(
             new ComposerFilesExtractorQuery($files),
             ComposerFilesResponseStub::createNoData()
         );
