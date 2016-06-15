@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Composer\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandInterface;
+use CommandBus\CommandBus\CommandHandlerInterface;
+use CommandBus\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand;
 use PhpGitHooks\Module\Composer\Service\ComposerTool;
 

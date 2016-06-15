@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Composer\Contract\Command;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandInterface;
+use CommandBus\CommandBus\CommandInterface;
 
 class ComposerToolCommand implements CommandInterface
 {

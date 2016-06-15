@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b7cf2d3e7071c828513446981d565a22",
-    "content-hash": "006eec60de23a61b432b5ee90a4e8095",
+    "hash": "5c50a365d6c38e1de3e1e263f48853f3",
+    "content-hash": "68d0d8edd322272ccc7a42fd63093038",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -59,6 +59,43 @@
                 "validation"
             ],
             "time": "2016-03-22 14:34:51"
+        },
+        {
+            "name": "bruli/command-bus",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bruli/command-bus.git",
+                "reference": "6671be24cac23b55d09130747603a9b9b3e21236"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bruli/command-bus/zipball/6671be24cac23b55d09130747603a9b9b3e21236",
+                "reference": "6671be24cac23b55d09130747603a9b9b3e21236",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "symfony/dependency-injection": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CommandBus\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pablo Braulio",
+                    "email": "brulics@gmail.com"
+                }
+            ],
+            "description": "Command bus library to use with Symfony Dependency Injection",
+            "time": "2016-06-15 15:46:43"
         },
         {
             "name": "bruli/ignore-files",
@@ -2773,6 +2810,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "bruli/command-bus": 20,
         "composer/composer": 20
     },
     "prefer-stable": false,

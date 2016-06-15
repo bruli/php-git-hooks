@@ -13,14 +13,14 @@ services:
   console.output:
     class: Symfony\Component\Console\Output\ConsoleOutput
   command.bus:
-    class: PhpGitHooks\Infrastructure\CommandBus\CommandBus
+    class: CommandBus\CommandBus\CommandBus
     arguments:
       - "@service_container"
       - "@bus.options.resolver"
   bus.options.resolver:
-    class: PhpGitHooks\Infrastructure\CommandBus\BusOptionsResolver
+    class: CommandBus\BusOptionsResolver
   query.bus:
-    class: PhpGitHooks\Infrastructure\QueryBus\QueryBus
+    class: CommandBus\QueryBus\QueryBus
     arguments:
       - "@service_container"
       - "@bus.options.resolver"

@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\PhpCsFixer\Contract\Command;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandInterface;
+use CommandBus\CommandBus\CommandInterface;
 
 class PhpCsFixerToolCommand implements CommandInterface
 {

@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Module\Configuration\Contract\Command;
 
 use Composer\IO\IOInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandInterface;
+use CommandBus\CommandBus\CommandInterface;
 
 class ConfigurationProcessorCommand implements CommandInterface
 {

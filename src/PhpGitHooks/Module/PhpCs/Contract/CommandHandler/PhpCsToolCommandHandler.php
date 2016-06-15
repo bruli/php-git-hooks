@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\PhpCs\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandInterface;
+use CommandBus\CommandBus\CommandHandlerInterface;
+use CommandBus\CommandBus\CommandInterface;
 use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand;
 use PhpGitHooks\Module\PhpCs\Service\PhpCsTool;
 use PhpGitHooks\Module\PhpCs\Service\PhpCsToolExecutor;

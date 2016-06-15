@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\PhpLint\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandInterface;
+use CommandBus\CommandBus\CommandHandlerInterface;
+use CommandBus\CommandBus\CommandInterface;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpLint\Service\PhpLintTool;
 

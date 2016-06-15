@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Files\Contract\Query;
 
-use PhpGitHooks\Infrastructure\QueryBus\QueryInterface;
+use CommandBus\QueryBus\QueryInterface;
 
 class PhpFilesExtractorQuery implements QueryInterface
 {

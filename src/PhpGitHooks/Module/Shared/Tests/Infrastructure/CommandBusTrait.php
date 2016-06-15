@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Shared\Tests\Infrastructure;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus;
-use PhpGitHooks\Infrastructure\CommandBus\CommandInterface;
+use CommandBus\CommandBus\CommandBus;
+use CommandBus\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\SimilarTo;
 

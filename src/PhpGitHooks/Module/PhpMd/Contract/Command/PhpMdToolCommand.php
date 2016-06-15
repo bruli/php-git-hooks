@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\PhpMd\Contract\Command;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandInterface;
+use CommandBus\CommandBus\CommandInterface;
 
 class PhpMdToolCommand implements CommandInterface
 {
