@@ -9,20 +9,9 @@ imports:
   - { resource: "./../../src/PhpGitHooks/Module/PhpUnit/Infrastructure/DependencyInjection/phpUnit_module.yml" }
   - { resource: "./../../src/PhpGitHooks/Module/Files/Infrastructure/DependencyInjection/files_module.yml" }
   - { resource: "./../../src/PhpGitHooks/Module/PhpMd/Infrastructure/DependencyInjection/phpMd_module.yml" }
+  - { resource: "./../../vendor/bruli/command-bus/config/services.yml" }
 services:
   console.output:
     class: Symfony\Component\Console\Output\ConsoleOutput
-  command.bus:
-    class: CommandBus\CommandBus\CommandBus
-    arguments:
-      - "@service_container"
-      - "@bus.options.resolver"
-  bus.options.resolver:
-    class: CommandBus\BusOptionsResolver
-  query.bus:
-    class: CommandBus\QueryBus\QueryBus
-    arguments:
-      - "@service_container"
-      - "@bus.options.resolver"
   tool.path.finder:
     class: PhpGitHooks\Infrastructure\Tool\ToolPathFinder

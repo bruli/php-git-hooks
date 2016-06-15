@@ -66,12 +66,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/command-bus.git",
-                "reference": "6671be24cac23b55d09130747603a9b9b3e21236"
+                "reference": "ed923383bb5214a025acbde7c57a28f424948e1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/command-bus/zipball/6671be24cac23b55d09130747603a9b9b3e21236",
-                "reference": "6671be24cac23b55d09130747603a9b9b3e21236",
+                "url": "https://api.github.com/repos/bruli/command-bus/zipball/ed923383bb5214a025acbde7c57a28f424948e1a",
+                "reference": "ed923383bb5214a025acbde7c57a28f424948e1a",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
                 }
             ],
             "description": "Command bus library to use with Symfony Dependency Injection",
-            "time": "2016-06-15 15:46:43"
+            "time": "2016-06-15 16:18:06"
         },
         {
             "name": "bruli/ignore-files",
