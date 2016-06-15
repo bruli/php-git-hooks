@@ -1,0 +1,8 @@
+services:
+  php.unit.tool.executor:
+    class: PhpGitHooks\Module\PhpUnit\Service\PhpUnitToolExecutor
+    public: false
+    arguments:
+      - "@console.output"
+      - "@php.unit.processor"
+      - "@php.unit.randomizer.processor"

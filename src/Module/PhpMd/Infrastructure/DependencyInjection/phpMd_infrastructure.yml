@@ -1,4 +1,0 @@
-services:
-  php.md.tool.processor:
-    class: Module\PhpMd\Infrastructure\Tool\PhpMdToolProcessor
-    arguments: ["@tool.path.finder"]

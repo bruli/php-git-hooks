@@ -1,6 +1,0 @@
-services:
-  pre.commit.tool.command.handler:
-    class: Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler
-    arguments: ["@pre.commit.tool"]
-    tags:
-      - { name: command_handler, handles: \Module\Git\Contract\Command\PreCommitToolCommand}

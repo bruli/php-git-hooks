@@ -1,0 +1,7 @@
+services:
+  composer.tool:
+    class: PhpGitHooks\Module\Composer\Service\ComposerTool
+    public: false
+    arguments:
+      - "@composer.files.extractor.query.handler"
+      - "@console.output"

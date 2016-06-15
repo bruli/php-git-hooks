@@ -1,0 +1,11 @@
+services:
+  configuration.processor.command.handler:
+    class: PhpGitHooks\Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler
+    arguments: ["@configuration.processor"]
+    tags:
+      - { name: command_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand}
+  configuration.data.finder.query.handler:
+    class: PhpGitHooks\Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler
+    arguments: ["@configuration.data.finder"]
+    tags:
+      - { name: query_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery }

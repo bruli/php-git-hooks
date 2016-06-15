@@ -1,0 +1,13 @@
+services:
+  pre.commit.tool:
+    class: PhpGitHooks\Module\Git\Service\PreCommitTool
+    public: false
+    arguments:
+      - "@console.output"
+      - "@files.commited.extractor"
+      - "@query.bus"
+      - "@command.bus"
+      - "@tool.title.output.writer"
+  files.commited.extractor:
+    class: PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor
+    public: false

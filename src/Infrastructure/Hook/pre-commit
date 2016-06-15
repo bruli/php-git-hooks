@@ -1,9 +1,0 @@
-#!/usr/bin/php
-<?php
-
-require __DIR__.'/../../vendor/autoload.php';
-
-use Infrastructure\Hook\PreCommit;
-
-$hook = new PreCommit();
-$hook->run();

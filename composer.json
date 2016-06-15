@@ -17,7 +17,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-0": {
-            "": "src/"
+            "PhpGitHooks": "src/"
         }
     },
     "require": {
@@ -51,7 +51,7 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "Infrastructure\\Composer\\ConfiguratorScript::buildConfig",
-        "post-update-cmd": "Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
+        "post-install-cmd": "PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig",
+        "post-update-cmd": "PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
     }
 }

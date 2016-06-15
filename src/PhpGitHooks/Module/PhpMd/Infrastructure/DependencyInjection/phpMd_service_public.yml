@@ -1,0 +1,6 @@
+services:
+  php.md.tool.command.handler:
+    class: PhpGitHooks\Module\PhpMd\Contract\CommandHandler\PhpMdToolCommandHandler
+    arguments: ["@php.md.tool"]
+    tags:
+      - { name: command_handler, handles: \PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand}

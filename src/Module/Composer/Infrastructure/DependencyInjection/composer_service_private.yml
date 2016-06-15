@@ -1,7 +1,0 @@
-services:
-  composer.tool:
-    class: Module\Composer\Service\ComposerTool
-    public: false
-    arguments:
-      - "@composer.files.extractor.query.handler"
-      - "@console.output"

@@ -1,0 +1,21 @@
+services:
+  configuration.processor:
+    class: PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor
+    public: false
+    arguments:
+      - "@configuration.data.finder"
+      - "@pre.commit.processor"
+      - "@commit.msg.processor"
+      - "@configuration.file.writer"
+      - "@hook.copier"
+  configuration.data.finder:
+    class: PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder
+    public: false
+    arguments: ["@configuration.file.reader"]
+  pre.commit.processor:
+    class: PhpGitHooks\Module\Configuration\Service\PreCommitProcessor
+    public: false
+  commit.msg.processor:
+    class: PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor
+    public: false
+    arguments: ["@console.output"]

@@ -13,7 +13,7 @@
 
     <testsuites>
         <testsuite name="default">
-            <directory>./src/Module/*/Tests/Behaviour</directory>
+            <directory>./src/PhpGitHooks/Module/*/Tests/Behaviour</directory>
         </testsuite>
     </testsuites>
 
@@ -26,8 +26,8 @@
         <whitelist>
             <directory>./src/Module/*/</directory>
             <exclude>
-                <directory>./src/Module/*/Infrastructure</directory>
-                <directory>./src/Module/*/Tests</directory>
+                <directory>./src/PhpGitHooks/Module/*/Infrastructure</directory>
+                <directory>./src/PhpGitHooks/Module/*/Tests</directory>
             </exclude>
         </whitelist>
     </filter>

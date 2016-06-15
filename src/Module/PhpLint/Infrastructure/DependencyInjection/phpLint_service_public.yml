@@ -1,6 +1,0 @@
-services:
-  phplint.tool.command.handler:
-    class: Module\PhpLint\Contract\CommandHandler\PhpLintToolCommandHandler
-    arguments: ["@phplint.tool"]
-    tags:
-     - { name: command_handler, handles: \Module\PhpLint\Contract\Command\PhpLintToolCommand }
