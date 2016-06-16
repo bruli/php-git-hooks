@@ -2,10 +2,11 @@
 
 namespace PhpGitHooks\Module\Configuration\Service;
 
+use CommandBus\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Configuration\Domain\Config;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
 
-class ConfigurationDataFinder
+class ConfigurationDataFinder implements QueryInterface
 {
     /**
      * @var ConfigurationFileReaderInterface
@@ -29,6 +30,7 @@ class ConfigurationDataFinder
     {
         $data = $this->configurationFileReader->getData();
 
+        //TODO, debe devolver response.
         return ConfigFactory::fromArray($data);
     }
 }

@@ -31,6 +31,7 @@ class ConfigurationDataFinderQueryHandler implements QueryHandlerInterface
 
     /**
      * @param QueryInterface $query
+     *
      * @return ConfigurationDataResponse
      */
     public function handle(QueryInterface $query)
@@ -54,6 +55,7 @@ class ConfigurationDataFinderQueryHandler implements QueryHandlerInterface
         /** @var PhpUnit $phpUnit */
         $phpUnit = $tools[6];
 
+        //TODO, ponerlo en el service
         return new ConfigurationDataResponse(
             $preCommit->isEnabled(),
             $preCommit->getMessages()->getRightMessage()->value(),

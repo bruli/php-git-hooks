@@ -2,6 +2,9 @@
 
 namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
+use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
+use PhpGitHooks\Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler;
+use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
@@ -9,17 +12,19 @@ use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
 
-class ConfigurationDataFinderTest extends ConfigurationUnitTestCase
+class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
 {
     /**
-     * @var ConfigurationDataFinder
+     * @var ConfigurationDataFinderQueryHandler
      */
-    private $configurationDataFinder;
+    private $configurationDataFinderQueryHandler;
 
     protected function setUp()
     {
-        $this->configurationDataFinder = new ConfigurationDataFinder(
-            $this->getConfigurationFileReader()
+        $this->configurationDataFinderQueryHandler = new ConfigurationDataFinderQueryHandler(
+            new ConfigurationDataFinder(
+                $this->getConfigurationFileReader()
+            )
         );
     }
 
@@ -30,8 +35,9 @@ class ConfigurationDataFinderTest extends ConfigurationUnitTestCase
     {
         $this->shouldReadConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 
-        $data = $this->configurationDataFinder->find();
-
+        /** @var ConfigurationDataResponse $data */
+        $data = $this->configurationDataFinderQueryHandler->handle(new ConfigurationDataFinderQuery());
+        
         $toolInterfaces = $data->getPreCommit()->getExecute()->execute();
         $composer = $toolInterfaces[0];
         $jsonLint = $toolInterfaces[1];

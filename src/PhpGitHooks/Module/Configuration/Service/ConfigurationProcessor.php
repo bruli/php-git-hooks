@@ -70,6 +70,7 @@ class ConfigurationProcessor
     {
         $this->io = $input;
 
+        //TODO, llamar al reader directamente en lugar del finder.
         $this->configData = $this->configurationDataFinder->find();
         $preCommit = $this->preCommitProcess();
 
