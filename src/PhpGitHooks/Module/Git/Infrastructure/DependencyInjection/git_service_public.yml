@@ -4,3 +4,8 @@ services:
     arguments: ["@pre.commit.tool"]
     tags:
       - { name: command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand}
+  commit.msg.command.handler:
+    class: PhpGitHooks\Module\Git\Contract\CommandHandler\CommitMsgCommandHandler
+    arguments: ["@commit.msg.tool"]
+    tags:
+      - { name: command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\CommitMsgCommand }

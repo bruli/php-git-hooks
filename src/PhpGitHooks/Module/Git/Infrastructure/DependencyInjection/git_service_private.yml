@@ -11,3 +11,10 @@ services:
   files.commited.extractor:
     class: PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor
     public: false
+  commit.msg.tool:
+    class: PhpGitHooks\Module\Git\Service\CommitMsgTool
+    public: false
+    arguments:
+      - "@merge.validator"
+      - "@query.bus"
+      - "@commit.message.finder"
