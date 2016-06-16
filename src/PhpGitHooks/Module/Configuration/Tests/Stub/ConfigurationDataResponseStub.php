@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Module\Configuration\Tests\Stub;
 
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
+use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 
 final class ConfigurationDataResponseStub
 {
@@ -104,6 +105,37 @@ final class ConfigurationDataResponseStub
             null,
             $bool,
             null
+        );
+    }
+
+    /**
+     * @param bool $preCommit
+     * @param bool $commitMsg
+     *
+     * @return ConfigurationDataResponse
+     */
+    public static function createCustom($preCommit, $commitMsg)
+    {
+        return static::create(
+            $preCommit,
+            static::GOOD_JOB,
+            static::FIX_YOUR_CODE,
+            $preCommit,
+            $preCommit,
+            $preCommit,
+            $preCommit,
+            $preCommit,
+            static::PHPCS_STANDARD,
+            $preCommit,
+            $preCommit,
+            $preCommit,
+            $preCommit,
+            $preCommit,
+            $preCommit,
+            $preCommit,
+            null,
+            $commitMsg,
+            HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER
         );
     }
 }
