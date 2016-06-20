@@ -2,7 +2,6 @@
 
 namespace PhpGitHooks\Module\JsonLint\Tests\Infrastructure;
 
-use PhpGitHooks\Module\JsonLint\Infrastructure\Tool\JsonLintProcessor;
 use PhpGitHooks\Module\JsonLint\Model\JsonLintProcessorInterface;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
 

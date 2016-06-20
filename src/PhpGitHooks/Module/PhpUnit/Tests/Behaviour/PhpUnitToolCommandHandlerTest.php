@@ -4,7 +4,6 @@ namespace PhpGitHooks\Module\PhpUnit\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
-use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\PhpUnitToolCommandHandler;

@@ -5,7 +5,6 @@ namespace PhpGitHooks\Module\PhpCsFixer\Service;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Exception\PhpCsFixerViolationsException;
-use PhpGitHooks\Module\PhpCsFixer\Infrastructure\Tool\PhpCsFixerToolProcessor;
 use PhpGitHooks\Module\PhpCsFixer\Model\PhpCsFixerToolProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -77,7 +76,7 @@ class PhpCsFixerToolExecutor
         }
 
         $errors = array_filter($errors);
-        
+
         if ($errors) {
             $this->output->writeln($outputMessage->getFailMessage());
             $errorsText = $outputMessage->setError(implode('', $errors));

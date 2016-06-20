@@ -6,7 +6,6 @@ use CommandBus\CommandBus\CommandHandlerInterface;
 use CommandBus\CommandBus\CommandInterface;
 use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand;
 use PhpGitHooks\Module\PhpCs\Service\PhpCsTool;
-use PhpGitHooks\Module\PhpCs\Service\PhpCsToolExecutor;
 
 class PhpCsToolCommandHandler implements CommandHandlerInterface
 {
@@ -17,6 +16,7 @@ class PhpCsToolCommandHandler implements CommandHandlerInterface
 
     /**
      * PhpCsToolCommandHandler constructor.
+     *
      * @param PhpCsTool $phpCsTool
      */
     public function __construct(PhpCsTool $phpCsTool)

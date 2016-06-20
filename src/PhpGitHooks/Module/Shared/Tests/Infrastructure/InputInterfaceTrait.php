@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Module\Shared\Tests\Infrastructure;
 
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
-use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputInterface;
 
 trait InputInterfaceTrait

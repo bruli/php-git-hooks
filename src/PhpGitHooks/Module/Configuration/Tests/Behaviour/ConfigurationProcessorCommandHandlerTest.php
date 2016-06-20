@@ -6,7 +6,6 @@ use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorComm
 use PhpGitHooks\Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler;
 use PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationArrayTransformer;
-use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Service\PreCommitProcessor;
@@ -34,7 +33,6 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
                 $this->getHookCopier()
             )
         );
-
     }
 
     /**

@@ -5,14 +5,9 @@ namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
-use PhpGitHooks\Module\Configuration\Domain\PhpCs;
-use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
-use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
-use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\CommitMsgStub;
-use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 
@@ -44,7 +39,6 @@ class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
 
         /** @var ConfigurationDataResponse $data */
         $data = $this->configurationDataFinderQueryHandler->handle(new ConfigurationDataFinderQuery());
-
 
         $this->assertTrue($data->isPreCommit());
         $this->assertNotNull($data->getRightMessage());

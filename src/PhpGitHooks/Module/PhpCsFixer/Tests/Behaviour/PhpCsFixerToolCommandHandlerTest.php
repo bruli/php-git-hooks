@@ -2,7 +2,6 @@
 
 namespace PhpGitHooks\Module\PhpCsFixer\Tests\Behaviour;
 
-use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Tests\Stub\PhpFilesResponseStub;
