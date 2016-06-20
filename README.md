@@ -94,6 +94,7 @@ pre-commit:
     phpunit:
         enabled:     true
         random-mode: true
+        options:     '--testsuite default'
     phplint:         true
     phpcs:
         enabled:     true
