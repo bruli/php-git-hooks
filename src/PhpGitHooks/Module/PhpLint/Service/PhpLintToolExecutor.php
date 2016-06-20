@@ -34,7 +34,7 @@ class PhpLintToolExecutor
 
     /**
      * @param array $files
-     * @param $errorMessage
+     * @param string $errorMessage
      *
      * @throws PhpLintViolationsException
      */
