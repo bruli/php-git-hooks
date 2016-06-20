@@ -7,6 +7,7 @@ use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
 use PhpGitHooks\Module\Configuration\Domain\Config;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Infrastructure\Hook\HookCopier;
+use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileWriterInterface;
 
 class ConfigurationProcessor
@@ -16,17 +17,9 @@ class ConfigurationProcessor
      */
     private $io;
     /**
-     * @var ConfigurationDataFinder
-     */
-    private $configurationDataFinder;
-    /**
      * @var PreCommitProcessor
      */
     private $preCommitProcessor;
-    /**
-     * @var Config
-     */
-    private $configData;
     /**
      * @var CommitMsgProcessor
      */
@@ -39,28 +32,32 @@ class ConfigurationProcessor
      * @var HookCopier
      */
     private $hookCopier;
+    /**
+     * @var ConfigurationFileReaderInterface
+     */
+    private $configurationFileReader;
 
     /**
      * ConfigurationProcessor constructor.
      *
-     * @param ConfigurationDataFinder          $configurationDataFinder
-     * @param PreCommitProcessor               $preCommitProcessor
-     * @param CommitMsgProcessor               $commitMsgProcessor
+     * @param ConfigurationFileReaderInterface $configurationFileReader
+     * @param PreCommitProcessor $preCommitProcessor
+     * @param CommitMsgProcessor $commitMsgProcessor
      * @param ConfigurationFileWriterInterface $configurationFileWriter
-     * @param HookCopier                       $hookCopier
+     * @param HookCopier $hookCopier
      */
     public function __construct(
-        ConfigurationDataFinder $configurationDataFinder,
+        ConfigurationFileReaderInterface $configurationFileReader,
         PreCommitProcessor $preCommitProcessor,
         CommitMsgProcessor $commitMsgProcessor,
         ConfigurationFileWriterInterface $configurationFileWriter,
         HookCopier $hookCopier
     ) {
-        $this->configurationDataFinder = $configurationDataFinder;
         $this->preCommitProcessor = $preCommitProcessor;
         $this->commitMsgProcessor = $commitMsgProcessor;
         $this->configurationFileWriter = $configurationFileWriter;
         $this->hookCopier = $hookCopier;
+        $this->configurationFileReader = $configurationFileReader;
     }
 
     /**
@@ -70,15 +67,14 @@ class ConfigurationProcessor
     {
         $this->io = $input;
 
-        //TODO, llamar al reader directamente en lugar del finder.
-        $this->configData = $this->configurationDataFinder->find();
-        $preCommit = $this->preCommitProcess();
+        $configData = $this->configurationFileReader->getData();
+        $preCommit = $this->preCommitProcess($configData);
 
         if (true === $preCommit->isEnabled()) {
             $this->hookCopier->copyPreCommitHook();
         }
 
-        $commitMsg = $this->commitMsgProcess();
+        $commitMsg = $this->commitMsgProcess($configData);
 
         if (true == $commitMsg->isEnabled()) {
             $this->hookCopier->copyCommitMsgHook();
@@ -89,23 +85,25 @@ class ConfigurationProcessor
     }
 
     /**
+     * @param Config $configData
      * @return PreCommit
      */
-    private function preCommitProcess()
+    private function preCommitProcess(Config $configData)
     {
         /**  @var PreCommit $preCommitData */
-        $preCommitData = $this->configData->getPreCommit();
+        $preCommitData = $configData->getPreCommit();
 
         return $this->preCommitProcessor->process($preCommitData, $this->io);
     }
 
     /**
+     * @param Config $configData
      * @return CommitMsg
      */
-    private function commitMsgProcess()
+    private function commitMsgProcess(Config $configData)
     {
         /** @var CommitMsg $commitMsgData */
-        $commitMsgData = $this->configData->getCommitMsg();
+        $commitMsgData = $configData->getCommitMsg();
 
         return $this->commitMsgProcessor->process($commitMsgData, $this->io);
     }

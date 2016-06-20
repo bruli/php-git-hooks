@@ -2,10 +2,12 @@
 
 namespace PhpGitHooks\Module\Configuration\Model;
 
+use PhpGitHooks\Module\Configuration\Domain\Config;
+
 interface ConfigurationFileReaderInterface
 {
     /**
-     * @return array
+     * @return Config
      */
     public function getData();
 }

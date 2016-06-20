@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Module\Configuration\Tests\Infrastructure;
 
+use PhpGitHooks\Module\Configuration\Domain\Config;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
 
@@ -22,9 +23,9 @@ trait ConfigurationFileReaderTrait
     }
 
     /**
-     * @param array $return
+     * @param Config $return
      */
-    protected function shouldReadConfigurationData(array $return)
+    protected function shouldReadConfigurationData(Config $return)
     {
         $this->getConfigurationFileReader()
              ->shouldReceive('getData')

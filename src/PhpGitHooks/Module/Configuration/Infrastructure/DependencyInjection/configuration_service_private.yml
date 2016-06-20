@@ -3,7 +3,7 @@ services:
     class: PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor
     public: false
     arguments:
-      - "@configuration.data.finder"
+      - "@configuration.file.reader"
       - "@pre.commit.processor"
       - "@commit.msg.processor"
       - "@configuration.file.writer"

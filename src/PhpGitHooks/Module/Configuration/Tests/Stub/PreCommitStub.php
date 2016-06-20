@@ -13,10 +13,10 @@ use PhpGitHooks\Module\Tests\Infrastructure\Stub\RandomStubInterface;
 class PreCommitStub implements RandomStubInterface
 {
     /**
-     * @param Undefined        $undefined
-     * @param Enabled          $enabled
+     * @param Undefined $undefined
+     * @param Enabled $enabled
      * @param ExecuteInterface $execute
-     * @param Messages         $messages
+     * @param Messages $messages
      *
      * @return PreCommit
      */
@@ -57,6 +57,27 @@ class PreCommitStub implements RandomStubInterface
             EnabledStub::random(),
             ExecuteStub::create(
                 ComposerStub::random(),
+                JsonLintStub::random(),
+                PhpLintStub::random(),
+                PhpMdStub::random(),
+                PhpCsStub::random(),
+                PhpCsFixerStub::random(),
+                PhpUnitStub::random()
+            ),
+            MessagesStub::random()
+        );
+    }
+    
+    /**
+     * @return PreCommit
+     */
+    public static function createAllEnabled()
+    {
+        return self::create(
+            new Undefined(false),
+            EnabledStub::create(true),
+            ExecuteStub::create(
+                ComposerStub::create(false, true),
                 JsonLintStub::random(),
                 PhpLintStub::random(),
                 PhpMdStub::random(),

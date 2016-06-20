@@ -10,7 +10,10 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
+use PhpGitHooks\Module\Configuration\Tests\Stub\CommitMsgStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 
 class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
 {
@@ -33,7 +36,11 @@ class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
      */
     public function itShouldReturnEnabledTools()
     {
-        $this->shouldReadConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
+        $configArray = ConfigArrayDataStub::hooksEnabledWithEnabledTools();
+        $this->shouldReadConfigurationData(ConfigStub::create(
+            PreCommitStub::createUndefined(),
+            CommitMsgStub::setUndefined()
+        ));
 
         /** @var ConfigurationDataResponse $data */
         $data = $this->configurationDataFinderQueryHandler->handle(new ConfigurationDataFinderQuery());

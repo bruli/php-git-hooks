@@ -2,7 +2,9 @@
 
 namespace PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk;
 
+use PhpGitHooks\Module\Configuration\Domain\Config;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
+use PhpGitHooks\Module\Configuration\Service\ConfigFactory;
 use Symfony\Component\Yaml\Yaml;
 
 class ConfigurationFileReader implements ConfigurationFileReaderInterface
@@ -10,11 +12,13 @@ class ConfigurationFileReader implements ConfigurationFileReaderInterface
     const CONFIG_FILE = 'php-git-hooks.yml';
 
     /**
-     * @return array
+     * @return Config
      */
     public function getData()
     {
-        return true === $this->configFileExists() ? $this->getConfigData() : [];
+        $data = true === $this->configFileExists() ? $this->getConfigData() : [];
+        
+        return ConfigFactory::fromArray($data);
     }
 
     /**

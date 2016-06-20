@@ -23,7 +23,7 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
     {
         $this->configurationProcessorCommandHandler = new ConfigurationProcessorCommandHandler(
             new ConfigurationProcessor(
-                new ConfigurationDataFinder($this->getConfigurationFileReader()),
+                $this->getConfigurationFileReader(),
                 new PreCommitProcessor(),
                 new CommitMsgProcessor(),
                 $this->getConfigurationFileWriter(),
