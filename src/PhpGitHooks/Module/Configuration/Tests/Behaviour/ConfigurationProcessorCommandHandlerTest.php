@@ -5,12 +5,16 @@ namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
 use PhpGitHooks\Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler;
 use PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor;
+use PhpGitHooks\Module\Configuration\Service\ConfigurationArrayTransformer;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Service\PreCommitProcessor;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
+use PhpGitHooks\Module\Configuration\Tests\Stub\CommitMsgStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 
 final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTestCase
 {
@@ -38,7 +42,7 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
      */
     public function itShouldMakeAllQuestions()
     {
-        $this->shouldReadConfigurationData([]);
+        $this->shouldReadConfigurationData(ConfigStub::createUndefined());
 
         $yes = 'y';
         $this->shouldAsk(HookQuestions::PRE_COMMIT_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
@@ -87,28 +91,15 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
      */
     public function itShouldNotMakeAnyQuestions()
     {
-        $data = ConfigArrayDataStub::hooksEnabledWithEnabledTools();
-        $this->shouldReadConfigurationData($data);
+        $data = ConfigurationArrayTransformer::transform(
+            PreCommitStub::createAllEnabled(),
+            CommitMsgStub::createEnabled()
+        );
+
+        $this->shouldReadConfigurationData(ConfigStub::createEnabled());
         $this->shouldCopyPreCommitHook();
         $this->shouldCopyCommitMsgHook();
         $this->shouldWriteConfigurationData($data);
-
-        $command = new ConfigurationProcessorCommand($this->getIOInterface());
-
-        $this->configurationProcessorCommandHandler->handle($command);
-    }
-
-    /**
-     * @test
-     */
-    public function itShouldAskAboutComposer()
-    {
-        $data = ConfigArrayDataStub::hooksEnabledWithoutComposerTool();
-        $this->shouldReadConfigurationData($data);
-        $this->shouldAsk(HookQuestions::COMPOSER_TOOL, HookQuestions::DEFAULT_TOOL_ANSWER, 'y');
-        $this->shouldCopyPreCommitHook();
-        $this->shouldCopyCommitMsgHook();
-        $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 
         $command = new ConfigurationProcessorCommand($this->getIOInterface());
 

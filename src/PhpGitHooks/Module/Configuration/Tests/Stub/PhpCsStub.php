@@ -29,4 +29,14 @@ class PhpCsStub implements RandomStubInterface
     {
         return self::create(new Undefined(false), EnabledStub::random(), PhpCsStandardStub::random());
     }
+
+    /**
+     * @param string $standard
+     *
+     * @return PhpCs
+     */
+    public static function createEnabled($standard = 'PSR2')
+    {
+        return self::create(new Undefined(false), EnabledStub::create(true), PhpCsStandardStub::create($standard));
+    }
 }

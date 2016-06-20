@@ -48,4 +48,16 @@ class CommitMsgStub implements RandomStubInterface
             RegularExpressionStub::create(null)
         );
     }
+
+    /**
+     * @return CommitMsg
+     */
+    public static function createEnabled()
+    {
+        return self::create(
+            new Undefined(false),
+            new Enabled(true),
+            RegularExpressionStub::create('#[0-9]{2,7}')
+        );
+    }
 }

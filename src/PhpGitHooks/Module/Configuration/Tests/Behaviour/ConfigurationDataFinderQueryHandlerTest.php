@@ -9,6 +9,7 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
+use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\CommitMsgStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
@@ -36,59 +37,32 @@ class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
      */
     public function itShouldReturnEnabledTools()
     {
-        $configArray = ConfigArrayDataStub::hooksEnabledWithEnabledTools();
         $this->shouldReadConfigurationData(ConfigStub::create(
-            PreCommitStub::createUndefined(),
-            CommitMsgStub::setUndefined()
+            PreCommitStub::createAllEnabled(),
+            CommitMsgStub::createEnabled()
         ));
 
         /** @var ConfigurationDataResponse $data */
         $data = $this->configurationDataFinderQueryHandler->handle(new ConfigurationDataFinderQuery());
-        
-        $toolInterfaces = $data->getPreCommit()->getExecute()->execute();
-        $composer = $toolInterfaces[0];
-        $jsonLint = $toolInterfaces[1];
-        $phpLint = $toolInterfaces[2];
-        $phpMd = $toolInterfaces[3];
-        /** @var PhpCs $phpCs */
-        $phpCs = $toolInterfaces[4];
-        /** @var PhpCsFixer $phpCsFixer */
-        $phpCsFixer = $toolInterfaces[5];
-        /** @var PhpUnit $phpUnit */
-        $phpUnit = $toolInterfaces[6];
 
-        $this->assertFalse($data->getPreCommit()->isUndefined());
-        $this->assertTrue($data->getPreCommit()->isEnabled());
 
-        $this->assertFalse($data->getCommitMsg()->isUndefined());
-        $this->assertTrue($data->getCommitMsg()->isEnabled());
-
-        $this->assertFalse($composer->isUndefined());
-        $this->assertTrue($composer->isEnabled());
-
-        $this->assertFalse($jsonLint->isUndefined());
-        $this->assertTrue($jsonLint->isEnabled());
-
-        $this->assertFalse($phpLint->isUndefined());
-        $this->assertTrue($phpLint->isEnabled());
-
-        $this->assertFalse($phpMd->isUndefined());
-        $this->assertTrue($phpMd->isEnabled());
-
-        $this->assertFalse($phpCs->isUndefined());
-        $this->assertTrue($phpCs->isEnabled());
-        $this->assertSame(ConfigArrayDataStub::PHPCS_STANDARD, $phpCs->getStandard()->value());
-
-        $this->assertFalse($phpCsFixer->isUndefined());
-        $this->assertTrue($phpCsFixer->isEnabled());
-        $this->assertTrue($phpCsFixer->getLevels()->getPsr0()->value());
-        $this->assertTrue($phpCsFixer->getLevels()->getPsr1()->value());
-        $this->assertTrue($phpCsFixer->getLevels()->getPsr2()->value());
-        $this->assertTrue($phpCsFixer->getLevels()->getSymfony()->value());
-
-        $this->assertFalse($phpUnit->isUndefined());
-        $this->assertTrue($phpUnit->isEnabled());
-        $this->assertTrue($phpUnit->getRandomMode()->value());
-        $this->assertSame(ConfigArrayDataStub::PHPUNIT_OPTIONS, $phpUnit->getOptions()->value());
+        $this->assertTrue($data->isPreCommit());
+        $this->assertNotNull($data->getRightMessage());
+        $this->assertNotNull($data->getErrorMessage());
+        $this->assertTrue($data->isCommitMsg());
+        $this->assertTrue($data->isComposer());
+        $this->assertTrue($data->isJsonLint());
+        $this->assertTrue($data->isPhpLint());
+        $this->assertTrue($data->isPhpMd());
+        $this->assertTrue($data->isPhpCs());
+        $this->assertNotNull($data->getPhpCsStandard());
+        $this->assertTrue($data->isPhpCsFixer());
+        $this->assertTrue($data->isPhpCsFixerPsr0());
+        $this->assertTrue($data->isPhpCsFixerPsr1());
+        $this->assertTrue($data->isPhpCsFixerPsr2());
+        $this->assertTrue($data->isPhpCsFixerSymfony());
+        $this->assertTrue($data->isPhpunit());
+        $this->assertTrue($data->isPhpunitRandomMode());
+        $this->assertNotNull($data->getPhpunitOptions());
     }
 }

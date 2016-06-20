@@ -77,15 +77,15 @@ class PreCommitStub implements RandomStubInterface
             new Undefined(false),
             EnabledStub::create(true),
             ExecuteStub::create(
-                ComposerStub::create(false, true),
-                JsonLintStub::random(),
-                PhpLintStub::random(),
-                PhpMdStub::random(),
-                PhpCsStub::random(),
-                PhpCsFixerStub::random(),
-                PhpUnitStub::random()
+                ComposerStub::createEnabled(),
+                JsonLintStub::createEnabled(),
+                PhpLintStub::createEnabled(),
+                PhpMdStub::createEnabled(),
+                PhpCsStub::createEnabled(),
+                PhpCsFixerStub::createEnabled(),
+                PhpUnitStub::createEnabled()
             ),
-            MessagesStub::random()
+            MessagesStub::create(MessageStub::create('ok'), MessageStub::create('fix'))
         );
     }
 }

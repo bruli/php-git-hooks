@@ -27,4 +27,12 @@ class ComposerStub implements RandomStubInterface
     {
         return self::create(new Undefined(false), EnabledStub::random());
     }
+
+    /**
+     * @return Composer
+     */
+    public static function createEnabled()
+    {
+        return self::create(new Undefined(false), EnabledStub::create(true));
+    }
 }

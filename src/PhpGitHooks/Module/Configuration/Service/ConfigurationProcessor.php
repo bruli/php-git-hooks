@@ -81,6 +81,7 @@ class ConfigurationProcessor
         }
 
         $configArray = ConfigurationArrayTransformer::transform($preCommit, $commitMsg);
+
         $this->configurationFileWriter->write($configArray);
     }
 

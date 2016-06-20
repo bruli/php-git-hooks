@@ -27,4 +27,20 @@ class ConfigStub implements RandomStubInterface
     {
         return self::create(PreCommitStub::random(), CommitMsgStub::random());
     }
+
+    /**
+     * @return Config
+     */
+    public static function createUndefined()
+    {
+        return self::create(PreCommitStub::createUndefined(), CommitMsgStub::setUndefined());
+    }
+
+    /**
+     * @return Config
+     */
+    public static function createEnabled()
+    {
+        return self::create(PreCommitStub::createAllEnabled(), CommitMsgStub::createEnabled());
+    }
 }

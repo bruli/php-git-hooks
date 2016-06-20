@@ -28,4 +28,17 @@ class PhpCsFixerLevelsStub implements RandomStubInterface
     {
         return self::create(LevelStub::random(), LevelStub::random(), LevelStub::random(), LevelStub::random());
     }
+
+    /**
+     * @return PhpCsFixerLevels
+     */
+    public static function createEnabled()
+    {
+        return self::create(
+            LevelStub::create(true),
+            LevelStub::create(true),
+            LevelStub::create(true),
+            LevelStub::create(true)
+        );
+    }
 }

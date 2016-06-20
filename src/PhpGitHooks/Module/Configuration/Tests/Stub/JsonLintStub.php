@@ -27,4 +27,11 @@ class JsonLintStub implements RandomStubInterface
     {
         return self::create(new Undefined(false), EnabledStub::random());
     }
+    /**
+     * @return JsonLint
+     */
+    public static function createEnabled()
+    {
+        return self::create(new Undefined(false), EnabledStub::create(true));
+    }
 }
