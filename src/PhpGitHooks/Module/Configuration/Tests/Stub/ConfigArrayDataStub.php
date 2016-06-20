@@ -57,47 +57,4 @@ class ConfigArrayDataStub
             ],
         ];
     }
-
-    /**
-     * @return array
-     */
-    public static function hooksEnabledWithoutComposerTool()
-    {
-        return [
-            'pre-commit' => [
-                'enabled' => true,
-                'process' => [
-                    'jsonlint' => true,
-                    'phplint' => true,
-                    'phpmd' => true,
-                    'phpcs' => [
-                        'enabled' => true,
-                        'standard' => static::PHPCS_STANDARD,
-                    ],
-                    'php-cs-fixer' => [
-                        'enabled' => true,
-                        'levels' => [
-                            'psr0' => true,
-                            'psr1' => true,
-                            'psr2' => true,
-                            'symfony' => true,
-                        ],
-                    ],
-                    'phpunit' => [
-                        'enabled' => true,
-                        'random-mode' => true,
-                        'options' => static::PHPUNIT_OPTIONS,
-                    ],
-                ],
-                'messages' => [
-                    'right-message' => static::RIGHT_MESSAGE,
-                    'error-message' => static::ERROR_MESSAGE,
-                ],
-            ],
-            'commit-msg' => [
-                'enabled' => true,
-                'regular-expression' => static::REGULAR_EXPRESSION,
-            ],
-        ];
-    }
 }
