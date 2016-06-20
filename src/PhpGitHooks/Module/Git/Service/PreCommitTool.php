@@ -100,7 +100,7 @@ class PreCommitTool
             );
         }
 
-        if (true == $configurationData->isJsonLint()) {
+        if (true === $configurationData->isJsonLint()) {
             $this->commandBus->handle(
                 new JsonLintToolCommand($committedFiles, $configurationData->getErrorMessage())
             );

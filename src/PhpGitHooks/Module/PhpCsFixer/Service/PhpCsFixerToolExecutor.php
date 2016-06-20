@@ -77,7 +77,7 @@ class PhpCsFixerToolExecutor
 
         $errors = array_filter($errors);
 
-        if ($errors) {
+        if (!empty($errors)) {
             $this->output->writeln($outputMessage->getFailMessage());
             $errorsText = $outputMessage->setError(implode('', $errors));
             $this->output->writeln($errorsText);

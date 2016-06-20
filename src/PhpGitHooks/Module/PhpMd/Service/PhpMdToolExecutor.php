@@ -50,7 +50,7 @@ class PhpMdToolExecutor
 
         $errors = array_filter($errors);
 
-        if ($errors) {
+        if (!empty($errors)) {
             $outputText = $outputMessage->setError(implode('', $errors));
             $this->output->writeln($outputMessage->getFailMessage());
             $this->output->writeln($outputText);

@@ -76,7 +76,7 @@ class ConfigurationProcessor
 
         $commitMsg = $this->commitMsgProcess($configData);
 
-        if (true == $commitMsg->isEnabled()) {
+        if (true === $commitMsg->isEnabled()) {
             $this->hookCopier->copyCommitMsgHook();
         }
 
