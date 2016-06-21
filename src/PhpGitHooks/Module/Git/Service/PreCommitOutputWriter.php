@@ -50,7 +50,7 @@ class PreCommitOutputWriter
      */
     public function setError($error)
     {
-        return sprintf('<error>%s</error>', trim($error));
+        return sprintf("\n<error>%s</error>", trim($error));
     }
 
     public function getFailMessage()

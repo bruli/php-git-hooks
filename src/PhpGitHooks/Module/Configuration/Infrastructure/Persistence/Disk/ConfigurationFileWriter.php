@@ -12,7 +12,7 @@ class ConfigurationFileWriter implements ConfigurationFileWriterInterface
      */
     public function write(array $data)
     {
-        $yaml = Yaml::dump($data);
+        $yaml = Yaml::dump($data, 5);
 
         file_put_contents('php-git-hooks.yml', $yaml);
     }
