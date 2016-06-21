@@ -6,3 +6,5 @@ services:
     class: PhpGitHooks\Module\Git\Infrastructure\Git\CommitMessageFinder
   merge.validator:
     class: PhpGitHooks\Module\Git\Infrastructure\Git\MergeValidator
+  pre.push.original.executor:
+    class: PhpGitHooks\Module\Git\Infrastructure\Git\PrePushOriginalExecutor

@@ -18,3 +18,11 @@ services:
       - "@merge.validator"
       - "@query.bus"
       - "@commit.message.finder"
+  pre.push.tool:
+    class: PhpGitHooks\Module\Git\Service\PrePushTool
+    public: false
+    arguments:
+      - "@query.bus"
+      - "@pre.push.original.executor"
+      - "@console.output"
+      - "@command.bus"

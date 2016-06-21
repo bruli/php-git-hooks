@@ -5,6 +5,8 @@ namespace PhpGitHooks\Infrastructure\Hook;
 require_once __DIR__.'/../../../../app/AppKernel.php';
 
 use AppKernel;
+use PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand;
+use PhpGitHooks\Module\Git\Contract\CommandHandler\PrePushToolCommandHandler;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,6 +42,8 @@ class PrePush extends Application
 
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        throw new \Exception($process->isSuccessful());
+        /** @var PrePushToolCommandHandler $command */
+        $command = $this->container->get('command.bus');
+        $command->handle(new PrePushToolCommand($this->remote, $this->url));
     }
 }
