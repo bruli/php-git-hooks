@@ -18,7 +18,7 @@ class PreCommitFactory
         return new PreCommit(
             new Undefined(false),
             new Enabled($data['enabled']),
-            PreCommitExecuteFactory::fromArray($data['process']),
+            PreCommitExecuteFactory::fromArray($data['execute']),
             isset($data['messages']) ? MessagesFactory::fromArray($data['messages']) : MessagesFactory::setUndefined()
         );
     }

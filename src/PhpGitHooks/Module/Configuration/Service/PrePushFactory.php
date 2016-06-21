@@ -31,7 +31,7 @@ class PrePushFactory
         return new PrePush(
             new Undefined(false),
             new Enabled($data['enabled']),
-            PrePushExecuteFactory::fromArray($data['process']),
+            PrePushExecuteFactory::fromArray($data['execute']),
             isset($data['messages']) ? MessagesFactory::fromArray($data['messages']) : MessagesFactory::setUndefined()
         );
     }

@@ -37,7 +37,7 @@ class ConfigurationArrayTransformer
         return [
             'pre-commit' => [
                 'enabled' => $preCommit->isEnabled(),
-                'process' => [
+                'execute' => [
                     'composer' => $composer->isEnabled(),
                     'jsonlint' => $jsonLint->isEnabled(),
                     'phplint' => $phpLint->isEnabled(),
@@ -72,7 +72,7 @@ class ConfigurationArrayTransformer
             ],
             'pre-push' => [
                 'enabled' => $prePush->isEnabled(),
-                'process' => [
+                'execute' => [
                     'phpunit' => [
                         'enabled' => $phpunitPrePush->isEnabled(),
                         'random-mode' => $phpunitPrePush->getRandomMode()->value(),

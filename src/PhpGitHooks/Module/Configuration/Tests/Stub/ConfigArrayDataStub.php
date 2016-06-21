@@ -22,7 +22,7 @@ class ConfigArrayDataStub
         return [
             'pre-commit' => [
                 'enabled' => true,
-                'process' => [
+                'execute' => [
                     'composer' => true,
                     'jsonlint' => true,
                     'phplint' => true,
@@ -57,7 +57,7 @@ class ConfigArrayDataStub
             ],
             'pre-push' => [
                 'enabled' => true,
-                'process' => [
+                'execute' => [
                     'phpunit' => [
                         'enabled' => true,
                         'random-mode' => true,

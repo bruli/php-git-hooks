@@ -107,6 +107,13 @@ pre-commit:
 commit-msg:
     enabled: true
     regular-expression: '#[0-9]{2,7}'
+pre-push:
+    enabled: true
+    execute:
+      phpunit:
+        enabled:     true
+        random-mode: true
+        options:     '--testsuite default'
 ```
 
 ... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.
