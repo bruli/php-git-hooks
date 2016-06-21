@@ -20,7 +20,7 @@ class PhpCsFixerTool
     /**
      * PhpCsFixerTool constructor.
      *
-     * @param QueryBus $queryBus
+     * @param QueryBus               $queryBus
      * @param PhpCsFixerToolExecutor $phpCsFixerToolExecutor
      */
     public function __construct(QueryBus $queryBus, PhpCsFixerToolExecutor $phpCsFixerToolExecutor)
@@ -30,11 +30,11 @@ class PhpCsFixerTool
     }
 
     /**
-     * @param array $files
-     * @param bool $psr0
-     * @param bool $psr1
-     * @param bool $psr2
-     * @param bool $symfony
+     * @param array  $files
+     * @param bool   $psr0
+     * @param bool   $psr1
+     * @param bool   $psr2
+     * @param bool   $symfony
      * @param string $errorMessage
      */
     public function execute(array $files, $psr0, $psr1, $psr2, $symfony, $errorMessage)

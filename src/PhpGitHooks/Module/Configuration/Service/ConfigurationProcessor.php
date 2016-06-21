@@ -6,6 +6,7 @@ use Composer\IO\IOInterface;
 use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
 use PhpGitHooks\Module\Configuration\Domain\Config;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
+use PhpGitHooks\Module\Configuration\Domain\PrePush;
 use PhpGitHooks\Module\Configuration\Infrastructure\Hook\HookCopier;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileWriterInterface;
@@ -36,28 +37,35 @@ class ConfigurationProcessor
      * @var ConfigurationFileReaderInterface
      */
     private $configurationFileReader;
+    /**
+     * @var PrePushProcessor
+     */
+    private $prePushProcessor;
 
     /**
      * ConfigurationProcessor constructor.
      *
      * @param ConfigurationFileReaderInterface $configurationFileReader
-     * @param PreCommitProcessor $preCommitProcessor
-     * @param CommitMsgProcessor $commitMsgProcessor
+     * @param PreCommitProcessor               $preCommitProcessor
+     * @param CommitMsgProcessor               $commitMsgProcessor
      * @param ConfigurationFileWriterInterface $configurationFileWriter
-     * @param HookCopier $hookCopier
+     * @param HookCopier                       $hookCopier
+     * @param PrePushProcessor                 $prePushProcessor
      */
     public function __construct(
         ConfigurationFileReaderInterface $configurationFileReader,
         PreCommitProcessor $preCommitProcessor,
         CommitMsgProcessor $commitMsgProcessor,
         ConfigurationFileWriterInterface $configurationFileWriter,
-        HookCopier $hookCopier
+        HookCopier $hookCopier,
+        PrePushProcessor $prePushProcessor
     ) {
         $this->preCommitProcessor = $preCommitProcessor;
         $this->commitMsgProcessor = $commitMsgProcessor;
         $this->configurationFileWriter = $configurationFileWriter;
         $this->hookCopier = $hookCopier;
         $this->configurationFileReader = $configurationFileReader;
+        $this->prePushProcessor = $prePushProcessor;
     }
 
     /**
@@ -80,13 +88,20 @@ class ConfigurationProcessor
             $this->hookCopier->copyCommitMsgHook();
         }
 
-        $configArray = ConfigurationArrayTransformer::transform($preCommit, $commitMsg);
+        $prePush = $this->prePushProcess($configData);
+
+        if (true === $prePush->isEnabled()) {
+            $this->hookCopier->copyPrePushHook();
+        }
+
+        $configArray = ConfigurationArrayTransformer::transform($preCommit, $commitMsg, $prePush);
 
         $this->configurationFileWriter->write($configArray);
     }
 
     /**
      * @param Config $configData
+     *
      * @return PreCommit
      */
     private function preCommitProcess(Config $configData)
@@ -99,6 +114,7 @@ class ConfigurationProcessor
 
     /**
      * @param Config $configData
+     *
      * @return CommitMsg
      */
     private function commitMsgProcess(Config $configData)
@@ -107,5 +123,18 @@ class ConfigurationProcessor
         $commitMsgData = $configData->getCommitMsg();
 
         return $this->commitMsgProcessor->process($commitMsgData, $this->io);
+    }
+
+    /**
+     * @param Config $configData
+     *
+     * @return PrePush
+     */
+    private function prePushProcess(Config $configData)
+    {
+        /** @var PrePush $prePush */
+        $prePush = $configData->getPrePush();
+
+        return $this->prePushProcessor->process($prePush, $this->io);
     }
 }

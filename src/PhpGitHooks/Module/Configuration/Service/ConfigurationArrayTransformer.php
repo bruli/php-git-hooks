@@ -7,13 +7,20 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
+use PhpGitHooks\Module\Configuration\Domain\PrePush;
 
 class ConfigurationArrayTransformer
 {
-    public static function transform(PreCommit $preCommit, CommitMsg $commitMsg)
+    /**
+     * @param PreCommit $preCommit
+     * @param CommitMsg $commitMsg
+     * @param PrePush $prePush
+     * @return array
+     */
+    public static function transform(PreCommit $preCommit, CommitMsg $commitMsg, PrePush $prePush)
     {
-
         $tools = $preCommit->getExecute()->execute();
+        $prePushTools = $prePush->getExecute()->execute();
         $composer = $tools[0];
         $jsonLint = $tools[1];
         $phpLint = $tools[2];
@@ -24,6 +31,9 @@ class ConfigurationArrayTransformer
         $phpCsFixer = $tools[5];
         /** @var PhpUnit $phpunit */
         $phpunit = $tools[6];
+        /** @var PhpUnit $phpunitPrePush */
+        $phpunitPrePush = $prePushTools[0];
+
         return [
             'pre-commit' => [
                 'enabled' => $preCommit->isEnabled(),
@@ -34,31 +44,45 @@ class ConfigurationArrayTransformer
                     'phpmd' => $phpMd->isEnabled(),
                     'phpcs' => [
                         'enabled' => $phpCs->isEnabled(),
-                        'standard' => $phpCs->getStandard()->value()
+                        'standard' => $phpCs->getStandard()->value(),
                     ],
-                    'php-cs-fixer'  => [
+                    'php-cs-fixer' => [
                         'enabled' => $phpCsFixer->isEnabled(),
                         'levels' => [
                             'psr0' => $phpCsFixer->getLevels()->getPsr0()->value(),
                             'psr1' => $phpCsFixer->getLevels()->getPsr1()->value(),
                             'psr2' => $phpCsFixer->getLevels()->getPsr2()->value(),
                             'symfony' => $phpCsFixer->getLevels()->getSymfony()->value(),
-                        ]
+                        ],
                     ],
                     'phpunit' => [
                         'enabled' => $phpunit->isEnabled(),
                         'random-mode' => $phpunit->getRandomMode()->value(),
-                        'options'  => $phpunit->getOptions()->value()
-                    ]
+                        'options' => $phpunit->getOptions()->value(),
+                    ],
                 ],
                 'messages' => [
                     'right-message' => $preCommit->getMessages()->getRightMessage()->value(),
-                    'error-message' => $preCommit->getMessages()->getErrorMessage()->value()
-                ]
+                    'error-message' => $preCommit->getMessages()->getErrorMessage()->value(),
+                ],
             ],
             'commit-msg' => [
                 'enabled' => $commitMsg->isEnabled(),
-                'regular-expression' => $commitMsg->getRegularExpression()->value()
+                'regular-expression' => $commitMsg->getRegularExpression()->value(),
+            ],
+            'pre-push' => [
+                'enabled' => $prePush->isEnabled(),
+                'process' => [
+                    'phpunit' => [
+                        'enabled' => $phpunitPrePush->isEnabled(),
+                        'random-mode' => $phpunitPrePush->getRandomMode()->value(),
+                        'options' => $phpunitPrePush->getOptions()->value()
+                    ]
+                ],
+                'messages' => [
+                    'right-message' => $prePush->getMessages()->getRightMessage()->value(),
+                    'error-message' => $prePush->getMessages()->getErrorMessage()->value()
+                ]
             ]
         ];
     }

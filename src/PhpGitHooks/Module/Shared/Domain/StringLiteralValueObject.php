@@ -10,6 +10,7 @@ abstract class StringLiteralValueObject extends AbstractValueObject
      * @param string $value
      *
      * @return bool|void
+     *
      * @throws InvalidStringException
      */
     protected function guard($value)

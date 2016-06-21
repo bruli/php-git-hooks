@@ -16,6 +16,7 @@ class PhpCsToolProcessor implements PhpCsToolProcessorInterface
 
     /**
      * PhpCsToolProcessor constructor.
+     *
      * @param ToolPathFinder $toolPathFinder
      */
     public function __construct(ToolPathFinder $toolPathFinder)

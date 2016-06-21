@@ -12,7 +12,7 @@ class PreCommitConfigurator
 {
     /**
      * @param IOInterface $io
-     * @param PreCommit $preCommit
+     * @param PreCommit   $preCommit
      *
      * @return PreCommit
      */

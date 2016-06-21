@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Module\Files\Tests\Stub;
 
 use PhpGitHooks\Module\Files\Contract\Response\JsonFilesResponse;
-use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
 
 class JsonFilesResponseStub
 {

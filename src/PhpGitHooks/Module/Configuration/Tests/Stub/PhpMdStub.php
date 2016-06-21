@@ -27,7 +27,7 @@ class PhpMdStub implements RandomStubInterface
     {
         return self::create(new Undefined(false), EnabledStub::random());
     }
-    
+
     /**
      * @return PhpMd
      */

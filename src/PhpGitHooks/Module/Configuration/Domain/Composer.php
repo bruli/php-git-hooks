@@ -45,6 +45,7 @@ class Composer implements ToolInterface
 
     /**
      * @param Enabled $enabled
+     *
      * @return Composer
      */
     public function setEnabled(Enabled $enabled)

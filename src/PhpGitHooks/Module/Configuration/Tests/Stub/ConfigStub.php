@@ -5,6 +5,7 @@ namespace PhpGitHooks\Module\Configuration\Tests\Stub;
 use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
 use PhpGitHooks\Module\Configuration\Domain\Config;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
+use PhpGitHooks\Module\Configuration\Domain\PrePush;
 use PhpGitHooks\Module\Tests\Infrastructure\Stub\RandomStubInterface;
 
 class ConfigStub implements RandomStubInterface
@@ -12,12 +13,13 @@ class ConfigStub implements RandomStubInterface
     /**
      * @param PreCommit $preCommit
      * @param CommitMsg $commitMsg
+     * @param PrePush $prePush
      *
      * @return Config
      */
-    public static function create(PreCommit $preCommit, CommitMsg $commitMsg)
+    public static function create(PreCommit $preCommit, CommitMsg $commitMsg, PrePush $prePush)
     {
-        return new Config($preCommit, $commitMsg);
+        return new Config($preCommit, $commitMsg, $prePush);
     }
 
     /**
@@ -25,7 +27,7 @@ class ConfigStub implements RandomStubInterface
      */
     public static function random()
     {
-        return self::create(PreCommitStub::random(), CommitMsgStub::random());
+        return self::create(PreCommitStub::random(), CommitMsgStub::random(), PrePushStub::random());
     }
 
     /**
@@ -33,7 +35,11 @@ class ConfigStub implements RandomStubInterface
      */
     public static function createUndefined()
     {
-        return self::create(PreCommitStub::createUndefined(), CommitMsgStub::setUndefined());
+        return self::create(
+            PreCommitStub::createUndefined(),
+            CommitMsgStub::setUndefined(),
+            PrePushStub::setUndefined()
+        );
     }
 
     /**
@@ -41,6 +47,10 @@ class ConfigStub implements RandomStubInterface
      */
     public static function createEnabled()
     {
-        return self::create(PreCommitStub::createAllEnabled(), CommitMsgStub::createEnabled());
+        return self::create(
+            PreCommitStub::createAllEnabled(),
+            CommitMsgStub::createEnabled(),
+            PrePushStub::createAllEnabled()
+        );
     }
 }

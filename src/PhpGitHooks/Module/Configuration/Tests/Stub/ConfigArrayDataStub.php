@@ -55,6 +55,20 @@ class ConfigArrayDataStub
                 'enabled' => true,
                 'regular-expression' => static::REGULAR_EXPRESSION,
             ],
+            'pre-push' => [
+                'enabled' => true,
+                'process' => [
+                    'phpunit' => [
+                        'enabled' => true,
+                        'random-mode' => true,
+                        'options' => static::PHPUNIT_OPTIONS
+                    ]
+                ],
+                'messages' => [
+                    'right-message' => static::RIGHT_MESSAGE,
+                    'error-message' => static::ERROR_MESSAGE,
+                ]
+            ]
         ];
     }
 }

@@ -27,7 +27,7 @@ class PhpUnitToolExecutor
     /**
      * PhpUnitTool constructor.
      *
-     * @param OutputInterface $output
+     * @param OutputInterface           $output
      * @param PhpUnitProcessorInterface $phpUnitProcessor
      * @param PhpUnitProcessorInterface $phpUnitRandomizerProcessor
      */
@@ -53,7 +53,6 @@ class PhpUnitToolExecutor
         $outputMessage = new PreCommitOutputWriter(self::EXECUTING_MESSAGE);
         $this->output->writeln($outputMessage->getMessage());
 
-
         $testResult = $this->executeTool($randomMode, $options);
 
         if (false === $testResult) {
@@ -64,8 +63,9 @@ class PhpUnitToolExecutor
     }
 
     /**
-     * @param bool $randomMode
+     * @param bool   $randomMode
      * @param string $options
+     *
      * @return bool
      */
     protected function executeTool($randomMode, $options)

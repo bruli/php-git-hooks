@@ -7,16 +7,16 @@ use PhpGitHooks\Module\Configuration\Domain\Messages;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Domain\Undefined;
 use PhpGitHooks\Module\Configuration\Model\ExecuteInterface;
-use PhpGitHooks\Module\Configuration\Service\ExecuteFactory;
+use PhpGitHooks\Module\Configuration\Service\PreCommitExecuteFactory;
 use PhpGitHooks\Module\Tests\Infrastructure\Stub\RandomStubInterface;
 
 class PreCommitStub implements RandomStubInterface
 {
     /**
-     * @param Undefined $undefined
-     * @param Enabled $enabled
+     * @param Undefined        $undefined
+     * @param Enabled          $enabled
      * @param ExecuteInterface $execute
-     * @param Messages $messages
+     * @param Messages         $messages
      *
      * @return PreCommit
      */
@@ -42,7 +42,7 @@ class PreCommitStub implements RandomStubInterface
         return self::create(
             new Undefined(true),
             new Enabled(false),
-            ExecuteFactory::setUndefined(),
+            PreCommitExecuteFactory::setUndefined(),
             MessagesStub::random()
         );
     }
@@ -55,7 +55,7 @@ class PreCommitStub implements RandomStubInterface
         return self::create(
             new Undefined(false),
             EnabledStub::random(),
-            ExecuteStub::create(
+            PreCommitExecuteStub::create(
                 ComposerStub::random(),
                 JsonLintStub::random(),
                 PhpLintStub::random(),
@@ -67,7 +67,7 @@ class PreCommitStub implements RandomStubInterface
             MessagesStub::random()
         );
     }
-    
+
     /**
      * @return PreCommit
      */
@@ -76,7 +76,7 @@ class PreCommitStub implements RandomStubInterface
         return self::create(
             new Undefined(false),
             EnabledStub::create(true),
-            ExecuteStub::create(
+            PreCommitExecuteStub::create(
                 ComposerStub::createEnabled(),
                 JsonLintStub::createEnabled(),
                 PhpLintStub::createEnabled(),

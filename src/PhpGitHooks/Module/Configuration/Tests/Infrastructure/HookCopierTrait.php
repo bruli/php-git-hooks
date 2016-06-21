@@ -33,4 +33,11 @@ trait HookCopierTrait
              ->shouldReceive('copyCommitMsgHook')
              ->once();
     }
+    
+    protected function shouldCopyPrePushHook()
+    {
+        $this->getHookCopier()
+             ->shouldReceive('copyPrePushHook')
+             ->once();
+    }
 }

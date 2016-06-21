@@ -5,7 +5,7 @@ namespace PhpGitHooks\Module\Configuration\Service;
 use PhpGitHooks\Module\Configuration\Domain\Execute;
 use PhpGitHooks\Module\Configuration\Model\ExecuteInterface;
 
-class ExecuteFactory
+class PreCommitExecuteFactory
 {
     /**
      * @param array $data

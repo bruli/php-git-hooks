@@ -8,6 +8,7 @@ services:
       - "@commit.msg.processor"
       - "@configuration.file.writer"
       - "@hook.copier"
+      - "@pre.push.processor"
   configuration.data.finder:
     class: PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder
     public: false
@@ -19,3 +20,6 @@ services:
     class: PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor
     public: false
     arguments: ["@console.output"]
+  pre.push.processor:
+    class: PhpGitHooks\Module\Configuration\Service\PrePushProcessor
+    public: false

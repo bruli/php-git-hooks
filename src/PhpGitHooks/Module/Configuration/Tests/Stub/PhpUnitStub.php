@@ -55,4 +55,17 @@ class PhpUnitStub implements RandomStubInterface
             PhpUnitOptionsStub::create($options)
         );
     }
+
+    /**
+     * @return PhpUnit
+     */
+    public static function setUndefined()
+    {
+        return self::create(
+            new Undefined(true),
+            EnabledStub::create(false),
+            PhpUnitRandomModeStub::create(false),
+            PhpUnitOptionsStub::create(null)
+        );
+    }
 }

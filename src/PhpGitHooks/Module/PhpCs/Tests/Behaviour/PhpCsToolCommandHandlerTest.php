@@ -76,7 +76,6 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
      */
     public function itShouldNotExecuteTool()
     {
-
         $this->shouldHandleQuery(
             new PhpFilesExtractorQuery(FilesCommittedStub::createWithoutJsonFiles()),
             PhpFilesResponseStub::create([])

@@ -52,7 +52,7 @@ class PreCommitOutputWriter
     {
         return sprintf('<error>%s</error>', trim($error));
     }
-    
+
     public function getFailMessage()
     {
         return $this->setError('Fail');

@@ -10,6 +10,7 @@ use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestC
 use PhpGitHooks\Module\Configuration\Tests\Stub\CommitMsgStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PrePushStub;
 
 class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
 {
@@ -34,7 +35,8 @@ class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
     {
         $this->shouldReadConfigurationData(ConfigStub::create(
             PreCommitStub::createAllEnabled(),
-            CommitMsgStub::createEnabled()
+            CommitMsgStub::createEnabled(),
+            PrePushStub::createAllEnabled()
         ));
 
         /** @var ConfigurationDataResponse $data */

@@ -17,7 +17,7 @@ class ConfigurationFileReader implements ConfigurationFileReaderInterface
     public function getData()
     {
         $data = true === $this->configFileExists() ? $this->getConfigData() : [];
-        
+
         return ConfigFactory::fromArray($data);
     }
 

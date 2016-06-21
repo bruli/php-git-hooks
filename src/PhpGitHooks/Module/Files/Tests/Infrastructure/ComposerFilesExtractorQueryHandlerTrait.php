@@ -27,7 +27,7 @@ trait ComposerFilesExtractorQueryHandlerTrait
 
     /**
      * @param ComposerFilesExtractorQuery $composerFilesFilesExtractorQuery
-     * @param ComposerFilesResponse            $return
+     * @param ComposerFilesResponse       $return
      */
     protected function shouldHandleComposerFilesExtractorQuery(
         ComposerFilesExtractorQuery $composerFilesFilesExtractorQuery,

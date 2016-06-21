@@ -16,6 +16,7 @@ class PhpUnitToolCommandHandler implements CommandHandlerInterface
 
     /**
      * PhpUnitToolCommandHandler constructor.
+     *
      * @param PhpUnitToolExecutor $phpUnitToolExecutor
      */
     public function __construct(PhpUnitToolExecutor $phpUnitToolExecutor)

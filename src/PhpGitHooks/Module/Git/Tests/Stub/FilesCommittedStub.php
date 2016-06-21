@@ -32,7 +32,7 @@ class FilesCommittedStub
                 '/path1/path2/file2.php',
                 '/path1/path2/file3.php',
                 'file2.inc',
-                'file3.inc'
+                'file3.inc',
             ]
         );
     }
@@ -51,7 +51,7 @@ class FilesCommittedStub
                 '/path1/path2/file2.php',
                 '/path1/path2/file3.php',
                 'file1.json',
-                'file2.json'
+                'file2.json',
             ]
         );
     }
@@ -65,7 +65,7 @@ class FilesCommittedStub
                 $generator->sha1,
                 '/path1/path2/file1.php',
                 '/path1/path2/file2.php',
-                '/path1/path2/file3.php'
+                '/path1/path2/file3.php',
             ]
         );
     }
@@ -77,7 +77,7 @@ class FilesCommittedStub
     {
         $files = [
             StubCreator::faker()->sha1,
-            'composer.lock'
+            'composer.lock',
         ];
 
         return self::create($files);
@@ -92,7 +92,7 @@ class FilesCommittedStub
             StubCreator::faker()->sha1,
             'composer.json',
             'composer.lock',
-            'file1.json'
+            'file1.json',
         ];
 
         return self::create($files);
@@ -109,7 +109,7 @@ class FilesCommittedStub
             '/path1/path2/file2.php',
             '/path1/path2/file3.php',
             'file2.inc',
-            'file3.inc'
+            'file3.inc',
         ];
 
         return self::create($files);

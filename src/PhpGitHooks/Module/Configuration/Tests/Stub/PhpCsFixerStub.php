@@ -29,7 +29,7 @@ class PhpCsFixerStub implements RandomStubInterface
     {
         return self::create(new Undefined(false), EnabledStub::random(), PhpCsFixerLevelsStub::random());
     }
-    
+
     /**
      * @return PhpCsFixer
      */

@@ -15,17 +15,23 @@ class Config
      * @var ToolInterface
      */
     private $commitMsg;
+    /**
+     * @var HookInterface
+     */
+    private $prePush;
 
     /**
      * Config constructor.
      *
      * @param HookInterface $preCommit
      * @param ToolInterface $commitMsg
+     * @param HookInterface $prePush
      */
-    public function __construct(HookInterface $preCommit, ToolInterface $commitMsg)
+    public function __construct(HookInterface $preCommit, ToolInterface $commitMsg, HookInterface $prePush)
     {
         $this->preCommit = $preCommit;
         $this->commitMsg = $commitMsg;
+        $this->prePush = $prePush;
     }
 
     /**
@@ -42,5 +48,13 @@ class Config
     public function getCommitMsg()
     {
         return $this->commitMsg;
+    }
+
+    /**
+     * @return HookInterface
+     */
+    public function getPrePush()
+    {
+        return $this->prePush;
     }
 }

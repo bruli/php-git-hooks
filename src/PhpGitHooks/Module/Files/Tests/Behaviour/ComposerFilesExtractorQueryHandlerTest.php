@@ -16,7 +16,7 @@ class ComposerFilesExtractorQueryHandlerTest extends FilesUnitTestCase
     public function itShouldReturnArrayComposerFilesResponse()
     {
         $files = FilesCommittedStub::createAllFiles();
-        
+
         $composerFilesExtractorQueryHandler = new ComposerFilesExtractorQueryHandler(new ComposerFilesExtractor());
         $composerFilesResponse = $composerFilesExtractorQueryHandler->handle(new ComposerFilesExtractorQuery($files));
 

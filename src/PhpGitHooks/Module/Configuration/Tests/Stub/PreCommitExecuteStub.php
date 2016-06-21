@@ -11,7 +11,7 @@ use PhpGitHooks\Module\Configuration\Domain\PhpLint;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 
-class ExecuteStub
+class PreCommitExecuteStub
 {
     /**
      * @param Composer   $composer

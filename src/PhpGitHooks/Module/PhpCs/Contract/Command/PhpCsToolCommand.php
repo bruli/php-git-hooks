@@ -22,7 +22,7 @@ class PhpCsToolCommand implements CommandInterface
     /**
      * PhpCsToolCommand constructor.
      *
-     * @param array $files
+     * @param array  $files
      * @param string $standard
      * @param string $errorMessage
      */
@@ -40,7 +40,7 @@ class PhpCsToolCommand implements CommandInterface
     {
         return $this->errorMessage;
     }
-    
+
     /**
      * @return array
      */

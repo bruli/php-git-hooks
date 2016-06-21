@@ -47,11 +47,11 @@ class PreCommitTool
      * PreCommitTool constructor.
      *
      *
-     * @param OutputInterface $output
+     * @param OutputInterface         $output
      * @param FilesCommittedExtractor $filesCommittedExtractor
-     * @param QueryBus $queryBus
-     * @param CommandBus $commandBus
-     * @param ToolTittleOutputWriter $tittleOutputWriter
+     * @param QueryBus                $queryBus
+     * @param CommandBus              $commandBus
+     * @param ToolTittleOutputWriter  $tittleOutputWriter
      */
     public function __construct(
         OutputInterface $output,
@@ -90,7 +90,7 @@ class PreCommitTool
 
     /**
      * @param ConfigurationDataResponse $configurationData
-     * @param array $committedFiles
+     * @param array                     $committedFiles
      */
     private function executeTools(ConfigurationDataResponse $configurationData, array $committedFiles)
     {

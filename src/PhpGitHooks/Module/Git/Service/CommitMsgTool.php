@@ -28,8 +28,8 @@ class CommitMsgTool
     /**
      * CommitMsgTool constructor.
      *
-     * @param MergeValidatorInterface $mergeValidator
-     * @param QueryBus $queryBus
+     * @param MergeValidatorInterface      $mergeValidator
+     * @param QueryBus                     $queryBus
      * @param CommitMessageFinderInterface $commitMessageFinder
      */
     public function __construct(
@@ -54,7 +54,7 @@ class CommitMsgTool
 
         if (true === $configurationDataResponse->isCommitMsg()) {
             $commitContent = $this->commitMessageFinder->find($input->getFirstArgument());
-            
+
             $validMessage = $this->isValidCommitMessage(
                 $configurationDataResponse->getRegularExpression(),
                 $commitContent
