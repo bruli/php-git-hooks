@@ -10,6 +10,7 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
+use PhpGitHooks\Module\Configuration\Domain\PrePush;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
 
 class ConfigurationDataFinder implements QueryInterface
@@ -46,6 +47,9 @@ class ConfigurationDataFinder implements QueryInterface
         /** @var CommitMsg $commitMsg */
         $commitMsg = $data->getCommitMsg();
         $tools = $preCommit->getExecute()->execute();
+        /** @var PrePush $prePush */
+        $prePush = $data->getPrePush();
+        $prePushTools = $prePush->getExecute()->execute();
 
         $composer = $tools[0];
         $jsonLint = $tools[1];
@@ -57,6 +61,8 @@ class ConfigurationDataFinder implements QueryInterface
         $phpCsFixer = $tools[5];
         /** @var PhpUnit $phpUnit */
         $phpUnit = $tools[6];
+        /** @var PhpUnit $prePushPhpUnit */
+        $prePushPhpUnit = $prePushTools[0];
 
         return new ConfigurationDataResponse(
             $preCommit->isEnabled(),
@@ -77,7 +83,13 @@ class ConfigurationDataFinder implements QueryInterface
             $phpUnit->getRandomMode()->value(),
             $phpUnit->getOptions()->value(),
             $commitMsg->isEnabled(),
-            $commitMsg->getRegularExpression()->value()
+            $commitMsg->getRegularExpression()->value(),
+            $prePush->isEnabled(),
+            $prePushPhpUnit->isEnabled(),
+            $prePushPhpUnit->getRandomMode()->value(),
+            $prePushPhpUnit->getOptions()->value(),
+            $prePush->getMessages()->getRightMessage()->value(),
+            $prePush->getMessages()->getErrorMessage()->value()
         );
     }
 }

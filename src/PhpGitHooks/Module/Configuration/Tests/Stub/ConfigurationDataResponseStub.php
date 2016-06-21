@@ -31,6 +31,12 @@ final class ConfigurationDataResponseStub
      * @param string|null $phpunitOptions
      * @param bool        $commitMsg
      * @param string|null $regularExpression
+     * @param bool        $prePush
+     * @param bool        $prePushPhpUnit
+     * @param bool        $prePushPhpUnitRandom
+     * @param string|null $prePushPhpUnitOptions
+     * @param string      $prePushRightMessage
+     * @param string      $prePushErrorMessage
      *
      * @return ConfigurationDataResponse
      */
@@ -53,7 +59,13 @@ final class ConfigurationDataResponseStub
         $phpunitRandomMode,
         $phpunitOptions,
         $commitMsg,
-        $regularExpression
+        $regularExpression,
+        $prePush,
+        $prePushPhpUnit,
+        $prePushPhpUnitRandom,
+        $prePushPhpUnitOptions,
+        $prePushRightMessage,
+        $prePushErrorMessage
     ) {
         return new ConfigurationDataResponse(
             $preCommit,
@@ -74,7 +86,13 @@ final class ConfigurationDataResponseStub
             $phpunitRandomMode,
             $phpunitOptions,
             $commitMsg,
-            $regularExpression
+            $regularExpression,
+            $prePush,
+            $prePushPhpUnit,
+            $prePushPhpUnitRandom,
+            $prePushPhpUnitOptions,
+            $prePushRightMessage,
+            $prePushErrorMessage
         );
     }
 
@@ -104,17 +122,24 @@ final class ConfigurationDataResponseStub
             $bool,
             null,
             $bool,
-            null
+            null,
+            $bool,
+            $bool,
+            $bool,
+            null,
+            static::GOOD_JOB,
+            static::FIX_YOUR_CODE
         );
     }
 
     /**
      * @param bool $preCommit
      * @param bool $commitMsg
+     * @param bool $prePush
      *
      * @return ConfigurationDataResponse
      */
-    public static function createCustom($preCommit, $commitMsg)
+    public static function createCustom($preCommit, $commitMsg, $prePush)
     {
         return static::create(
             $preCommit,
@@ -135,7 +160,13 @@ final class ConfigurationDataResponseStub
             $preCommit,
             null,
             $commitMsg,
-            HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER
+            HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER,
+            $prePush,
+            $prePush,
+            $prePush,
+            null,
+            null,
+            null
         );
     }
 }

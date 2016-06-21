@@ -80,6 +80,24 @@ class ConfigurationDataResponse
      * @var null|string
      */
     private $errorMessage;
+    /**
+     * @var bool
+     */
+    private $prePush;
+    /**
+     * @var bool
+     */
+    private $prePushPhpUnit;
+    /**
+     * @var bool
+     */
+    private $prePushPhpUnitRandom;
+    /**
+     * @var null|string
+     */
+    private $prePushPhpUnitOptions;
+    private $prePushRightMessage;
+    private $prePushErrorMessage;
 
     /**
      * ConfigurationDataResponse constructor.
@@ -103,6 +121,12 @@ class ConfigurationDataResponse
      * @param string|null $phpunitOptions
      * @param bool        $commitMsg
      * @param string|null $regularExpression
+     * @param bool        $prePush
+     * @param bool        $prePushPhpUnit
+     * @param bool        $prePushPhpUnitRandom
+     * @param string|null $prePushPhpUnitOptions
+     * @param string      $prePushRightMessage
+     * @param string      $prePushErrorMessage
      */
     public function __construct(
         $preCommit,
@@ -123,7 +147,13 @@ class ConfigurationDataResponse
         $phpunitRandomMode,
         $phpunitOptions,
         $commitMsg,
-        $regularExpression
+        $regularExpression,
+        $prePush,
+        $prePushPhpUnit,
+        $prePushPhpUnitRandom,
+        $prePushPhpUnitOptions,
+        $prePushRightMessage,
+        $prePushErrorMessage
     ) {
         $this->composer = $composer;
         $this->jsonLint = $jsonLint;
@@ -144,6 +174,12 @@ class ConfigurationDataResponse
         $this->regularExpression = $regularExpression;
         $this->rightMessage = $rightMessage;
         $this->errorMessage = $errorMessage;
+        $this->prePush = $prePush;
+        $this->prePushPhpUnit = $prePushPhpUnit;
+        $this->prePushPhpUnitRandom = $prePushPhpUnitRandom;
+        $this->prePushPhpUnitOptions = $prePushPhpUnitOptions;
+        $this->prePushRightMessage = $prePushRightMessage;
+        $this->prePushErrorMessage = $prePushErrorMessage;
     }
 
     /**
@@ -296,5 +332,53 @@ class ConfigurationDataResponse
     public function getRegularExpression()
     {
         return $this->regularExpression;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrePush()
+    {
+        return $this->prePush;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrePushPhpUnit()
+    {
+        return $this->prePushPhpUnit;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrePushPhpUnitRandom()
+    {
+        return $this->prePushPhpUnitRandom;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPrePushPhpUnitOptions()
+    {
+        return $this->prePushPhpUnitOptions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrePushRightMessage()
+    {
+        return $this->prePushRightMessage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrePushErrorMessage()
+    {
+        return $this->prePushErrorMessage;
     }
 }

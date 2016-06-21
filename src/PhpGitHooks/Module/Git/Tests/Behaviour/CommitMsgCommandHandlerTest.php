@@ -33,7 +33,7 @@ class CommitMsgCommandHandlerTest extends GitUnitTestCase
      */
     public function itShouldNotExecuteTool()
     {
-        $configurationDataResponse = ConfigurationDataResponseStub::createCustom(true, false);
+        $configurationDataResponse = ConfigurationDataResponseStub::createCustom(true, false, false);
 
         $this->shouldHandleQuery(new ConfigurationDataFinderQuery(), $configurationDataResponse);
 
@@ -47,7 +47,7 @@ class CommitMsgCommandHandlerTest extends GitUnitTestCase
     {
         $this->expectException(InvalidCommitMessageException::class);
 
-        $configurationDataResponse = ConfigurationDataResponseStub::createCustom(true, true);
+        $configurationDataResponse = ConfigurationDataResponseStub::createCustom(true, true, true);
 
         $this->shouldHandleQuery(new ConfigurationDataFinderQuery(), $configurationDataResponse);
         $this->shouldGetInputFirstArgument('file');

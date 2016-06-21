@@ -16,4 +16,5 @@ abstract class GitUnitTestCase extends \PHPUnit_Framework_TestCase
     use MergeValidatorTrait;
     use CommitMessageFinderTrait;
     use InputInterfaceTrait;
+    use PrePushOriginalExecutorTrait;
 }
