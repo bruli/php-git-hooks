@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PrePushTool
 {
-    const PRE_PUSH_HOOK = 'Pre-push hook';
+    const PRE_PUSH_HOOK = '<comment>Pre-push hook</comment>';
     /**
      * @var QueryBus
      */
