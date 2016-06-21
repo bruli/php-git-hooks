@@ -25,13 +25,13 @@ class PrePush extends Application
     {
         var_export($remote);
         var_export($url);
-        die;
         $this->container = new AppKernel();
         parent::__construct('pre-push');
     }
 
     public function doRun(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln('pre-push executing');
         
     }
 

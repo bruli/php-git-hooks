@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-use PhpGitHooks\Infrastructure\Hook\PrePUsh;
+use PhpGitHooks\Infrastructure\Hook\PrePush;
 
 require __DIR__.'/../../vendor/autoload.php';
 
