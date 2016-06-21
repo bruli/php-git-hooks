@@ -1,1 +1,9 @@
-hola
+#!/usr/bin/php
+<?php
+
+use PhpGitHooks\Infrastructure\Hook\PrePUsh;
+
+require __DIR__.'/../../vendor/autoload.php';
+
+$hook = new PrePush($argv[1], $argv[2]);
+$hook->run();

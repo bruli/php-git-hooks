@@ -21,6 +21,7 @@ class HookCopier
     public function copyPrePushHook()
     {
         $this->copyHookFile('pre-push');
+        $this->copyHookFile('pre-push-original');
     }
 
     /**
