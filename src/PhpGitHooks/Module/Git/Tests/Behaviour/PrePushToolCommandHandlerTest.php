@@ -79,7 +79,7 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
             $configurationDataResponse
         );
         $this->shouldWriteLnOutput(PrePushTool::PRE_PUSH_HOOK);
-        $this->shouldExecutePrePushOriginal($this->remote, $this->url, null);
+        $this->shouldExecutePrePushOriginal($this->remote, $this->url, '');
         $this->shouldHandleCommand(
             new PhpUnitToolCommand(
                 $configurationDataResponse->isPrePushPhpUnitRandom(),

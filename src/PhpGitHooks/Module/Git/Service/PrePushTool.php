@@ -92,10 +92,10 @@ class PrePushTool
     private function executeOriginalHook($remote, $url, $errorMessage)
     {
         $response = $this->prePushOriginalExecutor->execute($remote, $url);
-
-        if (null !== $response) {
+        
+        if (null != $response) {
             $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
-
+            
             throw new InvalidPushException();
         }
     }
