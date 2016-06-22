@@ -114,6 +114,9 @@ pre-push:
         enabled:     true
         random-mode: true
         options:     '--testsuite default'
+    message:
+      right-message: 'HEY, GOOD JOB!!'
+      error-message: 'FIX YOUR CODE!!'
 ```
 
 ... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.

@@ -61,7 +61,7 @@ class ConfigurationArrayTransformer
                         'options' => $phpunit->getOptions()->value(),
                     ],
                 ],
-                'messages' => [
+                'message' => [
                     'right-message' => $preCommit->getMessages()->getRightMessage()->value(),
                     'error-message' => $preCommit->getMessages()->getErrorMessage()->value(),
                 ],
@@ -79,7 +79,7 @@ class ConfigurationArrayTransformer
                         'options' => $phpunitPrePush->getOptions()->value()
                     ]
                 ],
-                'messages' => [
+                'message' => [
                     'right-message' => $prePush->getMessages()->getRightMessage()->value(),
                     'error-message' => $prePush->getMessages()->getErrorMessage()->value()
                 ]

@@ -46,7 +46,7 @@ class ConfigArrayDataStub
                         'options' => static::PHPUNIT_OPTIONS,
                     ],
                 ],
-                'messages' => [
+                'message' => [
                     'right-message' => static::RIGHT_MESSAGE,
                     'error-message' => static::ERROR_MESSAGE,
                 ],
@@ -64,7 +64,7 @@ class ConfigArrayDataStub
                         'options' => static::PHPUNIT_OPTIONS
                     ]
                 ],
-                'messages' => [
+                'message' => [
                     'right-message' => static::RIGHT_MESSAGE,
                     'error-message' => static::ERROR_MESSAGE,
                 ]
