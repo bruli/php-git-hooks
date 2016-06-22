@@ -5,7 +5,7 @@ php-git-hooks
 [![Code Coverage](https://scrutinizer-ci.com/g/bruli/php-git-hooks/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/bruli/php-git-hooks/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/bruli/php-git-hooks/v/stable.svg)](https://packagist.org/packages/bruli/php-git-hooks) [![Total Downloads](https://poser.pugx.org/bruli/php-git-hooks/downloads)](https://packagist.org/packages/bruli/php-git-hooks) [![Latest Unstable Version](https://poser.pugx.org/bruli/php-git-hooks/v/unstable.svg)](https://packagist.org/packages/bruli/php-git-hooks) [![License](https://poser.pugx.org/bruli/php-git-hooks/license.svg)](https://packagist.org/packages/bruli/php-git-hooks)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/584eb4ce-7de2-4bb0-9728-5e8be8e4ca3f/mini.png)](https://insight.sensiolabs.com/projects/584eb4ce-7de2-4bb0-9728-5e8be8e4ca3f)
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/brulics)
+[![Donate button](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/brulics)
 Git hooks for PHP projects.
 
 Library based in git hook scripts for PHP projects.
@@ -50,19 +50,19 @@ First, you will need to add the following lines to your `composer.json`
 ```json
 "scripts": {
     "post-install-cmd": [
-      "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
+      "PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
     ],
     "post-update-cmd": [
-      "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig"
+      "PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
     ]
 }
 ```
 
+**WARNING:** "PhpGitHooks\\Application\\Composer\\ConfiguratorScript::buildConfig" is deprecated. You need change by current entry.
+
 Then, launch `$ composer install` and composer should ask you about configuration
 
 <img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/composer-config.png" />
-
-**Important:** To use 2.X version you need symfony 2.7 version.
 
 ### Bin directory configuration.
 
@@ -94,7 +94,7 @@ pre-commit:
     phpunit:
         enabled:     true
         random-mode: true
-        options:     '--testsuite default'
+        options:     '<some options>'
     phplint:         true
     phpcs:
         enabled:     true
@@ -113,20 +113,13 @@ pre-push:
       phpunit:
         enabled:     true
         random-mode: true
-        options:     '--testsuite default'
+        options:     '<some options>'
     message:
       right-message: 'HEY, GOOD JOB!!'
       error-message: 'FIX YOUR CODE!!'
 ```
 
 ... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.
-
-### Update from v1.3.*
-
-Php-cs-fixer configuration in php-git-hooks.yml file, is not compatible with 2.0 version.
-You should remove php-cs-fixer entry and execute "composer install".
-
-Most easy way to update is delete php-git-hooks.yml and execute "composer install". You will see all the configuration questions again.
 
 ### Config file for phpunit.
 
@@ -146,13 +139,19 @@ The most easy way to enable hook is copy hook file into your .git/hooks director
 You can enable this hooks with composer or manually executing
 
 ```bash
-$ cp vendor/bruli/php-git-hooks/hooks/pre-commit .git/hooks
+$ cp vendor/bruli/php-git-hooks/src/PhpGitHooks/Infrastructure/Hook/pre-commit .git/hooks
 ```
 
 #For commit-msg hook:
 
 ```bash
-$ cp vendor/bruli/php-git-hooks/hooks/commit-msg .git/hooks
+$ cp vendor/bruli/php-git-hooks/src/PhpGitHooks/Infrastructure/Hook/commit-msg .git/hooks
+```
+
+#For pre-push hook:
+
+```bash
+$ cp vendor/bruli/php-git-hooks/src/PhpGitHooks/Infrastructure/Hook/pre-push .git/hooks
 ```
 
 ### execute.
