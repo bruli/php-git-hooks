@@ -32,7 +32,7 @@ class PrePushFactory
             new Undefined(false),
             new Enabled($data['enabled']),
             PrePushExecuteFactory::fromArray($data['execute']),
-            isset($data['messages']) ? MessagesFactory::fromArray($data['messages']) : MessagesFactory::setUndefined()
+            isset($data['message']) ? MessagesFactory::fromArray($data['message']) : MessagesFactory::setUndefined()
         );
     }
 }
