@@ -8,4 +8,5 @@ class PhpUnitUnitTestCase extends \PHPUnit_Framework_TestCase
 {
     use OutputInterfaceTrait;
     use PhpUnitProcessorTrait;
+    use StrictCoverageProcessorTrait;
 }

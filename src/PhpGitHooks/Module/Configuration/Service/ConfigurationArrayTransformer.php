@@ -64,6 +64,10 @@ class ConfigurationArrayTransformer
                         'enabled' => $phpunit->isEnabled(),
                         'random-mode' => $phpunit->getRandomMode()->value(),
                         'options' => $phpunit->getOptions()->value(),
+                        'strict-coverage' => [
+                            'enabled' => $phpunit->getStrictCoverage()->isEnabled(),
+                            'minimum' => $phpunit->getStrictCoverage()->getMinimumStrictCoverage()->value()
+                        ]
                     ],
                 ],
                 'message' => [
@@ -81,7 +85,11 @@ class ConfigurationArrayTransformer
                     'phpunit' => [
                         'enabled' => $phpunitPrePush->isEnabled(),
                         'random-mode' => $phpunitPrePush->getRandomMode()->value(),
-                        'options' => $phpunitPrePush->getOptions()->value()
+                        'options' => $phpunitPrePush->getOptions()->value(),
+                        'strict-coverage' =>  [
+                            'enabled' => $phpunit->getStrictCoverage()->isEnabled(),
+                            'minimum' => $phpunit->getStrictCoverage()->getMinimumStrictCoverage()->value()
+                        ]
                     ]
                 ],
                 'message' => [

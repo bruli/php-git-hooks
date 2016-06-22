@@ -6,6 +6,7 @@ use PhpGitHooks\Module\Configuration\Domain\Enabled;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitOptions;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitRandomMode;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\Undefined;
 
 class PhpUnitFactory
@@ -21,7 +22,8 @@ class PhpUnitFactory
             new Undefined(false),
             new Enabled($data['enabled']),
             new PhpUnitRandomMode($data['random-mode']),
-            new PhpUnitOptions($data['options'])
+            new PhpUnitOptions($data['options']),
+            PhpUnitStrictCoverageFactory::fromArray($data['strict-coverage'])
         );
     }
 
@@ -34,7 +36,8 @@ class PhpUnitFactory
             new Undefined(true),
             new Enabled(false),
             new PhpUnitRandomMode(false),
-            new PhpUnitOptions(null)
+            new PhpUnitOptions(null),
+            PhpUnitStrictCoverageFactory::setUndefined()
         );
     }
 }

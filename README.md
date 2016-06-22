@@ -95,11 +95,16 @@ pre-commit:
         enabled:     true
         random-mode: true
         options:     '<some options>'
+        strict-coverage:
+             enabled:       true
+             minimum:       90
     phplint:         true
     phpcs:
         enabled:     true
         standard:    PSR2
-    phpmd:           true
+    phpmd:
+        enabled:     true
+        options:     '<some options>'
     composer:        true
   message:
     right-message: 'HEY, GOOD JOB!!'

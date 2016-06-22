@@ -10,6 +10,7 @@ class ConfigArrayDataStub
     const REGULAR_EXPRESSION = '#[0-9]{2,7}';
     const ERROR_MESSAGE = 'fix your code';
     const PHPMD_OPTIONS = '--minimumpriority 1';
+    const MINIMUM_COVERAGE = 90.00;
 
     /**
      * @return array
@@ -44,6 +45,10 @@ class ConfigArrayDataStub
                         'enabled' => true,
                         'random-mode' => true,
                         'options' => static::PHPUNIT_OPTIONS,
+                        'strict-coverage' => [
+                            'enabled' => true,
+                            'minimum' => self::MINIMUM_COVERAGE
+                        ]
                     ],
                 ],
                 'message' => [
@@ -61,7 +66,11 @@ class ConfigArrayDataStub
                     'phpunit' => [
                         'enabled' => true,
                         'random-mode' => true,
-                        'options' => static::PHPUNIT_OPTIONS
+                        'options' => static::PHPUNIT_OPTIONS,
+                        'strict-coverage' => [
+                            'enabled' => true,
+                            'minimum' => self::MINIMUM_COVERAGE
+                        ]
                     ]
                 ],
                 'message' => [

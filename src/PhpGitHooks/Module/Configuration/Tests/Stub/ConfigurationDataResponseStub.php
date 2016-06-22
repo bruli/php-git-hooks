@@ -10,6 +10,7 @@ final class ConfigurationDataResponseStub
     const PHPCS_STANDARD = 'PSR2';
     const FIX_YOUR_CODE = 'Fix your code';
     const GOOD_JOB = 'Good job';
+    const MINIMUM_COVERAGE = 100.00;
 
     /**
      * @param bool $preCommit
@@ -30,6 +31,8 @@ final class ConfigurationDataResponseStub
      * @param bool $phpunit
      * @param bool $phpunitRandomMode
      * @param string|null $phpunitOptions
+     * @param bool $phpunitStrictCoverage
+     * @param float $phpunitMinimumCoverage
      * @param bool $commitMsg
      * @param string|null $regularExpression
      * @param bool $prePush
@@ -59,6 +62,8 @@ final class ConfigurationDataResponseStub
         $phpunit,
         $phpunitRandomMode,
         $phpunitOptions,
+        $phpunitStrictCoverage,
+        $phpunitMinimumCoverage,
         $commitMsg,
         $regularExpression,
         $prePush,
@@ -87,6 +92,8 @@ final class ConfigurationDataResponseStub
             $phpunit,
             $phpunitRandomMode,
             $phpunitOptions,
+            $phpunitStrictCoverage,
+            $phpunitMinimumCoverage,
             $commitMsg,
             $regularExpression,
             $prePush,
@@ -124,6 +131,8 @@ final class ConfigurationDataResponseStub
             $bool,
             $bool,
             null,
+            $bool,
+            self::MINIMUM_COVERAGE,
             $bool,
             null,
             $bool,
@@ -163,6 +172,8 @@ final class ConfigurationDataResponseStub
             $preCommit,
             $preCommit,
             null,
+            $preCommit,
+            static::MINIMUM_COVERAGE,
             $commitMsg,
             HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER,
             $prePush,

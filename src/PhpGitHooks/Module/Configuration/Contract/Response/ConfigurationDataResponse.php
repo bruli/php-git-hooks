@@ -102,36 +102,46 @@ class ConfigurationDataResponse
      * @var null|string
      */
     private $phpMdOptions;
+    /**
+     * @var bool
+     */
+    private $phpunitStrictCoverage;
+    /**
+     * @var float
+     */
+    private $minimum;
 
     /**
      * ConfigurationDataResponse constructor.
      *
-     * @param bool $preCommit
+     * @param bool        $preCommit
      * @param string|null $rightMessage
      * @param string|null $errorMessage
-     * @param bool $composer
-     * @param bool $jsonLint
-     * @param bool $phpLint
-     * @param bool $phpMd
+     * @param bool        $composer
+     * @param bool        $jsonLint
+     * @param bool        $phpLint
+     * @param bool        $phpMd
      * @param string|null $phpMdOptions
-     * @param bool $phpCs
+     * @param bool        $phpCs
      * @param string|null $phpCsStandard
-     * @param bool $phpCsFixer
-     * @param bool $phpCsFixerPsr0
-     * @param bool $phpCsFixerPsr1
-     * @param bool $phpCsFixerPsr2
-     * @param bool $phpCsFixerSymfony
-     * @param bool $phpunit
-     * @param bool $phpunitRandomMode
+     * @param bool        $phpCsFixer
+     * @param bool        $phpCsFixerPsr0
+     * @param bool        $phpCsFixerPsr1
+     * @param bool        $phpCsFixerPsr2
+     * @param bool        $phpCsFixerSymfony
+     * @param bool        $phpunit
+     * @param bool        $phpunitRandomMode
      * @param string|null $phpunitOptions
-     * @param bool $commitMsg
+     * @param bool        $phpunitStrictCoverage
+     * @param float       $minimum
+     * @param bool        $commitMsg
      * @param string|null $regularExpression
-     * @param bool $prePush
-     * @param bool $prePushPhpUnit
-     * @param bool $prePushPhpUnitRandom
+     * @param bool        $prePush
+     * @param bool        $prePushPhpUnit
+     * @param bool        $prePushPhpUnitRandom
      * @param string|null $prePushPhpUnitOptions
-     * @param string $prePushRightMessage
-     * @param string $prePushErrorMessage
+     * @param string      $prePushRightMessage
+     * @param string      $prePushErrorMessage
      */
     public function __construct(
         $preCommit,
@@ -152,6 +162,8 @@ class ConfigurationDataResponse
         $phpunit,
         $phpunitRandomMode,
         $phpunitOptions,
+        $phpunitStrictCoverage,
+        $minimum,
         $commitMsg,
         $regularExpression,
         $prePush,
@@ -187,6 +199,8 @@ class ConfigurationDataResponse
         $this->prePushRightMessage = $prePushRightMessage;
         $this->prePushErrorMessage = $prePushErrorMessage;
         $this->phpMdOptions = $phpMdOptions;
+        $this->phpunitStrictCoverage = $phpunitStrictCoverage;
+        $this->minimum = $minimum;
     }
 
     /**
@@ -395,5 +409,21 @@ class ConfigurationDataResponse
     public function getPhpMdOptions()
     {
         return $this->phpMdOptions;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPhpunitStrictCoverage()
+    {
+        return $this->phpunitStrictCoverage;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMinimum()
+    {
+        return $this->minimum;
     }
 }

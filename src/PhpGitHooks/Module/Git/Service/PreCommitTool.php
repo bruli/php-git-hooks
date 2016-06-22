@@ -154,5 +154,9 @@ class PreCommitTool
                 )
             );
         }
+        
+        if (true === $configurationData->isPhpunitStrictCoverage()) {
+            //TODO, llamar al command para coverage.
+        }
     }
 }

@@ -85,6 +85,8 @@ class ConfigurationDataFinder implements QueryInterface
             $phpUnit->isEnabled(),
             $phpUnit->getRandomMode()->value(),
             $phpUnit->getOptions()->value(),
+            $phpUnit->getStrictCoverage()->isEnabled(),
+            $phpUnit->getStrictCoverage()->getMinimumStrictCoverage()->value(),
             $commitMsg->isEnabled(),
             $commitMsg->getRegularExpression()->value(),
             $prePush->isEnabled(),
