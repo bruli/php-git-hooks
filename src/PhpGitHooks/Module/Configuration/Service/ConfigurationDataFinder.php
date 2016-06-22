@@ -8,6 +8,7 @@ use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
 use PhpGitHooks\Module\Configuration\Domain\Config;
 use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
+use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Domain\PrePush;
@@ -54,6 +55,7 @@ class ConfigurationDataFinder implements QueryInterface
         $composer = $tools[0];
         $jsonLint = $tools[1];
         $phpLint = $tools[2];
+        /** @var PhpMd $phpMd */
         $phpMd = $tools[3];
         /** @var PhpCs $phpCs */
         $phpCs = $tools[4];
@@ -72,6 +74,7 @@ class ConfigurationDataFinder implements QueryInterface
             $jsonLint->isEnabled(),
             $phpLint->isEnabled(),
             $phpMd->isEnabled(),
+            $phpMd->getOptions()->value(),
             $phpCs->isEnabled(),
             $phpCs->getStandard()->value(),
             $phpCsFixer->isEnabled(),

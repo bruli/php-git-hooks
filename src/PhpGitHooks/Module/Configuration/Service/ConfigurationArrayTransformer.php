@@ -5,6 +5,7 @@ namespace PhpGitHooks\Module\Configuration\Service;
 use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
 use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
+use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Domain\PrePush;
@@ -24,6 +25,7 @@ class ConfigurationArrayTransformer
         $composer = $tools[0];
         $jsonLint = $tools[1];
         $phpLint = $tools[2];
+        /** @var PhpMd $phpMd */
         $phpMd = $tools[3];
         /** @var PhpCs $phpCs */
         $phpCs = $tools[4];
@@ -41,7 +43,10 @@ class ConfigurationArrayTransformer
                     'composer' => $composer->isEnabled(),
                     'jsonlint' => $jsonLint->isEnabled(),
                     'phplint' => $phpLint->isEnabled(),
-                    'phpmd' => $phpMd->isEnabled(),
+                    'phpmd' => [
+                        'enabled' => $phpMd->isEnabled(),
+                        'options' => $phpMd->getOptions()->value()
+                    ],
                     'phpcs' => [
                         'enabled' => $phpCs->isEnabled(),
                         'standard' => $phpCs->getStandard()->value(),

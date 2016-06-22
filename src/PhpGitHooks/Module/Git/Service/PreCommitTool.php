@@ -139,6 +139,7 @@ class PreCommitTool
             $this->commandBus->handle(
                 new PhpMdToolCommand(
                     $committedFiles,
+                    $configurationData->getPhpMdOptions(),
                     $configurationData->getErrorMessage()
                 )
             );

@@ -98,35 +98,40 @@ class ConfigurationDataResponse
     private $prePushPhpUnitOptions;
     private $prePushRightMessage;
     private $prePushErrorMessage;
+    /**
+     * @var null|string
+     */
+    private $phpMdOptions;
 
     /**
      * ConfigurationDataResponse constructor.
      *
-     * @param bool        $preCommit
+     * @param bool $preCommit
      * @param string|null $rightMessage
      * @param string|null $errorMessage
-     * @param bool        $composer
-     * @param bool        $jsonLint
-     * @param bool        $phpLint
-     * @param bool        $phpMd
-     * @param bool        $phpCs
+     * @param bool $composer
+     * @param bool $jsonLint
+     * @param bool $phpLint
+     * @param bool $phpMd
+     * @param string|null $phpMdOptions
+     * @param bool $phpCs
      * @param string|null $phpCsStandard
-     * @param bool        $phpCsFixer
-     * @param bool        $phpCsFixerPsr0
-     * @param bool        $phpCsFixerPsr1
-     * @param bool        $phpCsFixerPsr2
-     * @param bool        $phpCsFixerSymfony
-     * @param bool        $phpunit
-     * @param bool        $phpunitRandomMode
+     * @param bool $phpCsFixer
+     * @param bool $phpCsFixerPsr0
+     * @param bool $phpCsFixerPsr1
+     * @param bool $phpCsFixerPsr2
+     * @param bool $phpCsFixerSymfony
+     * @param bool $phpunit
+     * @param bool $phpunitRandomMode
      * @param string|null $phpunitOptions
-     * @param bool        $commitMsg
+     * @param bool $commitMsg
      * @param string|null $regularExpression
-     * @param bool        $prePush
-     * @param bool        $prePushPhpUnit
-     * @param bool        $prePushPhpUnitRandom
+     * @param bool $prePush
+     * @param bool $prePushPhpUnit
+     * @param bool $prePushPhpUnitRandom
      * @param string|null $prePushPhpUnitOptions
-     * @param string      $prePushRightMessage
-     * @param string      $prePushErrorMessage
+     * @param string $prePushRightMessage
+     * @param string $prePushErrorMessage
      */
     public function __construct(
         $preCommit,
@@ -136,6 +141,7 @@ class ConfigurationDataResponse
         $jsonLint,
         $phpLint,
         $phpMd,
+        $phpMdOptions,
         $phpCs,
         $phpCsStandard,
         $phpCsFixer,
@@ -180,6 +186,7 @@ class ConfigurationDataResponse
         $this->prePushPhpUnitOptions = $prePushPhpUnitOptions;
         $this->prePushRightMessage = $prePushRightMessage;
         $this->prePushErrorMessage = $prePushErrorMessage;
+        $this->phpMdOptions = $phpMdOptions;
     }
 
     /**
@@ -380,5 +387,13 @@ class ConfigurationDataResponse
     public function getPrePushErrorMessage()
     {
         return $this->prePushErrorMessage;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPhpMdOptions()
+    {
+        return $this->phpMdOptions;
     }
 }

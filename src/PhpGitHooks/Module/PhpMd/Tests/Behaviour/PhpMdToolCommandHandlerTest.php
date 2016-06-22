@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Module\PhpMd\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PhpMdOptionsStub;
 use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Tests\Stub\PhpFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
@@ -41,11 +42,12 @@ class PhpMdToolCommandHandlerTest extends PhpMdUnitTestCase
     public function itShouldNotExecuteTool()
     {
         $files = FilesCommittedStub::createWithoutPhpFiles();
+        $phpMdOptions = PhpMdOptionsStub::random();
         $errorMessage = HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT;
 
         $this->shouldHandleQuery(new PhpFilesExtractorQuery($files), PhpFilesResponseStub::create([]));
 
-        $command = new PhpMdToolCommand($files, $errorMessage);
+        $command = new PhpMdToolCommand($files, $phpMdOptions->value(), $errorMessage);
         $this->phpMdToolCommandHandler->handle($command);
     }
 
@@ -57,6 +59,7 @@ class PhpMdToolCommandHandlerTest extends PhpMdUnitTestCase
         $this->expectException(PhpMdViolationsException::class);
 
         $files = FilesCommittedStub::createAllFiles();
+        $phpMdOptions = PhpMdOptionsStub::random();
         $errorMessage = HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT;
         $phpFiles = FilesCommittedStub::createOnlyPhpFiles();
         $phpFilesResponse = PhpFilesResponseStub::create($phpFiles);
@@ -68,7 +71,7 @@ class PhpMdToolCommandHandlerTest extends PhpMdUnitTestCase
         $errorsText = null;
         foreach ($phpFiles as $phpFile) {
             $error = 'ERROR';
-            $this->shouldProcessPhpMdTool($phpFile, $error);
+            $this->shouldProcessPhpMdTool($phpFile, $phpMdOptions->value(), $error);
             $errorsText .= $error;
         }
         
@@ -76,7 +79,7 @@ class PhpMdToolCommandHandlerTest extends PhpMdUnitTestCase
         $this->shouldWriteLnOutput($outputMessage->setError($errorsText));
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage));
 
-        $command = new PhpMdToolCommand($files, $errorMessage);
+        $command = new PhpMdToolCommand($files, $phpMdOptions->value(), $errorMessage);
         $this->phpMdToolCommandHandler->handle($command);
     }
 
@@ -86,6 +89,7 @@ class PhpMdToolCommandHandlerTest extends PhpMdUnitTestCase
     public function itShouldWorksFine()
     {
         $files = FilesCommittedStub::createAllFiles();
+        $phpMdOptions = PhpMdOptionsStub::random();
         $errorMessage = HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT;
         $phpFiles = FilesCommittedStub::createOnlyPhpFiles();
         $phpFilesResponse = PhpFilesResponseStub::create($phpFiles);
@@ -95,12 +99,12 @@ class PhpMdToolCommandHandlerTest extends PhpMdUnitTestCase
         $this->shouldWriteOutput($outputMessage->getMessage());
 
         foreach ($phpFiles as $phpFile) {
-            $this->shouldProcessPhpMdTool($phpFile, null);
+            $this->shouldProcessPhpMdTool($phpFile, $phpMdOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessage->getSuccessfulMessage());
 
-        $command = new PhpMdToolCommand($files, $errorMessage);
+        $command = new PhpMdToolCommand($files, $phpMdOptions->value(), $errorMessage);
         $this->phpMdToolCommandHandler->handle($command);
     }
 }

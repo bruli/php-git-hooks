@@ -14,17 +14,23 @@ class PhpMdToolCommand implements CommandInterface
      * @var string
      */
     private $errorMessage;
+    /**
+     * @var string
+     */
+    private $options;
 
     /**
      * PhpMdToolCommand constructor.
      *
      * @param array  $files
+     * @param string $options
      * @param string $errorMessage
      */
-    public function __construct(array $files, $errorMessage)
+    public function __construct(array $files, $options, $errorMessage)
     {
         $this->files = $files;
         $this->errorMessage = $errorMessage;
+        $this->options = $options;
     }
 
     /**
@@ -41,5 +47,13 @@ class PhpMdToolCommand implements CommandInterface
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

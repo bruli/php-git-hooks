@@ -5,6 +5,7 @@ namespace PhpGitHooks\Module\PhpMd\Service;
 use CommandBus\QueryBus\QueryBus;
 use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
+use PhpGitHooks\Module\PhpMd\Contract\Exception\PhpMdViolationsException;
 
 class PhpMdTool
 {
@@ -31,15 +32,18 @@ class PhpMdTool
 
     /**
      * @param array  $files
+     * @param string $options
      * @param string $errorMessage
+     *
+     * @throws PhpMdViolationsException
      */
-    public function execute(array $files, $errorMessage)
+    public function execute(array $files, $options, $errorMessage)
     {
         /** @var PhpFilesResponse $phpFilesResponse */
         $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractorQuery($files));
 
         if ($phpFilesResponse->getFiles()) {
-            $this->phpMdToolExecutor->execute($phpFilesResponse->getFiles(), $errorMessage);
+            $this->phpMdToolExecutor->execute($phpFilesResponse->getFiles(), $options, $errorMessage);
         }
     }
 }

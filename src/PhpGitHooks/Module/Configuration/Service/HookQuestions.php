@@ -19,6 +19,7 @@ class HookQuestions
     const PHPCS_STANDARD = '<info>Which standard do you want to user for PHPCS tool?:</info> '.
     '<comment>[PSR1/PSR2/PHPCS/MySource/Zend/Squiz/PEAR]</comment>';
     const PHPMD_TOOL = '<info>Do you want enable PHPMD tool?:</info> <comment>[Y/n]</comment>';
+    const PHPMD_OPTIONS = '<info>Write options for PHPMD tool if you want use it:</info> <comment>[NONE]</comment>';
     const PHPCSFIXER_TOOL = '<info>Do you want enable PHP-CS-FIXER tool?:</info> <comment>[Y/n]</comment>';
     const PHPCSFIXER_PSR0_LEVEL = '<info>Enable psr0 level for PHP-CS-FIXER?:</info> <comment>[Y/n]</comment>';
     const PHPCSFIXER_PSR1_LEVEL = '<info>Enable psr1 level for PHP-CS-FIXER?:</info> <comment>[Y/n]</comment>';

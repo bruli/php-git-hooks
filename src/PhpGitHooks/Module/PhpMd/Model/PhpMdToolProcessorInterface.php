@@ -6,8 +6,9 @@ interface PhpMdToolProcessorInterface
 {
     /**
      * @param string $file
+     * @param string $options
      *
      * @return string
      */
-    public function process($file);
+    public function process($file, $options);
 }

@@ -14,17 +14,23 @@ class PhpMd implements ToolInterface
      * @var Enabled
      */
     private $enabled;
+    /**
+     * @var PhpMdOptions
+     */
+    private $options;
 
     /**
      * PhpMd constructor.
      *
-     * @param Undefined $undefined
-     * @param Enabled   $enabled
+     * @param Undefined    $undefined
+     * @param Enabled      $enabled
+     * @param PhpMdOptions $options
      */
-    public function __construct(Undefined $undefined, Enabled $enabled)
+    public function __construct(Undefined $undefined, Enabled $enabled, PhpMdOptions $options)
     {
         $this->undefined = $undefined;
         $this->enabled = $enabled;
+        $this->options = $options;
     }
 
     /**
@@ -52,7 +58,30 @@ class PhpMd implements ToolInterface
     {
         return new self(
             new Undefined(false),
-            $enabled
+            $enabled,
+            $this->options
+        );
+    }
+
+    /**
+     * @return PhpMdOptions
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param PhpMdOptions $options
+     *
+     * @return PhpMd
+     */
+    public function setOptions(PhpMdOptions $options)
+    {
+        return new self(
+            $this->undefined,
+            $this->enabled,
+            $options
         );
     }
 }

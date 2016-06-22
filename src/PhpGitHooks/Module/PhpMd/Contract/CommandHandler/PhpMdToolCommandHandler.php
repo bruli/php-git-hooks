@@ -29,6 +29,6 @@ class PhpMdToolCommandHandler implements CommandHandlerInterface
      */
     public function handle(CommandInterface $command)
     {
-        $this->phpMdTool->execute($command->getFiles(), $command->getErrorMessage());
+        $this->phpMdTool->execute($command->getFiles(), $command->getOptions(), $command->getErrorMessage());
     }
 }

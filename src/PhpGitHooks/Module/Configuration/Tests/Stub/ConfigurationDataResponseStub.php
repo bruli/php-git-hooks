@@ -12,32 +12,32 @@ final class ConfigurationDataResponseStub
     const GOOD_JOB = 'Good job';
 
     /**
-     * @param bool        $preCommit
+     * @param bool $preCommit
      * @param string|null $rightMessage
      * @param string|null $errorMessage
-     * @param bool        $composer
-     * @param bool        $jsonLint
-     * @param bool        $phpLint
-     * @param bool        $phpMd
-     * @param bool        $phpCs
+     * @param bool $composer
+     * @param bool $jsonLint
+     * @param bool $phpLint
+     * @param bool $phpMd
+     * @param string|null $phpMdOptions
+     * @param bool $phpCs
      * @param string|null $phpCsStandard
-     * @param bool        $phpCsFixer
-     * @param bool        $phpCsFixerPsr0
-     * @param bool        $phpCsFixerPsr1
-     * @param bool        $phpCsFixerPsr2
-     * @param bool        $phpCsFixerSymfony
-     * @param bool        $phpunit
-     * @param bool        $phpunitRandomMode
+     * @param bool $phpCsFixer
+     * @param bool $phpCsFixerPsr0
+     * @param bool $phpCsFixerPsr1
+     * @param bool $phpCsFixerPsr2
+     * @param bool $phpCsFixerSymfony
+     * @param bool $phpunit
+     * @param bool $phpunitRandomMode
      * @param string|null $phpunitOptions
-     * @param bool        $commitMsg
+     * @param bool $commitMsg
      * @param string|null $regularExpression
-     * @param bool        $prePush
-     * @param bool        $prePushPhpUnit
-     * @param bool        $prePushPhpUnitRandom
+     * @param bool $prePush
+     * @param bool $prePushPhpUnit
+     * @param bool $prePushPhpUnitRandom
      * @param string|null $prePushPhpUnitOptions
-     * @param string      $prePushRightMessage
-     * @param string      $prePushErrorMessage
-     *
+     * @param string $prePushRightMessage
+     * @param string $prePushErrorMessage
      * @return ConfigurationDataResponse
      */
     public static function create(
@@ -48,6 +48,7 @@ final class ConfigurationDataResponseStub
         $jsonLint,
         $phpLint,
         $phpMd,
+        $phpMdOptions,
         $phpCs,
         $phpCsStandard,
         $phpCsFixer,
@@ -75,6 +76,7 @@ final class ConfigurationDataResponseStub
             $jsonLint,
             $phpLint,
             $phpMd,
+            $phpMdOptions,
             $phpCs,
             $phpCsStandard,
             $phpCsFixer,
@@ -111,6 +113,7 @@ final class ConfigurationDataResponseStub
             $bool,
             $bool,
             $bool,
+            null,
             $bool,
             static::PHPCS_STANDARD,
             $bool,
@@ -149,6 +152,7 @@ final class ConfigurationDataResponseStub
             $preCommit,
             $preCommit,
             $preCommit,
+            null,
             $preCommit,
             static::PHPCS_STANDARD,
             $preCommit,

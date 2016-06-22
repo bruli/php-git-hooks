@@ -86,6 +86,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $this->shouldHandleCommand(
             new PhpMdToolCommand(
                 $files,
+                $configurationDataResponse->getPhpMdOptions(),
                 $configurationDataResponse->getErrorMessage()
             )
         );

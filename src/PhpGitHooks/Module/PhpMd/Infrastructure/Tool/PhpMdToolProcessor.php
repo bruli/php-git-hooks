@@ -26,36 +26,28 @@ class PhpMdToolProcessor implements PhpMdToolProcessorInterface
 
     /**
      * @param string $file
+     * @param string $options
      *
      * @return string
      */
-    public function process($file)
+    public function process($file, $options)
     {
-        $process = $this->execute($file);
+        $process = $this->execute($file, $options);
 
         return $this->setError($process);
     }
 
     /**
      * @param string $file
+     * @param string $options
      *
      * @return Process
      */
-    private function execute($file)
+    private function execute($file, $options)
     {
-        $processBuilder = new ProcessBuilder(
-            [
-                'php',
-                $this->toolPathFinder->find('phpmd'),
-                $file,
-                'text',
-                'PmdRules.xml',
-                '--minimumpriority',
-                1,
-            ]
-        );
+        $command = sprintf('php %s %s text ./PmdRules.xml %s', $this->toolPathFinder->find('phpmd'), $file, $options);
 
-        $process = $processBuilder->getProcess();
+        $process = new Process($command);
         $process->run();
 
         return $process;

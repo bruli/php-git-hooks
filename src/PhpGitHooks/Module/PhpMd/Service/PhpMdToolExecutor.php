@@ -34,18 +34,19 @@ class PhpMdToolExecutor
 
     /**
      * @param array  $files
+     * @param string $options
      * @param string $errorMessage
      *
      * @throws PhpMdViolationsException
      */
-    public function execute(array  $files, $errorMessage)
+    public function execute(array  $files, $options, $errorMessage)
     {
         $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
         $this->output->write($outputMessage->getMessage());
 
         $errors = [];
         foreach ($files as $file) {
-            $errors[] = $this->phpMdToolProcessor->process($file);
+            $errors[] = $this->phpMdToolProcessor->process($file, $options);
         }
 
         $errors = array_filter($errors);

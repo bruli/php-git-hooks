@@ -4,6 +4,7 @@ namespace PhpGitHooks\Module\Configuration\Service;
 
 use PhpGitHooks\Module\Configuration\Domain\Enabled;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
+use PhpGitHooks\Module\Configuration\Domain\PhpMdOptions;
 use PhpGitHooks\Module\Configuration\Domain\Undefined;
 
 class PhpMdFactory
@@ -17,7 +18,8 @@ class PhpMdFactory
     {
         return new PhpMd(
             new Undefined(false),
-            new Enabled($data)
+            new Enabled($data['enabled']),
+            new PhpMdOptions($data['options'])
         );
     }
 
@@ -28,7 +30,8 @@ class PhpMdFactory
     {
         return new PhpMd(
             new Undefined(true),
-            new Enabled(false)
+            new Enabled(false),
+            new PhpMdOptions(null)
         );
     }
 }

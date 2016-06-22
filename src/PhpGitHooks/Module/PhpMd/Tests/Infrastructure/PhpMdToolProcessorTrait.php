@@ -22,14 +22,15 @@ trait PhpMdToolProcessorTrait
 
     /**
      * @param string $file
+     * @param string $options
      * @param string $return
      */
-    protected function shouldProcessPhpMdTool($file, $return)
+    protected function shouldProcessPhpMdTool($file, $options, $return)
     {
         $this->getPhpMdToolProcessor()
             ->shouldReceive('process')
             ->once()
-            ->with($file)
+            ->withArgs([$file, $options])
             ->andReturn($return);
     }
 }
