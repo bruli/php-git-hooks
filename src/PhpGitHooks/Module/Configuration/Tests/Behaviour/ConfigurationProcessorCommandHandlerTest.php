@@ -86,12 +86,12 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
         $this->shouldAsk(
             HookQuestions::PRE_PUSH_RIGHT_MESSAGE,
             HookQuestions::PRE_PUSH_RIGHT_MESSAGE_DEFAULT,
-            ConfigArrayDataStub::RIGHT_MESSAGE
+            HookQuestions::PRE_PUSH_RIGHT_MESSAGE_DEFAULT
         );
         $this->shouldAsk(
             HookQuestions::PRE_PUSH_ERROR_MESSAGE,
-            HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
-            ConfigArrayDataStub::ERROR_MESSAGE
+            HookQuestions::PRE_PUSH_ERROR_MESSAGE_DEFAULT,
+            HookQuestions::PRE_PUSH_ERROR_MESSAGE_DEFAULT
         );
         $this->shouldAsk(HookQuestions::PHPUNIT_TOOL, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldAsk(HookQuestions::PHPUNIT_RANDOM_MODE, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);

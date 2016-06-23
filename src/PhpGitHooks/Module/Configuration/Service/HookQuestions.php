@@ -36,8 +36,8 @@ class HookQuestions
     const PRE_PUSH_HOOK_QUESTION = '<info>Do you want enable PRE-PUSH hook?:</info> <comment>[Y/n]</comment>';
     const PRE_PUSH_RIGHT_MESSAGE = '<info>Write a right message for pre-push hook:</info> ' .
     '<comment>' . self::PRE_PUSH_RIGHT_MESSAGE_DEFAULT . '</comment>';
-    const PRE_PUSH_RIGHT_MESSAGE_DEFAULT = 'HEY, GOOD JOB!!';
-    const PRE_PUSH_ERROR_MESSAGE_DEFAULT = 'FIX YOUR FUCKING CODE!!';
+    const PRE_PUSH_RIGHT_MESSAGE_DEFAULT = 'PUSH IT!!';
+    const PRE_PUSH_ERROR_MESSAGE_DEFAULT = 'YOU CAN NOT PUSH CODE!!';
     const PRE_PUSH_ERROR_MESSAGE = '<info>Write a error message for pre-push hook:</info> ' .
     '<comment>' . self::PRE_PUSH_ERROR_MESSAGE_DEFAULT . '</comment>';
     const PHPUNIT_STRICT_COVERAGE = '<info>Do you wante enable STRICT COVERAGE tool?:</info> <comment>[Y/n]</comment>';

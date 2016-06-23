@@ -2,6 +2,8 @@
 
 namespace PhpGitHooks\Module\Configuration\Tests\Stub;
 
+use PhpGitHooks\Module\Configuration\Service\HookQuestions;
+
 class ConfigArrayDataStub
 {
     const PHPCS_STANDARD = 'PSR2';
@@ -74,8 +76,8 @@ class ConfigArrayDataStub
                     ]
                 ],
                 'message' => [
-                    'right-message' => static::RIGHT_MESSAGE,
-                    'error-message' => static::ERROR_MESSAGE,
+                    'right-message' => HookQuestions::PRE_PUSH_RIGHT_MESSAGE_DEFAULT,
+                    'error-message' => HookQuestions::PRE_PUSH_ERROR_MESSAGE_DEFAULT,
                 ]
             ]
         ];
