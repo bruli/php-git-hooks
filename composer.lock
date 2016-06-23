@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6278bc94afc1b4966b8955af2fbae3e9",
-    "content-hash": "4f8f2fe817c2dd88f5c3995339d621c4",
+    "hash": "2dd6e0a0465657e3279c03ba7337dc7b",
+    "content-hash": "d70e78e43cb96af577229efc2d20ea37",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -62,21 +62,21 @@
         },
         {
             "name": "bruli/command-bus",
-            "version": "v0.1",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/command-bus.git",
-                "reference": "ed923383bb5214a025acbde7c57a28f424948e1a"
+                "reference": "666b90a32491727037ae44f92b61881b5492f8bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/command-bus/zipball/ed923383bb5214a025acbde7c57a28f424948e1a",
-                "reference": "ed923383bb5214a025acbde7c57a28f424948e1a",
+                "url": "https://api.github.com/repos/bruli/command-bus/zipball/666b90a32491727037ae44f92b61881b5492f8bd",
+                "reference": "666b90a32491727037ae44f92b61881b5492f8bd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6",
-                "symfony/dependency-injection": "^3.1"
+                "symfony/dependency-injection": "~2.7|~3.0"
             },
             "type": "library",
             "autoload": {
@@ -95,7 +95,7 @@
                 }
             ],
             "description": "Command bus library to use with Symfony Dependency Injection",
-            "time": "2016-06-15 16:18:06"
+            "time": "2016-06-23 15:09:14"
         },
         {
             "name": "bruli/ignore-files",
