@@ -31,14 +31,12 @@ class StrictCoverageProcessor implements StrictCoverageProcessorInterface
      */
     public function process(MinimumStrictCoverage $minimumStrictCoverage)
     {
-        $command = sprintf(
-            'php %s --coverage-text||grep Classes|cut -d " " -f 4|cut -d "%" -f 1',
-            $this->toolPathFinder->find('phpunit')
-        );
+        $tool = $this->toolPathFinder->find('phpunit');
+        $command = 'php ' . $tool . ' --coverage-text|grep Classes|cut -d " " -f 4|cut -d "%" -f 1';
 
         $process = new Process($command);
         $process->run();
 
-        return (float) $process->getOutput();
+        return (float)$process->getOutput();
     }
 }

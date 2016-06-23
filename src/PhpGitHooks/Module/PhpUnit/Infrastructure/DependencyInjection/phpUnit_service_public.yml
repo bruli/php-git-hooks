@@ -4,3 +4,8 @@ services:
     arguments: ["@php.unit.tool.executor"]
     tags:
       - {name: command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand }
+  strict.coverage.tool.command.handler:
+    class: PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\StrictCoverageToolCommandHandler
+    arguments: ["@strict.coverage.tool.executor"]
+    tags:
+      - { name: command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand }

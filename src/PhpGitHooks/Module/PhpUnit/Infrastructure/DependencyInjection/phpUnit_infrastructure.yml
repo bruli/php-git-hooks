@@ -11,3 +11,7 @@ services:
     arguments:
       - "@console.output"
       - "@tool.path.finder"
+  strict.coverage.processor:
+    class: PhpGitHooks\Module\PhpUnit\Infrastructure\Tool\StrictCoverageProcessor
+    public: false
+    arguments: ["@tool.path.finder"]

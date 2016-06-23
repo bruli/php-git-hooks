@@ -40,6 +40,7 @@ class StrictCoverageTool
     public function run(MinimumStrictCoverage $minimumStrictCoverage, $errorMessage)
     {
         $currentCoverage = $this->strictCoverageProcessor->process($minimumStrictCoverage);
+
         if ($minimumStrictCoverage->value() > $currentCoverage) {
             $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
 

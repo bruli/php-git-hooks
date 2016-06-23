@@ -16,6 +16,7 @@ use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PreCommitTool
@@ -47,11 +48,11 @@ class PreCommitTool
      * PreCommitTool constructor.
      *
      *
-     * @param OutputInterface         $output
+     * @param OutputInterface $output
      * @param FilesCommittedExtractor $filesCommittedExtractor
-     * @param QueryBus                $queryBus
-     * @param CommandBus              $commandBus
-     * @param ToolTittleOutputWriter  $tittleOutputWriter
+     * @param QueryBus $queryBus
+     * @param CommandBus $commandBus
+     * @param ToolTittleOutputWriter $tittleOutputWriter
      */
     public function __construct(
         OutputInterface $output,
@@ -90,7 +91,7 @@ class PreCommitTool
 
     /**
      * @param ConfigurationDataResponse $configurationData
-     * @param array                     $committedFiles
+     * @param array $committedFiles
      */
     private function executeTools(ConfigurationDataResponse $configurationData, array $committedFiles)
     {
@@ -154,9 +155,14 @@ class PreCommitTool
                 )
             );
         }
-        
+
         if (true === $configurationData->isPhpunitStrictCoverage()) {
-            //TODO, llamar al command para coverage.
+            $this->commandBus->handle(
+                new StrictCoverageCommand(
+                    $configurationData->getMinimum(),
+                    $configurationData->getErrorMessage()
+                )
+            );
         }
     }
 }
