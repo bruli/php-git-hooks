@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Configuration\Service;
 
-use CommandBus\QueryBus\QueryInterface;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
 use PhpGitHooks\Module\Configuration\Domain\Config;

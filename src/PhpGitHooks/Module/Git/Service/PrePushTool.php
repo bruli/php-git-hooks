@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Git\Service;
 
-use CommandBus\CommandBus\CommandBus;
-use CommandBus\QueryBus\QueryBus;
+use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandBus;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Git\Contract\Exception\InvalidPushException;
@@ -37,10 +37,10 @@ class PrePushTool
     /**
      * PrePushTool constructor.
      *
-     * @param QueryBus $queryBus
+     * @param QueryBus                         $queryBus
      * @param PrePushOriginalExecutorInterface $prePushOriginalExecutor
-     * @param OutputInterface $output
-     * @param CommandBus $commandBus
+     * @param OutputInterface                  $output
+     * @param CommandBus                       $commandBus
      */
     public function __construct(
         QueryBus $queryBus,

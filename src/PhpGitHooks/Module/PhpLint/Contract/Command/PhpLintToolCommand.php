@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\PhpLint\Contract\Command;
 
-use CommandBus\CommandBus\CommandInterface;
+use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
 
 class PhpLintToolCommand implements CommandInterface
 {

@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Files\Contract\QueryHandler;
 
-use CommandBus\QueryBus\QueryHandlerInterface;
-use CommandBus\QueryBus\QueryInterface;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryHandlerInterface;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Contract\Response\JsonFilesResponse;
 use PhpGitHooks\Module\Files\Domain\FilesCollection;

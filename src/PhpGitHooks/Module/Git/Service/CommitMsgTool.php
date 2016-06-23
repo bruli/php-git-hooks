@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Git\Service;
 
-use CommandBus\QueryBus\QueryBus;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Git\Contract\Exception\InvalidCommitMessageException;

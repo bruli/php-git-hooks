@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Git\Contract\CommandHandler;
 
-use CommandBus\CommandBus\CommandHandlerInterface;
-use CommandBus\CommandBus\CommandInterface;
+use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandHandlerInterface;
+use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Contract\Command\CommitMsgCommand;
 use PhpGitHooks\Module\Git\Service\CommitMsgTool;
 

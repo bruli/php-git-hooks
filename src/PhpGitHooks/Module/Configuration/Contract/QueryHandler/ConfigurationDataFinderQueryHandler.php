@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Configuration\Contract\QueryHandler;
 
-use CommandBus\QueryBus\QueryHandlerInterface;
-use CommandBus\QueryBus\QueryInterface;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryHandlerInterface;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 

@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\PhpLint\Service;
 
-use CommandBus\QueryBus\QueryBus;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
 use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
 

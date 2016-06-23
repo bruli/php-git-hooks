@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\JsonLint\Contract\Command;
 
-use CommandBus\CommandBus\CommandInterface;
+use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
 
 class JsonLintToolCommand implements CommandInterface
 {

@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Composer\Service;
 
-use CommandBus\QueryBus\QueryBus;
+use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
 use PhpGitHooks\Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
 use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Contract\Response\ComposerFilesResponse;

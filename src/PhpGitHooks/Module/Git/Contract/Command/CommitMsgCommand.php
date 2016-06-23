@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Git\Contract\Command;
 
-use CommandBus\CommandBus\CommandInterface;
+use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
 class CommitMsgCommand implements CommandInterface

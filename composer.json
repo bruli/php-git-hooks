@@ -36,8 +36,7 @@
         "fiunchinho/phpunit-randomizer": "~2.0",
         "seld/jsonlint": "1.3.*",
         "bruli/ignore-files": "~1.0",
-        "beberlei/assert": "^2.5",
-        "bruli/command-bus": "^0.1.1"
+        "beberlei/assert": "^2.5"
     },
     "require-dev": {
         "composer/composer": "^1.0@dev",

@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\PhpMd\Contract\CommandHandler;
 
-use CommandBus\CommandBus\CommandHandlerInterface;
-use CommandBus\CommandBus\CommandInterface;
+use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandHandlerInterface;
+use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
 use PhpGitHooks\Module\PhpMd\Service\PhpMdTool;
 
