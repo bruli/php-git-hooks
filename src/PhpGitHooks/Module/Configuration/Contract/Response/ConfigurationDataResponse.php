@@ -110,6 +110,14 @@ class ConfigurationDataResponse
      * @var float
      */
     private $minimum;
+    /**
+     * @var bool
+     */
+    private $prePushStrictCoverage;
+    /**
+     * @var float
+     */
+    private $prePushMinimum;
 
     /**
      * ConfigurationDataResponse constructor.
@@ -140,6 +148,8 @@ class ConfigurationDataResponse
      * @param bool        $prePushPhpUnit
      * @param bool        $prePushPhpUnitRandom
      * @param string|null $prePushPhpUnitOptions
+     * @param bool        $prePushStrictCoverage
+     * @param float       $prePushMinimum
      * @param string      $prePushRightMessage
      * @param string      $prePushErrorMessage
      */
@@ -170,6 +180,8 @@ class ConfigurationDataResponse
         $prePushPhpUnit,
         $prePushPhpUnitRandom,
         $prePushPhpUnitOptions,
+        $prePushStrictCoverage,
+        $prePushMinimum,
         $prePushRightMessage,
         $prePushErrorMessage
     ) {
@@ -201,6 +213,8 @@ class ConfigurationDataResponse
         $this->phpMdOptions = $phpMdOptions;
         $this->phpunitStrictCoverage = $phpunitStrictCoverage;
         $this->minimum = $minimum;
+        $this->prePushStrictCoverage = $prePushStrictCoverage;
+        $this->prePushMinimum = $prePushMinimum;
     }
 
     /**
@@ -425,5 +439,21 @@ class ConfigurationDataResponse
     public function getMinimum()
     {
         return $this->minimum;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrePushStrictCoverage()
+    {
+        return $this->prePushStrictCoverage;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrePushMinimum()
+    {
+        return $this->prePushMinimum;
     }
 }

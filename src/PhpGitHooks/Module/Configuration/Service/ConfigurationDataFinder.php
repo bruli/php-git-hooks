@@ -68,6 +68,8 @@ class ConfigurationDataFinder implements QueryInterface
         $phpUnitStrictCoverage = $tools[7];
         /** @var PhpUnit $prePushPhpUnit */
         $prePushPhpUnit = $prePushTools[0];
+        /** @var PhpUnitStrictCoverage $prePushStrictCoverage */
+        $prePushStrictCoverage = $prePushTools[1];
 
         return new ConfigurationDataResponse(
             $preCommit->isEnabled(),
@@ -96,6 +98,8 @@ class ConfigurationDataFinder implements QueryInterface
             $prePushPhpUnit->isEnabled(),
             $prePushPhpUnit->getRandomMode()->value(),
             $prePushPhpUnit->getOptions()->value(),
+            $prePushStrictCoverage->isEnabled(),
+            $prePushStrictCoverage->getMinimumStrictCoverage()->value(),
             $prePush->getMessages()->getRightMessage()->value(),
             $prePush->getMessages()->getErrorMessage()->value()
         );

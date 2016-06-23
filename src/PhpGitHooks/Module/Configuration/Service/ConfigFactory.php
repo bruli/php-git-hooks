@@ -19,7 +19,7 @@ class ConfigFactory
             CommitMsgFactory::setUndefined() : CommitMsgFactory::fromArray($data['commit-msg']);
         $prePush = false === array_key_exists('pre-push', $data) ?
             PrePushFactory::setUndefined() : PrePushFactory::fromArray($data['pre-push']);
-        
+
         return new Config($preCommit, $commitMsg, $prePush);
     }
 }

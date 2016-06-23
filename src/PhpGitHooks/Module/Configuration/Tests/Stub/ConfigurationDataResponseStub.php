@@ -39,6 +39,8 @@ final class ConfigurationDataResponseStub
      * @param bool $prePushPhpUnit
      * @param bool $prePushPhpUnitRandom
      * @param string|null $prePushPhpUnitOptions
+     * @param bool $prePushStrictCoverage
+     * @param float $prePushMinimum
      * @param string $prePushRightMessage
      * @param string $prePushErrorMessage
      * @return ConfigurationDataResponse
@@ -70,6 +72,8 @@ final class ConfigurationDataResponseStub
         $prePushPhpUnit,
         $prePushPhpUnitRandom,
         $prePushPhpUnitOptions,
+        $prePushStrictCoverage,
+        $prePushMinimum,
         $prePushRightMessage,
         $prePushErrorMessage
     ) {
@@ -100,6 +104,8 @@ final class ConfigurationDataResponseStub
             $prePushPhpUnit,
             $prePushPhpUnitRandom,
             $prePushPhpUnitOptions,
+            $prePushStrictCoverage,
+            $prePushMinimum,
             $prePushRightMessage,
             $prePushErrorMessage
         );
@@ -139,6 +145,8 @@ final class ConfigurationDataResponseStub
             $bool,
             $bool,
             null,
+            $bool,
+            static::MINIMUM_COVERAGE,
             static::GOOD_JOB,
             static::FIX_YOUR_CODE
         );
@@ -180,6 +188,8 @@ final class ConfigurationDataResponseStub
             $prePush,
             $prePush,
             null,
+            $prePush,
+            static::MINIMUM_COVERAGE,
             null,
             null
         );

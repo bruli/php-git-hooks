@@ -11,6 +11,7 @@ use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Model\PrePushOriginalExecutorInterface;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PrePushTool
@@ -76,8 +77,17 @@ class PrePushTool
                         $configurationData->getPrePushErrorMessage()
                     )
                 );
+
+                if (true === $configurationData->isPrePushStrictCoverage()) {
+                    $this->commandBus->handle(
+                        new StrictCoverageCommand(
+                            $configurationData->getPrePushMinimum(),
+                            $configurationData->getErrorMessage()
+                        )
+                    );
+                }
             }
-            
+
             $this->output->writeln(GoodJobLogoResponse::paint($configurationData->getPrePushRightMessage()));
         }
     }
@@ -92,10 +102,10 @@ class PrePushTool
     private function executeOriginalHook($remote, $url, $errorMessage)
     {
         $response = $this->prePushOriginalExecutor->execute($remote, $url);
-        
+
         if (null != $response) {
             $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
-            
+
             throw new InvalidPushException();
         }
     }
