@@ -9,3 +9,4 @@ services:
     arguments: ["@strict.coverage.tool.executor"]
     tags:
       - { name: command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand }
+      

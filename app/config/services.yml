@@ -15,4 +15,3 @@ services:
     class: Symfony\Component\Console\Output\ConsoleOutput
   tool.path.finder:
     class: PhpGitHooks\Infrastructure\Tool\ToolPathFinder
-    

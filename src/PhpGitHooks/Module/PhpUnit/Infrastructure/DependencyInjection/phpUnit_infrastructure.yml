@@ -15,3 +15,4 @@ services:
     class: PhpGitHooks\Module\PhpUnit\Infrastructure\Tool\StrictCoverageProcessor
     public: false
     arguments: ["@tool.path.finder"]
+
