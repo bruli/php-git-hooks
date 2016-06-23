@@ -5,7 +5,6 @@ namespace PhpGitHooks\Module\PhpMd\Infrastructure\Tool;
 use PhpGitHooks\Infrastructure\Tool\ToolPathFinder;
 use PhpGitHooks\Module\PhpMd\Model\PhpMdToolProcessorInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 class PhpMdToolProcessor implements PhpMdToolProcessorInterface
 {

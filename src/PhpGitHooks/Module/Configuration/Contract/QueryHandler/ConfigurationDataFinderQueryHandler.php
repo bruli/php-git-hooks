@@ -5,11 +5,6 @@ namespace PhpGitHooks\Module\Configuration\Contract\QueryHandler;
 use CommandBus\QueryBus\QueryHandlerInterface;
 use CommandBus\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
-use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
-use PhpGitHooks\Module\Configuration\Domain\PhpCs;
-use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
-use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
-use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 
 class ConfigurationDataFinderQueryHandler implements QueryHandlerInterface

@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Module\Configuration\Service;
 
 use PhpGitHooks\Module\Configuration\Domain\Execute;
-use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Model\ExecuteInterface;
 
 class PreCommitExecuteFactory
@@ -26,7 +25,7 @@ class PreCommitExecuteFactory
             isset($data['phpunit']) ? PhpUnitFactory::fromArray($data['phpunit']) : PhpUnitFactory::setUndefined(),
             isset($data['phpunit']['strict-coverage']) ? PhpUnitStrictCoverageFactory::fromArray(
                 $data['phpunit']['strict-coverage']
-            ) : PhpUnitStrictCoverageFactory::setUndefined()
+            ) : PhpUnitStrictCoverageFactory::setUndefined(),
         ];
 
         return new Execute($tools);
@@ -45,7 +44,7 @@ class PreCommitExecuteFactory
             PhpCsFactory::setUndefined(),
             PhpCsFixerFactory::setUndefined(),
             PhpUnitFactory::setUndefined(),
-            PhpUnitStrictCoverageFactory::setUndefined()
+            PhpUnitStrictCoverageFactory::setUndefined(),
         ];
 
         return new Execute($tools);

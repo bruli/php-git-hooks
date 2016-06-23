@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c50a365d6c38e1de3e1e263f48853f3",
-    "content-hash": "68d0d8edd322272ccc7a42fd63093038",
+    "hash": "c25a6c809deefa1884e1b9610711874a",
+    "content-hash": "69a9379456fef76d19e536ed54c0c5a1",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -62,7 +62,7 @@
         },
         {
             "name": "bruli/command-bus",
-            "version": "dev-master",
+            "version": "v0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/command-bus.git",
@@ -2810,7 +2810,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bruli/command-bus": 20,
         "composer/composer": 20
     },
     "prefer-stable": false,

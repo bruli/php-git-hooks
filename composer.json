@@ -37,7 +37,7 @@
         "seld/jsonlint": "1.3.*",
         "bruli/ignore-files": "~1.0",
         "beberlei/assert": "^2.5",
-        "bruli/command-bus": "dev-master"
+        "bruli/command-bus": "0.1"
     },
     "require-dev": {
         "composer/composer": "^1.0@dev",

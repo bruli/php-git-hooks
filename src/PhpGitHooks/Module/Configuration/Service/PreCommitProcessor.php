@@ -4,7 +4,6 @@ namespace PhpGitHooks\Module\Configuration\Service;
 
 use Composer\IO\IOInterface;
 use PhpGitHooks\Module\Configuration\Domain\Execute;
-use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Model\ExecuteInterface;
 

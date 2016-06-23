@@ -4,18 +4,15 @@ namespace PhpGitHooks\Module\Configuration\Service;
 
 use Composer\IO\IOInterface;
 use PhpGitHooks\Module\Configuration\Domain\Enabled;
-use PhpGitHooks\Module\Configuration\Domain\MinimumStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitOptions;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitRandomMode;
-use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
-use PhpGitHooks\Module\Configuration\Domain\Undefined;
 
 class PhpUnitConfigurator
 {
     /**
      * @param IOInterface $io
-     * @param PhpUnit $phpUnit
+     * @param PhpUnit     $phpUnit
      *
      * @return PhpUnit
      */
