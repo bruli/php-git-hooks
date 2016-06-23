@@ -10,6 +10,7 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Domain\PrePush;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
@@ -63,6 +64,8 @@ class ConfigurationDataFinder implements QueryInterface
         $phpCsFixer = $tools[5];
         /** @var PhpUnit $phpUnit */
         $phpUnit = $tools[6];
+        /** @var PhpUnitStrictCoverage $phpUnitStrictCoverage */
+        $phpUnitStrictCoverage = $tools[7];
         /** @var PhpUnit $prePushPhpUnit */
         $prePushPhpUnit = $prePushTools[0];
 
@@ -85,8 +88,8 @@ class ConfigurationDataFinder implements QueryInterface
             $phpUnit->isEnabled(),
             $phpUnit->getRandomMode()->value(),
             $phpUnit->getOptions()->value(),
-            $phpUnit->getStrictCoverage()->isEnabled(),
-            $phpUnit->getStrictCoverage()->getMinimumStrictCoverage()->value(),
+            $phpUnitStrictCoverage->isEnabled(),
+            $phpUnitStrictCoverage->getMinimumStrictCoverage()->value(),
             $commitMsg->isEnabled(),
             $commitMsg->getRegularExpression()->value(),
             $prePush->isEnabled(),

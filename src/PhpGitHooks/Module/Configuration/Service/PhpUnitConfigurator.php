@@ -35,20 +35,6 @@ class PhpUnitConfigurator
                 $options = new PhpUnitOptions($optionsAnswer);
 
                 $phpUnit = $phpUnit->setRandomModeAndOptions($randomMode, $options);
-
-                $strictCoverageAnswer = $io->ask(
-                    HookQuestions::PHPUNIT_STRICT_COVERAGE,
-                    HookQuestions::DEFAULT_TOOL_ANSWER
-                );
-
-                $minimum = $io->ask(HookQuestions::PHPUNIT_STRICT_COVERAGE_MINIMUM, 0.00);
-
-                $strictCoverage = new PhpUnitStrictCoverage(
-                    new Undefined(false),
-                    new Enabled(HookQuestions::DEFAULT_TOOL_ANSWER === strtoupper($strictCoverageAnswer)),
-                    new MinimumStrictCoverage((float)$minimum)
-                );
-                $phpUnit = $phpUnit->setStrictCoverage($strictCoverage);
             }
         }
 

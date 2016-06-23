@@ -22,10 +22,6 @@ class PhpUnit implements ToolInterface
      * @var PhpUnitOptions
      */
     private $options;
-    /**
-     * @var PhpUnitStrictCoverage
-     */
-    private $strictCoverage;
 
     /**
      * PhpUnit constructor.
@@ -34,20 +30,17 @@ class PhpUnit implements ToolInterface
      * @param Enabled $enabled
      * @param PhpUnitRandomMode $randomMode
      * @param PhpUnitOptions $options
-     * @param PhpUnitStrictCoverage $strictCoverage
      */
     public function __construct(
         Undefined $undefined,
         Enabled $enabled,
         PhpUnitRandomMode $randomMode,
-        PhpUnitOptions $options,
-        PhpUnitStrictCoverage $strictCoverage
+        PhpUnitOptions $options
     ) {
         $this->undefined = $undefined;
         $this->enabled = $enabled;
         $this->randomMode = $randomMode;
         $this->options = $options;
-        $this->strictCoverage = $strictCoverage;
     }
 
     /**
@@ -91,13 +84,12 @@ class PhpUnit implements ToolInterface
     {
         $randomMode = false === $enabled->value() ? new PhpUnitRandomMode(false) : $this->randomMode;
         $options = false === $enabled->value() ? new PhpUnitOptions(null) : $this->options;
-
+        
         return new self(
             new Undefined(false),
             $enabled,
             $randomMode,
-            $options,
-            $this->strictCoverage
+            $options
         );
     }
 
@@ -113,31 +105,7 @@ class PhpUnit implements ToolInterface
             $this->undefined,
             $this->enabled,
             $randomMode,
-            $options,
-            $this->strictCoverage
-        );
-    }
-
-    /**
-     * @return PhpUnitStrictCoverage
-     */
-    public function getStrictCoverage()
-    {
-        return $this->strictCoverage;
-    }
-
-    /**
-     * @param PhpUnitStrictCoverage $strictCoverage
-     * @return PhpUnit
-     */
-    public function setStrictCoverage(PhpUnitStrictCoverage $strictCoverage)
-    {
-        return new self(
-            $this->undefined,
-            $this->enabled,
-            $this->randomMode,
-            $this->options,
-            $strictCoverage
+            $options
         );
     }
 }

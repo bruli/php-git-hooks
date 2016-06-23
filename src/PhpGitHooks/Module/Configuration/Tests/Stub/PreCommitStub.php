@@ -62,7 +62,8 @@ class PreCommitStub implements RandomStubInterface
                 PhpMdStub::random(),
                 PhpCsStub::random(),
                 PhpCsFixerStub::random(),
-                PhpUnitStub::random()
+                PhpUnitStub::random(),
+                PhpUnitStrictCoverageStub::random()
             ),
             MessagesStub::random()
         );
@@ -83,7 +84,8 @@ class PreCommitStub implements RandomStubInterface
                 PhpMdStub::createEnabled(),
                 PhpCsStub::createEnabled(),
                 PhpCsFixerStub::createEnabled(),
-                PhpUnitStub::createEnabled()
+                PhpUnitStub::createEnabled(),
+                PhpUnitStrictCoverageStub::createEnabled()
             ),
             MessagesStub::create(MessageStub::create('ok'), MessageStub::create('fix'))
         );

@@ -4,6 +4,7 @@ namespace PhpGitHooks\Module\Configuration\Service;
 
 use Composer\IO\IOInterface;
 use PhpGitHooks\Module\Configuration\Domain\Execute;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Model\ExecuteInterface;
 
@@ -49,6 +50,7 @@ class PreCommitProcessor
         $tools[4] = PhpCsConfigurator::configure($this->io, $tools[4]);
         $tools[5] = PhpCsFixerConfigurator::configure($this->io, $tools[5]);
         $tools[6] = PhpUnitConfigurator::configure($this->io, $tools[6]);
+        $tools[7] = PhpUnitStrictCoverageConfigurator::configure($this->io, $tools[7]);
 
         return new Execute($tools);
     }

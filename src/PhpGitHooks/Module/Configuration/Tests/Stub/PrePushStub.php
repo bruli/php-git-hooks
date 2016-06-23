@@ -63,7 +63,7 @@ class PrePushStub implements RandomStubInterface
         return self::create(
             new Undefined(true),
             EnabledStub::create(false),
-            PrePushExecuteStub::create(PhpUnitStub::setUndefined()),
+            PrePushExecuteStub::create(PhpUnitStub::setUndefined(), PhpUnitStrictCoverageStub::setUndefined()),
             MessagesStub::random()
         );
     }

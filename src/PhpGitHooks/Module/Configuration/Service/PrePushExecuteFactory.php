@@ -15,6 +15,9 @@ class PrePushExecuteFactory
     {
         $tools = [
             isset($data['phpunit']) ? PhpUnitFactory::fromArray($data['phpunit']) : PhpUnitFactory::setUndefined(),
+            isset($data['phpunit']['strict-coverage']) ? PhpUnitStrictCoverageFactory::fromArray(
+                $data['phpunit']['strict-coverage']
+            ) : PhpUnitStrictCoverageFactory::setUndefined()
         ];
 
         return new Execute($tools);
@@ -28,6 +31,7 @@ class PrePushExecuteFactory
         return new Execute(
             [
                 PhpUnitFactory::setUndefined(),
+                PhpUnitStrictCoverageFactory::setUndefined()
             ]
         );
     }

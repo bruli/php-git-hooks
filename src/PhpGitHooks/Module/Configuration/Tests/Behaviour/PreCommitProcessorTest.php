@@ -4,6 +4,8 @@ namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
 use Composer\IO\IOInterface;
 use PhpGitHooks\Module\Configuration\Domain\Execute;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Service\PreCommitProcessor;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
@@ -47,6 +49,8 @@ class PreCommitProcessorTest extends ConfigurationUnitTestCase
         $composer = $tools[0];
         $jsonLint = $tools[1];
         $phpLint = $tools[2];
+        /** @var PhpUnitStrictCoverage $phpunitStrictCoverage */
+        $phpunitStrictCoverage = $tools[7];
 
         $this->assertFalse($composer->isEnabled());
         $this->assertFalse($composer->isUndefined());
@@ -54,5 +58,6 @@ class PreCommitProcessorTest extends ConfigurationUnitTestCase
         $this->assertFalse($jsonLint->isUndefined());
         $this->assertFalse($phpLint->isEnabled());
         $this->assertFalse($phpLint->isUndefined());
+        $this->assertFalse($phpunitStrictCoverage->isUndefined());
     }
 }

@@ -10,17 +10,19 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpLint;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 
 class PreCommitExecuteStub
 {
     /**
-     * @param Composer   $composer
-     * @param JsonLint   $jsonLint
-     * @param PhpLint    $phpLint
-     * @param PhpMd      $phpMd
-     * @param PhpCs      $phpCs
-     * @param PhpCsFixer $phpCsFixer
-     * @param PhpUnit    $phpUnit
+     * @param Composer              $composer
+     * @param JsonLint              $jsonLint
+     * @param PhpLint               $phpLint
+     * @param PhpMd                 $phpMd
+     * @param PhpCs                 $phpCs
+     * @param PhpCsFixer            $phpCsFixer
+     * @param PhpUnit               $phpUnit
+     * @param PhpUnitStrictCoverage $strictCoverage
      *
      * @return Execute
      */
@@ -31,8 +33,9 @@ class PreCommitExecuteStub
         PhpMd $phpMd,
         PhpCs $phpCs,
         PhpCsFixer $phpCsFixer,
-        PhpUnit $phpUnit
+        PhpUnit $phpUnit,
+        PhpUnitStrictCoverage $strictCoverage
     ) {
-        return new Execute([$composer, $jsonLint, $phpLint, $phpMd, $phpCs, $phpCsFixer, $phpUnit]);
+        return new Execute([$composer, $jsonLint, $phpLint, $phpMd, $phpCs, $phpCsFixer, $phpUnit, $strictCoverage]);
     }
 }

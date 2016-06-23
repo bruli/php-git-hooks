@@ -39,7 +39,7 @@ class PhpUnitStrictCoverageStub implements RandomStubInterface
      *
      * @return PhpUnitStrictCoverage
      */
-    public static function createEnabled($minimum)
+    public static function createEnabled($minimum = 99.00)
     {
         return self::create(
             new Undefined(false),

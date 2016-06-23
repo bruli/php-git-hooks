@@ -44,6 +44,7 @@ class PrePushProcessor
         $tools = $execute->execute();
 
         $tools[0] = PhpUnitConfigurator::configure($this->input, $tools[0]);
+        $tools[1] = PhpUnitStrictCoverageConfigurator::configure($this->input, $tools[1]);
 
         return new  Execute($tools);
     }

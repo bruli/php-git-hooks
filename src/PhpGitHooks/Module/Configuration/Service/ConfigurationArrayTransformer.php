@@ -7,6 +7,7 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Domain\PrePush;
 
@@ -33,6 +34,8 @@ class ConfigurationArrayTransformer
         $phpCsFixer = $tools[5];
         /** @var PhpUnit $phpunit */
         $phpunit = $tools[6];
+        /** @var PhpUnitStrictCoverage $phpUnitStrictCoverage */
+        $phpUnitStrictCoverage = $tools[7];
         /** @var PhpUnit $phpunitPrePush */
         $phpunitPrePush = $prePushTools[0];
 
@@ -65,8 +68,8 @@ class ConfigurationArrayTransformer
                         'random-mode' => $phpunit->getRandomMode()->value(),
                         'options' => $phpunit->getOptions()->value(),
                         'strict-coverage' => [
-                            'enabled' => $phpunit->getStrictCoverage()->isEnabled(),
-                            'minimum' => $phpunit->getStrictCoverage()->getMinimumStrictCoverage()->value()
+                            'enabled' => $phpUnitStrictCoverage->isEnabled(),
+                            'minimum' => $phpUnitStrictCoverage->getMinimumStrictCoverage()->value()
                         ]
                     ],
                 ],
@@ -87,8 +90,8 @@ class ConfigurationArrayTransformer
                         'random-mode' => $phpunitPrePush->getRandomMode()->value(),
                         'options' => $phpunitPrePush->getOptions()->value(),
                         'strict-coverage' =>  [
-                            'enabled' => $phpunit->getStrictCoverage()->isEnabled(),
-                            'minimum' => $phpunit->getStrictCoverage()->getMinimumStrictCoverage()->value()
+                            'enabled' => $phpUnitStrictCoverage->isEnabled(),
+                            'minimum' => $phpUnitStrictCoverage->getMinimumStrictCoverage()->value()
                         ]
                     ]
                 ],

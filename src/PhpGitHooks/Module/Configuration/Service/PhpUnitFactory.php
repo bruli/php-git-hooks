@@ -22,8 +22,7 @@ class PhpUnitFactory
             new Undefined(false),
             new Enabled($data['enabled']),
             new PhpUnitRandomMode($data['random-mode']),
-            new PhpUnitOptions($data['options']),
-            PhpUnitStrictCoverageFactory::fromArray($data['strict-coverage'])
+            new PhpUnitOptions($data['options'])
         );
     }
 
@@ -36,8 +35,7 @@ class PhpUnitFactory
             new Undefined(true),
             new Enabled(false),
             new PhpUnitRandomMode(false),
-            new PhpUnitOptions(null),
-            PhpUnitStrictCoverageFactory::setUndefined()
+            new PhpUnitOptions(null)
         );
     }
 }
