@@ -120,8 +120,8 @@ pre-push:
         random-mode: true
         options:     '<some options>'
     message:
-      right-message: 'HEY, GOOD JOB!!'
-      error-message: 'FIX YOUR CODE!!'
+      right-message: 'PUSH IT!!'
+      error-message: 'YOU CAN NOT PUSH CODE!!'
 ```
 
 ... or you can copy php-git-hooks.yml.sample from vendor/bruli/php-git-hooks.
