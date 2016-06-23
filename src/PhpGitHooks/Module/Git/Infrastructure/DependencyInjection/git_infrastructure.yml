@@ -1,0 +1,10 @@
+services:
+  tool.title.output.writer:
+    class: PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter
+    arguments: ["@console.output"]
+  commit.message.finder:
+    class: PhpGitHooks\Module\Git\Infrastructure\Git\CommitMessageFinder
+  merge.validator:
+    class: PhpGitHooks\Module\Git\Infrastructure\Git\MergeValidator
+  pre.push.original.executor:
+    class: PhpGitHooks\Module\Git\Infrastructure\Git\PrePushOriginalExecutor

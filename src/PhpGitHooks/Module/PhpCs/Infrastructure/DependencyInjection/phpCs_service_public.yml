@@ -1,0 +1,6 @@
+services:
+  php.tool.command.handler:
+    class: PhpGitHooks\Module\PhpCs\Contract\CommandHandler\PhpCsToolCommandHandler
+    arguments: ["@php.cs.tool"]
+    tags:
+      - { name: command_handler, handles: \PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand }

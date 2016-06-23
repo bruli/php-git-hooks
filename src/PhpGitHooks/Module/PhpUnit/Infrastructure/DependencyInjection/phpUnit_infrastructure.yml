@@ -1,0 +1,17 @@
+services:
+  php.unit.processor:
+    class: PhpGitHooks\Module\PhpUnit\Infrastructure\Tool\PhpUnitProcessor
+    public: false
+    arguments:
+      - "@console.output"
+      - "@tool.path.finder"
+  php.unit.randomizer.processor:
+    class: PhpGitHooks\Module\PhpUnit\Infrastructure\Tool\PhpUnitRandomizerProcessor
+    public: false
+    arguments:
+      - "@console.output"
+      - "@tool.path.finder"
+  strict.coverage.processor:
+    class: PhpGitHooks\Module\PhpUnit\Infrastructure\Tool\StrictCoverageProcessor
+    public: false
+    arguments: ["@tool.path.finder"]

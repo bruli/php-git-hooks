@@ -1,0 +1,6 @@
+services:
+  phplint.tool.command.handler:
+    class: PhpGitHooks\Module\PhpLint\Contract\CommandHandler\PhpLintToolCommandHandler
+    arguments: ["@phplint.tool"]
+    tags:
+     - { name: command_handler, handles: \PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand }

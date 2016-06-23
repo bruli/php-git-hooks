@@ -1,0 +1,28 @@
+services:
+  pre.commit.tool:
+    class: PhpGitHooks\Module\Git\Service\PreCommitTool
+    public: false
+    arguments:
+      - "@console.output"
+      - "@files.commited.extractor"
+      - "@query.bus"
+      - "@command.bus"
+      - "@tool.title.output.writer"
+  files.commited.extractor:
+    class: PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor
+    public: false
+  commit.msg.tool:
+    class: PhpGitHooks\Module\Git\Service\CommitMsgTool
+    public: false
+    arguments:
+      - "@merge.validator"
+      - "@query.bus"
+      - "@commit.message.finder"
+  pre.push.tool:
+    class: PhpGitHooks\Module\Git\Service\PrePushTool
+    public: false
+    arguments:
+      - "@query.bus"
+      - "@pre.push.original.executor"
+      - "@console.output"
+      - "@command.bus"

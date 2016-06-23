@@ -1,0 +1,4 @@
+services:
+  php.cs.tool.processor:
+    class: PhpGitHooks\Module\PhpCs\Infrastructure\Tool\PhpCsToolProcessor
+    arguments: ["@tool.path.finder"]

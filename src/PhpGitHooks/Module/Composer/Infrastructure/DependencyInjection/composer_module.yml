@@ -1,0 +1,3 @@
+imports:
+  - { resource: "composer_service_private.yml" }
+  - { resource: "composer_service_public.yml" }

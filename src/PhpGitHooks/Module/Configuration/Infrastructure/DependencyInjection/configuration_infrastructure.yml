@@ -1,0 +1,7 @@
+services:
+  configuration.file.reader:
+    class: PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileReader
+  configuration.file.writer:
+    class: PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileWriter
+  hook.copier:
+    class: PhpGitHooks\Module\Configuration\Infrastructure\Hook\HookCopier

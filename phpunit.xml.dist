@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- http://phpunit.de/manual/4.1/en/appendixes.configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.4/phpunit.xsd"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         verbose="false"
-         syntaxCheck="true"
-         stopOnError="false"
-         stopOnFailure="false"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
          backupGlobals="false"
-         bootstrap="./vendor/autoload.php">
+         colors="true"
+         bootstrap="./vendor/autoload.php"
+>
+    <php>
+        <ini name="error_reporting" value="-1" />
+    </php>
+
     <testsuites>
-        <testsuite name="PhpGitHooks Unit Tests">
-            <directory>./src/PhpGitHooks/Tests/</directory>
+        <testsuite name="default">
+            <directory>./src/PhpGitHooks/Module/*/Tests/Behaviour</directory>
         </testsuite>
     </testsuites>
 
@@ -23,14 +23,12 @@
     </listeners>
 
     <filter>
-        <blacklist>
-            <directory>./bin</directory>
-            <directory>./vendor</directory>
-            <directory>./src/PhpGitHooks/Infrastructure</directory>
-        </blacklist>
         <whitelist>
-            <directory>./src/PhpGitHooks/Application</directory>
+            <directory>./src/PhpGitHooks/Module/*/</directory>
+            <exclude>
+                <directory>./src/PhpGitHooks/Module/*/Infrastructure</directory>
+                <directory>./src/PhpGitHooks/Module/*/Tests</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
-

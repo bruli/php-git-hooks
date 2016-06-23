@@ -1,0 +1,9 @@
+#!/usr/bin/php
+<?php
+
+use PhpGitHooks\Infrastructure\Hook\CommitMsg;
+
+require __DIR__.'/../../vendor/autoload.php';
+
+$hook = new CommitMsg();
+$hook->run();

@@ -26,7 +26,7 @@
 
     <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
         <properties>
-            <property name="reportLevel" value="15" /><!-- Default: 10 -->
+            <property name="reportLevel" value="25" /><!-- Default: 10 -->
         </properties>
     </rule>
 
