@@ -154,15 +154,15 @@ class PreCommitTool
                     $configurationData->getErrorMessage()
                 )
             );
-        }
 
-        if (true === $configurationData->isPhpunitStrictCoverage()) {
-            $this->commandBus->handle(
-                new StrictCoverageCommand(
-                    $configurationData->getMinimum(),
-                    $configurationData->getErrorMessage()
-                )
-            );
+            if (true === $configurationData->isPhpunitStrictCoverage()) {
+                $this->commandBus->handle(
+                    new StrictCoverageCommand(
+                        $configurationData->getMinimum(),
+                        $configurationData->getErrorMessage()
+                    )
+                );
+            }
         }
     }
 }
