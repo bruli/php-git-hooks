@@ -9,7 +9,7 @@ class PreCommitResponse
      */
     private $preCommit;
     /**
-     * @var bool
+     * @var string
      */
     private $rightMessage;
     /**
@@ -17,7 +17,7 @@ class PreCommitResponse
      */
     private $errorMessage;
     /**
-     * @var string
+     * @var bool
      */
     private $composer;
     /**
