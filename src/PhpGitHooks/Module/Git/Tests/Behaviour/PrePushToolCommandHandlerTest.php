@@ -63,7 +63,9 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
         );
         $this->shouldWriteLnOutput(PrePushTool::PRE_PUSH_HOOK);
         $this->shouldExecutePrePushOriginal($this->remote, $this->url, 'error');
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($configurationDataResponse->getPrePushErrorMessage()));
+        $this->shouldWriteLnOutput(
+            BadJobLogoResponse::paint($configurationDataResponse->getPrePush()->getErrorMessage())
+        );
 
         $this->prePushToolCommandHandler->handle(new PrePushToolCommand($this->remote, $this->url));
     }
@@ -83,19 +85,21 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
         $this->shouldExecutePrePushOriginal($this->remote, $this->url, '');
         $this->shouldHandleCommand(
             new PhpUnitToolCommand(
-                $configurationDataResponse->isPrePushPhpUnitRandom(),
-                $configurationDataResponse->getPrePushPhpUnitOptions(),
-                $configurationDataResponse->getPrePushErrorMessage()
+                $configurationDataResponse->getPrePush()->getPhpUnit()->isPhpunitRandomMode(),
+                $configurationDataResponse->getPrePush()->getPhpUnit()->getPhpunitOptions(),
+                $configurationDataResponse->getPrePush()->getErrorMessage()
             )
         );
         $this->shouldHandleCommand(
             new StrictCoverageCommand(
-                $configurationDataResponse->getPrePushMinimum(),
-                $configurationDataResponse->getPrePushErrorMessage()
+                $configurationDataResponse->getPrePush()->getPhpUnitStrictCoverage()->getMinimum(),
+                $configurationDataResponse->getPrePush()->getErrorMessage()
             )
         );
 
-        $this->shouldWriteLnOutput(GoodJobLogoResponse::paint($configurationDataResponse->getPrePushRightMessage()));
+        $this->shouldWriteLnOutput(
+            GoodJobLogoResponse::paint($configurationDataResponse->getPrePush()->getRightMessage())
+        );
 
         $this->prePushToolCommandHandler->handle(new PrePushToolCommand($this->remote, $this->url));
     }

@@ -64,49 +64,57 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $this->shouldWriteTitle(PreCommitTool::TITLE, 'title');
         $this->shouldGetFilesCommitted($files);
         $this->shouldHandleQuery(new ConfigurationDataFinderQuery(), $configurationDataResponse);
-        $this->shouldHandleCommand(new ComposerToolCommand($files, $configurationDataResponse->getErrorMessage()));
-        $this->shouldHandleCommand(new JsonLintToolCommand($files, $configurationDataResponse->getErrorMessage()));
-        $this->shouldHandleCommand(new PhpLintToolCommand($files, $configurationDataResponse->getErrorMessage()));
+        $this->shouldHandleCommand(
+            new ComposerToolCommand($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
+        );
+        $this->shouldHandleCommand(
+            new JsonLintToolCommand($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
+        );
+        $this->shouldHandleCommand(
+            new PhpLintToolCommand($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
+        );
         $this->shouldHandleCommand(
             new PhpCsToolCommand(
                 $files,
-                $configurationDataResponse->getPhpCsStandard(),
+                $configurationDataResponse->getPreCommit()->getPhpCs()->getPhpCsStandard(),
                 HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT
             )
         );
         $this->shouldHandleCommand(
             new PhpCsFixerToolCommand(
                 $files,
-                $configurationDataResponse->isPhpCsFixerPsr0(),
-                $configurationDataResponse->isPhpCsFixerPsr1(),
-                $configurationDataResponse->isPhpCsFixerPsr2(),
-                $configurationDataResponse->isPhpCsFixerSymfony(),
-                $configurationDataResponse->getErrorMessage()
+                $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr0(),
+                $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),
+                $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
+                $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
+                $configurationDataResponse->getPreCommit()->getErrorMessage()
             )
         );
         $this->shouldHandleCommand(
             new PhpMdToolCommand(
                 $files,
-                $configurationDataResponse->getPhpMdOptions(),
-                $configurationDataResponse->getErrorMessage()
+                $configurationDataResponse->getPreCommit()->getPhpMd()->getPhpMdOptions(),
+                $configurationDataResponse->getPreCommit()->getErrorMessage()
             )
         );
         $this->shouldHandleCommand(
             new PhpUnitToolCommand(
-                $configurationDataResponse->isPhpunitRandomMode(),
-                $configurationDataResponse->getPhpunitOptions(),
-                $configurationDataResponse->getErrorMessage()
+                $configurationDataResponse->getPreCommit()->getPhpUnit()->isPhpunitRandomMode(),
+                $configurationDataResponse->getPreCommit()->getPhpUnit()->getPhpunitOptions(),
+                $configurationDataResponse->getPreCommit()->getErrorMessage()
             )
         );
 
         $this->shouldHandleCommand(
             new StrictCoverageCommand(
-                $configurationDataResponse->getMinimum(),
-                $configurationDataResponse->getErrorMessage()
+                $configurationDataResponse->getPreCommit()->getPhpUnitStrictCoverage()->getMinimum(),
+                $configurationDataResponse->getPreCommit()->getErrorMessage()
             )
         );
 
-        $this->shouldWriteLnOutput(GoodJobLogoResponse::paint($configurationDataResponse->getRightMessage()));
+        $this->shouldWriteLnOutput(
+            GoodJobLogoResponse::paint($configurationDataResponse->getPreCommit()->getRightMessage())
+        );
 
         $this->preCommitToolCommandHandler->handle(new PreCommitToolCommand());
     }

@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Module\PhpLint\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
-use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitResponseStub;
 use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Tests\Stub\PhpFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
@@ -39,11 +39,11 @@ class PhpLintToolCommandHandlerTest extends PhpLintUnitTestCase
     public function itShouldNotExecuteTool()
     {
         $files = FilesCommittedStub::createWithoutPhpFiles();
-        
+
         $this->shouldHandleQuery(new PhpFilesExtractorQuery($files), PhpFilesResponseStub::create([]));
 
         $this->phpLintToolCommandHandler->handle(
-            new PhpLintToolCommand($files, ConfigurationDataResponseStub::FIX_YOUR_CODE)
+            new PhpLintToolCommand($files, PreCommitResponseStub::FIX_YOUR_CODE)
         );
     }
 
@@ -53,15 +53,15 @@ class PhpLintToolCommandHandlerTest extends PhpLintUnitTestCase
     public function itShouldThrowsException()
     {
         $this->expectException(PhpLintViolationsException::class);
-        
+
         $files = FilesCommittedStub::createAllFiles();
         $phpFiles = FilesCommittedStub::createOnlyPhpFiles();
         $outputMessage = new PreCommitOutputWriter(PhpLintToolExecutor::RUNNING_PHPLINT);
-        $errorMessage = ConfigurationDataResponseStub::FIX_YOUR_CODE;
-        
+        $errorMessage = PreCommitResponseStub::FIX_YOUR_CODE;
+
         $this->shouldHandleQuery(new PhpFilesExtractorQuery($files), PhpFilesResponseStub::create($phpFiles));
         $this->shouldWriteOutput($outputMessage->getMessage());
-        
+
         $errors = null;
         foreach ($phpFiles as $file) {
             $error = 'ERROR';

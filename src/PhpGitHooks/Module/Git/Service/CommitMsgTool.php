@@ -52,11 +52,11 @@ class CommitMsgTool
         /** @var ConfigurationDataResponse $configurationDataResponse */
         $configurationDataResponse = $this->queryBus->handle(new ConfigurationDataFinderQuery());
 
-        if (true === $configurationDataResponse->isCommitMsg()) {
+        if (true === $configurationDataResponse->getCommitMsg()->isCommitMsg()) {
             $commitContent = $this->commitMessageFinder->find($input->getFirstArgument());
 
             $validMessage = $this->isValidCommitMessage(
-                $configurationDataResponse->getRegularExpression(),
+                $configurationDataResponse->getCommitMsg()->getRegularExpression(),
                 $commitContent
             );
 

@@ -71,37 +71,20 @@ class ConfigurationDataFinder implements QueryInterface
         /** @var PhpUnitStrictCoverage $prePushStrictCoverage */
         $prePushStrictCoverage = $prePushTools[1];
 
-        return new ConfigurationDataResponse(
-            $preCommit->isEnabled(),
-            $preCommit->getMessages()->getRightMessage()->value(),
-            $preCommit->getMessages()->getErrorMessage()->value(),
-            $composer->isEnabled(),
-            $jsonLint->isEnabled(),
-            $phpLint->isEnabled(),
-            $phpMd->isEnabled(),
-            $phpMd->getOptions()->value(),
-            $phpCs->isEnabled(),
-            $phpCs->getStandard()->value(),
-            $phpCsFixer->isEnabled(),
-            $phpCsFixer->getLevels()->getPsr0()->value(),
-            $phpCsFixer->getLevels()->getPsr1()->value(),
-            $phpCsFixer->getLevels()->getPsr2()->value(),
-            $phpCsFixer->getLevels()->getSymfony()->value(),
-            $phpUnit->isEnabled(),
-            $phpUnit->getRandomMode()->value(),
-            $phpUnit->getOptions()->value(),
-            $phpUnitStrictCoverage->isEnabled(),
-            $phpUnitStrictCoverage->getMinimumStrictCoverage()->value(),
-            $commitMsg->isEnabled(),
-            $commitMsg->getRegularExpression()->value(),
-            $prePush->isEnabled(),
-            $prePushPhpUnit->isEnabled(),
-            $prePushPhpUnit->getRandomMode()->value(),
-            $prePushPhpUnit->getOptions()->value(),
-            $prePushStrictCoverage->isEnabled(),
-            $prePushStrictCoverage->getMinimumStrictCoverage()->value(),
-            $prePush->getMessages()->getRightMessage()->value(),
-            $prePush->getMessages()->getErrorMessage()->value()
+        return ConfigurationDataResponseFactory::build(
+            $preCommit,
+            $composer,
+            $jsonLint,
+            $phpLint,
+            $phpMd,
+            $phpCs,
+            $phpCsFixer,
+            $phpUnit,
+            $phpUnitStrictCoverage,
+            $commitMsg,
+            $prePush,
+            $prePushPhpUnit,
+            $prePushStrictCoverage
         );
     }
 }

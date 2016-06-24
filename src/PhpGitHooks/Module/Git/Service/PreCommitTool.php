@@ -7,6 +7,7 @@ use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
 use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
+use PhpGitHooks\Module\Configuration\Contract\Response\PreCommitResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor;
 use PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter;
@@ -48,11 +49,11 @@ class PreCommitTool
      * PreCommitTool constructor.
      *
      *
-     * @param OutputInterface $output
+     * @param OutputInterface         $output
      * @param FilesCommittedExtractor $filesCommittedExtractor
-     * @param QueryBus $queryBus
-     * @param CommandBus $commandBus
-     * @param ToolTittleOutputWriter $tittleOutputWriter
+     * @param QueryBus                $queryBus
+     * @param CommandBus              $commandBus
+     * @param ToolTittleOutputWriter  $tittleOutputWriter
      */
     public function __construct(
         OutputInterface $output,
@@ -81,85 +82,96 @@ class PreCommitTool
 
         /** @var ConfigurationDataResponse $configurationData */
         $configurationData = $this->queryBus->handle(new ConfigurationDataFinderQuery());
+        $preCommit = $configurationData->getPreCommit();
 
-        if (true === $configurationData->isPreCommit()) {
-            $this->executeTools($configurationData, $committedFiles);
+        if (true === $preCommit->isPreCommit()) {
+            $this->executeTools($preCommit, $committedFiles);
         }
 
-        $this->output->writeln(GoodJobLogoResponse::paint($configurationData->getRightMessage()));
+        $this->output->writeln(GoodJobLogoResponse::paint($preCommit->getRightMessage()));
     }
 
     /**
-     * @param ConfigurationDataResponse $configurationData
-     * @param array $committedFiles
+     * @param PreCommitResponse $preCommitResponse
+     * @param array             $committedFiles
      */
-    private function executeTools(ConfigurationDataResponse $configurationData, array $committedFiles)
+    private function executeTools(PreCommitResponse $preCommitResponse, array $committedFiles)
     {
-        if (true === $configurationData->isComposer()) {
+        if (true === $preCommitResponse->isComposer()) {
             $this->commandBus->handle(
-                new ComposerToolCommand($committedFiles, $configurationData->getErrorMessage())
+                new ComposerToolCommand($committedFiles, $preCommitResponse->getErrorMessage())
             );
         }
 
-        if (true === $configurationData->isJsonLint()) {
+        if (true === $preCommitResponse->isJsonLint()) {
             $this->commandBus->handle(
-                new JsonLintToolCommand($committedFiles, $configurationData->getErrorMessage())
+                new JsonLintToolCommand($committedFiles, $preCommitResponse->getErrorMessage())
             );
         }
 
-        if (true === $configurationData->isPhpLint()) {
+        if (true === $preCommitResponse->isPhpLint()) {
             $this->commandBus->handle(
-                new PhpLintToolCommand($committedFiles, $configurationData->getErrorMessage())
+                new PhpLintToolCommand($committedFiles, $preCommitResponse->getErrorMessage())
             );
         }
 
-        if (true === $configurationData->isPhpCs()) {
+        $phpCsResponse = $preCommitResponse->getPhpCs();
+
+        if (true === $phpCsResponse->isPhpCs()) {
             $this->commandBus->handle(
                 new PhpCsToolCommand(
                     $committedFiles,
-                    $configurationData->getPhpCsStandard(),
-                    $configurationData->getErrorMessage()
+                    $phpCsResponse->getPhpCsStandard(),
+                    $preCommitResponse->getErrorMessage()
                 )
             );
         }
 
-        if (true === $configurationData->isPhpCsFixer()) {
+        $phpCsFixerResponse = $preCommitResponse->getPhpCsFixer();
+
+        if (true === $phpCsFixerResponse->isPhpCsFixer()) {
             $this->commandBus->handle(
                 new PhpCsFixerToolCommand(
                     $committedFiles,
-                    $configurationData->isPhpCsFixerPsr0(),
-                    $configurationData->isPhpCsFixerPsr1(),
-                    $configurationData->isPhpCsFixerPsr2(),
-                    $configurationData->isPhpCsFixerSymfony(),
-                    $configurationData->getErrorMessage()
+                    $phpCsFixerResponse->isPhpCsFixerPsr0(),
+                    $phpCsFixerResponse->isPhpCsFixerPsr1(),
+                    $phpCsFixerResponse->isPhpCsFixerPsr2(),
+                    $phpCsFixerResponse->isPhpCsFixerSymfony(),
+                    $preCommitResponse->getErrorMessage()
                 )
             );
         }
 
-        if (true === $configurationData->isPhpMd()) {
+        $phpMdResponse = $preCommitResponse->getPhpMd();
+
+        if (true === $phpMdResponse->isPhpMd()) {
             $this->commandBus->handle(
                 new PhpMdToolCommand(
                     $committedFiles,
-                    $configurationData->getPhpMdOptions(),
-                    $configurationData->getErrorMessage()
+                    $phpMdResponse->getPhpMdOptions(),
+                    $preCommitResponse->getErrorMessage()
                 )
             );
         }
 
-        if (true === $configurationData->isPhpunit()) {
+        $phpunitResponse = $preCommitResponse->getPhpUnit();
+
+        if (true === $phpunitResponse->isPhpunit()) {
             $this->commandBus->handle(
                 new PhpUnitToolCommand(
-                    $configurationData->isPhpunitRandomMode(),
-                    $configurationData->getPhpunitOptions(),
-                    $configurationData->getErrorMessage()
+                    $phpunitResponse->isPhpunitRandomMode(),
+                    $phpunitResponse->getPhpunitOptions(),
+                    $preCommitResponse->getErrorMessage()
                 )
             );
 
-            if (true === $configurationData->isPhpunitStrictCoverage()) {
+            $phpunitStrictCoverageResponse = $preCommitResponse->getPhpUnitStrictCoverage();
+
+            if (true === $phpunitStrictCoverageResponse->isPhpunitStrictCoverage()) {
                 $this->commandBus->handle(
                     new StrictCoverageCommand(
-                        $configurationData->getMinimum(),
-                        $configurationData->getErrorMessage()
+                        $phpunitStrictCoverageResponse->getMinimum(),
+                        $preCommitResponse->getErrorMessage()
                     )
                 );
             }

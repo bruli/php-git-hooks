@@ -7,7 +7,7 @@ use PhpGitHooks\Module\Composer\Contract\CommandHandler\ComposerToolCommandHandl
 use PhpGitHooks\Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
 use PhpGitHooks\Module\Composer\Service\ComposerTool;
 use PhpGitHooks\Module\Composer\Tests\Infrastructure\ComposerUnitTestCase;
-use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitResponseStub;
 use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Tests\Stub\ComposerFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
@@ -27,7 +27,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
 
     protected function setUp()
     {
-        $this->errorMessage = ConfigurationDataResponseStub::FIX_YOUR_CODE;
+        $this->errorMessage = PreCommitResponseStub::FIX_YOUR_CODE;
         $this->composerToolCommandHandler = new ComposerToolCommandHandler(
             new ComposerTool(
                 $this->getQueryBus(),

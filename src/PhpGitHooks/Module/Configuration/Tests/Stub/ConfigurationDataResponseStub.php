@@ -2,113 +2,26 @@
 
 namespace PhpGitHooks\Module\Configuration\Tests\Stub;
 
+use PhpGitHooks\Module\Configuration\Contract\Response\CommitMsgResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
-use PhpGitHooks\Module\Configuration\Service\HookQuestions;
+use PhpGitHooks\Module\Configuration\Contract\Response\PreCommitResponse;
+use PhpGitHooks\Module\Configuration\Contract\Response\PrePushResponse;
 
 final class ConfigurationDataResponseStub
 {
-    const PHPCS_STANDARD = 'PSR2';
-    const FIX_YOUR_CODE = 'Fix your code';
-    const GOOD_JOB = 'Good job';
-    const MINIMUM_COVERAGE = 100.00;
-
     /**
-     * @param bool $preCommit
-     * @param string|null $rightMessage
-     * @param string|null $errorMessage
-     * @param bool $composer
-     * @param bool $jsonLint
-     * @param bool $phpLint
-     * @param bool $phpMd
-     * @param string|null $phpMdOptions
-     * @param bool $phpCs
-     * @param string|null $phpCsStandard
-     * @param bool $phpCsFixer
-     * @param bool $phpCsFixerPsr0
-     * @param bool $phpCsFixerPsr1
-     * @param bool $phpCsFixerPsr2
-     * @param bool $phpCsFixerSymfony
-     * @param bool $phpunit
-     * @param bool $phpunitRandomMode
-     * @param string|null $phpunitOptions
-     * @param bool $phpunitStrictCoverage
-     * @param float $phpunitMinimumCoverage
-     * @param bool $commitMsg
-     * @param string|null $regularExpression
-     * @param bool $prePush
-     * @param bool $prePushPhpUnit
-     * @param bool $prePushPhpUnitRandom
-     * @param string|null $prePushPhpUnitOptions
-     * @param bool $prePushStrictCoverage
-     * @param float $prePushMinimum
-     * @param string $prePushRightMessage
-     * @param string $prePushErrorMessage
+     * @param PreCommitResponse $preCommitResponse
+     * @param CommitMsgResponse $commitMsgResponse
+     * @param PrePushResponse   $prePushResponse
+     *
      * @return ConfigurationDataResponse
      */
     public static function create(
-        $preCommit,
-        $rightMessage,
-        $errorMessage,
-        $composer,
-        $jsonLint,
-        $phpLint,
-        $phpMd,
-        $phpMdOptions,
-        $phpCs,
-        $phpCsStandard,
-        $phpCsFixer,
-        $phpCsFixerPsr0,
-        $phpCsFixerPsr1,
-        $phpCsFixerPsr2,
-        $phpCsFixerSymfony,
-        $phpunit,
-        $phpunitRandomMode,
-        $phpunitOptions,
-        $phpunitStrictCoverage,
-        $phpunitMinimumCoverage,
-        $commitMsg,
-        $regularExpression,
-        $prePush,
-        $prePushPhpUnit,
-        $prePushPhpUnitRandom,
-        $prePushPhpUnitOptions,
-        $prePushStrictCoverage,
-        $prePushMinimum,
-        $prePushRightMessage,
-        $prePushErrorMessage
+        PreCommitResponse $preCommitResponse,
+        CommitMsgResponse $commitMsgResponse,
+        PrePushResponse $prePushResponse
     ) {
-        return new ConfigurationDataResponse(
-            $preCommit,
-            $rightMessage,
-            $errorMessage,
-            $composer,
-            $jsonLint,
-            $phpLint,
-            $phpMd,
-            $phpMdOptions,
-            $phpCs,
-            $phpCsStandard,
-            $phpCsFixer,
-            $phpCsFixerPsr0,
-            $phpCsFixerPsr1,
-            $phpCsFixerPsr2,
-            $phpCsFixerSymfony,
-            $phpunit,
-            $phpunitRandomMode,
-            $phpunitOptions,
-            $phpunitStrictCoverage,
-            $phpunitMinimumCoverage,
-            $commitMsg,
-            $regularExpression,
-            $prePush,
-            $prePushPhpUnit,
-            $prePushPhpUnitRandom,
-            $prePushPhpUnitOptions,
-            $prePushStrictCoverage,
-            $prePushMinimum,
-            $prePushRightMessage,
-            $prePushErrorMessage
-        );
+        return new ConfigurationDataResponse($preCommitResponse, $commitMsgResponse, $prePushResponse);
     }
 
     /**
@@ -116,39 +29,10 @@ final class ConfigurationDataResponseStub
      */
     public static function createAllEnabled()
     {
-        $bool = true;
-
-        return static::create(
-            $bool,
-            static::GOOD_JOB,
-            static::FIX_YOUR_CODE,
-            $bool,
-            $bool,
-            $bool,
-            $bool,
-            null,
-            $bool,
-            static::PHPCS_STANDARD,
-            $bool,
-            $bool,
-            $bool,
-            $bool,
-            $bool,
-            $bool,
-            $bool,
-            null,
-            $bool,
-            self::MINIMUM_COVERAGE,
-            $bool,
-            null,
-            $bool,
-            $bool,
-            $bool,
-            null,
-            $bool,
-            static::MINIMUM_COVERAGE,
-            static::GOOD_JOB,
-            static::FIX_YOUR_CODE
+        return self::create(
+            PreCommitResponseStub::createAllEnabled(),
+            CommitMsgResponseStub::createEnabled(),
+            PrePushResponseStub::createAllEnabled()
         );
     }
 
@@ -161,37 +45,28 @@ final class ConfigurationDataResponseStub
      */
     public static function createCustom($preCommit, $commitMsg, $prePush)
     {
-        return static::create(
-            $preCommit,
-            static::GOOD_JOB,
-            static::FIX_YOUR_CODE,
-            $preCommit,
-            $preCommit,
-            $preCommit,
-            $preCommit,
-            null,
-            $preCommit,
-            static::PHPCS_STANDARD,
-            $preCommit,
-            $preCommit,
-            $preCommit,
-            $preCommit,
-            $preCommit,
-            $preCommit,
-            $preCommit,
-            null,
-            $preCommit,
-            static::MINIMUM_COVERAGE,
-            $commitMsg,
-            HookQuestions::COMMIT_MSG_REGULAR_EXPRESSION_ANSWER,
-            $prePush,
-            $prePush,
-            $prePush,
-            null,
-            $prePush,
-            static::MINIMUM_COVERAGE,
-            null,
-            null
+        return self::create(
+            PreCommitResponseStub::create(
+                $preCommit,
+                PreCommitResponseStub::GOOD_JOB,
+                PreCommitResponseStub::FIX_YOUR_CODE,
+                $preCommit,
+                $preCommit,
+                $preCommit,
+                PhpMdResponseStub::create($preCommit, PhpMdResponseStub::OPTIONS),
+                PhpCsResponseStub::create($preCommit, PhpCsResponseStub::STANDARD),
+                PhpCsFixerResponseStub::create($preCommit, $preCommit, $preCommit, $preCommit, $preCommit),
+                PhpUnitResponseStub::create($preCommit, $preCommit, PhpUnitResponseStub::OPTIONS),
+                PhpUnitStrictCoverageResponseStub::create($preCommit, PhpUnitStrictCoverageResponseStub::MINIMUM)
+            ),
+            CommitMsgResponseStub::create($commitMsg, CommitMsgResponseStub::REGULAR_EXPRESSION),
+            PrePushResponseStub::create(
+                $prePush,
+                PrePushResponseStub::RIGHT_MESSAGE,
+                PrePushResponseStub::ERROR_MESSAGE,
+                PhpUnitResponseStub::create($prePush, $prePush, PhpUnitResponseStub::OPTIONS),
+                PhpUnitStrictCoverageResponseStub::create($prePush, PhpUnitStrictCoverageResponseStub::MINIMUM)
+            )
         );
     }
 }

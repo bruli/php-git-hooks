@@ -45,11 +45,11 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->phpCsFixerToolCommandHandler->handle(
             new PhpCsFixerToolCommand(
                 $files,
-                $configurationData->isPhpCsFixerPsr0(),
-                $configurationData->isPhpCsFixerPsr1(),
-                $configurationData->isPhpCsFixerPsr2(),
-                $configurationData->isPhpCsFixerSymfony(),
-                $configurationData->getErrorMessage()
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr0(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
+                $configurationData->getPreCommit()->getErrorMessage()
             )
         );
     }
@@ -82,16 +82,16 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
 
         $this->shouldWriteLnOutput($outputMessage->getFailMessage());
         $this->shouldWriteLnOutput($outputMessage->setError($errors));
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($configurationData->getErrorMessage()));
+        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($configurationData->getPreCommit()->getErrorMessage()));
 
         $this->phpCsFixerToolCommandHandler->handle(
             new PhpCsFixerToolCommand(
                 $files,
-                $configurationData->isPhpCsFixerPsr0(),
-                $configurationData->isPhpCsFixerPsr1(),
-                $configurationData->isPhpCsFixerPsr2(),
-                $configurationData->isPhpCsFixerSymfony(),
-                $configurationData->getErrorMessage()
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr0(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
+                $configurationData->getPreCommit()->getErrorMessage()
             )
         );
     }
@@ -149,11 +149,11 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->phpCsFixerToolCommandHandler->handle(
             new PhpCsFixerToolCommand(
                 $files,
-                $configurationData->isPhpCsFixerPsr0(),
-                $configurationData->isPhpCsFixerPsr1(),
-                $configurationData->isPhpCsFixerPsr2(),
-                $configurationData->isPhpCsFixerSymfony(),
-                $configurationData->getErrorMessage()
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr0(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
+                $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
+                $configurationData->getPreCommit()->getErrorMessage()
             )
         );
     }

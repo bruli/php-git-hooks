@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Module\JsonLint\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitResponseStub;
 use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Tests\Stub\JsonFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
@@ -38,7 +39,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
             )
         );
 
-        $this->errorMessage = ConfigurationDataResponseStub::FIX_YOUR_CODE;
+        $this->errorMessage = PreCommitResponseStub::FIX_YOUR_CODE;
     }
 
     /**

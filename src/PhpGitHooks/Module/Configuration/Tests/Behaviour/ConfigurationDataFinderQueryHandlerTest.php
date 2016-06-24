@@ -42,23 +42,23 @@ class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
         /** @var ConfigurationDataResponse $data */
         $data = $this->configurationDataFinderQueryHandler->handle(new ConfigurationDataFinderQuery());
 
-        $this->assertTrue($data->isPreCommit());
-        $this->assertNotNull($data->getRightMessage());
-        $this->assertNotNull($data->getErrorMessage());
-        $this->assertTrue($data->isCommitMsg());
-        $this->assertTrue($data->isComposer());
-        $this->assertTrue($data->isJsonLint());
-        $this->assertTrue($data->isPhpLint());
-        $this->assertTrue($data->isPhpMd());
-        $this->assertTrue($data->isPhpCs());
-        $this->assertNotNull($data->getPhpCsStandard());
-        $this->assertTrue($data->isPhpCsFixer());
-        $this->assertTrue($data->isPhpCsFixerPsr0());
-        $this->assertTrue($data->isPhpCsFixerPsr1());
-        $this->assertTrue($data->isPhpCsFixerPsr2());
-        $this->assertTrue($data->isPhpCsFixerSymfony());
-        $this->assertTrue($data->isPhpunit());
-        $this->assertTrue($data->isPhpunitRandomMode());
-        $this->assertNotNull($data->getPhpunitOptions());
+        $this->assertTrue($data->getPreCommit()->isPreCommit());
+        $this->assertNotNull($data->getPreCommit()->getRightMessage());
+        $this->assertNotNull($data->getPreCommit()->getErrorMessage());
+        $this->assertTrue($data->getPreCommit()->isComposer());
+        $this->assertTrue($data->getPreCommit()->isJsonLint());
+        $this->assertTrue($data->getPreCommit()->isPhpLint());
+        $this->assertTrue($data->getPreCommit()->getPhpMd()->isPhpMd());
+        $this->assertTrue($data->getPreCommit()->getPhpCs()->isPhpCs());
+        $this->assertNotNull($data->getPreCommit()->getPhpCs()->getPhpCsStandard());
+        $this->assertTrue($data->getPreCommit()->getPhpCsFixer()->isPhpCsFixer());
+        $this->assertTrue($data->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr0());
+        $this->assertTrue($data->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1());
+        $this->assertTrue($data->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2());
+        $this->assertTrue($data->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony());
+        $this->assertTrue($data->getPreCommit()->getPhpUnit()->isPhpunit());
+        $this->assertTrue($data->getPreCommit()->getPhpUnit()->isPhpunitRandomMode());
+        $this->assertNotNull($data->getPreCommit()->getPhpUnit()->getPhpunitOptions());
+        $this->assertTrue($data->getCommitMsg()->isCommitMsg());
     }
 }

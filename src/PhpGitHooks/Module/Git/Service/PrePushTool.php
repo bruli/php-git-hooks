@@ -64,31 +64,36 @@ class PrePushTool
     {
         /** @var ConfigurationDataResponse $configurationData */
         $configurationData = $this->queryBus->handle(new ConfigurationDataFinderQuery());
+        $prePushResponse = $configurationData->getPrePush();
 
-        if (true === $configurationData->isPrePush()) {
+        if (true === $prePushResponse->isPrePush()) {
             $this->output->writeln(self::PRE_PUSH_HOOK);
-            $this->executeOriginalHook($remote, $url, $configurationData->getPrePushErrorMessage());
+            $this->executeOriginalHook($remote, $url, $prePushResponse->getErrorMessage());
+            
+            $phpunitResponse = $prePushResponse->getPhpUnit();
 
-            if (true === $configurationData->isPrePushPhpUnit()) {
+            if (true === $phpunitResponse->isPhpunit()) {
                 $this->commandBus->handle(
                     new PhpUnitToolCommand(
-                        $configurationData->isPrePushPhpUnitRandom(),
-                        $configurationData->getPrePushPhpUnitOptions(),
-                        $configurationData->getPrePushErrorMessage()
+                        $phpunitResponse->isPhpunitRandomMode(),
+                        $phpunitResponse->getPhpunitOptions(),
+                        $prePushResponse->getErrorMessage()
                     )
                 );
+                
+                $phpunitStrictCoverageResponse = $prePushResponse->getPhpUnitStrictCoverage();
 
-                if (true === $configurationData->isPrePushStrictCoverage()) {
+                if (true === $phpunitStrictCoverageResponse->isPhpunitStrictCoverage()) {
                     $this->commandBus->handle(
                         new StrictCoverageCommand(
-                            $configurationData->getPrePushMinimum(),
-                            $configurationData->getErrorMessage()
+                            $phpunitStrictCoverageResponse->getMinimum(),
+                            $prePushResponse->getErrorMessage()
                         )
                     );
                 }
             }
 
-            $this->output->writeln(GoodJobLogoResponse::paint($configurationData->getPrePushRightMessage()));
+            $this->output->writeln(GoodJobLogoResponse::paint($prePushResponse->getRightMessage()));
         }
     }
 
