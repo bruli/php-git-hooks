@@ -57,7 +57,8 @@ final class ConfigurationDataResponseStub
                 PhpCsResponseStub::create($preCommit, PhpCsResponseStub::STANDARD),
                 PhpCsFixerResponseStub::create($preCommit, $preCommit, $preCommit, $preCommit, $preCommit),
                 PhpUnitResponseStub::create($preCommit, $preCommit, PhpUnitResponseStub::OPTIONS),
-                PhpUnitStrictCoverageResponseStub::create($preCommit, PhpUnitStrictCoverageResponseStub::MINIMUM)
+                PhpUnitStrictCoverageResponseStub::create($preCommit, PhpUnitStrictCoverageResponseStub::MINIMUM),
+                PhpUnitGuardCoverageResponseStub::create($preCommit, PhpUnitGuardCoverageResponseStub::WARNING_MESSAGE)
             ),
             CommitMsgResponseStub::create($commitMsg, CommitMsgResponseStub::REGULAR_EXPRESSION),
             PrePushResponseStub::create(
@@ -65,7 +66,8 @@ final class ConfigurationDataResponseStub
                 PrePushResponseStub::RIGHT_MESSAGE,
                 PrePushResponseStub::ERROR_MESSAGE,
                 PhpUnitResponseStub::create($prePush, $prePush, PhpUnitResponseStub::OPTIONS),
-                PhpUnitStrictCoverageResponseStub::create($prePush, PhpUnitStrictCoverageResponseStub::MINIMUM)
+                PhpUnitStrictCoverageResponseStub::create($prePush, PhpUnitStrictCoverageResponseStub::MINIMUM),
+                PhpUnitGuardCoverageResponseStub::create($prePush, PhpUnitGuardCoverageResponseStub::WARNING_MESSAGE)
             )
         );
     }

@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Module\Configuration\Tests\Stub;
 
+use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitGuardCoverageResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitStrictCoverageResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PrePushResponse;
@@ -17,6 +18,7 @@ class PrePushResponseStub
      * @param $errorMessage
      * @param PhpUnitResponse               $phpUnitResponse
      * @param PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse
+     * @param PhpUnitGuardCoverageResponse  $phpUnitGuardCoverageResponse
      *
      * @return PrePushResponse
      */
@@ -25,14 +27,16 @@ class PrePushResponseStub
         $rightMessage,
         $errorMessage,
         PhpUnitResponse $phpUnitResponse,
-        PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse
+        PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse,
+        PhpUnitGuardCoverageResponse $phpUnitGuardCoverageResponse
     ) {
         return new PrePushResponse(
             $prePush,
             $rightMessage,
             $errorMessage,
             $phpUnitResponse,
-            $phpUnitStrictCoverageResponse
+            $phpUnitStrictCoverageResponse,
+            $phpUnitGuardCoverageResponse
         );
     }
 
@@ -46,7 +50,8 @@ class PrePushResponseStub
             self::RIGHT_MESSAGE,
             self::ERROR_MESSAGE,
             PhpUnitResponseStub::createEnabled(),
-            PhpUnitStrictCoverageResponseStub::createEnabled()
+            PhpUnitStrictCoverageResponseStub::createEnabled(),
+            PhpUnitGuardCoverageResponseStub::createEnabled()
         );
     }
 }

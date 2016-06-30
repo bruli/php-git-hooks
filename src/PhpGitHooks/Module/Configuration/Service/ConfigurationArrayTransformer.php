@@ -7,6 +7,7 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitGuardCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Domain\PrePush;
@@ -17,6 +18,7 @@ class ConfigurationArrayTransformer
      * @param PreCommit $preCommit
      * @param CommitMsg $commitMsg
      * @param PrePush $prePush
+     *
      * @return array
      */
     public static function transform(PreCommit $preCommit, CommitMsg $commitMsg, PrePush $prePush)
@@ -36,8 +38,15 @@ class ConfigurationArrayTransformer
         $phpunit = $tools[6];
         /** @var PhpUnitStrictCoverage $phpUnitStrictCoverage */
         $phpUnitStrictCoverage = $tools[7];
+        /** @var PhpUnitGuardCoverage $phpUnitGuardCoverage */
+        $phpUnitGuardCoverage = $tools[8];
+        
         /** @var PhpUnit $phpunitPrePush */
         $phpunitPrePush = $prePushTools[0];
+        /** @var PhpUnitStrictCoverage $phpUnitStrictCoveragePrePush */
+        $phpUnitStrictCoveragePrePush = $prePushTools[1];
+        /** @var PhpUnitGuardCoverage $phpUnitGuardCoveragePrePush */
+        $phpUnitGuardCoveragePrePush = $prePushTools[2];
 
         return [
             'pre-commit' => [
@@ -48,7 +57,7 @@ class ConfigurationArrayTransformer
                     'phplint' => $phpLint->isEnabled(),
                     'phpmd' => [
                         'enabled' => $phpMd->isEnabled(),
-                        'options' => $phpMd->getOptions()->value()
+                        'options' => $phpMd->getOptions()->value(),
                     ],
                     'phpcs' => [
                         'enabled' => $phpCs->isEnabled(),
@@ -69,8 +78,12 @@ class ConfigurationArrayTransformer
                         'options' => $phpunit->getOptions()->value(),
                         'strict-coverage' => [
                             'enabled' => $phpUnitStrictCoverage->isEnabled(),
-                            'minimum' => $phpUnitStrictCoverage->getMinimumStrictCoverage()->value()
-                        ]
+                            'minimum' => $phpUnitStrictCoverage->getMinimumStrictCoverage()->value(),
+                        ],
+                        'guard-coverage' => [
+                            'enabled' => $phpUnitGuardCoverage->isEnabled(),
+                            'message' => $phpUnitGuardCoverage->getWarningMessage()->value(),
+                        ],
                     ],
                 ],
                 'message' => [
@@ -89,17 +102,21 @@ class ConfigurationArrayTransformer
                         'enabled' => $phpunitPrePush->isEnabled(),
                         'random-mode' => $phpunitPrePush->getRandomMode()->value(),
                         'options' => $phpunitPrePush->getOptions()->value(),
-                        'strict-coverage' =>  [
-                            'enabled' => $phpUnitStrictCoverage->isEnabled(),
-                            'minimum' => $phpUnitStrictCoverage->getMinimumStrictCoverage()->value()
-                        ]
-                    ]
+                        'strict-coverage' => [
+                            'enabled' => $phpUnitStrictCoveragePrePush->isEnabled(),
+                            'minimum' => $phpUnitStrictCoveragePrePush->getMinimumStrictCoverage()->value(),
+                        ],
+                        'guard-coverage' => [
+                            'enabled' => $phpUnitGuardCoveragePrePush->isEnabled(),
+                            'message' => $phpUnitGuardCoveragePrePush->getWarningMessage()->value()
+                        ],
+                    ],
                 ],
                 'message' => [
                     'right-message' => $prePush->getMessages()->getRightMessage()->value(),
-                    'error-message' => $prePush->getMessages()->getErrorMessage()->value()
-                ]
-            ]
+                    'error-message' => $prePush->getMessages()->getErrorMessage()->value(),
+                ],
+            ],
         ];
     }
 }

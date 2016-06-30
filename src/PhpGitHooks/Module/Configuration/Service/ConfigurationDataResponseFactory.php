@@ -6,6 +6,7 @@ use PhpGitHooks\Module\Configuration\Contract\Response\CommitMsgResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpCsFixerResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpCsResponse;
+use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitGuardCoverageResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitStrictCoverageResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpMdResponse;
@@ -19,12 +20,32 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpLint;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitGuardCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Domain\PrePush;
 
 class ConfigurationDataResponseFactory
 {
+    /**
+     * @param PreCommit             $preCommit
+     * @param Composer              $composer
+     * @param JsonLint              $jsonLint
+     * @param PhpLint               $phpLint
+     * @param PhpMd                 $phpMd
+     * @param PhpCs                 $phpCs
+     * @param PhpCsFixer            $phpCsFixer
+     * @param PhpUnit               $phpUnit
+     * @param PhpUnitStrictCoverage $phpUnitStrictCoverage
+     * @param PhpUnitGuardCoverage  $phpUnitGuardCoverage
+     * @param CommitMsg             $commitMsg
+     * @param PrePush               $prePush
+     * @param PhpUnit               $prePushPhpUnit
+     * @param PhpUnitStrictCoverage $prePushStrictCoverage
+     * @param PhpUnitGuardCoverage  $prePushGuardCoverage
+     *
+     * @return ConfigurationDataResponse
+     */
     public static function build(
         PreCommit $preCommit,
         Composer $composer,
@@ -35,10 +56,12 @@ class ConfigurationDataResponseFactory
         PhpCsFixer $phpCsFixer,
         PhpUnit $phpUnit,
         PhpUnitStrictCoverage $phpUnitStrictCoverage,
+        PhpUnitGuardCoverage $phpUnitGuardCoverage,
         CommitMsg $commitMsg,
         PrePush $prePush,
         PhpUnit $prePushPhpUnit,
-        PhpUnitStrictCoverage $prePushStrictCoverage
+        PhpUnitStrictCoverage $prePushStrictCoverage,
+        PhpUnitGuardCoverage $prePushGuardCoverage
     ) {
         $commitMsgResponse = new CommitMsgResponse(
             $commitMsg->isEnabled(),
@@ -57,6 +80,10 @@ class ConfigurationDataResponseFactory
             new PhpUnitStrictCoverageResponse(
                 $prePushStrictCoverage->isEnabled(),
                 $prePushStrictCoverage->getMinimumStrictCoverage()->value()
+            ),
+            new PhpUnitGuardCoverageResponse(
+                $prePushGuardCoverage->isEnabled(),
+                $prePushGuardCoverage->getWarningMessage()->value()
             )
         );
 
@@ -84,6 +111,10 @@ class ConfigurationDataResponseFactory
             new PhpUnitStrictCoverageResponse(
                 $phpUnitStrictCoverage->isEnabled(),
                 $phpUnitStrictCoverage->getMinimumStrictCoverage()->value()
+            ),
+            new PhpUnitGuardCoverageResponse(
+                $phpUnitGuardCoverage->isEnabled(),
+                $phpUnitGuardCoverage->getWarningMessage()->value()
             )
         );
 

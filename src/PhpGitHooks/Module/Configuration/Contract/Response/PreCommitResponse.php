@@ -48,6 +48,10 @@ class PreCommitResponse
      * @var PhpUnitStrictCoverageResponse
      */
     private $phpUnitStrictCoverage;
+    /**
+     * @var PhpUnitGuardCoverageResponse
+     */
+    private $phpUnitGuardCoverage;
 
     /**
      * PreCommitResponse constructor.
@@ -63,6 +67,7 @@ class PreCommitResponse
      * @param PhpCsFixerResponse            $phpCsFixer
      * @param PhpUnitResponse               $phpUnit
      * @param PhpUnitStrictCoverageResponse $phpUnitStrictCoverage
+     * @param PhpUnitGuardCoverageResponse  $phpUnitGuardCoverage
      */
     public function __construct(
         $preCommit,
@@ -75,7 +80,8 @@ class PreCommitResponse
         PhpCsResponse $phpCs,
         PhpCsFixerResponse $phpCsFixer,
         PhpUnitResponse $phpUnit,
-        PhpUnitStrictCoverageResponse $phpUnitStrictCoverage
+        PhpUnitStrictCoverageResponse $phpUnitStrictCoverage,
+        PhpUnitGuardCoverageResponse $phpUnitGuardCoverage
     ) {
         $this->preCommit = $preCommit;
         $this->rightMessage = $rightMessage;
@@ -88,6 +94,7 @@ class PreCommitResponse
         $this->phpCsFixer = $phpCsFixer;
         $this->phpUnit = $phpUnit;
         $this->phpUnitStrictCoverage = $phpUnitStrictCoverage;
+        $this->phpUnitGuardCoverage = $phpUnitGuardCoverage;
     }
 
     /**
@@ -176,5 +183,13 @@ class PreCommitResponse
     public function getPhpUnitStrictCoverage()
     {
         return $this->phpUnitStrictCoverage;
+    }
+
+    /**
+     * @return PhpUnitGuardCoverageResponse
+     */
+    public function getPhpUnitGuardCoverage()
+    {
+        return $this->phpUnitGuardCoverage;
     }
 }

@@ -74,6 +74,12 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
         $this->shouldAsk(HookQuestions::PHPUNIT_OPTIONS, null, ConfigArrayDataStub::PHPUNIT_OPTIONS);
         $this->shouldAsk(HookQuestions::PHPUNIT_STRICT_COVERAGE, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldAsk(HookQuestions::PHPUNIT_STRICT_COVERAGE_MINIMUM, 0.00, ConfigArrayDataStub::MINIMUM_COVERAGE);
+        $this->shouldAsk(HookQuestions::PHPUNIT_GUARD_COVERAGE, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
+        $this->shouldAsk(
+            HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE,
+            HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT,
+            ConfigArrayDataStub::ERROR_MESSAGE
+        );
         $this->shouldAsk(HookQuestions::COMMIT_MSG_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldCopyPreCommitHook();
         $this->shouldAsk(
@@ -98,6 +104,12 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
         $this->shouldAsk(HookQuestions::PHPUNIT_OPTIONS, null, ConfigArrayDataStub::PHPUNIT_OPTIONS);
         $this->shouldAsk(HookQuestions::PHPUNIT_STRICT_COVERAGE, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldAsk(HookQuestions::PHPUNIT_STRICT_COVERAGE_MINIMUM, 0.00, ConfigArrayDataStub::MINIMUM_COVERAGE);
+        $this->shouldAsk(HookQuestions::PHPUNIT_GUARD_COVERAGE, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
+        $this->shouldAsk(
+            HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE,
+            HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT,
+            ConfigArrayDataStub::ERROR_MESSAGE
+        );
         $this->shouldCopyPrePushHook();
         $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 

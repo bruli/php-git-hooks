@@ -50,6 +50,7 @@ class PreCommitProcessor
         $tools[5] = PhpCsFixerConfigurator::configure($this->io, $tools[5]);
         $tools[6] = PhpUnitConfigurator::configure($this->io, $tools[6]);
         $tools[7] = PhpUnitStrictCoverageConfigurator::configure($this->io, $tools[7]);
+        $tools[8] = PhpUnitGuardCoverageConfigurator::configure($this->io, $tools[8]);
 
         return new Execute($tools);
     }

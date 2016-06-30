@@ -12,10 +12,10 @@ use PhpGitHooks\Module\Tests\Infrastructure\Stub\RandomStubInterface;
 class PrePushStub implements RandomStubInterface
 {
     /**
-     * @param Undefined        $undefined
-     * @param Enabled          $enabled
+     * @param Undefined $undefined
+     * @param Enabled $enabled
      * @param ExecuteInterface $execute
-     * @param Messages         $messages
+     * @param Messages $messages
      *
      * @return PrePush
      */
@@ -37,7 +37,11 @@ class PrePushStub implements RandomStubInterface
         return self::create(
             new Undefined(false),
             EnabledStub::random(),
-            PrePushExecuteStub::create(PhpUnitStub::random()),
+            PrePushExecuteStub::create(
+                PhpUnitStub::random(),
+                PhpUnitStrictCoverageStub::random(),
+                PhpUnitGuardCoverageStub::random()
+            ),
             MessagesStub::random()
         );
     }
@@ -63,7 +67,11 @@ class PrePushStub implements RandomStubInterface
         return self::create(
             new Undefined(true),
             EnabledStub::create(false),
-            PrePushExecuteStub::create(PhpUnitStub::setUndefined(), PhpUnitStrictCoverageStub::setUndefined()),
+            PrePushExecuteStub::create(
+                PhpUnitStub::setUndefined(),
+                PhpUnitStrictCoverageStub::setUndefined(),
+                PhpUnitGuardCoverageStub::setUndefined()
+            ),
             MessagesStub::random()
         );
     }

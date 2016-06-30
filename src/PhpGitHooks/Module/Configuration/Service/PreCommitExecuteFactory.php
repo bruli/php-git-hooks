@@ -26,6 +26,9 @@ class PreCommitExecuteFactory
             isset($data['phpunit']['strict-coverage']) ? PhpUnitStrictCoverageFactory::fromArray(
                 $data['phpunit']['strict-coverage']
             ) : PhpUnitStrictCoverageFactory::setUndefined(),
+            isset($data['phpunit']['guard-coverage']) ? PhpUnitGuardCoverageFactory::build(
+                $data['phpunit']['guard-coverage']
+            ) : PhpUnitGuardCoverageFactory::setUndefined(),
         ];
 
         return new Execute($tools);
@@ -45,6 +48,7 @@ class PreCommitExecuteFactory
             PhpCsFixerFactory::setUndefined(),
             PhpUnitFactory::setUndefined(),
             PhpUnitStrictCoverageFactory::setUndefined(),
+            PhpUnitGuardCoverageFactory::setUndefined(),
         ];
 
         return new Execute($tools);

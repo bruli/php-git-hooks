@@ -10,6 +10,7 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpLint;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitGuardCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 
 class PreCommitExecuteStub
@@ -23,6 +24,7 @@ class PreCommitExecuteStub
      * @param PhpCsFixer            $phpCsFixer
      * @param PhpUnit               $phpUnit
      * @param PhpUnitStrictCoverage $strictCoverage
+     * @param PhpUnitGuardCoverage  $guardCoverage
      *
      * @return Execute
      */
@@ -34,8 +36,11 @@ class PreCommitExecuteStub
         PhpCs $phpCs,
         PhpCsFixer $phpCsFixer,
         PhpUnit $phpUnit,
-        PhpUnitStrictCoverage $strictCoverage
+        PhpUnitStrictCoverage $strictCoverage,
+        PhpUnitGuardCoverage $guardCoverage
     ) {
-        return new Execute([$composer, $jsonLint, $phpLint, $phpMd, $phpCs, $phpCsFixer, $phpUnit, $strictCoverage]);
+        return new Execute(
+            [$composer, $jsonLint, $phpLint, $phpMd, $phpCs, $phpCsFixer, $phpUnit, $strictCoverage, $guardCoverage]
+        );
     }
 }

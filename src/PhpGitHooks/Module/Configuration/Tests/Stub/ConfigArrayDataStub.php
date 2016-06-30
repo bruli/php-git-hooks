@@ -50,7 +50,11 @@ class ConfigArrayDataStub
                         'strict-coverage' => [
                             'enabled' => true,
                             'minimum' => self::MINIMUM_COVERAGE
-                        ]
+                        ],
+                        'guard-coverage' => [
+                            'enabled' => true,
+                            'message' => self::ERROR_MESSAGE
+                        ],
                     ],
                 ],
                 'message' => [
@@ -72,7 +76,11 @@ class ConfigArrayDataStub
                         'strict-coverage' => [
                             'enabled' => true,
                             'minimum' => self::MINIMUM_COVERAGE
-                        ]
+                        ],
+                        'guard-coverage' => [
+                            'enabled' => true,
+                            'message' => self::ERROR_MESSAGE
+                        ],
                     ]
                 ],
                 'message' => [
