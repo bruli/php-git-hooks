@@ -36,7 +36,7 @@ class PhpUnitGuardCoverageResponse
     /**
      * @return bool
      */
-    public function getEnabled()
+    public function isEnabled()
     {
         return $this->enabled;
     }

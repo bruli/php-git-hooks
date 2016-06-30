@@ -9,6 +9,7 @@ use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\CommitMsgStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PhpUnitGuardCoverageResponseStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PrePushStub;
 
@@ -58,6 +59,7 @@ class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
         $this->assertTrue($data->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony());
         $this->assertTrue($data->getPreCommit()->getPhpUnit()->isPhpunit());
         $this->assertTrue($data->getPreCommit()->getPhpUnit()->isPhpunitRandomMode());
+        $this->assertTrue($data->getPreCommit()->getPhpUnitGuardCoverage()->isEnabled());
         $this->assertNotNull($data->getPreCommit()->getPhpUnit()->getPhpunitOptions());
         $this->assertTrue($data->getCommitMsg()->isCommitMsg());
     }
