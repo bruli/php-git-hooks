@@ -32,7 +32,7 @@ class PrePushExecuteStub
         return self::create(
             PhpUnitStub::createEnabled(),
             PhpUnitStrictCoverageStub::createEnabled(),
-            PhpUnitGuardCoverageStub::createEnabled()
+            PhpUnitGuardCoverageStub::createEnabled('fix')
         );
     }
 }

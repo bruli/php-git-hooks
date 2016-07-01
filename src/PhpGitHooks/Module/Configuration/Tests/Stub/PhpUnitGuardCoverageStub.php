@@ -35,14 +35,15 @@ class PhpUnitGuardCoverageStub implements RandomStubInterface
     }
 
     /**
+     * @param string|null $message
      * @return PhpUnitGuardCoverage
      */
-    public static function createEnabled()
+    public static function createEnabled($message = null)
     {
         return self::create(
             new Undefined(false),
             EnabledStub::create(true),
-            MessageStub::create(null)
+            MessageStub::create($message)
         );
     }
 
