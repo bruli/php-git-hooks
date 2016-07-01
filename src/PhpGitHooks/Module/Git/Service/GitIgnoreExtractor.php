@@ -2,6 +2,7 @@
 
 namespace PhpGitHooks\Module\Git\Service;
 
+use PhpGitHooks\Module\Git\Contract\Response\GitIgnoreDataResponse;
 use PhpGitHooks\Module\Git\Model\ReaderInterface;
 
 class GitIgnoreExtractor
@@ -22,10 +23,12 @@ class GitIgnoreExtractor
     }
 
     /**
-     * @return string
+     * @return GitIgnoreDataResponse
      */
     public function extract()
     {
-        return $this->reader->read();
+        $content = $this->reader->read();
+
+        return new GitIgnoreDataResponse($content);
     }
 }

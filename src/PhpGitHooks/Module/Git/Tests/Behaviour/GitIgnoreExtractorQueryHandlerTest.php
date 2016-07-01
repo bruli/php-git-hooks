@@ -4,6 +4,7 @@ namespace PhpGitHooks\Module\Git\Tests\Behaviour;
 
 use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
 use PhpGitHooks\Module\Git\Contract\QueryHandler\GitIgnoreExtractorQueryHandler;
+use PhpGitHooks\Module\Git\Contract\Response\GitIgnoreDataResponse;
 use PhpGitHooks\Module\Git\Service\GitIgnoreExtractor;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
 
@@ -41,6 +42,7 @@ class GitIgnoreExtractorQueryHandlerTest extends GitUnitTestCase
 
         $data = $this->gitIgnoreExtractorQueryHandler->handle($query);
 
-        $this->assertNotNull($data);
+        $this->assertInstanceOf(GitIgnoreDataResponse::class, $data);
+        $this->assertNotNull($data->getContent());
     }
 }

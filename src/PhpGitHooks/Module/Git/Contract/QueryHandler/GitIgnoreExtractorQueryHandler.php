@@ -4,6 +4,7 @@ namespace PhpGitHooks\Module\Git\Contract\QueryHandler;
 
 use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryHandlerInterface;
 use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryInterface;
+use PhpGitHooks\Module\Git\Contract\Response\GitIgnoreDataResponse;
 use PhpGitHooks\Module\Git\Service\GitIgnoreExtractor;
 
 class GitIgnoreExtractorQueryHandler implements QueryHandlerInterface
@@ -26,7 +27,7 @@ class GitIgnoreExtractorQueryHandler implements QueryHandlerInterface
     /**
      * @param QueryInterface $query
      *
-     * @return string
+     * @return GitIgnoreDataResponse
      */
     public function handle(QueryInterface $query)
     {
