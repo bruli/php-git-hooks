@@ -2,10 +2,10 @@
 
 namespace PhpGitHooks\Module\PhpUnit\Model;
 
-interface StrictCoverageProcessorInterface
+interface GuardCoverageFileReaderInterface
 {
     /**
      * @return float
      */
-    public function process();
+    public function read();
 }

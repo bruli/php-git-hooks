@@ -49,7 +49,7 @@ class StrictCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
         $outputMessage = new PreCommitOutputWriter(StrictCoverageToolExecutor::EXECUTE_MESSAGE);
 
         $this->shouldWriteOutput($outputMessage->getMessage());
-        $this->shouldProcessStrictCoverage($minimumStrictCoverage, 0.00);
+        $this->shouldProcessStrictCoverage(0.00);
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
 
         $command = new StrictCoverageCommand($minimumStrictCoverage->value(), $this->errorMessage);
@@ -65,7 +65,7 @@ class StrictCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
         $outputMessage = new PreCommitOutputWriter(StrictCoverageToolExecutor::EXECUTE_MESSAGE);
 
         $this->shouldWriteOutput($outputMessage->getMessage());
-        $this->shouldProcessStrictCoverage($minimumStrictCoverage, 91.00);
+        $this->shouldProcessStrictCoverage(91.00);
         $this->shouldWriteLnOutput($outputMessage->getSuccessfulMessage());
 
         $command = new StrictCoverageCommand($minimumStrictCoverage->value(), $this->errorMessage);
