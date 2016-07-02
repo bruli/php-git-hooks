@@ -18,4 +18,5 @@ abstract class GitUnitTestCase extends \PHPUnit_Framework_TestCase
     use InputInterfaceTrait;
     use PrePushOriginalExecutorTrait;
     use GitIgnoreFileReaderTrait;
+    use WriterInterfaceTrait;
 }

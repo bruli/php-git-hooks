@@ -16,6 +16,8 @@ services:
   pre.commit.processor:
     class: PhpGitHooks\Module\Configuration\Service\PreCommitProcessor
     public: false
+    arguments:
+      - "@php.unit.guard.coverage.configurator"
   commit.msg.processor:
     class: PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor
     public: false
@@ -23,3 +25,15 @@ services:
   pre.push.processor:
     class: PhpGitHooks\Module\Configuration\Service\PrePushProcessor
     public: false
+    arguments:
+      - "@php.unit.guard.coverage.configurator"
+  php.unit.guard.coverage.configurator:
+    class: PhpGitHooks\Module\Configuration\Service\PhpUnitGuardCoverageConfigurator
+    public: false
+    arguments: ["@php.unit.guard.coverage.gitignore.cofigurator"]
+  php.unit.guard.coverage.gitignore.cofigurator:
+    class: PhpGitHooks\Module\Configuration\Service\PhpGuardCoverageGitIgnoreConfigurator
+    public: false
+    arguments:
+      - "@query.bus"
+      - "@command.bus"

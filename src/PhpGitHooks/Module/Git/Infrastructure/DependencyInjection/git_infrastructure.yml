@@ -8,3 +8,7 @@ services:
     class: PhpGitHooks\Module\Git\Infrastructure\Git\MergeValidator
   pre.push.original.executor:
     class: PhpGitHooks\Module\Git\Infrastructure\Git\PrePushOriginalExecutor
+  gitignore.file.reader:
+    class: PhpGitHooks\Module\Git\Infrastructure\Git\GitIgnoreFileReader
+  gitignore.file.writer:
+    class: PhpGitHooks\Module\Git\Infrastructure\Git\GitIgnoreFileWriter

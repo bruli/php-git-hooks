@@ -7,6 +7,8 @@ use PhpGitHooks\Module\Configuration\Domain\Execute;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
+use PhpGitHooks\Module\Configuration\Service\PhpGuardCoverageGitIgnoreConfigurator;
+use PhpGitHooks\Module\Configuration\Service\PhpUnitGuardCoverageConfigurator;
 use PhpGitHooks\Module\Configuration\Service\PreCommitProcessor;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
@@ -25,7 +27,14 @@ class PreCommitProcessorTest extends ConfigurationUnitTestCase
     protected function setUp()
     {
         $this->io = $this->getIOInterface();
-        $this->preCommitProcessor = new PreCommitProcessor();
+        $this->preCommitProcessor = new PreCommitProcessor(
+            new PhpUnitGuardCoverageConfigurator(
+                new PhpGuardCoverageGitIgnoreConfigurator(
+                    $this->getQueryBus(),
+                    $this->getCommandBus()
+                )
+            )
+        );
     }
 
     /**

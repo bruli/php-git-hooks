@@ -8,6 +8,8 @@ use PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationArrayTransformer;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
+use PhpGitHooks\Module\Configuration\Service\PhpGuardCoverageGitIgnoreConfigurator;
+use PhpGitHooks\Module\Configuration\Service\PhpUnitGuardCoverageConfigurator;
 use PhpGitHooks\Module\Configuration\Service\PreCommitProcessor;
 use PhpGitHooks\Module\Configuration\Service\PrePushProcessor;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
@@ -16,6 +18,9 @@ use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PrePushStub;
+use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand;
+use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
+use PhpGitHooks\Module\Git\Tests\Stub\GitIgnoreDataResponseStub;
 
 final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTestCase
 {
@@ -29,11 +34,25 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
         $this->configurationProcessorCommandHandler = new ConfigurationProcessorCommandHandler(
             new ConfigurationProcessor(
                 $this->getConfigurationFileReader(),
-                new PreCommitProcessor(),
+                new PreCommitProcessor(
+                    new PhpUnitGuardCoverageConfigurator(
+                        new PhpGuardCoverageGitIgnoreConfigurator(
+                            $this->getQueryBus(),
+                            $this->getCommandBus()
+                        )
+                    )
+                ),
                 new CommitMsgProcessor(),
                 $this->getConfigurationFileWriter(),
                 $this->getHookCopier(),
-                new PrePushProcessor()
+                new PrePushProcessor(
+                    new PhpUnitGuardCoverageConfigurator(
+                        new PhpGuardCoverageGitIgnoreConfigurator(
+                            $this->getQueryBus(),
+                            $this->getCommandBus()
+                        )
+                    )
+                )
             )
         );
     }
@@ -43,9 +62,10 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
      */
     public function itShouldMakeAllQuestions()
     {
-        $this->shouldReadConfigurationData(ConfigStub::createUndefined());
-
         $yes = 'y';
+        $gitIgnoreDataResponse = GitIgnoreDataResponseStub::random();
+
+        $this->shouldReadConfigurationData(ConfigStub::createUndefined());
         $this->shouldAsk(HookQuestions::PRE_COMMIT_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldAsk(
             HookQuestions::PRE_COMMIT_RIGHT_MESSAGE,
@@ -80,6 +100,9 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
             HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT,
             ConfigArrayDataStub::ERROR_MESSAGE
         );
+        $this->shouldHandleQuery(new GitIgnoreExtractorQuery(), $gitIgnoreDataResponse);
+        $this->shouldHandleCommand(new GitIgnoreWriterCommand($gitIgnoreDataResponse->getContent()));
+
         $this->shouldAsk(HookQuestions::COMMIT_MSG_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldCopyPreCommitHook();
         $this->shouldAsk(
@@ -110,6 +133,7 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
             HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT,
             ConfigArrayDataStub::ERROR_MESSAGE
         );
+        $this->shouldHandleQuery(new GitIgnoreExtractorQuery(), GitIgnoreDataResponseStub::randomWithGuardCoverage());
         $this->shouldCopyPrePushHook();
         $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 

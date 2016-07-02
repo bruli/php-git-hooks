@@ -26,3 +26,11 @@ services:
       - "@pre.push.original.executor"
       - "@console.output"
       - "@command.bus"
+  gitignore.writer:
+    class: PhpGitHooks\Module\Git\Service\GitIgnoreWriter
+    public: false
+    arguments: ["@gitignore.file.writer"]
+  gitignore.extractor:
+    class: PhpGitHooks\Module\Git\Service\GitIgnoreExtractor
+    public: false
+    arguments: ["@gitignore.file.reader"]

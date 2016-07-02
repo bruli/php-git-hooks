@@ -10,12 +10,26 @@ use PhpGitHooks\Module\Configuration\Domain\PhpUnitGuardCoverage;
 class PhpUnitGuardCoverageConfigurator
 {
     /**
+     * @var PhpGuardCoverageGitIgnoreConfigurator
+     */
+    private $coverageGitIgnoreConfigurator;
+
+    /**
+     * PhpUnitGuardCoverageConfigurator constructor.
+     * @param PhpGuardCoverageGitIgnoreConfigurator $coverageGitIgnoreConfigurator
+     */
+    public function __construct(PhpGuardCoverageGitIgnoreConfigurator $coverageGitIgnoreConfigurator)
+    {
+        $this->coverageGitIgnoreConfigurator = $coverageGitIgnoreConfigurator;
+    }
+
+    /**
      * @param IOInterface $input
      * @param PhpUnitGuardCoverage $phpUnitGuardCoverage
      *
      * @return PhpUnitGuardCoverage
      */
-    public static function configure(IOInterface $input, PhpUnitGuardCoverage $phpUnitGuardCoverage)
+    public function configure(IOInterface $input, PhpUnitGuardCoverage $phpUnitGuardCoverage)
     {
         if (true === $phpUnitGuardCoverage->isUndefined()) {
             $guardCoverageAnswer = $input->ask(
@@ -36,6 +50,8 @@ class PhpUnitGuardCoverageConfigurator
                 $phpUnitGuardCoverage = $phpUnitGuardCoverage->setWarningMessage(
                     new Message($defaultMessage)
                 );
+                
+                $this->coverageGitIgnoreConfigurator->configure();
             }
         }
             return $phpUnitGuardCoverage;
