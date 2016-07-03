@@ -18,4 +18,12 @@ services:
     arguments:
       - "@console.output"
       - "@strict.coverage.tool"
+  guard.coverage.tool:
+    class: PhpGitHooks\Module\PhpUnit\Service\GuardCoverageTool
+    public: false
+    arguments:
+      - "@console.output"
+      - "@strict.coverage.processor"
+      - "@guard.coverage.file.reader"
+      - "@guard.coverage.file.writer"
 

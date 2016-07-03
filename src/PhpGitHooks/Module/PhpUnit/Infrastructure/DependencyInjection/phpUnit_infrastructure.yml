@@ -15,4 +15,10 @@ services:
     class: PhpGitHooks\Module\PhpUnit\Infrastructure\Tool\StrictCoverageProcessor
     public: false
     arguments: ["@tool.path.finder"]
+  guard.coverage.file.reader:
+    class:  PhpGitHooks\Module\PhpUnit\Infrastructure\Tool\GuardCoverageFileReader
+    public: false
+  guard.coverage.file.writer:
+    class: PhpGitHooks\Module\PhpUnit\Infrastructure\Tool\GuardCoverageFileWriter
+    public: false
 

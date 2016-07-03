@@ -11,6 +11,7 @@ use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PrePushTool;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 
@@ -94,6 +95,12 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
             new StrictCoverageCommand(
                 $configurationDataResponse->getPrePush()->getPhpUnitStrictCoverage()->getMinimum(),
                 $configurationDataResponse->getPrePush()->getErrorMessage()
+            )
+        );
+
+        $this->shouldHandleCommand(
+            new GuardCoverageCommand(
+                $configurationDataResponse->getPreCommit()->getPhpUnitGuardCoverage()->getWarningMessage()
             )
         );
 

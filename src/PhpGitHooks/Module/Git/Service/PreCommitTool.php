@@ -16,6 +16,7 @@ use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -172,6 +173,16 @@ class PreCommitTool
                     new StrictCoverageCommand(
                         $phpunitStrictCoverageResponse->getMinimum(),
                         $preCommitResponse->getErrorMessage()
+                    )
+                );
+            }
+
+            $phpunitGuardCoverageResponse = $preCommitResponse->getPhpUnitGuardCoverage();
+
+            if (true === $phpunitGuardCoverageResponse->isEnabled()) {
+                $this->commandBus->handle(
+                    new GuardCoverageCommand(
+                        $phpunitGuardCoverageResponse->getWarningMessage()
                     )
                 );
             }

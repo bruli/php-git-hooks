@@ -6,11 +6,17 @@ use PhpGitHooks\Module\PhpUnit\Model\GuardCoverageFileReaderInterface;
 
 class GuardCoverageFileReader implements GuardCoverageFileReaderInterface
 {
+    const FILE = '.guard_coverage';
+
     /**
      * @return string
      */
     public function read()
     {
-        return file_get_contents('.guard_coverage');
+        if (false === file_exists(self::FILE)) {
+            return 0.00;
+        }
+
+        return file_get_contents(self::FILE);
     }
 }
