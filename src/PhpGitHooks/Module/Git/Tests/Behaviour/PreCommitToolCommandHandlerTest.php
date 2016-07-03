@@ -6,6 +6,8 @@ use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
+use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Tests\Stub\PhpFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand;
 use PhpGitHooks\Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
@@ -70,6 +72,10 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         );
         $this->shouldHandleCommand(
             new JsonLintToolCommand($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
+        );
+        $this->shouldHandleQuery(
+            new PhpFilesExtractorQuery($files),
+            PhpFilesResponseStub::create(FilesCommittedStub::createWithoutPhpFiles())
         );
         $this->shouldHandleCommand(
             new PhpLintToolCommand($files, $configurationDataResponse->getPreCommit()->getErrorMessage())

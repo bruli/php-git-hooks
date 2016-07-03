@@ -8,6 +8,8 @@ use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PreCommitResponse;
+use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor;
 use PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter;
@@ -110,82 +112,97 @@ class PreCommitTool
             );
         }
 
-        if (true === $preCommitResponse->isPhpLint()) {
-            $this->commandBus->handle(
-                new PhpLintToolCommand($committedFiles, $preCommitResponse->getErrorMessage())
-            );
-        }
-
-        $phpCsResponse = $preCommitResponse->getPhpCs();
-
-        if (true === $phpCsResponse->isPhpCs()) {
-            $this->commandBus->handle(
-                new PhpCsToolCommand(
-                    $committedFiles,
-                    $phpCsResponse->getPhpCsStandard(),
-                    $preCommitResponse->getErrorMessage()
-                )
-            );
-        }
-
-        $phpCsFixerResponse = $preCommitResponse->getPhpCsFixer();
-
-        if (true === $phpCsFixerResponse->isPhpCsFixer()) {
-            $this->commandBus->handle(
-                new PhpCsFixerToolCommand(
-                    $committedFiles,
-                    $phpCsFixerResponse->isPhpCsFixerPsr0(),
-                    $phpCsFixerResponse->isPhpCsFixerPsr1(),
-                    $phpCsFixerResponse->isPhpCsFixerPsr2(),
-                    $phpCsFixerResponse->isPhpCsFixerSymfony(),
-                    $preCommitResponse->getErrorMessage()
-                )
-            );
-        }
-
-        $phpMdResponse = $preCommitResponse->getPhpMd();
-
-        if (true === $phpMdResponse->isPhpMd()) {
-            $this->commandBus->handle(
-                new PhpMdToolCommand(
-                    $committedFiles,
-                    $phpMdResponse->getPhpMdOptions(),
-                    $preCommitResponse->getErrorMessage()
-                )
-            );
-        }
-
-        $phpunitResponse = $preCommitResponse->getPhpUnit();
-
-        if (true === $phpunitResponse->isPhpunit()) {
-            $this->commandBus->handle(
-                new PhpUnitToolCommand(
-                    $phpunitResponse->isPhpunitRandomMode(),
-                    $phpunitResponse->getPhpunitOptions(),
-                    $preCommitResponse->getErrorMessage()
-                )
-            );
-
-            $phpunitStrictCoverageResponse = $preCommitResponse->getPhpUnitStrictCoverage();
-
-            if (true === $phpunitStrictCoverageResponse->isPhpunitStrictCoverage()) {
+        if (true === $this->isPhpFiles($committedFiles)) {
+            if (true === $preCommitResponse->isPhpLint()) {
                 $this->commandBus->handle(
-                    new StrictCoverageCommand(
-                        $phpunitStrictCoverageResponse->getMinimum(),
+                    new PhpLintToolCommand($committedFiles, $preCommitResponse->getErrorMessage())
+                );
+            }
+
+            $phpCsResponse = $preCommitResponse->getPhpCs();
+
+            if (true === $phpCsResponse->isPhpCs()) {
+                $this->commandBus->handle(
+                    new PhpCsToolCommand(
+                        $committedFiles,
+                        $phpCsResponse->getPhpCsStandard(),
                         $preCommitResponse->getErrorMessage()
                     )
                 );
             }
 
-            $phpunitGuardCoverageResponse = $preCommitResponse->getPhpUnitGuardCoverage();
+            $phpCsFixerResponse = $preCommitResponse->getPhpCsFixer();
 
-            if (true === $phpunitGuardCoverageResponse->isEnabled()) {
+            if (true === $phpCsFixerResponse->isPhpCsFixer()) {
                 $this->commandBus->handle(
-                    new GuardCoverageCommand(
-                        $phpunitGuardCoverageResponse->getWarningMessage()
+                    new PhpCsFixerToolCommand(
+                        $committedFiles,
+                        $phpCsFixerResponse->isPhpCsFixerPsr0(),
+                        $phpCsFixerResponse->isPhpCsFixerPsr1(),
+                        $phpCsFixerResponse->isPhpCsFixerPsr2(),
+                        $phpCsFixerResponse->isPhpCsFixerSymfony(),
+                        $preCommitResponse->getErrorMessage()
                     )
                 );
             }
+
+            $phpMdResponse = $preCommitResponse->getPhpMd();
+
+            if (true === $phpMdResponse->isPhpMd()) {
+                $this->commandBus->handle(
+                    new PhpMdToolCommand(
+                        $committedFiles,
+                        $phpMdResponse->getPhpMdOptions(),
+                        $preCommitResponse->getErrorMessage()
+                    )
+                );
+            }
+
+            $phpunitResponse = $preCommitResponse->getPhpUnit();
+
+            if (true === $phpunitResponse->isPhpunit()) {
+                $this->commandBus->handle(
+                    new PhpUnitToolCommand(
+                        $phpunitResponse->isPhpunitRandomMode(),
+                        $phpunitResponse->getPhpunitOptions(),
+                        $preCommitResponse->getErrorMessage()
+                    )
+                );
+
+                $phpunitStrictCoverageResponse = $preCommitResponse->getPhpUnitStrictCoverage();
+
+                if (true === $phpunitStrictCoverageResponse->isPhpunitStrictCoverage()) {
+                    $this->commandBus->handle(
+                        new StrictCoverageCommand(
+                            $phpunitStrictCoverageResponse->getMinimum(),
+                            $preCommitResponse->getErrorMessage()
+                        )
+                    );
+                }
+
+                $phpunitGuardCoverageResponse = $preCommitResponse->getPhpUnitGuardCoverage();
+
+                if (true === $phpunitGuardCoverageResponse->isEnabled()) {
+                    $this->commandBus->handle(
+                        new GuardCoverageCommand(
+                            $phpunitGuardCoverageResponse->getWarningMessage()
+                        )
+                    );
+                }
+            }
         }
+    }
+
+    /**
+     * @param array $files
+     *
+     * @return bool
+     */
+    private function isPhpFiles(array $files)
+    {
+        /** @var PhpFilesResponse $phpFilesResponse */
+        $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractorQuery($files));
+
+        return 0 < $phpFilesResponse->getFiles();
     }
 }
