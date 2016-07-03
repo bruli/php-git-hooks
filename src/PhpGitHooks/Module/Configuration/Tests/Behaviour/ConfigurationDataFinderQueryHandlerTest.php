@@ -9,7 +9,6 @@ use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\CommitMsgStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
-use PhpGitHooks\Module\Configuration\Tests\Stub\PhpUnitGuardCoverageResponseStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PrePushStub;
 
