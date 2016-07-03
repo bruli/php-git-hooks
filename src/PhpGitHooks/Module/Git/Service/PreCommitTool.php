@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PreCommitTool
 {
-    const NO_FILES_CHANGED_MESSAGE = '<comment>No files changed.</comment>';
+    const NO_FILES_CHANGED_MESSAGE = '<comment>-\_(ö)_/- No files changed.</comment>';
     const TITLE = 'Pre-Commit tool';
     /**
      * @var OutputInterface
