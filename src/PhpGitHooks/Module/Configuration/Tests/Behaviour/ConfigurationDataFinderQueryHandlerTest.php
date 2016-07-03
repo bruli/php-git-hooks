@@ -58,7 +58,10 @@ class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
         $this->assertTrue($data->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony());
         $this->assertTrue($data->getPreCommit()->getPhpUnit()->isPhpunit());
         $this->assertTrue($data->getPreCommit()->getPhpUnit()->isPhpunitRandomMode());
+        $this->assertTrue($data->getPreCommit()->getPhpUnitGuardCoverage()->isEnabled());
+        $this->assertNotNull($data->getPreCommit()->getPhpUnitGuardCoverage()->getWarningMessage());
         $this->assertNotNull($data->getPreCommit()->getPhpUnit()->getPhpunitOptions());
         $this->assertTrue($data->getCommitMsg()->isCommitMsg());
+        $this->assertNotNull($data->getPrePush()->getPhpUnitGuardCoverage()->getWarningMessage());
     }
 }

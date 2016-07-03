@@ -13,6 +13,20 @@ class PrePushProcessor
      * @var IOInterface
      */
     private $input;
+    /**
+     * @var PhpUnitGuardCoverageConfigurator
+     */
+    private $phpUnitGuardCoverageConfigurator;
+
+    /**
+     * PrePushProcessor constructor.
+     *
+     * @param PhpUnitGuardCoverageConfigurator $phpUnitGuardCoverageConfigurator
+     */
+    public function __construct(PhpUnitGuardCoverageConfigurator $phpUnitGuardCoverageConfigurator)
+    {
+        $this->phpUnitGuardCoverageConfigurator = $phpUnitGuardCoverageConfigurator;
+    }
 
     /**
      * @param PrePush     $prePushData
@@ -45,6 +59,7 @@ class PrePushProcessor
 
         $tools[0] = PhpUnitConfigurator::configure($this->input, $tools[0]);
         $tools[1] = PhpUnitStrictCoverageConfigurator::configure($this->input, $tools[1]);
+        $tools[2] = $this->phpUnitGuardCoverageConfigurator->configure($this->input, $tools[2]);
 
         return new  Execute($tools);
     }

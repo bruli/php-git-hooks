@@ -17,4 +17,6 @@ abstract class GitUnitTestCase extends \PHPUnit_Framework_TestCase
     use CommitMessageFinderTrait;
     use InputInterfaceTrait;
     use PrePushOriginalExecutorTrait;
+    use GitIgnoreFileReaderTrait;
+    use WriterInterfaceTrait;
 }

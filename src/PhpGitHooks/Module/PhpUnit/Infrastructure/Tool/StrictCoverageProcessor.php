@@ -3,7 +3,6 @@
 namespace PhpGitHooks\Module\PhpUnit\Infrastructure\Tool;
 
 use PhpGitHooks\Infrastructure\Tool\ToolPathFinder;
-use PhpGitHooks\Module\Configuration\Domain\MinimumStrictCoverage;
 use PhpGitHooks\Module\PhpUnit\Model\StrictCoverageProcessorInterface;
 use Symfony\Component\Process\Process;
 
@@ -25,18 +24,16 @@ class StrictCoverageProcessor implements StrictCoverageProcessorInterface
     }
 
     /**
-     * @param MinimumStrictCoverage $minimumStrictCoverage
-     *
      * @return float
      */
-    public function process(MinimumStrictCoverage $minimumStrictCoverage)
+    public function process()
     {
         $tool = $this->toolPathFinder->find('phpunit');
-        $command = 'php ' . $tool . ' --coverage-text|grep Classes|cut -d " " -f 4|cut -d "%" -f 1';
+        $command = 'php '.$tool.' --coverage-text|grep Classes|cut -d " " -f 4|cut -d "%" -f 1';
 
         $process = new Process($command);
         $process->run();
 
-        return (float)$process->getOutput();
+        return (float) $process->getOutput();
     }
 }

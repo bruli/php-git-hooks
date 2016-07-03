@@ -24,6 +24,10 @@ class PrePushResponse
      * @var string
      */
     private $errorMessage;
+    /**
+     * @var PhpUnitGuardCoverageResponse
+     */
+    private $phpUnitGuardCoverage;
 
     /**
      * PrePushResponse constructor.
@@ -33,19 +37,22 @@ class PrePushResponse
      * @param string                        $errorMessage
      * @param PhpUnitResponse               $phpUnit
      * @param PhpUnitStrictCoverageResponse $phpUnitStrictCoverage
+     * @param PhpUnitGuardCoverageResponse  $phpUnitGuardCoverage
      */
     public function __construct(
         $prePush,
         $rightMessage,
         $errorMessage,
         PhpUnitResponse $phpUnit,
-        PhpUnitStrictCoverageResponse $phpUnitStrictCoverage
+        PhpUnitStrictCoverageResponse $phpUnitStrictCoverage,
+        PhpUnitGuardCoverageResponse $phpUnitGuardCoverage
     ) {
         $this->phpUnit = $phpUnit;
         $this->phpUnitStrictCoverage = $phpUnitStrictCoverage;
         $this->prePush = $prePush;
         $this->rightMessage = $rightMessage;
         $this->errorMessage = $errorMessage;
+        $this->phpUnitGuardCoverage = $phpUnitGuardCoverage;
     }
 
     /**
@@ -86,5 +93,13 @@ class PrePushResponse
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return PhpUnitGuardCoverageResponse
+     */
+    public function getPhpUnitGuardCoverage()
+    {
+        return $this->phpUnitGuardCoverage;
     }
 }

@@ -6,6 +6,8 @@ use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
+use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Tests\Stub\PhpFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand;
 use PhpGitHooks\Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
@@ -17,6 +19,7 @@ use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 use PhpGitHooks\Module\Tests\Infrastructure\Stub\StubCreator;
@@ -70,6 +73,10 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $this->shouldHandleCommand(
             new JsonLintToolCommand($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
         );
+        $this->shouldHandleQuery(
+            new PhpFilesExtractorQuery($files),
+            PhpFilesResponseStub::create(FilesCommittedStub::createWithoutPhpFiles())
+        );
         $this->shouldHandleCommand(
             new PhpLintToolCommand($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
         );
@@ -109,6 +116,12 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
             new StrictCoverageCommand(
                 $configurationDataResponse->getPreCommit()->getPhpUnitStrictCoverage()->getMinimum(),
                 $configurationDataResponse->getPreCommit()->getErrorMessage()
+            )
+        );
+
+        $this->shouldHandleCommand(
+            new GuardCoverageCommand(
+                $configurationDataResponse->getPreCommit()->getPhpUnitGuardCoverage()->getWarningMessage()
             )
         );
 

@@ -10,6 +10,7 @@ use PhpGitHooks\Module\Configuration\Domain\PhpCs;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpMd;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
+use PhpGitHooks\Module\Configuration\Domain\PhpUnitGuardCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
 use PhpGitHooks\Module\Configuration\Domain\PrePush;
@@ -66,10 +67,14 @@ class ConfigurationDataFinder implements QueryInterface
         $phpUnit = $tools[6];
         /** @var PhpUnitStrictCoverage $phpUnitStrictCoverage */
         $phpUnitStrictCoverage = $tools[7];
+        /** @var PhpUnitGuardCoverage $phpUnitGuardCoverage */
+        $phpUnitGuardCoverage = $tools[8];
         /** @var PhpUnit $prePushPhpUnit */
         $prePushPhpUnit = $prePushTools[0];
         /** @var PhpUnitStrictCoverage $prePushStrictCoverage */
         $prePushStrictCoverage = $prePushTools[1];
+        /** @var PhpUnitGuardCoverage $prePushGuardCoverage */
+        $prePushGuardCoverage = $prePushTools[2];
 
         return ConfigurationDataResponseFactory::build(
             $preCommit,
@@ -81,10 +86,12 @@ class ConfigurationDataFinder implements QueryInterface
             $phpCsFixer,
             $phpUnit,
             $phpUnitStrictCoverage,
+            $phpUnitGuardCoverage,
             $commitMsg,
             $prePush,
             $prePushPhpUnit,
-            $prePushStrictCoverage
+            $prePushStrictCoverage,
+            $prePushGuardCoverage
         );
     }
 }

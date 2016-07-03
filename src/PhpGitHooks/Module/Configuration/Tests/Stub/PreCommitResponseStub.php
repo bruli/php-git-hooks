@@ -5,6 +5,7 @@ namespace PhpGitHooks\Module\Configuration\Tests\Stub;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpCsFixerResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpCsResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpMdResponse;
+use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitGuardCoverageResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PhpUnitStrictCoverageResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PreCommitResponse;
@@ -28,6 +29,7 @@ class PreCommitResponseStub
      * @param PhpCsFixerResponse            $phpCsFixerResponse
      * @param PhpUnitResponse               $phpUnitResponse
      * @param PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse
+     * @param PhpUnitGuardCoverageResponse  $phpUnitGuardCoverageResponse
      *
      * @return PreCommitResponse
      */
@@ -42,7 +44,8 @@ class PreCommitResponseStub
         PhpCsResponse $phpCsResponse,
         PhpCsFixerResponse $phpCsFixerResponse,
         PhpUnitResponse $phpUnitResponse,
-        PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse
+        PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse,
+        PhpUnitGuardCoverageResponse $phpUnitGuardCoverageResponse
     ) {
         return new PreCommitResponse(
             $preCommit,
@@ -55,7 +58,8 @@ class PreCommitResponseStub
             $phpCsResponse,
             $phpCsFixerResponse,
             $phpUnitResponse,
-            $phpUnitStrictCoverageResponse
+            $phpUnitStrictCoverageResponse,
+            $phpUnitGuardCoverageResponse
         );
     }
 
@@ -77,7 +81,8 @@ class PreCommitResponseStub
             PhpCsResponseStub::createEnabled(),
             PhpCsFixerResponseStub::createEnabled(),
             PhpUnitResponseStub::createEnabled(),
-            PhpUnitStrictCoverageResponseStub::createEnabled()
+            PhpUnitStrictCoverageResponseStub::createEnabled(),
+            PhpUnitGuardCoverageResponseStub::createEnabled()
         );
     }
 }

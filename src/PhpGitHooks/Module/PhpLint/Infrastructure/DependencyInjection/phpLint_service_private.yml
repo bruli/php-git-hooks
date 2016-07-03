@@ -3,11 +3,5 @@ services:
     class: PhpGitHooks\Module\PhpLint\Service\PhpLintTool
     public: false
     arguments:
-      - "@phplint.tool.executor"
-      - "@query.bus"
-  phplint.tool.executor:
-    class: PhpGitHooks\Module\PhpLint\Service\PhpLintToolExecutor
-    public: false
-    arguments:
       - "@phplint.tool.processor"
       - "@console.output"

@@ -2,10 +2,8 @@
 
 namespace PhpGitHooks\Module\PhpUnit\Tests\Infrastructure;
 
-use PhpGitHooks\Module\Configuration\Domain\MinimumStrictCoverage;
 use PhpGitHooks\Module\PhpUnit\Model\StrictCoverageProcessorInterface;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
-use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\SimilarTo;
 
 trait StrictCoverageProcessorTrait
 {
@@ -25,15 +23,13 @@ trait StrictCoverageProcessorTrait
     }
 
     /**
-     * @param MinimumStrictCoverage $minimumStrictCoverage
-     * @param float                 $return
+     * @param float $return
      */
-    protected function shouldProcessStrictCoverage(MinimumStrictCoverage $minimumStrictCoverage, $return)
+    protected function shouldProcessStrictCoverage($return)
     {
         $this->getStrictCoverageProcessor()
             ->shouldReceive('process')
             ->once()
-            ->with((new SimilarTo())->compare($minimumStrictCoverage))
             ->andReturn($return);
     }
 }

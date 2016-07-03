@@ -1,13 +1,7 @@
 services:
-  php.cs.fixer.tool.executor:
-    class: PhpGitHooks\Module\PhpCsFixer\Service\PhpCsFixerToolExecutor
-    public: false
-    arguments:
-      - "@console.output"
-      - "@php.cs.fixer.tool.processor"
   php.cs.fixer.tool:
     class: PhpGitHooks\Module\PhpCsFixer\Service\PhpCsFixerTool
     public: false
     arguments:
-      - "@query.bus"
-      - "@php.cs.fixer.tool.executor"
+      - "@console.output"
+      - "@php.cs.fixer.tool.processor"

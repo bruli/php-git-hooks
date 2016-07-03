@@ -99,6 +99,9 @@ pre-commit:
         strict-coverage:
              enabled:       true
              minimum:       90
+        guard-coverage:
+             enabled: true
+             message: 'WARNING!!, your code coverage is lower.'
     phplint:         true
     phpcs:
         enabled:     true
@@ -120,6 +123,12 @@ pre-push:
         enabled:     true
         random-mode: true
         options:     '<some options>'
+    strict-coverage:
+        enabled:       true
+        minimum:       90
+    guard-coverage:
+        enabled: true
+        message: 'WARNING!!, your code coverage is lower.'
     message:
       right-message: 'PUSH IT!!'
       error-message: 'YOU CAN NOT PUSH CODE!!'

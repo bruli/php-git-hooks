@@ -10,6 +10,7 @@ use PhpGitHooks\Module\Git\Contract\Exception\InvalidPushException;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Model\PrePushOriginalExecutorInterface;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -69,7 +70,7 @@ class PrePushTool
         if (true === $prePushResponse->isPrePush()) {
             $this->output->writeln(self::PRE_PUSH_HOOK);
             $this->executeOriginalHook($remote, $url, $prePushResponse->getErrorMessage());
-            
+
             $phpunitResponse = $prePushResponse->getPhpUnit();
 
             if (true === $phpunitResponse->isPhpunit()) {
@@ -80,7 +81,7 @@ class PrePushTool
                         $prePushResponse->getErrorMessage()
                     )
                 );
-                
+
                 $phpunitStrictCoverageResponse = $prePushResponse->getPhpUnitStrictCoverage();
 
                 if (true === $phpunitStrictCoverageResponse->isPhpunitStrictCoverage()) {
@@ -89,6 +90,14 @@ class PrePushTool
                             $phpunitStrictCoverageResponse->getMinimum(),
                             $prePushResponse->getErrorMessage()
                         )
+                    );
+                }
+
+                $phpunitGuardCoverageResponse = $prePushResponse->getPhpUnitGuardCoverage();
+
+                if (true === $phpunitGuardCoverageResponse->isEnabled()) {
+                    $this->commandBus->handle(
+                        new GuardCoverageCommand($phpunitGuardCoverageResponse->getWarningMessage())
                     );
                 }
             }
