@@ -112,10 +112,12 @@ class PreCommitTool
             );
         }
 
-        if (true === $this->isPhpFiles($committedFiles)) {
+        $phpFiles = $this->getPhpFiles($committedFiles);
+
+        if (true === $this->isPhpFiles($phpFiles)) {
             if (true === $preCommitResponse->isPhpLint()) {
                 $this->commandBus->handle(
-                    new PhpLintToolCommand($committedFiles, $preCommitResponse->getErrorMessage())
+                    new PhpLintToolCommand($phpFiles, $preCommitResponse->getErrorMessage())
                 );
             }
 
@@ -124,7 +126,7 @@ class PreCommitTool
             if (true === $phpCsResponse->isPhpCs()) {
                 $this->commandBus->handle(
                     new PhpCsToolCommand(
-                        $committedFiles,
+                        $phpFiles,
                         $phpCsResponse->getPhpCsStandard(),
                         $preCommitResponse->getErrorMessage()
                     )
@@ -136,7 +138,7 @@ class PreCommitTool
             if (true === $phpCsFixerResponse->isPhpCsFixer()) {
                 $this->commandBus->handle(
                     new PhpCsFixerToolCommand(
-                        $committedFiles,
+                        $phpFiles,
                         $phpCsFixerResponse->isPhpCsFixerPsr0(),
                         $phpCsFixerResponse->isPhpCsFixerPsr1(),
                         $phpCsFixerResponse->isPhpCsFixerPsr2(),
@@ -151,7 +153,7 @@ class PreCommitTool
             if (true === $phpMdResponse->isPhpMd()) {
                 $this->commandBus->handle(
                     new PhpMdToolCommand(
-                        $committedFiles,
+                        $phpFiles,
                         $phpMdResponse->getPhpMdOptions(),
                         $preCommitResponse->getErrorMessage()
                     )
@@ -200,9 +202,19 @@ class PreCommitTool
      */
     private function isPhpFiles(array $files)
     {
-        /** @var PhpFilesResponse $phpFilesResponse */
-        $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractorQuery($files));
+        return 0 < $files;
+    }
 
-        return 0 < $phpFilesResponse->getFiles();
+    /**
+     * @param array $committedFiles
+     *
+     * @return array
+     */
+    private function getPhpFiles(array $committedFiles)
+    {
+        /** @var PhpFilesResponse $phpFilesResponse */
+        $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractorQuery($committedFiles));
+
+        return $phpFilesResponse->getFiles();
     }
 }

@@ -61,11 +61,12 @@ class GuardCoverageTool
      */
     public function run($warningMessage)
     {
+        $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
+        $this->output->write($outputMessage->getMessage());
+        
         $this->currentCoverage = $this->strictCoverageProcessor->process();
         $this->previousCoverage = $this->guardReader->read();
 
-        $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
-        $this->output->write($outputMessage->getMessage());
 
         true === $this->isLowerCurrentCoverage() ? $this->output->writeln(
             sprintf(

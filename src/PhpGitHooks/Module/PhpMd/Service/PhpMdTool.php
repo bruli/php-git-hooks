@@ -2,32 +2,34 @@
 
 namespace PhpGitHooks\Module\PhpMd\Service;
 
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
-use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
-use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
+use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
+use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\PhpMd\Contract\Exception\PhpMdViolationsException;
+use PhpGitHooks\Module\PhpMd\Model\PhpMdToolProcessorInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class PhpMdTool
 {
+    const CHECKING_MESSAGE = 'Checking code mess with PHPMD';
     /**
-     * @var QueryBus
+     * @var OutputInterface
      */
-    private $queryBus;
+    private $output;
     /**
-     * @var PhpMdToolExecutor
+     * @var PhpMdToolProcessorInterface
      */
-    private $phpMdToolExecutor;
+    private $phpMdToolProcessor;
 
     /**
      * PhpMdTool constructor.
      *
-     * @param QueryBus          $queryBus
-     * @param PhpMdToolExecutor $phpMdToolExecutor
+     * @param OutputInterface             $output
+     * @param PhpMdToolProcessorInterface $phpMdToolProcessor
      */
-    public function __construct(QueryBus $queryBus, PhpMdToolExecutor $phpMdToolExecutor)
+    public function __construct(OutputInterface $output, PhpMdToolProcessorInterface $phpMdToolProcessor)
     {
-        $this->queryBus = $queryBus;
-        $this->phpMdToolExecutor = $phpMdToolExecutor;
+        $this->output = $output;
+        $this->phpMdToolProcessor = $phpMdToolProcessor;
     }
 
     /**
@@ -37,13 +39,26 @@ class PhpMdTool
      *
      * @throws PhpMdViolationsException
      */
-    public function execute(array $files, $options, $errorMessage)
+    public function execute(array  $files, $options, $errorMessage)
     {
-        /** @var PhpFilesResponse $phpFilesResponse */
-        $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractorQuery($files));
+        $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
+        $this->output->write($outputMessage->getMessage());
 
-        if ($phpFilesResponse->getFiles()) {
-            $this->phpMdToolExecutor->execute($phpFilesResponse->getFiles(), $options, $errorMessage);
+        $errors = [];
+        foreach ($files as $file) {
+            $errors[] = $this->phpMdToolProcessor->process($file, $options);
         }
+
+        $errors = array_filter($errors);
+
+        if (!empty($errors)) {
+            $outputText = $outputMessage->setError(implode('', $errors));
+            $this->output->writeln($outputMessage->getFailMessage());
+            $this->output->writeln($outputText);
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            throw new PhpMdViolationsException();
+        }
+
+        $this->output->writeln($outputMessage->getSuccessfulMessage());
     }
 }

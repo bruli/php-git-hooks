@@ -3,11 +3,5 @@ services:
     class: PhpGitHooks\Module\PhpMd\Service\PhpMdTool
     public: false
     arguments:
-      - "@query.bus"
-      - "@php.md.tool.executor"
-  php.md.tool.executor:
-    class: PhpGitHooks\Module\PhpMd\Service\PhpMdToolExecutor
-    public: false
-    arguments:
       - "@console.output"
       - "@php.md.tool.processor"
