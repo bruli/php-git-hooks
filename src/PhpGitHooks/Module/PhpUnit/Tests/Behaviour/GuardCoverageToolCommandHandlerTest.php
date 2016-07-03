@@ -41,7 +41,12 @@ class GuardCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
         $this->shouldWriteOutput($outputMessage->getMessage());
         $this->shouldReadGuardCoverage($previousCoverage);
         $this->shouldWriteLnOutput(
-            sprintf('<bg=yellow;options=bold>%s</>', HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT)
+            sprintf(
+                "\n<bg=yellow;options=bold>%s Previous coverage %s, current coverage %s.</>",
+                HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT,
+                $previousCoverage,
+                $currentCoverage
+            )
         );
         $this->shouldWriteGuardCoverage($currentCoverage);
 
