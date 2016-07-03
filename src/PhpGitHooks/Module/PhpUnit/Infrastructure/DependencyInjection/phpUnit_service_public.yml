@@ -14,4 +14,3 @@ services:
     arguments: ["@guard.coverage.tool"]
     tags:
       - { name: command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand }
-  

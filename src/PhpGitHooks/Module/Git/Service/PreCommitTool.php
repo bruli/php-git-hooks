@@ -114,7 +114,7 @@ class PreCommitTool
 
         $phpFiles = $this->getPhpFiles($committedFiles);
 
-        if (true === $this->isPhpFiles($phpFiles)) {
+        if ($phpFiles) {
             if (true === $preCommitResponse->isPhpLint()) {
                 $this->commandBus->handle(
                     new PhpLintToolCommand($phpFiles, $preCommitResponse->getErrorMessage())
@@ -193,16 +193,6 @@ class PreCommitTool
                 }
             }
         }
-    }
-
-    /**
-     * @param array $files
-     *
-     * @return bool
-     */
-    private function isPhpFiles(array $files)
-    {
-        return 0 < $files;
     }
 
     /**
