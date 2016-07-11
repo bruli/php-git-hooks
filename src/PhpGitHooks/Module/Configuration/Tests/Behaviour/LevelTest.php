@@ -12,7 +12,7 @@ class LevelTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldThrowsException()
     {
-        $this->expectException(InvalidBooleanException::class);
+        $this->expectException(\PhpValueObjects\Scalar\Exception\InvalidBooleanException::class);
 
         new Level('string');
     }

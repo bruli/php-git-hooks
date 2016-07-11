@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Files\Domain;
 
-use PhpGitHooks\Module\Shared\Domain\StringLiteralValueObject;
+use PhpValueObjects\Scalar\StringLiteral;
 
-class File extends StringLiteralValueObject
+class File extends StringLiteral
 {
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c84b0f2427d2e410374997a62918b66a",
-    "content-hash": "006eec60de23a61b432b5ee90a4e8095",
+    "hash": "3843a3d06ce899ca2ca53f4d0e7359c8",
+    "content-hash": "5077164c872ed923770fce968aba9c8b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -101,6 +101,54 @@
             ],
             "description": "Ignore files",
             "time": "2016-02-27 20:06:58"
+        },
+        {
+            "name": "bruli/php-value-objects",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bruli/php-value-objects.git",
+                "reference": "446020229744b54229a3c0119784b1638a711e37"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bruli/php-value-objects/zipball/446020229744b54229a3c0119784b1638a711e37",
+                "reference": "446020229744b54229a3c0119784b1638a711e37",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/assert": "^2.5",
+                "php": ">=5.6",
+                "symfony/intl": "^3.1"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.6",
+                "phpunit/phpunit": "^5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PhpValueObjects": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pablo Braulio",
+                    "email": "brulics@gmail.com"
+                }
+            ],
+            "description": "PHP Value objects to use for DDD domains.",
+            "keywords": [
+                "ddd",
+                "objects",
+                "php",
+                "value"
+            ],
+            "time": "2016-07-10 21:42:14"
         },
         {
             "name": "doctrine/instantiator",
@@ -2109,6 +2157,139 @@
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
             "time": "2016-05-13 18:06:41"
+        },
+        {
+            "name": "symfony/intl",
+            "version": "v3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/intl.git",
+                "reference": "2c5e101f3fcaeae81b68b439db684a8269b16617"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/2c5e101f3fcaeae81b68b439db684a8269b16617",
+                "reference": "2c5e101f3fcaeae81b68b439db684a8269b16617",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/polyfill-intl-icu": "~1.0"
+            },
+            "require-dev": {
+                "symfony/filesystem": "~2.8|~3.0"
+            },
+            "suggest": {
+                "ext-intl": "to use the component with locales other than \"en\""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Intl\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ],
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                },
+                {
+                    "name": "Eriksen Costa",
+                    "email": "eriksen.costa@infranology.com.br"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "A PHP replacement layer for the C intl extension that includes additional data from the ICU library.",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "i18n",
+                "icu",
+                "internationalization",
+                "intl",
+                "l10n",
+                "localization"
+            ],
+            "time": "2016-06-29 05:41:56"
+        },
+        {
+            "name": "symfony/polyfill-intl-icu",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-icu.git",
+                "reference": "0f8dc2c45f69f8672379e9210bca4a115cd5146f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-icu/zipball/0f8dc2c45f69f8672379e9210bca4a115cd5146f",
+                "reference": "0f8dc2c45f69f8672379e9210bca4a115cd5146f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/intl": "~2.3|~3.0"
+            },
+            "suggest": {
+                "ext-intl": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for intl's ICU-related data and classes",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "icu",
+                "intl",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2016-05-18 14:26:46"
         },
         {
             "name": "symfony/polyfill-mbstring",

@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Configuration\Domain;
 
-use PhpGitHooks\Module\Shared\Domain\BooleanValueObject;
+use PhpValueObjects\Scalar\BooleanValueObject;
 
 class Level extends BooleanValueObject
 {

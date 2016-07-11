@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Domain\Message;
-use PhpGitHooks\Module\Shared\Contract\Exception\InvalidStringException;
+use PhpValueObjects\Scalar\Exception\InvalidStringException;
 
 class MessageTest extends \PHPUnit_Framework_TestCase
 {

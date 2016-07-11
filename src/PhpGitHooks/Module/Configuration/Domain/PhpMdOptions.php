@@ -2,9 +2,9 @@
 
 namespace PhpGitHooks\Module\Configuration\Domain;
 
-use PhpGitHooks\Module\Shared\Domain\StringLiteralValueObject;
-use PhpGitHooks\Module\Shared\Model\NullableInterface;
+use PhpValueObjects\NullableInterface;
+use PhpValueObjects\Scalar\StringLiteral;
 
-class PhpMdOptions extends StringLiteralValueObject implements NullableInterface
+class PhpMdOptions extends StringLiteral implements NullableInterface
 {
 }

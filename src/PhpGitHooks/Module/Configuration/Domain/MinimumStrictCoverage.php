@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Configuration\Domain;
 
-use PhpGitHooks\Module\Shared\Domain\FloatValueObject;
-use PhpGitHooks\Module\Shared\Model\NullableInterface;
+use PhpValueObjects\NullableInterface;
+use PhpValueObjects\Scalar\FloatValueObject;
 
 class MinimumStrictCoverage extends FloatValueObject implements NullableInterface
 {
