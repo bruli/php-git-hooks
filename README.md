@@ -76,7 +76,7 @@ If your project doesn't have a "bin/" directory, you can add this in your `compo
 }
 ```
 
-**Note:** This is not necessary for Symfony projects.
+Without this setting Composer would create links to bin files in `vendor/bin`, instead of `bin/`.
 
 ### Manual config file for git hooks.
 
