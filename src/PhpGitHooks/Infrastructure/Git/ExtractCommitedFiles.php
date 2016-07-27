@@ -21,7 +21,7 @@ class ExtractCommitedFiles
             $against = 'HEAD';
         }
 
-        exec("git diff --name-only $against", $this->output);
+        exec("git diff --name-only --diff-filter=ACMRTUXB $against", $this->output);
     }
 
     /**
