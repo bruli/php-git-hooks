@@ -37,42 +37,44 @@ class PhpCsFixerTool
      * @param bool   $psr1
      * @param bool   $psr2
      * @param bool   $symfony
+     * @param string $options
      * @param string $errorMessage
      */
-    public function execute(array $files, $psr0, $psr1, $psr2, $symfony, $errorMessage)
+    public function execute(array $files, $psr0, $psr1, $psr2, $symfony, $options, $errorMessage)
     {
         if (true === $psr0) {
-            $this->executeTool($files, 'PSR0', $errorMessage);
+            $this->executeTool($files, 'PSR0', $options, $errorMessage);
         }
 
         if (true === $psr1) {
-            $this->executeTool($files, 'PSR1', $errorMessage);
+            $this->executeTool($files, 'PSR1', $options, $errorMessage);
         }
 
         if (true === $psr2) {
-            $this->executeTool($files, 'PSR2', $errorMessage);
+            $this->executeTool($files, 'PSR2', $options, $errorMessage);
         }
 
         if (true === $symfony) {
-            $this->executeTool($files, 'SYMFONY', $errorMessage);
+            $this->executeTool($files, 'SYMFONY', $options, $errorMessage);
         }
     }
 
     /**
      * @param array  $files
      * @param string $level
+     * @param string $options
      * @param string $errorMessage
      *
      * @throws PhpCsFixerViolationsException
      */
-    private function executeTool(array $files, $level, $errorMessage)
+    private function executeTool(array $files, $level, $options, $errorMessage)
     {
         $outputMessage = new PreCommitOutputWriter(sprintf('Checking %s code style with PHP-CS-FIXER', $level));
         $this->output->write($outputMessage->getMessage());
 
         $errors = [];
         foreach ($files as $file) {
-            $errors[] = $this->phpCsFixerToolProcessor->process($file, $level);
+            $errors[] = $this->phpCsFixerToolProcessor->process($file, $level, $options);
         }
 
         $errors = array_filter($errors);

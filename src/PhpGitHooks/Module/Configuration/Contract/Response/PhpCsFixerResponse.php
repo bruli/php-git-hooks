@@ -24,6 +24,10 @@ class PhpCsFixerResponse
      * @var bool
      */
     private $phpCsFixerSymfony;
+    /**
+     * @var string|null
+     */
+    private $phpCsFixerOptions;
 
     /**
      * PhpCsFixerResponse constructor.
@@ -33,19 +37,22 @@ class PhpCsFixerResponse
      * @param bool $phpCsFixerPsr1
      * @param bool $phpCsFixerPsr2
      * @param bool $phpCsFixerSymfony
+     * @param string|null $phpCsFixerOptions
      */
     public function __construct(
         $phpCsFixer,
         $phpCsFixerPsr0,
         $phpCsFixerPsr1,
         $phpCsFixerPsr2,
-        $phpCsFixerSymfony
+        $phpCsFixerSymfony,
+        $phpCsFixerOptions
     ) {
         $this->phpCsFixer = $phpCsFixer;
         $this->phpCsFixerPsr0 = $phpCsFixerPsr0;
         $this->phpCsFixerPsr1 = $phpCsFixerPsr1;
         $this->phpCsFixerPsr2 = $phpCsFixerPsr2;
         $this->phpCsFixerSymfony = $phpCsFixerSymfony;
+        $this->phpCsFixerOptions = $phpCsFixerOptions;
     }
 
     /**
@@ -86,5 +93,13 @@ class PhpCsFixerResponse
     public function isPhpCsFixerSymfony()
     {
         return $this->phpCsFixerSymfony;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPhpCsFixerOptions()
+    {
+        return $this->phpCsFixerOptions;
     }
 }

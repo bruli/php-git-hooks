@@ -35,6 +35,7 @@ class PhpCsFixerToolCommandHandler implements CommandHandlerInterface
             $command->isPsr1(),
             $command->isPsr2(),
             $command->isSymfony(),
+            $command->getOptions(),
             $command->getErrorMessage()
         );
     }

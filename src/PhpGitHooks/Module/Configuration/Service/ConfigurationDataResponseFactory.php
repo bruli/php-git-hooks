@@ -101,7 +101,8 @@ class ConfigurationDataResponseFactory
                 $phpCsFixer->getLevels()->getPsr0()->value(),
                 $phpCsFixer->getLevels()->getPsr1()->value(),
                 $phpCsFixer->getLevels()->getPsr2()->value(),
-                $phpCsFixer->getLevels()->getSymfony()->value()
+                $phpCsFixer->getLevels()->getSymfony()->value(),
+                $phpCsFixer->getOptions()->value()
             ),
             new PhpUnitResponse(
                 $phpUnit->isEnabled(),

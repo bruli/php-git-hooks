@@ -55,7 +55,7 @@ final class ConfigurationDataResponseStub
                 $preCommit,
                 PhpMdResponseStub::create($preCommit, PhpMdResponseStub::OPTIONS),
                 PhpCsResponseStub::create($preCommit, PhpCsResponseStub::STANDARD),
-                PhpCsFixerResponseStub::create($preCommit, $preCommit, $preCommit, $preCommit, $preCommit),
+                PhpCsFixerResponseStub::create($preCommit, $preCommit, $preCommit, $preCommit, $preCommit, PhpCsFixerResponseStub::OPTIONS),
                 PhpUnitResponseStub::create($preCommit, $preCommit, PhpUnitResponseStub::OPTIONS),
                 PhpUnitStrictCoverageResponseStub::create($preCommit, PhpUnitStrictCoverageResponseStub::MINIMUM),
                 PhpUnitGuardCoverageResponseStub::create($preCommit, PhpUnitGuardCoverageResponseStub::WARNING_MESSAGE)
