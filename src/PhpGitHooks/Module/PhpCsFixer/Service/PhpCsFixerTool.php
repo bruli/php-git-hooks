@@ -42,19 +42,19 @@ class PhpCsFixerTool
     public function execute(array $files, $psr0, $psr1, $psr2, $symfony, $errorMessage)
     {
         if (true === $psr0) {
-            $this->executeTool($files, 'PSR0', $errorMessage);
+            $this->executeTool($files, 'psr0', $errorMessage);
         }
 
         if (true === $psr1) {
-            $this->executeTool($files, 'PSR1', $errorMessage);
+            $this->executeTool($files, 'psr1', $errorMessage);
         }
 
         if (true === $psr2) {
-            $this->executeTool($files, 'PSR2', $errorMessage);
+            $this->executeTool($files, 'psr2', $errorMessage);
         }
 
         if (true === $symfony) {
-            $this->executeTool($files, 'SYMFONY', $errorMessage);
+            $this->executeTool($files, 'symfony', $errorMessage);
         }
     }
 
