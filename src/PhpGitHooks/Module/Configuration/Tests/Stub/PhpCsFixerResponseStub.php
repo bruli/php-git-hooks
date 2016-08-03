@@ -9,11 +9,11 @@ class PhpCsFixerResponseStub
     const OPTIONS = '--diff';
 
     /**
-     * @param bool $phpCsFixer
-     * @param bool $psr0
-     * @param bool $psr1
-     * @param bool $psr2
-     * @param bool $symfony
+     * @param bool        $phpCsFixer
+     * @param bool        $psr0
+     * @param bool        $psr1
+     * @param bool        $psr2
+     * @param bool        $symfony
      * @param string|null $options
      *
      * @return PhpCsFixerResponse

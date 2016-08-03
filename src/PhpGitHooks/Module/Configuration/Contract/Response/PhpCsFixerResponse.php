@@ -32,11 +32,11 @@ class PhpCsFixerResponse
     /**
      * PhpCsFixerResponse constructor.
      *
-     * @param bool $phpCsFixer
-     * @param bool $phpCsFixerPsr0
-     * @param bool $phpCsFixerPsr1
-     * @param bool $phpCsFixerPsr2
-     * @param bool $phpCsFixerSymfony
+     * @param bool        $phpCsFixer
+     * @param bool        $phpCsFixerPsr0
+     * @param bool        $phpCsFixerPsr1
+     * @param bool        $phpCsFixerPsr2
+     * @param bool        $phpCsFixerSymfony
      * @param string|null $phpCsFixerOptions
      */
     public function __construct(
