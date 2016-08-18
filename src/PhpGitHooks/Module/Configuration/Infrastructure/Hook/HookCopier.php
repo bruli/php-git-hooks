@@ -38,7 +38,7 @@ class HookCopier
      */
     private function copyFile($hookFile)
     {
-        $copy = new Process(sprintf('cp %s %s', $hookFile, $this->hookDir));
+        $copy = new Process(sprintf("mkdir -p {$this->hookDir} && cp %s %s", $hookFile, $this->hookDir));
         $copy->run();
     }
 
