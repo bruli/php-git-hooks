@@ -4,6 +4,7 @@ namespace PhpGitHooks\Module\Configuration\Service;
 
 use PhpGitHooks\Module\Configuration\Domain\Enabled;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
+use PhpGitHooks\Module\Configuration\Domain\PhpCsFixerOptions;
 use PhpGitHooks\Module\Configuration\Domain\Undefined;
 
 class PhpCsFixerFactory
@@ -18,7 +19,8 @@ class PhpCsFixerFactory
         return new PhpCsFixer(
             new Undefined(false),
             new Enabled($data['enabled']),
-            PhpCsFixerLevelsFactory::fromArray($data['levels'])
+            PhpCsFixerLevelsFactory::fromArray($data['levels']),
+            new PhpCsFixerOptions(isset($data['options']) ? $data['options'] : null)
         );
     }
 
@@ -30,7 +32,8 @@ class PhpCsFixerFactory
         return new PhpCsFixer(
             new Undefined(true),
             new Enabled(false),
-            PhpCsFixerLevelsFactory::setUndefined()
+            PhpCsFixerLevelsFactory::setUndefined(),
+            new PhpCsFixerOptions(null)
         );
     }
 }

@@ -7,6 +7,7 @@ use PhpGitHooks\Module\Configuration\Domain\Enabled;
 use PhpGitHooks\Module\Configuration\Domain\Level;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixer;
 use PhpGitHooks\Module\Configuration\Domain\PhpCsFixerLevels;
+use PhpGitHooks\Module\Configuration\Domain\PhpCsFixerOptions;
 
 class PhpCsFixerConfigurator
 {
@@ -37,6 +38,10 @@ class PhpCsFixerConfigurator
                     new Level(HookQuestions::DEFAULT_TOOL_ANSWER ===  strtoupper($symfonyAnswer))
                 ));
             }
+
+            $optionsAnswer = $io->ask(HookQuestions::PHPCSFIXER_OPTIONS, null);
+            $options = new PhpCsFixerOptions($optionsAnswer);
+            $phpCsFixer = $phpCsFixer->setOptions($options);
         }
 
         return $phpCsFixer;

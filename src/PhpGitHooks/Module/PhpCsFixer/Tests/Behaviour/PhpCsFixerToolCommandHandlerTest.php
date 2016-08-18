@@ -3,6 +3,7 @@
 namespace PhpGitHooks\Module\PhpCsFixer\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
+use PhpGitHooks\Module\Configuration\Tests\Stub\PhpCsFixerOptionsStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
@@ -36,6 +37,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
     {
         $this->expectException(PhpCsFixerViolationsException::class);
 
+        $phpCsFixerOptions = PhpCsFixerOptionsStub::random();
         $configurationData = ConfigurationDataResponseStub::createAllEnabled();
         $phpFiles = FilesCommittedStub::createOnlyPhpFiles();
 
@@ -45,7 +47,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $errors = null;
         foreach ($phpFiles as $file) {
             $errorText = 'ERROR';
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR0', $errorText);
+            $this->shouldProcessPhpCsFixerTool($file, 'PSR0', $phpCsFixerOptions->value(), $errorText);
             $errors .= $errorText;
         }
 
@@ -60,6 +62,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
+                $phpCsFixerOptions->value(),
                 $configurationData->getPreCommit()->getErrorMessage()
             )
         );
@@ -70,6 +73,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
      */
     public function itShouldWorksFine()
     {
+        $phpCsFixerOptions = PhpCsFixerOptionsStub::random();
         $configurationData = ConfigurationDataResponseStub::createAllEnabled();
         $phpFiles = FilesCommittedStub::createOnlyPhpFiles();
 
@@ -77,7 +81,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr0->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR0', null);
+            $this->shouldProcessPhpCsFixerTool($file, 'PSR0', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr0->getSuccessfulMessage());
@@ -86,7 +90,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr1->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR1', null);
+            $this->shouldProcessPhpCsFixerTool($file, 'PSR1', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr1->getSuccessfulMessage());
@@ -95,7 +99,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr2->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR2', null);
+            $this->shouldProcessPhpCsFixerTool($file, 'PSR2', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr2->getSuccessfulMessage());
@@ -104,7 +108,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessageSymfony->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'SYMFONY', null);
+            $this->shouldProcessPhpCsFixerTool($file, 'SYMFONY', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessageSymfony->getSuccessfulMessage());
@@ -116,6 +120,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
+                $phpCsFixerOptions->value(),
                 $configurationData->getPreCommit()->getErrorMessage()
             )
         );

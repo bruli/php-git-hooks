@@ -94,6 +94,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
                 $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),
                 $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
                 $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
+                $configurationDataResponse->getPreCommit()->getPhpCsFixer()->getPhpCsFixerOptions(),
                 $configurationDataResponse->getPreCommit()->getErrorMessage()
             )
         );
