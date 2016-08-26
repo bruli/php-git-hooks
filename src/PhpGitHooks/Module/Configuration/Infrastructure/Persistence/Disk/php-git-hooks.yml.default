@@ -1,0 +1,52 @@
+pre-commit:
+    enabled: true
+    execute:
+        composer: true
+        jsonlint: true
+        phplint: true
+        phpmd:
+            enabled: true
+            options: null
+        phpcs:
+            enabled: true
+            standard: null
+        php-cs-fixer:
+            enabled: true
+            levels:
+                psr0: true
+                psr1: true
+                psr2: true
+                symfony: false
+            options: null
+        phpunit:
+            enabled: true
+            random-mode: true
+            options: null
+            strict-coverage:
+                enabled: true
+                minimum: !!float 0
+            guard-coverage:
+                enabled: true
+                message: 'WARNING!!, your code coverage is lower.'
+    message:
+        right-message: 'HEY, GOOD JOB!!'
+        error-message: 'FIX YOUR FUCKING CODE!!'
+commit-msg:
+    enabled: true
+    regular-expression: '[#[0-9]{2,7}]'
+pre-push:
+    enabled: true
+    execute:
+        phpunit:
+            enabled: true
+            random-mode: true
+            options: null
+            strict-coverage:
+                enabled: true
+                minimum: !!float 0
+            guard-coverage:
+                enabled: true
+                message: 'WARNING!!, your code coverage is lower.'
+    message:
+        right-message: 'PUSH IT!!'
+        error-message: 'YOU CAN NOT PUSH CODE!!'

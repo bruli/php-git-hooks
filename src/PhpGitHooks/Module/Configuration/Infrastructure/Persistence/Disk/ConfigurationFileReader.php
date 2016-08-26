@@ -10,6 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 class ConfigurationFileReader implements ConfigurationFileReaderInterface
 {
     const CONFIG_FILE = 'php-git-hooks.yml';
+    const DEFAULT_CONFIG_FILE = 'php-git-hooks.yml.default';
 
     /**
      * @return Config
@@ -17,6 +18,10 @@ class ConfigurationFileReader implements ConfigurationFileReaderInterface
     public function getData()
     {
         $data = true === $this->configFileExists() ? $this->getConfigData() : [];
+
+        $defaultData = $this->getDefaultConfigData();
+
+        $data = array_replace_recursive($defaultData, $data);
 
         return ConfigFactory::fromArray($data);
     }
@@ -35,5 +40,15 @@ class ConfigurationFileReader implements ConfigurationFileReaderInterface
     private function getConfigData()
     {
         return Yaml::parse(file_get_contents(self::CONFIG_FILE));
+    }
+
+    /**
+     * @return array
+     */
+    private function getDefaultConfigData()
+    {
+        return Yaml::parse(
+            file_get_contents(__DIR__ . '/' . self::DEFAULT_CONFIG_FILE)
+        );
     }
 }
