@@ -23,7 +23,7 @@ class StrictCoverageTool
      * StrictCoverageTool constructor.
      *
      * @param StrictCoverageProcessorInterface $strictCoverageProcessor
-     * @param OutputInterface                  $output
+     * @param OutputInterface $output
      */
     public function __construct(StrictCoverageProcessorInterface $strictCoverageProcessor, OutputInterface $output)
     {
@@ -33,8 +33,9 @@ class StrictCoverageTool
 
     /**
      * @param MinimumStrictCoverage $minimumStrictCoverage
-     * @param string                $errorMessage
+     * @param string $errorMessage
      *
+     * @return float
      * @throws InvalidStrictCoverageException
      */
     public function run(MinimumStrictCoverage $minimumStrictCoverage, $errorMessage)
@@ -42,9 +43,11 @@ class StrictCoverageTool
         $currentCoverage = $this->strictCoverageProcessor->process();
 
         if ($minimumStrictCoverage->value() > $currentCoverage) {
-                $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
 
             throw new InvalidStrictCoverageException($currentCoverage, $minimumStrictCoverage->value());
         }
+
+        return $currentCoverage;
     }
 }

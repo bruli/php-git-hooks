@@ -67,11 +67,22 @@ class GuardCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
         $this->shouldProcessStrictCoverage($currentCoverage);
         $this->shouldWriteOutput($outputMessage->getMessage());
         $this->shouldReadGuardCoverage($previousCoverage);
-        $this->shouldWriteLnOutput($outputMessage->getSuccessfulMessage());
+        $this->shouldWriteLnOutput($this->buildStrictCoverageSuccessfulMessage($currentCoverage, $previousCoverage,
+            $outputMessage->getSuccessfulMessage()));
         $this->shouldWriteGuardCoverage($currentCoverage);
 
         $this->guardCoverageToolCommandHandler->handle(
             new GuardCoverageCommand(HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT)
         );
+    }
+
+    private function buildStrictCoverageSuccessfulMessage($currentCoverage, $previousCoverage, $getSuccessfulMessage)
+    {
+        return $getSuccessfulMessage .
+        ' <comment>[' .
+        round($currentCoverage, 0) .
+        '% >= ' .
+        round($previousCoverage, 0) .
+        '%]</comment>';
     }
 }

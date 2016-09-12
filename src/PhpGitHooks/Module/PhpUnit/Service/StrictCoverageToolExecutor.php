@@ -33,7 +33,16 @@ class StrictCoverageToolExecutor
     {
         $outputMessage = new PreCommitOutputWriter(self::EXECUTE_MESSAGE);
         $this->output->write($outputMessage->getMessage());
-        $this->strictCoverageTool->run($minimumStrictCoverage, $errorMessage);
-        $this->output->writeln($outputMessage->getSuccessfulMessage());
+        $currentCoverage = $this->strictCoverageTool->run($minimumStrictCoverage, $errorMessage);
+        $this->output->writeln($outputMessage->getSuccessfulMessage() . $this->printCurrentCoverage($currentCoverage));
+    }
+
+    /**
+     * @param $currentCoverage
+     * @return string
+     */
+    private function printCurrentCoverage($currentCoverage)
+    {
+        return ' <comment>[' . round($currentCoverage, 0) . '%]</comment>';
     }
 }
