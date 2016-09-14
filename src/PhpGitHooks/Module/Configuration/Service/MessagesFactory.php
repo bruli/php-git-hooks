@@ -15,8 +15,8 @@ class MessagesFactory
     public static function fromArray(array $data)
     {
         return new Messages(
-            new Message($data['right-message']),
-            new Message($data['error-message'])
+            new Message(isset($data['right-message']) ? $data['right-message'] : ''),
+            new Message(isset($data['error-message']) ? $data['error-message'] : '')
         );
     }
 
