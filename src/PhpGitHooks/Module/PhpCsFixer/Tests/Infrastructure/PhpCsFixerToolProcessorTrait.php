@@ -27,14 +27,15 @@ trait PhpCsFixerToolProcessorTrait
     /**
      * @param string $file
      * @param string $level
+     * @param string $options
      * @param string $return
      */
-    protected function shouldProcessPhpCsFixerTool($file, $level, $return)
+    protected function shouldProcessPhpCsFixerTool($file, $level, $options, $return)
     {
         $this->getPhpCsFixerToolProcessor()
             ->shouldReceive('process')
             ->once()
-            ->withArgs([$file, $level])
+            ->withArgs([$file, $level, $options])
             ->andReturn($return);
     }
 }

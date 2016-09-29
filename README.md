@@ -92,6 +92,7 @@ pre-commit:
             psr1:       true
             psr2:       true
             symfony:    true
+        options: "--fixers=short_array_syntax --diff"
     phpunit:
         enabled:     true
         random-mode: true

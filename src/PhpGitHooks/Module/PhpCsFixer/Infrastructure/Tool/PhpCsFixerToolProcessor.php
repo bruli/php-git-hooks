@@ -27,12 +27,13 @@ class PhpCsFixerToolProcessor implements PhpCsFixerToolProcessorInterface
     /**
      * @param string $file
      * @param string $level
+     * @param string $options
      *
      * @return string
      */
-    public function process($file, $level)
+    public function process($file, $level, $options)
     {
-        $process = $this->processTool($file, $level);
+        $process = $this->processTool($file, $level, $options);
 
         return $this->setError($process);
     }
@@ -40,21 +41,26 @@ class PhpCsFixerToolProcessor implements PhpCsFixerToolProcessorInterface
     /**
      * @param string $file
      * @param string $level
+     * @param string $options
      *
      * @return Process
      */
-    private function processTool($file, $level)
+    private function processTool($file, $level, $options)
     {
-        $processBuilder = new ProcessBuilder(
-            [
-                'php',
-                $this->toolPathFinder->find('php-cs-fixer'),
-                '--dry-run',
-                'fix',
-                $file,
-                '--level='.$level,
-            ]
-        );
+        $arguments = [
+            'php',
+            $this->toolPathFinder->find('php-cs-fixer'),
+            '--dry-run',
+            'fix',
+            $file,
+            '--level='.$level,
+        ];
+
+        if (null !== $options) {
+            $arguments = array_merge($arguments, explode(' ', trim($options)));
+        }
+
+        $processBuilder = new ProcessBuilder($arguments);
 
         $process = $processBuilder->getProcess();
         $process->run();

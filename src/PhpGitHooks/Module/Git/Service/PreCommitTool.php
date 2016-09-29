@@ -143,6 +143,7 @@ class PreCommitTool
                         $phpCsFixerResponse->isPhpCsFixerPsr1(),
                         $phpCsFixerResponse->isPhpCsFixerPsr2(),
                         $phpCsFixerResponse->isPhpCsFixerSymfony(),
+                        $phpCsFixerResponse->getPhpCsFixerOptions(),
                         $preCommitResponse->getErrorMessage()
                     )
                 );

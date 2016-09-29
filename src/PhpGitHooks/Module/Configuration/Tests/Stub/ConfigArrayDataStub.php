@@ -12,6 +12,7 @@ class ConfigArrayDataStub
     const REGULAR_EXPRESSION = '#[0-9]{2,7}';
     const ERROR_MESSAGE = 'fix your code';
     const PHPMD_OPTIONS = '--minimumpriority 1';
+    const PHPCSFIXER_OPTIONS = '--diff';
     const MINIMUM_COVERAGE = 90.00;
 
     /**
@@ -42,6 +43,7 @@ class ConfigArrayDataStub
                             'psr2' => true,
                             'symfony' => true,
                         ],
+                        'options' => static::PHPCSFIXER_OPTIONS,
                     ],
                     'phpunit' => [
                         'enabled' => true,

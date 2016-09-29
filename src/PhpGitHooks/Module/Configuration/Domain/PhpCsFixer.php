@@ -18,19 +18,29 @@ class PhpCsFixer implements ToolInterface
      * @var PhpCsFixerLevels
      */
     private $levels;
+    /**
+     * @var PhpCsFixerOptions
+     */
+    private $options;
 
     /**
      * PhpCsFixer constructor.
      *
-     * @param Undefined        $undefined
-     * @param Enabled          $enabled
-     * @param PhpCsFixerLevels $levels
+     * @param Undefined         $undefined
+     * @param Enabled           $enabled
+     * @param PhpCsFixerLevels  $levels
+     * @param PhpCsFixerOptions $options
      */
-    public function __construct(Undefined $undefined, Enabled $enabled, PhpCsFixerLevels $levels)
-    {
+    public function __construct(
+        Undefined $undefined,
+        Enabled $enabled,
+        PhpCsFixerLevels $levels,
+        PhpCsFixerOptions $options
+    ) {
         $this->undefined = $undefined;
         $this->enabled = $enabled;
         $this->levels = $levels;
+        $this->options = $options;
     }
 
     /**
@@ -75,7 +85,8 @@ class PhpCsFixer implements ToolInterface
         return new self(
             new Undefined(false),
             $enabled,
-            $levels
+            $levels,
+            $this->options
         );
     }
 
@@ -89,7 +100,31 @@ class PhpCsFixer implements ToolInterface
         return new self(
             $this->undefined,
             $this->enabled,
-            $levels
+            $levels,
+            $this->options
+        );
+    }
+
+    /**
+     * @return PhpCsFixerOptions
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param PhpCsFixerOptions $options
+     *
+     * @return PhpCsFixer
+     */
+    public function setOptions(PhpCsFixerOptions $options)
+    {
+        return new self(
+            $this->undefined,
+            $this->enabled,
+            $this->levels,
+            $options
         );
     }
 }

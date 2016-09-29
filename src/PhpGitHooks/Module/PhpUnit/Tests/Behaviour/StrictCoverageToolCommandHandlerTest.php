@@ -64,11 +64,19 @@ class StrictCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
         $minimumStrictCoverage = MinimumStrictCoverageStub::create(90.00);
         $outputMessage = new PreCommitOutputWriter(StrictCoverageToolExecutor::EXECUTE_MESSAGE);
 
+        $coverage = 91.00;
+
         $this->shouldWriteOutput($outputMessage->getMessage());
-        $this->shouldProcessStrictCoverage(91.00);
-        $this->shouldWriteLnOutput($outputMessage->getSuccessfulMessage());
+        $this->shouldProcessStrictCoverage($coverage);
+        $this->shouldWriteLnOutput($this->buildStrictCoverageSuccessfulMessage($coverage,
+            $outputMessage->getSuccessfulMessage()));
 
         $command = new StrictCoverageCommand($minimumStrictCoverage->value(), $this->errorMessage);
         $this->strictCoverageToolCommandHandler->handle($command);
+    }
+
+    private function buildStrictCoverageSuccessfulMessage($coverage, $getSuccessfulMessage)
+    {
+        return $getSuccessfulMessage . ' <comment>[' . round($coverage, 0) . '%]</comment>';
     }
 }

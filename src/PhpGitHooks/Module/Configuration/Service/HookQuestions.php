@@ -25,6 +25,7 @@ class HookQuestions
     const PHPCSFIXER_PSR1_LEVEL = '<info>Enable psr1 level for PHP-CS-FIXER?:</info> <comment>[Y/n]</comment>';
     const PHPCSFIXER_PSR2_LEVEL = '<info>Enable psr2 level for PHP-CS-FIXER?:</info> <comment>[Y/n]</comment>';
     const PHPCSFIXER_SYMFONY_LEVEL = '<info>Enable symfony level for PHP-CS-FIXER?:</info> <comment>[Y/n]</comment>';
+    const PHPCSFIXER_OPTIONS = '<info>Write options for PHP-CS-FIXER tool if you want use it:</info> <comment>[NONE]</comment>';
     const PHPUNIT_TOOL = '<info>Do you want enable PHPUNIT tool?:</info> <comment>[Y/n]</comment>';
     const PHPUNIT_RANDOM_MODE = '<info>Do you want run PHPUNIT tool with randomize mode?:</info>'.
     '<comment>[Y/n]</comment>';

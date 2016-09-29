@@ -63,7 +63,7 @@ class GuardCoverageTool
     {
         $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
         $this->output->write($outputMessage->getMessage());
-        
+
         $this->currentCoverage = $this->strictCoverageProcessor->process();
         $this->previousCoverage = $this->guardReader->read();
 
@@ -75,7 +75,9 @@ class GuardCoverageTool
                 $this->previousCoverage,
                 $this->currentCoverage
             )
-        ) : $this->output->writeln($outputMessage->getSuccessfulMessage());
+        ) : $this->output->writeln(
+            $outputMessage->getSuccessfulMessage() . $this->printGuardCoverage()
+        );
 
         $this->guardWriter->write($this->currentCoverage);
     }
@@ -86,5 +88,17 @@ class GuardCoverageTool
     private function isLowerCurrentCoverage()
     {
         return $this->currentCoverage < $this->previousCoverage;
+    }
+
+    /**
+     * @return string
+     */
+    private function printGuardCoverage()
+    {
+        return ' <comment>[' .
+        round($this->currentCoverage, 0) .
+        '% >= ' .
+        round($this->previousCoverage, 0) .
+        '%]</comment>';
     }
 }

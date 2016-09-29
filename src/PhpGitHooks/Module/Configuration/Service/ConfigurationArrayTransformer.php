@@ -71,6 +71,7 @@ class ConfigurationArrayTransformer
                             'psr2' => $phpCsFixer->getLevels()->getPsr2()->value(),
                             'symfony' => $phpCsFixer->getLevels()->getSymfony()->value(),
                         ],
+                        'options' => $phpCsFixer->getOptions()->value(),
                     ],
                     'phpunit' => [
                         'enabled' => $phpunit->isEnabled(),
