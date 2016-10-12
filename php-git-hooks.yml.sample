@@ -49,3 +49,4 @@ pre-push:
     message:
       right-message: 'PUSH IT!!'
       error-message: 'YOU CAN NOT PUSH CODE!!'
+      
