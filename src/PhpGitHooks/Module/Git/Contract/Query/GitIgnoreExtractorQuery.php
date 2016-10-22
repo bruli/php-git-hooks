@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Git\Contract\Query;
 
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryInterface;
+use Bruli\EventBusBundle\QueryBus\QueryInterface;
 
 class GitIgnoreExtractorQuery implements QueryInterface
 {

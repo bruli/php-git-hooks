@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Files\Contract\QueryHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryInterface;
+use Bruli\EventBusBundle\QueryBus\QueryHandlerInterface;
+use Bruli\EventBusBundle\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
 use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
 use PhpGitHooks\Module\Files\Domain\FilesCollection;

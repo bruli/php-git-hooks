@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Shared\Tests\Infrastructure;
 
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryInterface;
+use Bruli\EventBusBundle\QueryBus\QueryBus;
+use Bruli\EventBusBundle\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\SimilarTo;
 

@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\PhpLint\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpLint\Service\PhpLintTool;
 

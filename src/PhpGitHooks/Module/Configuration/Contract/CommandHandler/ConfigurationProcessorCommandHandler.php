@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Configuration\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor;
 

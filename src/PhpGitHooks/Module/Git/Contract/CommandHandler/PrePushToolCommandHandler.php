@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Git\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand;
 use PhpGitHooks\Module\Git\Service\PrePushTool;
 

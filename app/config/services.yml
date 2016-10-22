@@ -14,15 +14,3 @@ services:
     class: Symfony\Component\Console\Output\ConsoleOutput
   tool.path.finder:
     class: PhpGitHooks\Infrastructure\Tool\ToolPathFinder
-  command.bus:
-    class: PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandBus
-    arguments:
-      - "@service_container"
-      - "@bus.options.resolver"
-  bus.options.resolver:
-    class: PhpGitHooks\Infrastructure\CommandBus\BusOptionsResolver
-  query.bus:
-    class: PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus
-    arguments:
-      - "@service_container"
-      - "@bus.options.resolver"

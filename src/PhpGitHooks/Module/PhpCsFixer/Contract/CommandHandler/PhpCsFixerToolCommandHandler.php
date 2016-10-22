@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\PhpCsFixer\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use PhpGitHooks\Module\PhpCsFixer\Service\PhpCsFixerTool;
 

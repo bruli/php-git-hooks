@@ -3,5 +3,5 @@ services:
     class: PhpGitHooks\Module\Composer\Service\ComposerTool
     public: false
     arguments:
-      - "@query.bus"
+      - "@bruli.query.bus"
       - "@console.output"

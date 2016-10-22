@@ -4,6 +4,11 @@ namespace PhpGitHooks\Application\Composer;
 
 use Composer\Script\Event;
 
+/**
+ * Class ConfiguratorScript.
+ *
+ * @codingStandardsIgnoreFile
+ */
 class ConfiguratorScript
 {
     public static function buildConfig(Event $event)

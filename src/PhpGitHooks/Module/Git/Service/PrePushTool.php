@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Git\Service;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandBus;
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
+use Bruli\EventBusBundle\CommandBus\CommandBus;
+use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Git\Contract\Exception\InvalidPushException;

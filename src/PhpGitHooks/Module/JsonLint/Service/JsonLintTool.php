@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\JsonLint\Service;
 
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
+use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery;
 
 class JsonLintTool

@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\PhpUnit\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
 use PhpGitHooks\Module\PhpUnit\Service\GuardCoverageTool;
 

@@ -10,6 +10,11 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class CommitMsg.
+ *
+ * @codingStandardsIgnoreFile
+ */
 class CommitMsg extends Application
 {
     /**
@@ -19,13 +24,15 @@ class CommitMsg extends Application
 
     public function __construct()
     {
-        $this->container = new AppKernel();
+        $appKernel = new AppKernel('dev', true);
+        $appKernel->boot();
+        $this->container = $appKernel->getContainer();
         parent::__construct('commit-msg');
     }
 
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        $this->container->get('command.bus')
+        $this->container->get('bruli.command.bus')
             ->handle(new CommitMsgCommand($input));
     }
 }

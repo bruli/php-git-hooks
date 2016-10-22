@@ -5,8 +5,8 @@ services:
     arguments:
       - "@console.output"
       - "@files.commited.extractor"
-      - "@query.bus"
-      - "@command.bus"
+      - "@bruli.query.bus"
+      - "@bruli.command.bus"
       - "@tool.title.output.writer"
   files.commited.extractor:
     class: PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor
@@ -16,16 +16,16 @@ services:
     public: false
     arguments:
       - "@merge.validator"
-      - "@query.bus"
+      - "@bruli.query.bus"
       - "@commit.message.finder"
   pre.push.tool:
     class: PhpGitHooks\Module\Git\Service\PrePushTool
     public: false
     arguments:
-      - "@query.bus"
+      - "@bruli.query.bus"
       - "@pre.push.original.executor"
       - "@console.output"
-      - "@command.bus"
+      - "@bruli.command.bus"
   gitignore.writer:
     class: PhpGitHooks\Module\Git\Service\GitIgnoreWriter
     public: false

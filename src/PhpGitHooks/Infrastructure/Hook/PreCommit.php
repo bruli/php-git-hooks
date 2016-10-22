@@ -11,6 +11,11 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class PreCommit.
+ *
+ * @codingStandardsIgnoreFile
+ */
 class PreCommit extends Application
 {
     /**
@@ -23,14 +28,18 @@ class PreCommit extends Application
      */
     public function __construct()
     {
-        $this->container = new AppKernel();
+        $appKernel = new AppKernel('dev', true);
+        $appKernel->boot();
+        $this->container = $appKernel->getContainer();
         parent::__construct('pre-commit');
     }
 
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        /** @var PreCommitToolCommandHandler $command */
-        $command = $this->container->get('command.bus');
+        /**
+         * @var PreCommitToolCommandHandler
+         */
+        $command = $this->container->get('bruli.command.bus');
         $command->handle(new PreCommitToolCommand());
     }
 }

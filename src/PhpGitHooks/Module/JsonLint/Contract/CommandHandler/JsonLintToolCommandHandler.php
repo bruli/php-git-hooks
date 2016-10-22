@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\JsonLint\Contract\CommandHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintToolCommand;
 use PhpGitHooks\Module\JsonLint\Service\JsonLintTool;
 

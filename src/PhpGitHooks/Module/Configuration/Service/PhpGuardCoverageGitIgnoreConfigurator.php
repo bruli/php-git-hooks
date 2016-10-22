@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Configuration\Service;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandBus;
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
+use Bruli\EventBusBundle\CommandBus\CommandBus;
+use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand;
 use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
 use PhpGitHooks\Module\Git\Contract\Response\GitIgnoreDataResponse;

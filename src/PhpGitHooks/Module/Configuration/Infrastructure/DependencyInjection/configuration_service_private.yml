@@ -35,5 +35,5 @@ services:
     class: PhpGitHooks\Module\Configuration\Service\PhpGuardCoverageGitIgnoreConfigurator
     public: false
     arguments:
-      - "@query.bus"
-      - "@command.bus"
+      - "@bruli.query.bus"
+      - "@bruli.command.bus"

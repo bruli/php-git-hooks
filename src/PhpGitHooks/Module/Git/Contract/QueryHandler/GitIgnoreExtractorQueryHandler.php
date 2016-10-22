@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Git\Contract\QueryHandler;
 
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryHandlerInterface;
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryInterface;
+use Bruli\EventBusBundle\QueryBus\QueryHandlerInterface;
+use Bruli\EventBusBundle\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
 use PhpGitHooks\Module\Git\Contract\Response\GitIgnoreDataResponse;
 use PhpGitHooks\Module\Git\Service\GitIgnoreExtractor;

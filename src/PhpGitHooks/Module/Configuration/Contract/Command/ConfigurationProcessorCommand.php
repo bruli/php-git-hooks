@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Configuration\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Composer\IO\IOInterface;
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandInterface;
 
 class ConfigurationProcessorCommand implements CommandInterface
 {

@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Git\Service;
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandBus;
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBus;
+use Bruli\EventBusBundle\CommandBus\CommandBus;
+use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
@@ -51,7 +51,6 @@ class PreCommitTool
     /**
      * PreCommitTool constructor.
      *
-     *
      * @param OutputInterface         $output
      * @param FilesCommittedExtractor $filesCommittedExtractor
      * @param QueryBus                $queryBus
@@ -83,7 +82,9 @@ class PreCommitTool
             return;
         }
 
-        /** @var ConfigurationDataResponse $configurationData */
+        /**
+         * @var ConfigurationDataResponse
+         */
         $configurationData = $this->queryBus->handle(new ConfigurationDataFinderQuery());
         $preCommit = $configurationData->getPreCommit();
 
@@ -203,7 +204,9 @@ class PreCommitTool
      */
     private function getPhpFiles(array $committedFiles)
     {
-        /** @var PhpFilesResponse $phpFilesResponse */
+        /**
+         * @var PhpFilesResponse
+         */
         $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractorQuery($committedFiles));
 
         return $phpFilesResponse->getFiles();

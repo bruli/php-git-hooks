@@ -9,6 +9,11 @@ use Composer\Script\Event;
 use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
 use PhpGitHooks\Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler;
 
+/**
+ * Class ConfiguratorScript.
+ *
+ * @codingStandardsIgnoreFile
+ */
 class ConfiguratorScript
 {
     /**
@@ -19,9 +24,13 @@ class ConfiguratorScript
     public static function buildConfig(Event $event)
     {
         if (true === $event->isDevMode()) {
-            $container = new AppKernel();
-            /** @var ConfigurationProcessorCommandHandler $processor */
-            $processor = $container->get('command.bus');
+            $app = new AppKernel('dev', true);
+            $app->boot();
+            $container = $app->getContainer();
+            /**
+             * @var ConfigurationProcessorCommandHandler
+             */
+            $processor = $container->get('bruli.command.bus');
 
             $processor->handle(new ConfigurationProcessorCommand($event->getIO()));
         }

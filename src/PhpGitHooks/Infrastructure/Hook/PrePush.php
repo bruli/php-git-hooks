@@ -11,6 +11,11 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class PrePush.
+ *
+ * @codingStandardsIgnoreFile
+ */
 class PrePush extends Application
 {
     /**
@@ -34,7 +39,10 @@ class PrePush extends Application
      */
     public function __construct($remote, $url)
     {
-        $this->container = new AppKernel();
+        $appKernel = new AppKernel('dev', true);
+        $appKernel->boot();
+        $this->container = $appKernel->getContainer();
+
         parent::__construct('pre-push');
         $this->remote = $remote;
         $this->url = $url;
@@ -42,8 +50,10 @@ class PrePush extends Application
 
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        /** @var PrePushToolCommandHandler $command */
-        $command = $this->container->get('command.bus');
+        /**
+         * @var PrePushToolCommandHandler
+         */
+        $command = $this->container->get('bruli.command.bus');
         $command->handle(new PrePushToolCommand($this->remote, $this->url));
     }
 }

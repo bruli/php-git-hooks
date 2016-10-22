@@ -1,43 +1,31 @@
 <?php
 
-use PhpGitHooks\Infrastructure\CommandBus\CommandBus\CommandBusCompilerPass;
-use PhpGitHooks\Infrastructure\CommandBus\QueryBus\QueryBusCompilerPass;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\HttpKernel\Kernel;
 
-class AppKernel
+/**
+ * Class AppKernel
+ *
+ * @@codingStandardsIgnoreFile
+ */
+class AppKernel extends Kernel
 {
     const SERVICES_FILE = 'services.yml';
     const CONFIG_PATH = '/config/';
 
-    /**
-     * @var ContainerBuilder
-     */
-    private $container;
-
-    public function __construct()
+    public function registerBundles()
     {
-        $this->container = new ContainerBuilder();
-        $this->container->addCompilerPass(new CommandBusCompilerPass());
-        $this->container->addCompilerPass(new QueryBusCompilerPass());
-        $this->getConfigServices();
-        $this->container->compile();
-    }
-
-    private function getConfigServices()
-    {
-        $loader = new YamlFileLoader($this->container, new FileLocator(__DIR__.self::CONFIG_PATH));
-        $loader->load(self::SERVICES_FILE);
+        return [
+            new \Bruli\EventBusBundle\EventBusBundle(),
+        ];
     }
 
     /**
-     * @param string $serviceName
+     * Loads the container configuration.
      *
-     * @return object
+     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader A LoaderInterface instance
      */
-    public function get($serviceName)
+    public function registerContainerConfiguration(\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
-        return $this->container->get($serviceName);
+        $loader->load(__DIR__.self::CONFIG_PATH.self::SERVICES_FILE);
     }
 }
