@@ -16,7 +16,7 @@ matrix:
 
 before_script:
   - composer self-update
-  - composer install
+  - composer update
 
 script:
   - bin/phpunit --coverage-clover=coverage.clover
