@@ -3,14 +3,14 @@ services:
     class: PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\PhpUnitToolCommandHandler
     arguments: ["@php.unit.tool.executor"]
     tags:
-      - {name: command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand }
+      - {name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand }
   strict.coverage.tool.command.handler:
     class: PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\StrictCoverageToolCommandHandler
     arguments: ["@strict.coverage.tool.executor"]
     tags:
-      - { name: command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand }
   guard.coverage.tool.command.handler:
     class: PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\GuardCoverageToolCommandHandler
     arguments: ["@guard.coverage.tool"]
     tags:
-      - { name: command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand }

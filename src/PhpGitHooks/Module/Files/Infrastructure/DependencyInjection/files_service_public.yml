@@ -3,14 +3,14 @@ services:
     class: PhpGitHooks\Module\Files\Contract\QueryHandler\ComposerFilesExtractorQueryHandler
     arguments: ["@composer.files.extractor"]
     tags:
-      - { name: query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery }
+      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery }
   json.files.extractor.query.handler:
     class: PhpGitHooks\Module\Files\Contract\QueryHandler\JsonFilesExtractorQueryHandler
     arguments: ["@json.files.extractor"]
     tags:
-      - { name: query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery }
+      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery }
   php.files.extractor.query.handler:
     class: PhpGitHooks\Module\Files\Contract\QueryHandler\PhpFilesExtractorQueryHandler
     arguments: ["@php.files.extractor"]
     tags:
-      - { name: query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery }
+      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery }

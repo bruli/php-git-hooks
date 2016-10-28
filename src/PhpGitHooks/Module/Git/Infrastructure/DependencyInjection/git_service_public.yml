@@ -3,24 +3,24 @@ services:
     class: PhpGitHooks\Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler
     arguments: ["@pre.commit.tool"]
     tags:
-      - { name: command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand}
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand}
   commit.msg.command.handler:
     class: PhpGitHooks\Module\Git\Contract\CommandHandler\CommitMsgCommandHandler
     arguments: ["@commit.msg.tool"]
     tags:
-      - { name: command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\CommitMsgCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\CommitMsgCommand }
   pre.push.tool.command.handler:
     class: PhpGitHooks\Module\Git\Contract\CommandHandler\PrePushToolCommandHandler
     arguments: ["@pre.push.tool"]
     tags:
-      - { name: command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand }
   gitignore.writer.command.handler:
     class: PhpGitHooks\Module\Git\Contract\CommandHandler\GitIgnoreWriterCommandHandler
     arguments: ["@gitignore.writer"]
     tags:
-      - { name: command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand }
   gitignore.extractor.query.handler:
     class: PhpGitHooks\Module\Git\Contract\QueryHandler\GitIgnoreExtractorQueryHandler
     arguments: ["@gitignore.extractor"]
     tags:
-      - { name: query_handler, handles: \PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery }
+      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery }

@@ -3,4 +3,4 @@ services:
     class: PhpGitHooks\Module\Composer\Contract\CommandHandler\ComposerToolCommandHandler
     arguments: ["@composer.tool"]
     tags:
-      - { name: command_handler, handles: \PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand }

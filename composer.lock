@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f1409bfa1e70193575e4c158cc56069",
-    "content-hash": "5a33073313ee0f28c74caa42e3932e08",
+    "hash": "cdedd40160911dad6070102f76d2c1e7",
+    "content-hash": "cff6a081fc22f49100cfab04d74bc57b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -64,16 +64,16 @@
         },
         {
             "name": "bruli/event-bus-bundle",
-            "version": "0.1.1",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/event-bus-bundle.git",
-                "reference": "45152fba8f1ce23ec70b06f6a299dba964e8eb8a"
+                "reference": "0e493988781fea6035ab5b3d9bfeca46038fb130"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/event-bus-bundle/zipball/45152fba8f1ce23ec70b06f6a299dba964e8eb8a",
-                "reference": "45152fba8f1ce23ec70b06f6a299dba964e8eb8a",
+                "url": "https://api.github.com/repos/bruli/event-bus-bundle/zipball/0e493988781fea6035ab5b3d9bfeca46038fb130",
+                "reference": "0e493988781fea6035ab5b3d9bfeca46038fb130",
                 "shasum": ""
             },
             "require": {
@@ -104,7 +104,7 @@
                 "event bus",
                 "symfony"
             ],
-            "time": "2016-10-22 11:13:14"
+            "time": "2016-10-28 10:10:37"
         },
         {
             "name": "bruli/ignore-files",
