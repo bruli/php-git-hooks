@@ -37,7 +37,7 @@
     "seld/jsonlint": "1.3.*",
     "bruli/ignore-files": "~1.0",
     "beberlei/assert": "^2.5",
-    "bruli/php-value-objects": "^0.1.0",
+    "bruli/php-value-objects": "~0.1",
     "bruli/event-bus-bundle": "~0.2"
   },
   "require-dev": {
