@@ -34,7 +34,7 @@ class PhpCsFactory
             new Undefined(true),
             new Enabled(false),
             new PhpCsStandard(null),
-            new Ignore(null)
+            new Ignore('')
         );
     }
 }
