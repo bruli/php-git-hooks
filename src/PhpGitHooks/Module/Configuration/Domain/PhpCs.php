@@ -80,7 +80,7 @@ class PhpCs implements ToolInterface
             new Undefined(false),
             $enabled,
             new PhpCsStandard(null),
-            new Ignore(null)
+            new Ignore('')
         );
     }
 
