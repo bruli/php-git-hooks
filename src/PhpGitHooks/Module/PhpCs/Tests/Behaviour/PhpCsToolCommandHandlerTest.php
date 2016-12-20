@@ -44,7 +44,7 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
         $errorTxt = null;
         foreach ($files as $file) {
             $error = 'ERROR-';
-            $this->shouldProcessPhpCsTool($file, 'PSR2', $error);
+            $this->shouldProcessPhpCsTool($file, 'PSR2', '', $error);
             $errorTxt .= $error;
         }
 
@@ -56,7 +56,8 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
             new PhpCsToolCommand(
                 $files,
                 'PSR2',
-                HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT
+                HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
+                ''
             )
         );
     }
@@ -72,7 +73,7 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
         $this->shouldWriteOutput($output->getMessage());
 
         foreach ($files as $file) {
-            $this->shouldProcessPhpCsTool($file, 'PSR2', null);
+            $this->shouldProcessPhpCsTool($file, 'PSR2', '', null);
         }
 
         $this->shouldWriteLnOutput($output->getSuccessfulMessage());
@@ -81,7 +82,8 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
             new PhpCsToolCommand(
                 $files,
                 'PSR2',
-                HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT
+                HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
+                ''
             )
         );
     }
