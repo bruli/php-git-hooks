@@ -29,6 +29,7 @@ class PhpCsToolCommand implements CommandInterface
      * @param array  $files
      * @param string $standard
      * @param string $errorMessage
+     * @param string $ignore
      */
     public function __construct(array $files, $standard, $errorMessage, $ignore)
     {
@@ -62,6 +63,9 @@ class PhpCsToolCommand implements CommandInterface
         return $this->standard;
     }
 
+    /**
+     * @return string
+     */
     public function getIgnore()
     {
         return $this->ignore;

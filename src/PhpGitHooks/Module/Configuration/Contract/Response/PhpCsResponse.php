@@ -22,6 +22,7 @@ class PhpCsResponse
      *
      * @param bool        $phpCs
      * @param string|null $phpCsStandard
+     * @param string      $ignore
      */
     public function __construct($phpCs, $phpCsStandard, $ignore)
     {
@@ -46,6 +47,9 @@ class PhpCsResponse
         return $this->phpCsStandard;
     }
 
+    /**
+     * @return string
+     */
     public function getIgnore()
     {
         return $this->ignore;

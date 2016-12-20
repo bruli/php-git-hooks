@@ -63,6 +63,9 @@ class PhpCs implements ToolInterface
         return $this->standard;
     }
 
+    /**
+     * @return Ignore
+     */
     public function getIgnore()
     {
         return $this->ignore;
