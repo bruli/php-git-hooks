@@ -23,6 +23,7 @@ pre-commit:
     phpcs:
         enabled:     true
         standard:    PSR2
+        ignore:      '*/migrations/*'
     phpmd:
         enabled:     true
         options:     '<some options>'

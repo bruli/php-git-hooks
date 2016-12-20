@@ -36,17 +36,18 @@ class PhpCsTool
      * @param array  $files
      * @param string $standard
      * @param string $errorMessage
+     * @param string $ignore
      *
      * @throws PhpCsViolationException
      */
-    public function execute(array $files, $standard, $errorMessage)
+    public function execute(array $files, $standard, $errorMessage, $ignore)
     {
         $outputMessage = new PreCommitOutputWriter(self::EXECUTE_MESSAGE);
         $this->output->write($outputMessage->getMessage());
 
         $errors = [];
         foreach ($files as $file) {
-            $errors[] = $this->phpCsToolProcessor->process($file, $standard);
+            $errors[] = $this->phpCsToolProcessor->process($file, $standard, $ignore);
         }
 
         $errors = array_filter($errors);
