@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Configuration\Domain;
 
-use PhpValueObjects\Tests\Scalar\StringValueObject;
+use PhpValueObjects\Tests\Scalar\StringNullableValueObject;
 
-class Ignore extends StringValueObject
+class Ignore extends StringNullableValueObject
 {
 }

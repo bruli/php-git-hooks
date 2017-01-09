@@ -80,7 +80,7 @@ class PhpCs implements ToolInterface
             new Undefined(false),
             $enabled,
             new PhpCsStandard(null),
-            new Ignore('')
+            new Ignore(null)
         );
     }
 
@@ -97,5 +97,13 @@ class PhpCs implements ToolInterface
             $standard,
             $this->ignore
         );
+    }
+
+    /**
+     * @param Ignore $ignore
+     */
+    public function addIgnore(Ignore $ignore)
+    {
+        $this->ignore = $ignore;
     }
 }
