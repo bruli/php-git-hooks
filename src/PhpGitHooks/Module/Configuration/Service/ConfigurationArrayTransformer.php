@@ -62,6 +62,7 @@ class ConfigurationArrayTransformer
                     'phpcs' => [
                         'enabled' => $phpCs->isEnabled(),
                         'standard' => $phpCs->getStandard()->value(),
+                        'ignore' => $phpCs->getIgnore()->value(),
                     ],
                     'php-cs-fixer' => [
                         'enabled' => $phpCsFixer->isEnabled(),

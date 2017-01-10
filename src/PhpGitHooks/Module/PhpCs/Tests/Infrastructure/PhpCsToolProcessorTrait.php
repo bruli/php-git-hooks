@@ -24,14 +24,15 @@ trait PhpCsToolProcessorTrait
     /**
      * @param string $file
      * @param string $standard
+     * @param string $ignore
      * @param string $return
      */
-    protected function shouldProcessPhpCsTool($file, $standard, $return)
+    protected function shouldProcessPhpCsTool($file, $standard, $ignore, $return)
     {
         $this->getPhpCsToolProcessor()
             ->shouldReceive('process')
             ->once()
-            ->withArgs([$file, $standard])
+            ->withArgs([$file, $standard, $ignore])
             ->andReturn($return);
     }
 }

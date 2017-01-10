@@ -29,6 +29,6 @@ class PhpCsToolCommandHandler implements CommandHandlerInterface
      */
     public function handle(CommandInterface $command)
     {
-        $this->phpCsTool->execute($command->getFiles(), $command->getStandard(), $command->getErrorMessage());
+        $this->phpCsTool->execute($command->getFiles(), $command->getStandard(), $command->getErrorMessage(), $command->getIgnore());
     }
 }

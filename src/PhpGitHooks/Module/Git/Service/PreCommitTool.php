@@ -129,7 +129,8 @@ class PreCommitTool
                     new PhpCsToolCommand(
                         $phpFiles,
                         $phpCsResponse->getPhpCsStandard(),
-                        $preCommitResponse->getErrorMessage()
+                        $preCommitResponse->getErrorMessage(),
+                        $phpCsResponse->getIgnore()
                     )
                 );
             }

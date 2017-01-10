@@ -18,6 +18,8 @@ class HookQuestions
     const PHPCS_TOOL = '<info>Do you want enable PHPCS tool?:</info> <comment>[Y/n]</comment>';
     const PHPCS_STANDARD = '<info>Which standard do you want to user for PHPCS tool?:</info> '.
     '<comment>[PSR1/PSR2/PHPCS/MySource/Zend/Squiz/PEAR]</comment>';
+    const PHPCS_IGNORE = '<info>Write ignore pattern for PHPCS, if you like:</info> '.
+    '<comment>[No ignore pattern]</comment>';
     const PHPMD_TOOL = '<info>Do you want enable PHPMD tool?:</info> <comment>[Y/n]</comment>';
     const PHPMD_OPTIONS = '<info>Write options for PHPMD tool if you want use it:</info> <comment>[NONE]</comment>';
     const PHPCSFIXER_TOOL = '<info>Do you want enable PHP-CS-FIXER tool?:</info> <comment>[Y/n]</comment>';
