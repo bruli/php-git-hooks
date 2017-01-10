@@ -12,17 +12,23 @@ class PhpCsResponse
      * @var null|string
      */
     private $phpCsStandard;
+    /**
+     * @var string
+     */
+    private $ignore;
 
     /**
      * PhpCsResponse constructor.
      *
      * @param bool        $phpCs
      * @param string|null $phpCsStandard
+     * @param string      $ignore
      */
-    public function __construct($phpCs, $phpCsStandard)
+    public function __construct($phpCs, $phpCsStandard, $ignore)
     {
         $this->phpCs = $phpCs;
         $this->phpCsStandard = $phpCsStandard;
+        $this->ignore = $ignore;
     }
 
     /**
@@ -39,5 +45,13 @@ class PhpCsResponse
     public function getPhpCsStandard()
     {
         return $this->phpCsStandard;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIgnore()
+    {
+        return $this->ignore;
     }
 }

@@ -14,6 +14,7 @@ class ConfigArrayDataStub
     const PHPMD_OPTIONS = '--minimumpriority 1';
     const PHPCSFIXER_OPTIONS = '--diff';
     const MINIMUM_COVERAGE = 90.00;
+    const EMPTY_STRING = '';
 
     /**
      * @return array
@@ -34,6 +35,7 @@ class ConfigArrayDataStub
                     'phpcs' => [
                         'enabled' => true,
                         'standard' => static::PHPCS_STANDARD,
+                        'ignore' => static::EMPTY_STRING,
                     ],
                     'php-cs-fixer' => [
                         'enabled' => true,

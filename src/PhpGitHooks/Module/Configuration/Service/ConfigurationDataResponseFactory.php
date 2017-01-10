@@ -95,7 +95,7 @@ class ConfigurationDataResponseFactory
             $jsonLint->isEnabled(),
             $phpLint->isEnabled(),
             new PhpMdResponse($phpMd->isEnabled(), $phpMd->getOptions()->value()),
-            new PhpCsResponse($phpCs->isEnabled(), $phpCs->getStandard()->value()),
+            new PhpCsResponse($phpCs->isEnabled(), $phpCs->getStandard()->value(), $phpCs->getIgnore()->value()),
             new PhpCsFixerResponse(
                 $phpCsFixer->isEnabled(),
                 $phpCsFixer->getLevels()->getPsr0()->value(),

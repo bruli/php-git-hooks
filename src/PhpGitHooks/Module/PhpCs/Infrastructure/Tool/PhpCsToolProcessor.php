@@ -27,12 +27,13 @@ class PhpCsToolProcessor implements PhpCsToolProcessorInterface
     /**
      * @param string $file
      * @param string $standard
+     * @param string $ignore
      *
      * @return string
      */
-    public function process($file, $standard)
+    public function process($file, $standard, $ignore)
     {
-        $process = $this->execute($file, $standard);
+        $process = $this->execute($file, $standard, $ignore);
 
         return $this->setErrors($process);
     }
@@ -40,16 +41,18 @@ class PhpCsToolProcessor implements PhpCsToolProcessorInterface
     /**
      * @param string $file
      * @param string $standard
+     * @param string $ignore
      *
      * @return Process
      */
-    private function execute($file, $standard)
+    private function execute($file, $standard, $ignore)
     {
         $processBuilder = new ProcessBuilder(
             [
                 'php',
                 $this->toolPathFinder->find('phpcs'),
                 '--standard='.$standard,
+                '--ignore='.$ignore,
                 $file,
             ]
         );

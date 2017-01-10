@@ -18,6 +18,10 @@ class PhpCs implements ToolInterface
      * @var PhpCsStandard
      */
     private $standard;
+    /**
+     * @var Ignore
+     */
+    private $ignore;
 
     /**
      * PhpCs constructor.
@@ -25,12 +29,14 @@ class PhpCs implements ToolInterface
      * @param Undefined     $undefined
      * @param Enabled       $enabled
      * @param PhpCsStandard $standard
+     * @param Ignore        $ignore
      */
-    public function __construct(Undefined $undefined, Enabled $enabled, PhpCsStandard $standard)
+    public function __construct(Undefined $undefined, Enabled $enabled, PhpCsStandard $standard, Ignore $ignore)
     {
         $this->undefined = $undefined;
         $this->enabled = $enabled;
         $this->standard = $standard;
+        $this->ignore = $ignore;
     }
 
     /**
@@ -58,6 +64,14 @@ class PhpCs implements ToolInterface
     }
 
     /**
+     * @return Ignore
+     */
+    public function getIgnore()
+    {
+        return $this->ignore;
+    }
+
+    /**
      * @return ToolInterface
      */
     public function setEnabled(Enabled $enabled)
@@ -65,7 +79,8 @@ class PhpCs implements ToolInterface
         return new self(
             new Undefined(false),
             $enabled,
-            new PhpCsStandard(null)
+            new PhpCsStandard(null),
+            new Ignore(null)
         );
     }
 
@@ -79,7 +94,16 @@ class PhpCs implements ToolInterface
         return new self(
             $this->undefined,
             $this->enabled,
-            $standard
+            $standard,
+            $this->ignore
         );
+    }
+
+    /**
+     * @param Ignore $ignore
+     */
+    public function addIgnore(Ignore $ignore)
+    {
+        $this->ignore = $ignore;
     }
 }

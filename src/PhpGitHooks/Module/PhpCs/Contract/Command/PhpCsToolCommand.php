@@ -18,6 +18,10 @@ class PhpCsToolCommand implements CommandInterface
      * @var string
      */
     private $errorMessage;
+    /**
+     * @var string
+     */
+    private $ignore;
 
     /**
      * PhpCsToolCommand constructor.
@@ -25,12 +29,14 @@ class PhpCsToolCommand implements CommandInterface
      * @param array  $files
      * @param string $standard
      * @param string $errorMessage
+     * @param string $ignore
      */
-    public function __construct(array $files, $standard, $errorMessage)
+    public function __construct(array $files, $standard, $errorMessage, $ignore)
     {
         $this->files = $files;
         $this->standard = $standard;
         $this->errorMessage = $errorMessage;
+        $this->ignore = $ignore;
     }
 
     /**
@@ -55,5 +61,13 @@ class PhpCsToolCommand implements CommandInterface
     public function getStandard()
     {
         return $this->standard;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIgnore()
+    {
+        return $this->ignore;
     }
 }

@@ -7,8 +7,9 @@ interface PhpCsToolProcessorInterface
     /**
      * @param string $file
      * @param string $standard
+     * @param string $ignore
      *
      * @return string
      */
-    public function process($file, $standard);
+    public function process($file, $standard, $ignore);
 }

@@ -84,7 +84,8 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
             new PhpCsToolCommand(
                 $files,
                 $configurationDataResponse->getPreCommit()->getPhpCs()->getPhpCsStandard(),
-                HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT
+                HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
+                $configurationDataResponse->getPreCommit()->getPhpCs()->getIgnore()
             )
         );
         $this->shouldHandleCommand(
