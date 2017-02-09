@@ -150,16 +150,16 @@
         },
         {
             "name": "bruli/php-value-objects",
-            "version": "v0.2.1",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/php-value-objects.git",
-                "reference": "44b88cfb78a1c35eec952cbfc4661a5216c7d40e"
+                "reference": "0b9dc64c0dba571eea779f330de1d636998088f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/php-value-objects/zipball/44b88cfb78a1c35eec952cbfc4661a5216c7d40e",
-                "reference": "44b88cfb78a1c35eec952cbfc4661a5216c7d40e",
+                "url": "https://api.github.com/repos/bruli/php-value-objects/zipball/0b9dc64c0dba571eea779f330de1d636998088f6",
+                "reference": "0b9dc64c0dba571eea779f330de1d636998088f6",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,7 @@
                 "php",
                 "value"
             ],
-            "time": "2016-12-05 11:41:09"
+            "time": "2017-02-09 08:07:09"
         },
         {
             "name": "doctrine/instantiator",
