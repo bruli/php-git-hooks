@@ -37,9 +37,9 @@
         "bruli/event-bus-bundle": "~0.2"
     },
     "require-dev": {
-        "composer/composer": "^1.0@dev",
         "fzaninotto/faker": "^1.6",
-        "mockery/mockery": "~0.9"
+        "mockery/mockery": "~0.9",
+        "composer/composer": "^1.4"
     },
     "config": {
         "bin-dir": "bin/"

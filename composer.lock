@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c45b6da50f5fcf607d54220e8eec44b4",
+    "content-hash": "4b736a48577d0c8573e64786c62305c6",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3485,16 +3485,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "dev-master",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "b07b4c3428a57b68e385ae3db0474e6c5400789b"
+                "reference": "7ee2a5e1cf32e9c8439445fe8dce2c046c2abebd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/b07b4c3428a57b68e385ae3db0474e6c5400789b",
-                "reference": "b07b4c3428a57b68e385ae3db0474e6c5400789b",
+                "url": "https://api.github.com/repos/composer/composer/zipball/7ee2a5e1cf32e9c8439445fe8dce2c046c2abebd",
+                "reference": "7ee2a5e1cf32e9c8439445fe8dce2c046c2abebd",
                 "shasum": ""
             },
             "require": {
@@ -3527,7 +3527,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -3558,7 +3558,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2017-04-28T09:25:51+00:00"
+            "time": "2017-03-10T08:29:45+00:00"
         },
         {
             "name": "composer/semver",
@@ -4003,9 +4003,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "composer/composer": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
