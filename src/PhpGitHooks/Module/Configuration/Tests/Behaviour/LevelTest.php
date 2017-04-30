@@ -3,16 +3,17 @@
 namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Domain\Level;
-use PhpGitHooks\Module\Shared\Contract\Exception\InvalidBooleanException;
+use PHPUnit\Framework\TestCase;
+use PhpValueObjects\Scalar\Exception\InvalidBooleanException;
 
-class LevelTest extends \PHPUnit_Framework_TestCase
+class LevelTest extends TestCase
 {
     /**
      * @test
      */
     public function itShouldThrowsException()
     {
-        $this->expectException(\PhpValueObjects\Scalar\Exception\InvalidBooleanException::class);
+        $this->expectException(InvalidBooleanException::class);
 
         new Level('string');
     }

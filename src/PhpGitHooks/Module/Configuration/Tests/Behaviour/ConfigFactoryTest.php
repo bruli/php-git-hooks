@@ -4,9 +4,11 @@ namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Service\ConfigFactory;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
+use PHPUnit\Framework\TestCase;
 
-class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
+class ConfigFactoryTest extends TestCase
 {
+
     /**
      * @test
      */

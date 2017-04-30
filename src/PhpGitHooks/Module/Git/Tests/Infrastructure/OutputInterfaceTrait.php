@@ -13,7 +13,7 @@ trait OutputInterfaceTrait
     private $outputInterface;
 
     /**
-     * @return \Mockery\MockInterface|OutputInterface
+     * @return object|OutputInterface
      */
     protected function getOutputInterface()
     {

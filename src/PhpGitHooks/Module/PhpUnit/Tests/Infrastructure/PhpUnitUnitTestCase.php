@@ -2,10 +2,13 @@
 
 namespace PhpGitHooks\Module\PhpUnit\Tests\Infrastructure;
 
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\OutputInterfaceTrait;
+use PHPUnit\Framework\TestCase;
 
-class PhpUnitUnitTestCase extends \PHPUnit_Framework_TestCase
+class PhpUnitUnitTestCase extends TestCase
 {
+    use MockeryPHPUnitIntegration;
     use OutputInterfaceTrait;
     use PhpUnitProcessorTrait;
     use StrictCoverageProcessorTrait;

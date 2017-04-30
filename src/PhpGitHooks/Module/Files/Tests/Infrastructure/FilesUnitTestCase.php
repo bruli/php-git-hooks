@@ -2,6 +2,8 @@
 
 namespace PhpGitHooks\Module\Files\Tests\Infrastructure;
 
-class FilesUnitTestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class FilesUnitTestCase extends TestCase
 {
 }

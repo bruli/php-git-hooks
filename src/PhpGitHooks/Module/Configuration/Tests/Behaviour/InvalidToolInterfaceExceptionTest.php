@@ -3,8 +3,9 @@
 namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Contract\Exception\InvalidToolInterfaceException;
+use PHPUnit\Framework\TestCase;
 
-class InvalidToolInterfaceExceptionTest extends \PHPUnit_Framework_TestCase
+class InvalidToolInterfaceExceptionTest extends TestCase
 {
     /**
      * @test
