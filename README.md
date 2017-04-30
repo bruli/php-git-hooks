@@ -150,7 +150,7 @@ The same case that phpunit. You must create a PmdRules.xml in your project root 
 
 The most easy way to enable hook is copy hook file into your .git/hooks directory.
 
-#For pre-commit hook:
+# For pre-commit hook:
 
 You can enable this hooks with composer or manually executing
 
@@ -158,13 +158,13 @@ You can enable this hooks with composer or manually executing
 $ cp vendor/bruli/php-git-hooks/src/PhpGitHooks/Infrastructure/Hook/pre-commit .git/hooks
 ```
 
-#For commit-msg hook:
+# For commit-msg hook:
 
 ```bash
 $ cp vendor/bruli/php-git-hooks/src/PhpGitHooks/Infrastructure/Hook/commit-msg .git/hooks
 ```
 
-#For pre-push hook:
+# For pre-push hook:
 
 ```bash
 $ cp vendor/bruli/php-git-hooks/src/PhpGitHooks/Infrastructure/Hook/pre-push .git/hooks
@@ -172,11 +172,11 @@ $ cp vendor/bruli/php-git-hooks/src/PhpGitHooks/Infrastructure/Hook/pre-push .gi
 
 ### execute.
 
-####Valid pre-commit.
+#### Valid pre-commit.
 
 <img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/pre-commit.png" />
 
-####Fail pre-commit.
+#### Fail pre-commit.
 
 <img style="border:1px solid #ccc; padding:1px" src="https://raw.githubusercontent.com/bruli/php-git-hooks/master/Resources/docs/images/pre-commit-failed.png" />
 
