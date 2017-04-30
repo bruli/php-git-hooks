@@ -9,3 +9,4 @@ php-git-hooks.yml
 .guard_coverage
 var/cache
 var/logs
+.php_cs.cache
