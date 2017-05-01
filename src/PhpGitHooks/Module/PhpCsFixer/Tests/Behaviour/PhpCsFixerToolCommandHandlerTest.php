@@ -47,7 +47,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $errors = null;
         foreach ($phpFiles as $file) {
             $errorText = 'ERROR';
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR0', $phpCsFixerOptions->value(), $errorText);
+            $this->shouldProcessPhpCsFixerTool($file, 'psr0', $phpCsFixerOptions->value(), $errorText);
             $errors .= $errorText;
         }
 
@@ -81,7 +81,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr0->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR0', $phpCsFixerOptions->value(), null);
+            $this->shouldProcessPhpCsFixerTool($file, 'psr0', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr0->getSuccessfulMessage());
@@ -90,7 +90,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr1->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR1', $phpCsFixerOptions->value(), null);
+            $this->shouldProcessPhpCsFixerTool($file, 'psr1', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr1->getSuccessfulMessage());
@@ -99,7 +99,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr2->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR2', $phpCsFixerOptions->value(), null);
+            $this->shouldProcessPhpCsFixerTool($file, 'psr2', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr2->getSuccessfulMessage());
@@ -108,7 +108,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessageSymfony->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'SYMFONY', $phpCsFixerOptions->value(), null);
+            $this->shouldProcessPhpCsFixerTool($file, 'symfony', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessageSymfony->getSuccessfulMessage());
