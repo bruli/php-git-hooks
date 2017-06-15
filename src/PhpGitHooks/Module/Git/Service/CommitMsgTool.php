@@ -55,13 +55,16 @@ class CommitMsgTool
         if (true === $configurationDataResponse->getCommitMsg()->isCommitMsg()) {
             $commitContent = $this->commitMessageFinder->find($input->getFirstArgument());
 
-            $validMessage = $this->isValidCommitMessage(
-                $configurationDataResponse->getCommitMsg()->getRegularExpression(),
-                $commitContent
-            );
+            $regularExpression = $configurationDataResponse->getCommitMsg()->getRegularExpression();
+            $validMessage = $this->isValidCommitMessage($regularExpression, $commitContent);
 
             if (false === $validMessage) {
-                throw new InvalidCommitMessageException();
+                throw new InvalidCommitMessageException(
+                    sprintf(
+                        'Invalid Commit message: commit message does not match regex %s !',
+                        $regularExpression
+                    )
+                );
             }
         }
     }
