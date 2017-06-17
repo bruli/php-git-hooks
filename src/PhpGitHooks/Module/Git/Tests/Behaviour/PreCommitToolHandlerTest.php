@@ -8,10 +8,9 @@ use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractor;
 use PhpGitHooks\Module\Files\Tests\Stub\PhpFilesResponseStub;
-use PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand;
-use PhpGitHooks\Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
+use PhpGitHooks\Module\Git\Contract\Command\PreCommitTool;
+use PhpGitHooks\Module\Git\Contract\Command\PreCommitToolHandler;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
-use PhpGitHooks\Module\Git\Service\PreCommitTool;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
 use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintToolCommand;
@@ -24,23 +23,21 @@ use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 use PhpGitHooks\Module\Tests\Infrastructure\Stub\StubCreator;
 
-class PreCommitToolCommandHandlerTest extends GitUnitTestCase
+class PreCommitToolHandlerTest extends GitUnitTestCase
 {
     /**
-     * @var PreCommitToolCommandHandler
+     * @var PreCommitToolHandler
      */
     private $preCommitToolCommandHandler;
 
     protected function setUp()
     {
-        $this->preCommitToolCommandHandler = new PreCommitToolCommandHandler(
-            new PreCommitTool(
-                $this->getOutputInterface(),
-                $this->getFilesCommittedExtractor(),
-                $this->getQueryBus(),
-                $this->getCommandBus(),
-                $this->getToolTitleOutputWriter()
-            )
+        $this->preCommitToolCommandHandler = new PreCommitToolHandler(
+            $this->getOutputInterface(),
+            $this->getFilesCommittedExtractor(),
+            $this->getQueryBus(),
+            $this->getCommandBus(),
+            $this->getToolTitleOutputWriter()
         );
     }
 
@@ -49,11 +46,11 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
      */
     public function itShouldNotExecuteTools()
     {
-        $this->shouldWriteTitle(PreCommitTool::TITLE, 'title');
+        $this->shouldWriteTitle(PreCommitToolHandler::TITLE, 'title');
         $this->shouldGetFilesCommitted([StubCreator::faker()->sha1]);
-        $this->shouldWriteLnOutput(PreCommitTool::NO_FILES_CHANGED_MESSAGE);
+        $this->shouldWriteLnOutput(PreCommitToolHandler::NO_FILES_CHANGED_MESSAGE);
 
-        $this->preCommitToolCommandHandler->handle(new PreCommitToolCommand());
+        $this->preCommitToolCommandHandler->handle(new PreCommitTool());
     }
 
     /**
@@ -64,7 +61,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
         $files = FilesCommittedStub::createAllFiles();
         $configurationDataResponse = ConfigurationDataResponseStub::createAllEnabled();
 
-        $this->shouldWriteTitle(PreCommitTool::TITLE, 'title');
+        $this->shouldWriteTitle(PreCommitToolHandler::TITLE, 'title');
         $this->shouldGetFilesCommitted($files);
         $this->shouldHandleQuery(new ConfigurationDataFinder(), $configurationDataResponse);
         $this->shouldHandleCommand(
@@ -131,6 +128,6 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
             GoodJobLogoResponse::paint($configurationDataResponse->getPreCommit()->getRightMessage())
         );
 
-        $this->preCommitToolCommandHandler->handle(new PreCommitToolCommand());
+        $this->preCommitToolCommandHandler->handle(new PreCommitTool());
     }
 }

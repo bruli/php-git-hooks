@@ -5,7 +5,7 @@ namespace PhpGitHooks\Infrastructure\Hook;
 require_once __DIR__.'/../../../../app/AppKernel.php';
 
 use AppKernel;
-use PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand;
+use PhpGitHooks\Module\Git\Contract\Command\PreCommitTool;
 use PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommandHandler;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,6 +40,6 @@ class PreCommit extends Application
          * @var PreCommitToolCommandHandler
          */
         $command = $this->container->get('bruli.command.bus');
-        $command->handle(new PreCommitToolCommand());
+        $command->handle(new PreCommitTool());
     }
 }

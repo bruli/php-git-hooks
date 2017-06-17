@@ -1,9 +1,14 @@
 services:
   pre.commit.tool.command.handler:
-    class: PhpGitHooks\Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler
-    arguments: ["@pre.commit.tool"]
+    class: PhpGitHooks\Module\Git\Contract\Command\PreCommitToolHandler
+    arguments:
+          - "@console.output"
+          - "@files.commited.extractor"
+          - "@bruli.query.bus"
+          - "@bruli.command.bus"
+          - "@tool.title.output.writer"
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand}
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PreCommitTool}
   commit.msg.handler:
     class: PhpGitHooks\Module\Git\Contract\Command\CommitMsgHandler
     arguments:

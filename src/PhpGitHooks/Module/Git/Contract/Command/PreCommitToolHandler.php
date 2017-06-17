@@ -1,8 +1,10 @@
 <?php
 
-namespace PhpGitHooks\Module\Git\Service;
+namespace PhpGitHooks\Module\Git\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandBus;
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Composer\Contract\Command\ComposerTool;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
@@ -23,7 +25,7 @@ use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PreCommitTool
+class PreCommitToolHandler implements CommandHandlerInterface
 {
     const NO_FILES_CHANGED_MESSAGE = '<comment>-\_(ö)_/- No files changed.</comment>';
     const TITLE = 'Pre-Commit tool';
@@ -71,7 +73,7 @@ class PreCommitTool
         $this->tittleOutputWriter = $tittleOutputWriter;
     }
 
-    public function execute()
+    private function execute()
     {
         $this->tittleOutputWriter->writeTitle(self::TITLE);
         $committedFiles = $this->filesCommittedExtractor->getFiles();
@@ -211,5 +213,13 @@ class PreCommitTool
         $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractor($committedFiles));
 
         return $phpFilesResponse->getFiles();
+    }
+
+    /**
+     * @param CommandInterface $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute();
     }
 }
