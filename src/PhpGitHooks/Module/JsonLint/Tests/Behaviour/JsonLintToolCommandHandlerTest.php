@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\JsonLint\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitResponseStub;
-use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractor;
 use PhpGitHooks\Module\Files\Tests\Stub\JsonFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
@@ -50,7 +50,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
         $files = FilesCommittedStub::createWithoutJsonFiles();
 
         $this->shouldHandleQuery(
-            new JsonFilesExtractorQuery($files),
+            new JsonFilesExtractor($files),
             JsonFilesResponseStub::createNoData()
         );
 
@@ -68,7 +68,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
         $output = new PreCommitOutputWriter(JsonLintToolExecutor::CHECKING_MESSAGE);
 
         $this->shouldHandleQuery(
-            new JsonFilesExtractorQuery($files->getFiles()),
+            new JsonFilesExtractor($files->getFiles()),
             $files
         );
 
@@ -95,7 +95,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
         $jsonFilesResponse = JsonFilesResponseStub::createWithJsonData();
 
         $this->shouldHandleQuery(
-            new JsonFilesExtractorQuery($jsonFilesResponse->getFiles()),
+            new JsonFilesExtractor($jsonFilesResponse->getFiles()),
             $jsonFilesResponse
         );
         $this->shouldWriteOutput($output->getMessage());

@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Files\Tests\Infrastructure;
 
-use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractor;
 use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQueryHandler;
 use PhpGitHooks\Module\Files\Contract\Response\JsonFilesResponse;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
@@ -26,11 +26,11 @@ trait JsonFilesExtractorQueryHandlerTrait
     }
 
     /**
-     * @param JsonFilesExtractorQuery $jsonFilesExtractorQuery
+     * @param JsonFilesExtractor $jsonFilesExtractorQuery
      * @param JsonFilesResponse       $return
      */
     protected function shouldHandleJsonFilesExtractorQuery(
-        JsonFilesExtractorQuery $jsonFilesExtractorQuery,
+        JsonFilesExtractor $jsonFilesExtractorQuery,
         JsonFilesResponse $return
     ) {
         $this->getJsonFilesExtractorQueryHandler()

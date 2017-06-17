@@ -8,7 +8,7 @@ use PhpGitHooks\Module\Composer\Contract\Command\ComposerTool;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PreCommitResponse;
-use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractor;
 use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor;
@@ -208,7 +208,7 @@ class PreCommitTool
         /**
          * @var PhpFilesResponse
          */
-        $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractorQuery($committedFiles));
+        $phpFilesResponse = $this->queryBus->handle(new PhpFilesExtractor($committedFiles));
 
         return $phpFilesResponse->getFiles();
     }

@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Module\JsonLint\Service;
 
 use Bruli\EventBusBundle\QueryBus\QueryBus;
-use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractor;
 
 class JsonLintTool
 {
@@ -36,7 +36,7 @@ class JsonLintTool
      */
     public function execute(array $files, $errorMessage)
     {
-        $jsonFilesResponse = $this->queryBus->handle(new JsonFilesExtractorQuery($files));
+        $jsonFilesResponse = $this->queryBus->handle(new JsonFilesExtractor($files));
 
         if (true === $this->jsonFilesExists($jsonFilesResponse->getFiles())) {
             $this->jsonLintToolExecutor->execute($jsonFilesResponse->getFiles(), $errorMessage);

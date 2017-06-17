@@ -2,23 +2,22 @@
 
 namespace PhpGitHooks\Module\Files\Tests\Behaviour;
 
-use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
-use PhpGitHooks\Module\Files\Contract\QueryHandler\PhpFilesExtractorQueryHandler;
+use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractor;
+use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorHandler;
 use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
-use PhpGitHooks\Module\Files\Service\PhpFilesExtractor;
 use PhpGitHooks\Module\Files\Tests\Infrastructure\FilesUnitTestCase;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
 
 class PhpFilesExtractorQueryHandlerTest extends FilesUnitTestCase
 {
     /**
-     * @var PhpFilesExtractorQueryHandler
+     * @var PhpFilesExtractorHandler
      */
     private $phpFilesExtractorQueryHandler;
 
     protected function setUp()
     {
-        $this->phpFilesExtractorQueryHandler = new PhpFilesExtractorQueryHandler(new PhpFilesExtractor());
+        $this->phpFilesExtractorQueryHandler = new PhpFilesExtractorHandler();
     }
 
     /**
@@ -27,7 +26,7 @@ class PhpFilesExtractorQueryHandlerTest extends FilesUnitTestCase
     public function itShouldReturnArrayPhpFilesResponse()
     {
         $files = $this->phpFilesExtractorQueryHandler->handle(
-            new PhpFilesExtractorQuery(FilesCommittedStub::createAllFiles())
+            new PhpFilesExtractor(FilesCommittedStub::createAllFiles())
         );
 
         $this->assertInstanceOf(PhpFilesResponse::class, $files);

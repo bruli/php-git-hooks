@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpGitHooks\Module\Files\Contract\QueryHandler;
+namespace PhpGitHooks\Module\Files\Contract\Query;
 
 use PhpGitHooks\Module\Files\Domain\File;
 

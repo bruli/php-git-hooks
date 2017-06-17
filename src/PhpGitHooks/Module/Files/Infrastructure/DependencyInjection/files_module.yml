@@ -1,3 +1,2 @@
 imports:
-  - { resource: "files_service_private.yml" }
   - { resource: "files_service_public.yml" }

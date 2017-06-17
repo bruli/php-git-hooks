@@ -2,7 +2,6 @@
 
 namespace PhpGitHooks\Module\Files\Contract\Query;
 
-use PhpGitHooks\Module\Files\Contract\QueryHandler\AbstractFilesExtractorQueryHandler;
 use PhpGitHooks\Module\Files\Contract\Response\ComposerFilesResponse;
 use PhpGitHooks\Module\Files\Domain\File;
 use PhpGitHooks\Module\Files\Domain\FilesCollection;

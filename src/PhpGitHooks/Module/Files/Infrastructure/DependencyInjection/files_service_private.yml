@@ -1,7 +1,0 @@
-services:
-  json.files.extractor:
-    class: PhpGitHooks\Module\Files\Service\JsonFilesExtractor
-    public: false
-  php.files.extractor:
-    class: PhpGitHooks\Module\Files\Service\PhpFilesExtractor
-    public: false

@@ -1,18 +1,20 @@
 <?php
 
-namespace PhpGitHooks\Module\Files\Service;
+namespace PhpGitHooks\Module\Files\Contract\Query;
 
+use Bruli\EventBusBundle\QueryBus\QueryHandlerInterface;
+use Bruli\EventBusBundle\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
 use PhpGitHooks\Module\Files\Domain\FilesCollection;
 
-class PhpFilesExtractor
+class PhpFilesExtractorHandler extends AbstractFilesExtractorQueryHandler implements QueryHandlerInterface
 {
     /**
      * @param FilesCollection $filesCollection
      *
      * @return PhpFilesResponse
      */
-    public function extract(FilesCollection $filesCollection)
+    private function extract(FilesCollection $filesCollection)
     {
         $phFiles = $this->getPhpFiles($filesCollection);
 
@@ -35,5 +37,17 @@ class PhpFilesExtractor
         }
 
         return $phpFiles;
+    }
+
+    /**
+     * @param QueryInterface|PhpFilesExtractorQuery $query
+     *
+     * @return PhpFilesResponse
+     */
+    public function handle(QueryInterface $query)
+    {
+        $files = $this->getFiles($query->getFiles());
+
+        return $this->extract(new FilesCollection($files));
     }
 }
