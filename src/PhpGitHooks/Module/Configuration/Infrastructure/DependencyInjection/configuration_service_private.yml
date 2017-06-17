@@ -1,14 +1,4 @@
 services:
-  configuration.processor:
-    class: PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor
-    public: false
-    arguments:
-      - "@configuration.file.reader"
-      - "@pre.commit.processor"
-      - "@commit.msg.processor"
-      - "@configuration.file.writer"
-      - "@hook.copier"
-      - "@pre.push.processor"
   configuration.data.finder:
     class: PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder
     public: false

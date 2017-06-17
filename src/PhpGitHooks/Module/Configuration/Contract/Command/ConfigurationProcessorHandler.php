@@ -1,7 +1,9 @@
 <?php
 
-namespace PhpGitHooks\Module\Configuration\Service;
+namespace PhpGitHooks\Module\Configuration\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Composer\IO\IOInterface;
 use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
 use PhpGitHooks\Module\Configuration\Domain\Config;
@@ -10,8 +12,12 @@ use PhpGitHooks\Module\Configuration\Domain\PrePush;
 use PhpGitHooks\Module\Configuration\Infrastructure\Hook\HookCopier;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileWriterInterface;
+use PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor;
+use PhpGitHooks\Module\Configuration\Service\ConfigurationArrayTransformer;
+use PhpGitHooks\Module\Configuration\Service\PreCommitProcessor;
+use PhpGitHooks\Module\Configuration\Service\PrePushProcessor;
 
-class ConfigurationProcessor
+class ConfigurationProcessorHandler implements CommandHandlerInterface
 {
     /**
      * @var IOInterface
@@ -71,7 +77,7 @@ class ConfigurationProcessor
     /**
      * @param IOInterface $input
      */
-    public function process(IOInterface $input)
+    private function process(IOInterface $input)
     {
         $this->io = $input;
 
@@ -136,5 +142,13 @@ class ConfigurationProcessor
         $prePush = $configData->getPrePush();
 
         return $this->prePushProcessor->process($prePush, $this->io);
+    }
+
+    /**
+     * @param CommandInterface|ConfigurationProcessor $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->process($command->getInput());
     }
 }

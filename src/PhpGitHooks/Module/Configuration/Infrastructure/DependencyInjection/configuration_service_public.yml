@@ -1,7 +1,13 @@
 services:
-  configuration.processor.command.handler:
-    class: PhpGitHooks\Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler
-    arguments: ["@configuration.processor"]
+  configuration.processor.handler:
+    class: PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorHandler
+    arguments:
+          - "@configuration.file.reader"
+          - "@pre.commit.processor"
+          - "@commit.msg.processor"
+          - "@configuration.file.writer"
+          - "@hook.copier"
+          - "@pre.push.processor"
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand}
   configuration.data.finder.query.handler:

@@ -6,8 +6,8 @@ require_once __DIR__.'/../../../../app/AppKernel.php';
 
 use AppKernel;
 use Composer\Script\Event;
-use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
-use PhpGitHooks\Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler;
+use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessor;
+use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorHandler;
 
 /**
  * Class ConfiguratorScript.
@@ -28,11 +28,11 @@ class ConfiguratorScript
             $app->boot();
             $container = $app->getContainer();
             /**
-             * @var ConfigurationProcessorCommandHandler
+             * @var ConfigurationProcessorHandler
              */
             $processor = $container->get('bruli.command.bus');
 
-            $processor->handle(new ConfigurationProcessorCommand($event->getIO()));
+            $processor->handle(new ConfigurationProcessor($event->getIO()));
         }
     }
 }

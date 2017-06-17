@@ -2,11 +2,10 @@
 
 namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
-use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand;
-use PhpGitHooks\Module\Configuration\Contract\CommandHandler\ConfigurationProcessorCommandHandler;
+use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessor;
+use PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorHandler;
 use PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor;
 use PhpGitHooks\Module\Configuration\Service\ConfigurationArrayTransformer;
-use PhpGitHooks\Module\Configuration\Service\ConfigurationProcessor;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Service\PhpGuardCoverageGitIgnoreConfigurator;
 use PhpGitHooks\Module\Configuration\Service\PhpUnitGuardCoverageConfigurator;
@@ -22,35 +21,33 @@ use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand;
 use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
 use PhpGitHooks\Module\Git\Tests\Stub\GitIgnoreDataResponseStub;
 
-final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTestCase
+final class ConfigurationProcessorHandlerTest extends ConfigurationUnitTestCase
 {
     /**
-     * @var ConfigurationProcessorCommandHandler
+     * @var ConfigurationProcessorHandler
      */
     private $configurationProcessorCommandHandler;
 
     protected function setUp()
     {
-        $this->configurationProcessorCommandHandler = new ConfigurationProcessorCommandHandler(
-            new ConfigurationProcessor(
-                $this->getConfigurationFileReader(),
-                new PreCommitProcessor(
-                    new PhpUnitGuardCoverageConfigurator(
-                        new PhpGuardCoverageGitIgnoreConfigurator(
-                            $this->getQueryBus(),
-                            $this->getCommandBus()
-                        )
+        $this->configurationProcessorCommandHandler = new ConfigurationProcessorHandler(
+            $this->getConfigurationFileReader(),
+            new PreCommitProcessor(
+                new PhpUnitGuardCoverageConfigurator(
+                    new PhpGuardCoverageGitIgnoreConfigurator(
+                        $this->getQueryBus(),
+                        $this->getCommandBus()
                     )
-                ),
-                new CommitMsgProcessor(),
-                $this->getConfigurationFileWriter(),
-                $this->getHookCopier(),
-                new PrePushProcessor(
-                    new PhpUnitGuardCoverageConfigurator(
-                        new PhpGuardCoverageGitIgnoreConfigurator(
-                            $this->getQueryBus(),
-                            $this->getCommandBus()
-                        )
+                )
+            ),
+            new CommitMsgProcessor(),
+            $this->getConfigurationFileWriter(),
+            $this->getHookCopier(),
+            new PrePushProcessor(
+                new PhpUnitGuardCoverageConfigurator(
+                    new PhpGuardCoverageGitIgnoreConfigurator(
+                        $this->getQueryBus(),
+                        $this->getCommandBus()
                     )
                 )
             )
@@ -139,7 +136,7 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
         $this->shouldCopyPrePushHook();
         $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 
-        $command = new ConfigurationProcessorCommand($this->getIOInterface());
+        $command = new ConfigurationProcessor($this->getIOInterface());
 
         $this->configurationProcessorCommandHandler->handle($command);
     }
@@ -161,7 +158,7 @@ final class ConfigurationProcessorCommandHandlerTest extends ConfigurationUnitTe
         $this->shouldCopyPrePushHook();
         $this->shouldWriteConfigurationData($data);
 
-        $command = new ConfigurationProcessorCommand($this->getIOInterface());
+        $command = new ConfigurationProcessor($this->getIOInterface());
 
         $this->configurationProcessorCommandHandler->handle($command);
     }
