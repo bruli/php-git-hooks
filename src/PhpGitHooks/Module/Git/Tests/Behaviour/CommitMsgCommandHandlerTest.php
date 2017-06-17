@@ -4,8 +4,8 @@ namespace PhpGitHooks\Module\Git\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
-use PhpGitHooks\Module\Git\Contract\Command\CommitMsgCommand;
-use PhpGitHooks\Module\Git\Contract\CommandHandler\CommitMsgCommandHandler;
+use PhpGitHooks\Module\Git\Contract\Command\CommitMsg;
+use PhpGitHooks\Module\Git\Contract\Command\CommitMsgHandler;
 use PhpGitHooks\Module\Git\Contract\Exception\InvalidCommitMessageException;
 use PhpGitHooks\Module\Git\Service\CommitMsgTool;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
@@ -13,18 +13,16 @@ use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
 class CommitMsgCommandHandlerTest extends GitUnitTestCase
 {
     /**
-     * @var CommitMsgCommandHandler
+     * @var CommitMsgHandler
      */
     private $commitMsgCommandHandler;
 
     protected function setUp()
     {
-        $this->commitMsgCommandHandler = new CommitMsgCommandHandler(
-            new CommitMsgTool(
-                $this->getMergeValidator(),
-                $this->getQueryBus(),
-                $this->getCommitMessageFinder()
-            )
+        $this->commitMsgCommandHandler = new CommitMsgHandler(
+            $this->getMergeValidator(),
+            $this->getQueryBus(),
+            $this->getCommitMessageFinder()
         );
     }
 
@@ -37,7 +35,7 @@ class CommitMsgCommandHandlerTest extends GitUnitTestCase
 
         $this->shouldHandleQuery(new ConfigurationDataFinder(), $configurationDataResponse);
 
-        $this->commitMsgCommandHandler->handle(new CommitMsgCommand($this->getInput()));
+        $this->commitMsgCommandHandler->handle(new CommitMsg($this->getInput()));
     }
 
     /**
@@ -54,6 +52,6 @@ class CommitMsgCommandHandlerTest extends GitUnitTestCase
         $this->shouldFindCommitMessage('file', 'invalid commit message');
         $this->shouldCallIsMerge(false);
 
-        $this->commitMsgCommandHandler->handle(new CommitMsgCommand($this->getInput()));
+        $this->commitMsgCommandHandler->handle(new CommitMsg($this->getInput()));
     }
 }

@@ -6,7 +6,7 @@ require_once __DIR__.'/../../../../app/AppKernel.php';
 
 use AppKernel;
 use PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand;
-use PhpGitHooks\Module\Git\Contract\CommandHandler\PreCommitToolCommandHandler;
+use PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommandHandler;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

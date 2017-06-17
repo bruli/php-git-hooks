@@ -1,7 +1,9 @@
 <?php
 
-namespace PhpGitHooks\Module\Git\Service;
+namespace PhpGitHooks\Module\Git\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
@@ -10,7 +12,7 @@ use PhpGitHooks\Module\Git\Model\CommitMessageFinderInterface;
 use PhpGitHooks\Module\Git\Model\MergeValidatorInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
-class CommitMsgTool
+class CommitMsgHandler implements CommandHandlerInterface
 {
     /**
      * @var MergeValidatorInterface
@@ -47,7 +49,7 @@ class CommitMsgTool
      *
      * @throws InvalidCommitMessageException
      */
-    public function run(InputInterface $input)
+    private function run(InputInterface $input)
     {
         /** @var ConfigurationDataResponse $configurationDataResponse */
         $configurationDataResponse = $this->queryBus->handle(new ConfigurationDataFinder());
@@ -78,5 +80,13 @@ class CommitMsgTool
     private function isValidCommitMessage($regularExpression, $commitMessage)
     {
         return $this->mergeValidator->isMerge() || preg_match(sprintf('/%s/', $regularExpression), $commitMessage);
+    }
+
+    /**
+     * @param CommandInterface|CommitMsg $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->run($command->getInput());
     }
 }

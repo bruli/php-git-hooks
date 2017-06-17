@@ -5,7 +5,7 @@ namespace PhpGitHooks\Module\Git\Contract\Command;
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
-class CommitMsgCommand implements CommandInterface
+class CommitMsg implements CommandInterface
 {
     /**
      * @var InputInterface

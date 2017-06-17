@@ -11,13 +11,6 @@ services:
   files.commited.extractor:
     class: PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor
     public: false
-  commit.msg.tool:
-    class: PhpGitHooks\Module\Git\Service\CommitMsgTool
-    public: false
-    arguments:
-      - "@merge.validator"
-      - "@bruli.query.bus"
-      - "@commit.message.finder"
   pre.push.tool:
     class: PhpGitHooks\Module\Git\Service\PrePushTool
     public: false

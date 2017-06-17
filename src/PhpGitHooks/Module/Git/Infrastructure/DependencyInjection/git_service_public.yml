@@ -4,11 +4,14 @@ services:
     arguments: ["@pre.commit.tool"]
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PreCommitToolCommand}
-  commit.msg.command.handler:
-    class: PhpGitHooks\Module\Git\Contract\CommandHandler\CommitMsgCommandHandler
-    arguments: ["@commit.msg.tool"]
+  commit.msg.handler:
+    class: PhpGitHooks\Module\Git\Contract\Command\CommitMsgHandler
+    arguments:
+          - "@merge.validator"
+          - "@bruli.query.bus"
+          - "@commit.message.finder"
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\CommitMsgCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\CommitMsg }
   pre.push.tool.command.handler:
     class: PhpGitHooks\Module\Git\Contract\CommandHandler\PrePushToolCommandHandler
     arguments: ["@pre.push.tool"]
