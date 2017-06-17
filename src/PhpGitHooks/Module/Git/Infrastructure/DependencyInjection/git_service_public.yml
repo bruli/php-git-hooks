@@ -18,10 +18,14 @@ services:
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\CommitMsg }
   pre.push.tool.command.handler:
-    class: PhpGitHooks\Module\Git\Contract\CommandHandler\PrePushToolCommandHandler
-    arguments: ["@pre.push.tool"]
+    class: PhpGitHooks\Module\Git\Contract\Command\PrePushToolHandler
+    arguments:
+      - "@bruli.query.bus"
+      - "@pre.push.original.executor"
+      - "@console.output"
+      - "@bruli.command.bus"
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PrePushTool }
   gitignore.writer.command.handler:
     class: PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterHandler
     arguments: ["@gitignore.file.writer"]

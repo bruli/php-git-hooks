@@ -5,7 +5,7 @@ namespace PhpGitHooks\Infrastructure\Hook;
 require_once __DIR__.'/../../../../app/AppKernel.php';
 
 use AppKernel;
-use PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand;
+use PhpGitHooks\Module\Git\Contract\Command\PrePushTool;
 use PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommandHandler;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,6 +54,6 @@ class PrePush extends Application
          * @var PrePushToolCommandHandler
          */
         $command = $this->container->get('bruli.command.bus');
-        $command->handle(new PrePushToolCommand($this->remote, $this->url));
+        $command->handle(new PrePushTool($this->remote, $this->url));
     }
 }

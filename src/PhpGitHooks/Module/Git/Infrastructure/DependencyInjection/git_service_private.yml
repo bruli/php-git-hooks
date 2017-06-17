@@ -2,14 +2,6 @@ services:
   files.commited.extractor:
     class: PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor
     public: false
-  pre.push.tool:
-    class: PhpGitHooks\Module\Git\Service\PrePushTool
-    public: false
-    arguments:
-      - "@bruli.query.bus"
-      - "@pre.push.original.executor"
-      - "@console.output"
-      - "@bruli.command.bus"
   gitignore.extractor:
     class: PhpGitHooks\Module\Git\Service\GitIgnoreExtractor
     public: false

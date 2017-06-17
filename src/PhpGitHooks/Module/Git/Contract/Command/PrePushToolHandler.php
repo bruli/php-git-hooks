@@ -1,8 +1,10 @@
 <?php
 
-namespace PhpGitHooks\Module\Git\Service;
+namespace PhpGitHooks\Module\Git\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandBus;
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
@@ -15,7 +17,7 @@ use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PrePushTool
+class PrePushToolHandler implements CommandHandlerInterface
 {
     const PRE_PUSH_HOOK = '<comment>Pre-push hook</comment>';
     /**
@@ -61,7 +63,7 @@ class PrePushTool
      *
      * @throws InvalidPushException
      */
-    public function execute($remote, $url)
+    private function execute($remote, $url)
     {
         /** @var ConfigurationDataResponse $configurationData */
         $configurationData = $this->queryBus->handle(new ConfigurationDataFinder());
@@ -122,5 +124,13 @@ class PrePushTool
 
             throw new InvalidPushException();
         }
+    }
+
+    /**
+     * @param CommandInterface|PrePushTool $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute($command->getRemote(), $command->getUrl());
     }
 }

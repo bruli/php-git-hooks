@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\Git\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 
-class PrePushToolCommand implements CommandInterface
+class PrePushTool implements CommandInterface
 {
     /**
      * @var string

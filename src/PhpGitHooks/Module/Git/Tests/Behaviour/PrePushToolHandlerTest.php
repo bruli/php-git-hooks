@@ -4,35 +4,32 @@ namespace PhpGitHooks\Module\Git\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
-use PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand;
-use PhpGitHooks\Module\Git\Contract\CommandHandler\PrePushToolCommandHandler;
+use PhpGitHooks\Module\Git\Contract\Command\PrePushTool;
+use PhpGitHooks\Module\Git\Contract\Command\PrePushToolHandler;
 use PhpGitHooks\Module\Git\Contract\Exception\InvalidPushException;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
-use PhpGitHooks\Module\Git\Service\PrePushTool;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
 
-class PrePushToolCommandHandlerTest extends GitUnitTestCase
+class PrePushToolHandlerTest extends GitUnitTestCase
 {
     private $remote = 'origin';
     private $url = 'git@github.com';
     /**
-     * @var PrePushToolCommandHandler
+     * @var PrePushToolHandler
      */
     private $prePushToolCommandHandler;
 
     protected function setUp()
     {
-        $this->prePushToolCommandHandler = new PrePushToolCommandHandler(
-            new PrePushTool(
-                $this->getQueryBus(),
-                $this->getPrePushOriginalExecutor(),
-                $this->getOutputInterface(),
-                $this->getCommandBus()
-            )
+        $this->prePushToolCommandHandler = new PrePushToolHandler(
+            $this->getQueryBus(),
+            $this->getPrePushOriginalExecutor(),
+            $this->getOutputInterface(),
+            $this->getCommandBus()
         );
     }
 
@@ -46,7 +43,7 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
             ConfigurationDataResponseStub::createCustom(false, false, false)
         );
 
-        $this->prePushToolCommandHandler->handle(new PrePushToolCommand($this->remote, $this->url));
+        $this->prePushToolCommandHandler->handle(new PrePushTool($this->remote, $this->url));
     }
 
     /**
@@ -62,13 +59,13 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
             new ConfigurationDataFinder(),
             $configurationDataResponse
         );
-        $this->shouldWriteLnOutput(PrePushTool::PRE_PUSH_HOOK);
+        $this->shouldWriteLnOutput(PrePushToolHandler::PRE_PUSH_HOOK);
         $this->shouldExecutePrePushOriginal($this->remote, $this->url, 'error');
         $this->shouldWriteLnOutput(
             BadJobLogoResponse::paint($configurationDataResponse->getPrePush()->getErrorMessage())
         );
 
-        $this->prePushToolCommandHandler->handle(new PrePushToolCommand($this->remote, $this->url));
+        $this->prePushToolCommandHandler->handle(new PrePushTool($this->remote, $this->url));
     }
 
     /**
@@ -82,7 +79,7 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
             new ConfigurationDataFinder(),
             $configurationDataResponse
         );
-        $this->shouldWriteLnOutput(PrePushTool::PRE_PUSH_HOOK);
+        $this->shouldWriteLnOutput(PrePushToolHandler::PRE_PUSH_HOOK);
         $this->shouldExecutePrePushOriginal($this->remote, $this->url, '');
         $this->shouldHandleCommand(
             new PhpUnitToolCommand(
@@ -108,6 +105,6 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
             GoodJobLogoResponse::paint($configurationDataResponse->getPrePush()->getRightMessage())
         );
 
-        $this->prePushToolCommandHandler->handle(new PrePushToolCommand($this->remote, $this->url));
+        $this->prePushToolCommandHandler->handle(new PrePushTool($this->remote, $this->url));
     }
 }
