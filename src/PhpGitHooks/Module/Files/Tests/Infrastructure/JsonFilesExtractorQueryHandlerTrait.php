@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Module\Files\Tests\Infrastructure;
 
 use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQuery;
-use PhpGitHooks\Module\Files\Contract\QueryHandler\JsonFilesExtractorQueryHandler;
+use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorQueryHandler;
 use PhpGitHooks\Module\Files\Contract\Response\JsonFilesResponse;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\SimilarTo;

@@ -1,19 +1,20 @@
 <?php
 
-namespace PhpGitHooks\Module\Files\Service;
+namespace PhpGitHooks\Module\Files\Contract\Query;
 
+use PhpGitHooks\Module\Files\Contract\QueryHandler\AbstractFilesExtractorQueryHandler;
 use PhpGitHooks\Module\Files\Contract\Response\ComposerFilesResponse;
 use PhpGitHooks\Module\Files\Domain\File;
 use PhpGitHooks\Module\Files\Domain\FilesCollection;
 
-class ComposerFilesExtractor
+class ComposerFilesExtractorHandler extends AbstractFilesExtractorQueryHandler
 {
     /**
      * @param FilesCollection $filesCollection
      *
      * @return ComposerFilesResponse
      */
-    public function extract(FilesCollection $filesCollection)
+    private function extract(FilesCollection $filesCollection)
     {
         return new ComposerFilesResponse(
             $this->setExists($filesCollection->getFiles()),
@@ -71,5 +72,17 @@ class ComposerFilesExtractor
         }
 
         return $return;
+    }
+
+    /**
+     * @param ComposerFilesExtractor $composerFilesFilesExtractorQuery
+     *
+     * @return ComposerFilesResponse
+     */
+    public function handle(ComposerFilesExtractor $composerFilesFilesExtractorQuery)
+    {
+        $files = $this->getFiles($composerFilesFilesExtractorQuery->getFiles());
+
+        return $this->extract(new FilesCollection($files));
     }
 }

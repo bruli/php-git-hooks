@@ -6,7 +6,7 @@ use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
-use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractor;
 use PhpGitHooks\Module\Files\Contract\Response\ComposerFilesResponse;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
@@ -95,6 +95,6 @@ class ComposerToolHandler implements CommandHandlerInterface
      */
     private function getComposerFilesResponse(array $files)
     {
-        return $this->queryBus->handle(new ComposerFilesExtractorQuery($files));
+        return $this->queryBus->handle(new ComposerFilesExtractor($files));
     }
 }

@@ -7,7 +7,7 @@ use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolHandler;
 use PhpGitHooks\Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
 use PhpGitHooks\Module\Composer\Tests\Infrastructure\ComposerUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitResponseStub;
-use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery;
+use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractor;
 use PhpGitHooks\Module\Files\Tests\Stub\ComposerFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
@@ -43,7 +43,7 @@ class ComposerToolHandlerTest extends ComposerUnitTestCase
         $output = new PreCommitOutputWriter(ComposerToolHandler::CHECKING_MESSAGE);
         $this->shouldWriteOutput($output->getMessage());
         $this->shouldHandleQuery(
-            new ComposerFilesExtractorQuery($files),
+            new ComposerFilesExtractor($files),
             ComposerFilesResponseStub::createValidData()
         );
         $this->shouldWriteLnOutput($output->getSuccessfulMessage());
@@ -65,7 +65,7 @@ class ComposerToolHandlerTest extends ComposerUnitTestCase
 
         $this->shouldWriteOutput($output->getMessage());
         $this->shouldHandleQuery(
-            new ComposerFilesExtractorQuery($files),
+            new ComposerFilesExtractor($files),
             ComposerFilesResponseStub::createInvalidData()
         );
         $this->shouldWriteLnOutput($output->getFailMessage());
@@ -84,7 +84,7 @@ class ComposerToolHandlerTest extends ComposerUnitTestCase
         $files = FilesCommittedStub::createWithoutComposerFiles();
 
         $this->shouldHandleQuery(
-            new ComposerFilesExtractorQuery($files),
+            new ComposerFilesExtractor($files),
             ComposerFilesResponseStub::createNoData()
         );
 

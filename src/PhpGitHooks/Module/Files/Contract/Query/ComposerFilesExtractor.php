@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\Files\Contract\Query;
 
 use Bruli\EventBusBundle\QueryBus\QueryInterface;
 
-class ComposerFilesExtractorQuery implements QueryInterface
+class ComposerFilesExtractor implements QueryInterface
 {
     /**
      * @var array

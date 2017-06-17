@@ -1,9 +1,8 @@
 services:
   composer.files.extractor.query.handler:
-    class: PhpGitHooks\Module\Files\Contract\QueryHandler\ComposerFilesExtractorQueryHandler
-    arguments: ["@composer.files.extractor"]
+    class: PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorHandler
     tags:
-      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery }
+      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractor }
   json.files.extractor.query.handler:
     class: PhpGitHooks\Module\Files\Contract\QueryHandler\JsonFilesExtractorQueryHandler
     arguments: ["@json.files.extractor"]

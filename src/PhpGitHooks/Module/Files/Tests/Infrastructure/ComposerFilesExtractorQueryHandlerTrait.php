@@ -2,8 +2,8 @@
 
 namespace PhpGitHooks\Module\Files\Tests\Infrastructure;
 
-use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery;
-use PhpGitHooks\Module\Files\Contract\QueryHandler\ComposerFilesExtractorQueryHandler;
+use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractor;
+use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorHandler;
 use PhpGitHooks\Module\Files\Contract\Response\ComposerFilesResponse;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\Mock;
 use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\SimilarTo;
@@ -11,26 +11,26 @@ use PhpGitHooks\Module\Tests\Infrastructure\UnitTestCase\SimilarTo;
 trait ComposerFilesExtractorQueryHandlerTrait
 {
     /**
-     * @var ComposerFilesExtractorQueryHandler
+     * @var ComposerFilesExtractorHandler
      */
     private $composerFilesExtractorQueryHandler;
 
     /**
-     * @return \Mockery\MockInterface|ComposerFilesExtractorQueryHandler
+     * @return \Mockery\MockInterface|ComposerFilesExtractorHandler
      */
     protected function getComposerFilesExtractorQueryHandler()
     {
         return $this->composerFilesExtractorQueryHandler = $this->composerFilesExtractorQueryHandler ?: Mock::get(
-            ComposerFilesExtractorQueryHandler::class
+            ComposerFilesExtractorHandler::class
         );
     }
 
     /**
-     * @param ComposerFilesExtractorQuery $composerFilesFilesExtractorQuery
+     * @param ComposerFilesExtractor $composerFilesFilesExtractorQuery
      * @param ComposerFilesResponse       $return
      */
     protected function shouldHandleComposerFilesExtractorQuery(
-        ComposerFilesExtractorQuery $composerFilesFilesExtractorQuery,
+        ComposerFilesExtractor $composerFilesFilesExtractorQuery,
         ComposerFilesResponse $return
     ) {
         $this->getComposerFilesExtractorQueryHandler()

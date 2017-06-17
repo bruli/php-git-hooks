@@ -1,7 +1,4 @@
 services:
-  composer.files.extractor:
-    class: PhpGitHooks\Module\Files\Service\ComposerFilesExtractor
-    public: false
   json.files.extractor:
     class: PhpGitHooks\Module\Files\Service\JsonFilesExtractor
     public: false
