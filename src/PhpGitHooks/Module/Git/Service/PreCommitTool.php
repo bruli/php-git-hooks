@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\Git\Service;
 
 use Bruli\EventBusBundle\CommandBus\CommandBus;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
-use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand;
+use PhpGitHooks\Module\Composer\Contract\Command\ComposerTool;
 use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Configuration\Contract\Response\PreCommitResponse;
@@ -103,7 +103,7 @@ class PreCommitTool
     {
         if (true === $preCommitResponse->isComposer()) {
             $this->commandBus->handle(
-                new ComposerToolCommand($committedFiles, $preCommitResponse->getErrorMessage())
+                new ComposerTool($committedFiles, $preCommitResponse->getErrorMessage())
             );
         }
 

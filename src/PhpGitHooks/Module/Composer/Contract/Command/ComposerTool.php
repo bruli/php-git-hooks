@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\Composer\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 
-class ComposerToolCommand implements CommandInterface
+class ComposerTool implements CommandInterface
 {
     /**
      * @var array

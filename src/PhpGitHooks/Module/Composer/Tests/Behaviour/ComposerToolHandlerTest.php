@@ -2,10 +2,9 @@
 
 namespace PhpGitHooks\Module\Composer\Tests\Behaviour;
 
-use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolCommand;
-use PhpGitHooks\Module\Composer\Contract\CommandHandler\ComposerToolCommandHandler;
+use PhpGitHooks\Module\Composer\Contract\Command\ComposerTool;
+use PhpGitHooks\Module\Composer\Contract\Command\ComposerToolHandler;
 use PhpGitHooks\Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
-use PhpGitHooks\Module\Composer\Service\ComposerTool;
 use PhpGitHooks\Module\Composer\Tests\Infrastructure\ComposerUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitResponseStub;
 use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery;
@@ -14,10 +13,10 @@ use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
 
-class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
+class ComposerToolHandlerTest extends ComposerUnitTestCase
 {
     /**
-     * @var ComposerToolCommandHandler
+     * @var ComposerToolHandler
      */
     private $composerToolCommandHandler;
     /**
@@ -28,11 +27,9 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
     protected function setUp()
     {
         $this->errorMessage = PreCommitResponseStub::FIX_YOUR_CODE;
-        $this->composerToolCommandHandler = new ComposerToolCommandHandler(
-            new ComposerTool(
-                $this->getQueryBus(),
-                $this->getOutputInterface()
-            )
+        $this->composerToolCommandHandler = new ComposerToolHandler(
+            $this->getQueryBus(),
+            $this->getOutputInterface()
         );
     }
 
@@ -43,7 +40,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
     {
         $files = FilesCommittedStub::createAllFiles();
 
-        $output = new PreCommitOutputWriter(ComposerTool::CHECKING_MESSAGE);
+        $output = new PreCommitOutputWriter(ComposerToolHandler::CHECKING_MESSAGE);
         $this->shouldWriteOutput($output->getMessage());
         $this->shouldHandleQuery(
             new ComposerFilesExtractorQuery($files),
@@ -52,7 +49,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
         $this->shouldWriteLnOutput($output->getSuccessfulMessage());
 
         $this->composerToolCommandHandler->handle(
-            new ComposerToolCommand($files, $this->errorMessage)
+            new ComposerTool($files, $this->errorMessage)
         );
     }
 
@@ -64,7 +61,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
         $this->expectException(ComposerFilesNotFoundException::class);
 
         $files = FilesCommittedStub::createInvalidComposerFiles();
-        $output = new PreCommitOutputWriter(ComposerTool::CHECKING_MESSAGE);
+        $output = new PreCommitOutputWriter(ComposerToolHandler::CHECKING_MESSAGE);
 
         $this->shouldWriteOutput($output->getMessage());
         $this->shouldHandleQuery(
@@ -75,7 +72,7 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
 
         $this->composerToolCommandHandler->handle(
-            new ComposerToolCommand($files, $this->errorMessage)
+            new ComposerTool($files, $this->errorMessage)
         );
     }
 
@@ -91,6 +88,6 @@ class ComposerToolCommandHandlerTest extends ComposerUnitTestCase
             ComposerFilesResponseStub::createNoData()
         );
 
-        $this->composerToolCommandHandler->handle(new ComposerToolCommand($files, $this->errorMessage));
+        $this->composerToolCommandHandler->handle(new ComposerTool($files, $this->errorMessage));
     }
 }

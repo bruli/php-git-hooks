@@ -1,7 +1,0 @@
-services:
-  composer.tool:
-    class: PhpGitHooks\Module\Composer\Service\ComposerTool
-    public: false
-    arguments:
-      - "@bruli.query.bus"
-      - "@console.output"

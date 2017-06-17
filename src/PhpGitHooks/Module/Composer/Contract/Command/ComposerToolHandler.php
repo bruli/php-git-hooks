@@ -1,7 +1,9 @@
 <?php
 
-namespace PhpGitHooks\Module\Composer\Service;
+namespace PhpGitHooks\Module\Composer\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Composer\Contract\Exception\ComposerFilesNotFoundException;
 use PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorQuery;
@@ -10,7 +12,7 @@ use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ComposerTool
+class ComposerToolHandler implements CommandHandlerInterface
 {
     const CHECKING_MESSAGE = 'Checking composer files';
     /**
@@ -25,7 +27,6 @@ class ComposerTool
      * @var QueryBus
      */
     private $queryBus;
-
     /**
      * ComposerTool constructor.
      *
@@ -41,12 +42,20 @@ class ComposerTool
     }
 
     /**
+     * @param CommandInterface|ComposerTool $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute($command->getFiles(), $command->getErrorMessage());
+    }
+
+    /**
      * @param array  $files
      * @param string $errorMessage
      *
      * @throws ComposerFilesNotFoundException
      */
-    public function execute(array $files, $errorMessage)
+    private function execute(array $files, $errorMessage)
     {
         $composerFilesResponse = $this->getComposerFilesResponse($files);
 
