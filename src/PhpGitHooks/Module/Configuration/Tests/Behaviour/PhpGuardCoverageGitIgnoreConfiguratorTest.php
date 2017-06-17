@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Service\PhpGuardCoverageGitIgnoreConfigurator;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
-use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand;
+use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriter;
 use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
 use PhpGitHooks\Module\Git\Tests\Stub\GitIgnoreDataResponseStub;
 
@@ -31,7 +31,7 @@ class PhpGuardCoverageGitIgnoreConfiguratorTest extends ConfigurationUnitTestCas
         $content = GitIgnoreDataResponseStub::random();
 
         $this->shouldHandleQuery(new GitIgnoreExtractorQuery(), $content);
-        $this->shouldHandleCommand(new GitIgnoreWriterCommand($content->getContent()));
+        $this->shouldHandleCommand(new GitIgnoreWriter($content->getContent()));
 
         $this->phpGuardCoverageGitIgnoreConfigurator->configure();
     }

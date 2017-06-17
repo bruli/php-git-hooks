@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\Git\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 
-class GitIgnoreWriterCommand implements CommandInterface
+class GitIgnoreWriter implements CommandInterface
 {
     /**
      * @var string

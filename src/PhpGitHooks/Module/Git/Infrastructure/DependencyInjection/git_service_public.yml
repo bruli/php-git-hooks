@@ -18,10 +18,10 @@ services:
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand }
   gitignore.writer.command.handler:
-    class: PhpGitHooks\Module\Git\Contract\CommandHandler\GitIgnoreWriterCommandHandler
-    arguments: ["@gitignore.writer"]
+    class: PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterHandler
+    arguments: ["@gitignore.file.writer"]
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriter }
   gitignore.extractor.query.handler:
     class: PhpGitHooks\Module\Git\Contract\QueryHandler\GitIgnoreExtractorQueryHandler
     arguments: ["@gitignore.extractor"]

@@ -19,10 +19,6 @@ services:
       - "@pre.push.original.executor"
       - "@console.output"
       - "@bruli.command.bus"
-  gitignore.writer:
-    class: PhpGitHooks\Module\Git\Service\GitIgnoreWriter
-    public: false
-    arguments: ["@gitignore.file.writer"]
   gitignore.extractor:
     class: PhpGitHooks\Module\Git\Service\GitIgnoreExtractor
     public: false

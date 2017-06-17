@@ -17,7 +17,7 @@ use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigArrayDataStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PrePushStub;
-use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand;
+use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriter;
 use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
 use PhpGitHooks\Module\Git\Tests\Stub\GitIgnoreDataResponseStub;
 
@@ -100,7 +100,7 @@ final class ConfigurationProcessorHandlerTest extends ConfigurationUnitTestCase
             ConfigArrayDataStub::ERROR_MESSAGE
         );
         $this->shouldHandleQuery(new GitIgnoreExtractorQuery(), $gitIgnoreDataResponse);
-        $this->shouldHandleCommand(new GitIgnoreWriterCommand($gitIgnoreDataResponse->getContent()));
+        $this->shouldHandleCommand(new GitIgnoreWriter($gitIgnoreDataResponse->getContent()));
 
         $this->shouldAsk(HookQuestions::COMMIT_MSG_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldCopyPreCommitHook();

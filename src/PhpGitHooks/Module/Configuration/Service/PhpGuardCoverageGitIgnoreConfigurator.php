@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\Configuration\Service;
 
 use Bruli\EventBusBundle\CommandBus\CommandBus;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
-use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterCommand;
+use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriter;
 use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
 use PhpGitHooks\Module\Git\Contract\Response\GitIgnoreDataResponse;
 
@@ -40,7 +40,7 @@ class PhpGuardCoverageGitIgnoreConfigurator
         if (false === $this->isFileIgnored($gitIgnoreContent->getContent())) {
             $content = $this->getContent($gitIgnoreContent->getContent());
 
-            $this->commandBus->handle(new GitIgnoreWriterCommand($content));
+            $this->commandBus->handle(new GitIgnoreWriter($content));
         }
     }
 

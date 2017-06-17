@@ -1,10 +1,12 @@
 <?php
 
-namespace PhpGitHooks\Module\Git\Service;
+namespace PhpGitHooks\Module\Git\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Model\WriterInterface;
 
-class GitIgnoreWriter
+class GitIgnoreWriterHandler implements CommandHandlerInterface
 {
     /**
      * @var WriterInterface
@@ -24,8 +26,16 @@ class GitIgnoreWriter
     /**
      * @param string $content
      */
-    public function write($content)
+    private function write($content)
     {
         $this->gitIgnoreWriter->write($content);
+    }
+
+    /**
+     * @param CommandInterface|GitIgnoreWriter $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->write($command->getContent());
     }
 }
