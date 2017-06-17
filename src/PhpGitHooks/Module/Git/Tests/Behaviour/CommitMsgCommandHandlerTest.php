@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Git\Tests\Behaviour;
 
-use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
+use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use PhpGitHooks\Module\Git\Contract\Command\CommitMsgCommand;
 use PhpGitHooks\Module\Git\Contract\CommandHandler\CommitMsgCommandHandler;
@@ -35,7 +35,7 @@ class CommitMsgCommandHandlerTest extends GitUnitTestCase
     {
         $configurationDataResponse = ConfigurationDataResponseStub::createCustom(true, false, false);
 
-        $this->shouldHandleQuery(new ConfigurationDataFinderQuery(), $configurationDataResponse);
+        $this->shouldHandleQuery(new ConfigurationDataFinder(), $configurationDataResponse);
 
         $this->commitMsgCommandHandler->handle(new CommitMsgCommand($this->getInput()));
     }
@@ -49,7 +49,7 @@ class CommitMsgCommandHandlerTest extends GitUnitTestCase
 
         $configurationDataResponse = ConfigurationDataResponseStub::createCustom(true, true, true);
 
-        $this->shouldHandleQuery(new ConfigurationDataFinderQuery(), $configurationDataResponse);
+        $this->shouldHandleQuery(new ConfigurationDataFinder(), $configurationDataResponse);
         $this->shouldGetInputFirstArgument('file');
         $this->shouldFindCommitMessage('file', 'invalid commit message');
         $this->shouldCallIsMerge(false);

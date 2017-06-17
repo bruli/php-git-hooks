@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\Git\Service;
 
 use Bruli\EventBusBundle\CommandBus\CommandBus;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
-use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
+use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Git\Contract\Exception\InvalidPushException;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
@@ -64,7 +64,7 @@ class PrePushTool
     public function execute($remote, $url)
     {
         /** @var ConfigurationDataResponse $configurationData */
-        $configurationData = $this->queryBus->handle(new ConfigurationDataFinderQuery());
+        $configurationData = $this->queryBus->handle(new ConfigurationDataFinder());
         $prePushResponse = $configurationData->getPrePush();
 
         if (true === $prePushResponse->isPrePush()) {

@@ -2,29 +2,26 @@
 
 namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 
-use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
-use PhpGitHooks\Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler;
+use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
+use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderHandler;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
-use PhpGitHooks\Module\Configuration\Service\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Configuration\Tests\Stub\CommitMsgStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PrePushStub;
 
-class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
+class ConfigurationDataFinderHandlerTest extends ConfigurationUnitTestCase
 {
     /**
-     * @var ConfigurationDataFinderQueryHandler
+     * @var ConfigurationDataFinderHandler
      */
     private $configurationDataFinderQueryHandler;
 
     protected function setUp()
     {
-        $this->configurationDataFinderQueryHandler = new ConfigurationDataFinderQueryHandler(
-            new ConfigurationDataFinder(
-                $this->getConfigurationFileReader()
-            )
+        $this->configurationDataFinderQueryHandler = new ConfigurationDataFinderHandler(
+            $this->getConfigurationFileReader()
         );
     }
 
@@ -33,14 +30,16 @@ class ConfigurationDataFinderQueryHandlerTest extends ConfigurationUnitTestCase
      */
     public function itShouldReturnEnabledTools()
     {
-        $this->shouldReadConfigurationData(ConfigStub::create(
-            PreCommitStub::createAllEnabled(),
-            CommitMsgStub::createEnabled(),
-            PrePushStub::createAllEnabled()
-        ));
+        $this->shouldReadConfigurationData(
+            ConfigStub::create(
+                PreCommitStub::createAllEnabled(),
+                CommitMsgStub::createEnabled(),
+                PrePushStub::createAllEnabled()
+            )
+        );
 
         /** @var ConfigurationDataResponse $data */
-        $data = $this->configurationDataFinderQueryHandler->handle(new ConfigurationDataFinderQuery());
+        $data = $this->configurationDataFinderQueryHandler->handle(new ConfigurationDataFinder());
 
         $this->assertTrue($data->getPreCommit()->isPreCommit());
         $this->assertNotNull($data->getPreCommit()->getRightMessage());

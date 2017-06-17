@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Module\Git\Tests\Behaviour;
 
 use PhpGitHooks\Module\Composer\Contract\Command\ComposerTool;
-use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
+use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorQuery;
@@ -66,7 +66,7 @@ class PreCommitToolCommandHandlerTest extends GitUnitTestCase
 
         $this->shouldWriteTitle(PreCommitTool::TITLE, 'title');
         $this->shouldGetFilesCommitted($files);
-        $this->shouldHandleQuery(new ConfigurationDataFinderQuery(), $configurationDataResponse);
+        $this->shouldHandleQuery(new ConfigurationDataFinder(), $configurationDataResponse);
         $this->shouldHandleCommand(
             new ComposerTool($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
         );

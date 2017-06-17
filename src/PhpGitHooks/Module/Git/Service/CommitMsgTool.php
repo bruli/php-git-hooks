@@ -3,7 +3,7 @@
 namespace PhpGitHooks\Module\Git\Service;
 
 use Bruli\EventBusBundle\QueryBus\QueryBus;
-use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
+use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Git\Contract\Exception\InvalidCommitMessageException;
 use PhpGitHooks\Module\Git\Model\CommitMessageFinderInterface;
@@ -50,7 +50,7 @@ class CommitMsgTool
     public function run(InputInterface $input)
     {
         /** @var ConfigurationDataResponse $configurationDataResponse */
-        $configurationDataResponse = $this->queryBus->handle(new ConfigurationDataFinderQuery());
+        $configurationDataResponse = $this->queryBus->handle(new ConfigurationDataFinder());
 
         if (true === $configurationDataResponse->getCommitMsg()->isCommitMsg()) {
             $commitContent = $this->commitMessageFinder->find($input->getFirstArgument());

@@ -2,7 +2,7 @@
 
 namespace PhpGitHooks\Module\Git\Tests\Behaviour;
 
-use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery;
+use PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder;
 use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use PhpGitHooks\Module\Git\Contract\Command\PrePushToolCommand;
 use PhpGitHooks\Module\Git\Contract\CommandHandler\PrePushToolCommandHandler;
@@ -42,7 +42,7 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
     public function itShouldNotExecuteHook()
     {
         $this->shouldHandleQuery(
-            new ConfigurationDataFinderQuery(),
+            new ConfigurationDataFinder(),
             ConfigurationDataResponseStub::createCustom(false, false, false)
         );
 
@@ -59,7 +59,7 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
         $configurationDataResponse = ConfigurationDataResponseStub::createCustom(false, false, true);
 
         $this->shouldHandleQuery(
-            new ConfigurationDataFinderQuery(),
+            new ConfigurationDataFinder(),
             $configurationDataResponse
         );
         $this->shouldWriteLnOutput(PrePushTool::PRE_PUSH_HOOK);
@@ -79,7 +79,7 @@ class PrePushToolCommandHandlerTest extends GitUnitTestCase
         $configurationDataResponse = ConfigurationDataResponseStub::createCustom(false, false, true);
 
         $this->shouldHandleQuery(
-            new ConfigurationDataFinderQuery(),
+            new ConfigurationDataFinder(),
             $configurationDataResponse
         );
         $this->shouldWriteLnOutput(PrePushTool::PRE_PUSH_HOOK);

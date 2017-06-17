@@ -9,9 +9,9 @@ services:
           - "@hook.copier"
           - "@pre.push.processor"
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorCommand}
-  configuration.data.finder.query.handler:
-    class: PhpGitHooks\Module\Configuration\Contract\QueryHandler\ConfigurationDataFinderQueryHandler
-    arguments: ["@configuration.data.finder"]
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessor}
+  configuration.data.finder.handler:
+    class: PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderHandler
+    arguments: ["@configuration.file.reader"]
     tags:
-      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderQuery }
+      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder }

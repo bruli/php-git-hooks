@@ -1,8 +1,10 @@
 <?php
 
-namespace PhpGitHooks\Module\Configuration\Service;
+namespace PhpGitHooks\Module\Configuration\Contract\Query;
 
+use Bruli\EventBusBundle\QueryBus\QueryHandlerInterface;
 use Bruli\EventBusBundle\QueryBus\QueryInterface;
+use PhpGitHooks\Infrastructure\Hook\PrePush;
 use PhpGitHooks\Module\Configuration\Contract\Response\ConfigurationDataResponse;
 use PhpGitHooks\Module\Configuration\Domain\CommitMsg;
 use PhpGitHooks\Module\Configuration\Domain\Config;
@@ -13,10 +15,10 @@ use PhpGitHooks\Module\Configuration\Domain\PhpUnit;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitGuardCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PhpUnitStrictCoverage;
 use PhpGitHooks\Module\Configuration\Domain\PreCommit;
-use PhpGitHooks\Module\Configuration\Domain\PrePush;
 use PhpGitHooks\Module\Configuration\Model\ConfigurationFileReaderInterface;
+use PhpGitHooks\Module\Configuration\Service\ConfigurationDataResponseFactory;
 
-class ConfigurationDataFinder implements QueryInterface
+class ConfigurationDataFinderHandler implements QueryHandlerInterface
 {
     /**
      * @var ConfigurationFileReaderInterface
@@ -31,16 +33,6 @@ class ConfigurationDataFinder implements QueryInterface
     public function __construct(ConfigurationFileReaderInterface $configurationFileReader)
     {
         $this->configurationFileReader = $configurationFileReader;
-    }
-
-    /**
-     * @return ConfigurationDataResponse
-     */
-    public function find()
-    {
-        $data = $this->configurationFileReader->getData();
-
-        return $this->getConfigurationDataResponse($data);
     }
 
     private function getConfigurationDataResponse(Config $data)
@@ -93,5 +85,17 @@ class ConfigurationDataFinder implements QueryInterface
             $prePushStrictCoverage,
             $prePushGuardCoverage
         );
+    }
+
+    /**
+     * @param QueryInterface $query
+     *
+     * @return ConfigurationDataResponse
+     */
+    public function handle(QueryInterface $query)
+    {
+        $data = $this->configurationFileReader->getData();
+
+        return $this->getConfigurationDataResponse($data);
     }
 }
