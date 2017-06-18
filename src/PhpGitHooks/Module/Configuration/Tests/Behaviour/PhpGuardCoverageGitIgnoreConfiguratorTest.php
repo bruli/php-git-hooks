@@ -5,7 +5,7 @@ namespace PhpGitHooks\Module\Configuration\Tests\Behaviour;
 use PhpGitHooks\Module\Configuration\Service\PhpGuardCoverageGitIgnoreConfigurator;
 use PhpGitHooks\Module\Configuration\Tests\Infrastructure\ConfigurationUnitTestCase;
 use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriter;
-use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
+use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractor;
 use PhpGitHooks\Module\Git\Tests\Stub\GitIgnoreDataResponseStub;
 
 class PhpGuardCoverageGitIgnoreConfiguratorTest extends ConfigurationUnitTestCase
@@ -30,7 +30,7 @@ class PhpGuardCoverageGitIgnoreConfiguratorTest extends ConfigurationUnitTestCas
     {
         $content = GitIgnoreDataResponseStub::random();
 
-        $this->shouldHandleQuery(new GitIgnoreExtractorQuery(), $content);
+        $this->shouldHandleQuery(new GitIgnoreExtractor(), $content);
         $this->shouldHandleCommand(new GitIgnoreWriter($content->getContent()));
 
         $this->phpGuardCoverageGitIgnoreConfigurator->configure();
@@ -40,7 +40,7 @@ class PhpGuardCoverageGitIgnoreConfiguratorTest extends ConfigurationUnitTestCas
      */
     public function itShouldNotWriteEntry()
     {
-        $this->shouldHandleQuery(new GitIgnoreExtractorQuery(), GitIgnoreDataResponseStub::randomWithGuardCoverage());
+        $this->shouldHandleQuery(new GitIgnoreExtractor(), GitIgnoreDataResponseStub::randomWithGuardCoverage());
 
         $this->phpGuardCoverageGitIgnoreConfigurator->configure();
     }

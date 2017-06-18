@@ -32,7 +32,7 @@ services:
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriter }
   gitignore.extractor.query.handler:
-    class: PhpGitHooks\Module\Git\Contract\QueryHandler\GitIgnoreExtractorQueryHandler
-    arguments: ["@gitignore.extractor"]
+    class: PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorHandler
+    arguments: ["@gitignore.file.reader"]
     tags:
-      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery }
+      - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractor }

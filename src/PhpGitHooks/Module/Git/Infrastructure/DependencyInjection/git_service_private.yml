@@ -2,7 +2,4 @@ services:
   files.commited.extractor:
     class: PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor
     public: false
-  gitignore.extractor:
-    class: PhpGitHooks\Module\Git\Service\GitIgnoreExtractor
-    public: false
-    arguments: ["@gitignore.file.reader"]
+

@@ -18,7 +18,7 @@ use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PrePushStub;
 use PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriter;
-use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
+use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractor;
 use PhpGitHooks\Module\Git\Tests\Stub\GitIgnoreDataResponseStub;
 
 final class ConfigurationProcessorHandlerTest extends ConfigurationUnitTestCase
@@ -99,7 +99,7 @@ final class ConfigurationProcessorHandlerTest extends ConfigurationUnitTestCase
             HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT,
             ConfigArrayDataStub::ERROR_MESSAGE
         );
-        $this->shouldHandleQuery(new GitIgnoreExtractorQuery(), $gitIgnoreDataResponse);
+        $this->shouldHandleQuery(new GitIgnoreExtractor(), $gitIgnoreDataResponse);
         $this->shouldHandleCommand(new GitIgnoreWriter($gitIgnoreDataResponse->getContent()));
 
         $this->shouldAsk(HookQuestions::COMMIT_MSG_HOOK, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
@@ -132,7 +132,7 @@ final class ConfigurationProcessorHandlerTest extends ConfigurationUnitTestCase
             HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT,
             ConfigArrayDataStub::ERROR_MESSAGE
         );
-        $this->shouldHandleQuery(new GitIgnoreExtractorQuery(), GitIgnoreDataResponseStub::randomWithGuardCoverage());
+        $this->shouldHandleQuery(new GitIgnoreExtractor(), GitIgnoreDataResponseStub::randomWithGuardCoverage());
         $this->shouldCopyPrePushHook();
         $this->shouldWriteConfigurationData(ConfigArrayDataStub::hooksEnabledWithEnabledTools());
 

@@ -1,11 +1,13 @@
 <?php
 
-namespace PhpGitHooks\Module\Git\Service;
+namespace PhpGitHooks\Module\Git\Contract\Query;
 
+use Bruli\EventBusBundle\QueryBus\QueryHandlerInterface;
+use Bruli\EventBusBundle\QueryBus\QueryInterface;
 use PhpGitHooks\Module\Git\Contract\Response\GitIgnoreDataResponse;
 use PhpGitHooks\Module\Git\Model\ReaderInterface;
 
-class GitIgnoreExtractor
+class GitIgnoreExtractorHandler implements QueryHandlerInterface
 {
     /**
      * @var ReaderInterface
@@ -25,10 +27,20 @@ class GitIgnoreExtractor
     /**
      * @return GitIgnoreDataResponse
      */
-    public function extract()
+    private function extract()
     {
         $content = $this->reader->read();
 
         return new GitIgnoreDataResponse($content);
+    }
+
+    /**
+     * @param QueryInterface $query
+     *
+     * @return GitIgnoreDataResponse|GitIgnoreExtractor
+     */
+    public function handle(QueryInterface $query)
+    {
+        return $this->extract();
     }
 }

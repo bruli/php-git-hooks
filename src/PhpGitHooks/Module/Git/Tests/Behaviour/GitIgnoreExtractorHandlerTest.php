@@ -2,24 +2,21 @@
 
 namespace PhpGitHooks\Module\Git\Tests\Behaviour;
 
-use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorQuery;
-use PhpGitHooks\Module\Git\Contract\QueryHandler\GitIgnoreExtractorQueryHandler;
+use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractor;
+use PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorHandler;
 use PhpGitHooks\Module\Git\Contract\Response\GitIgnoreDataResponse;
-use PhpGitHooks\Module\Git\Service\GitIgnoreExtractor;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
 
-class GitIgnoreExtractorQueryHandlerTest extends GitUnitTestCase
+class GitIgnoreExtractorHandlerTest extends GitUnitTestCase
 {
     /**
-     * @var GitIgnoreExtractorQueryHandler
+     * @var GitIgnoreExtractorHandler
      */
     private $gitIgnoreExtractorQueryHandler;
 
     protected function setUp()
     {
-        $this->gitIgnoreExtractorQueryHandler = new GitIgnoreExtractorQueryHandler(
-            new GitIgnoreExtractor($this->getGitIgnoreFileReader())
-        );
+        $this->gitIgnoreExtractorQueryHandler = new GitIgnoreExtractorHandler($this->getGitIgnoreFileReader());
     }
 
     /**
@@ -38,7 +35,7 @@ class GitIgnoreExtractorQueryHandlerTest extends GitUnitTestCase
 
         $this->shouldReadGitIgnoreFile($content);
 
-        $query = new GitIgnoreExtractorQuery();
+        $query = new GitIgnoreExtractor();
 
         $data = $this->gitIgnoreExtractorQueryHandler->handle($query);
 
