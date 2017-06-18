@@ -1,11 +1,14 @@
 <?php
 
-namespace PhpGitHooks\Module\JsonLint\Service;
+namespace PhpGitHooks\Module\JsonLint\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractor;
+use PhpGitHooks\Module\JsonLint\Service\JsonLintToolExecutor;
 
-class JsonLintTool
+class JsonLintToolHandler implements CommandHandlerInterface
 {
     /**
      * @var JsonLintToolExecutor
@@ -34,7 +37,7 @@ class JsonLintTool
      * @param array  $files
      * @param string $errorMessage
      */
-    public function execute(array $files, $errorMessage)
+    private function execute(array $files, $errorMessage)
     {
         $jsonFilesResponse = $this->queryBus->handle(new JsonFilesExtractor($files));
 
@@ -51,5 +54,13 @@ class JsonLintTool
     private function jsonFilesExists(array $files)
     {
         return 0 < count($files);
+    }
+
+    /**
+     * @param CommandInterface|JsonLintTool $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute($command->getFiles(), $command->getErrorMessage());
     }
 }

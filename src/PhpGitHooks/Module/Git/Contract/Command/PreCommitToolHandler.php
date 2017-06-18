@@ -15,7 +15,7 @@ use PhpGitHooks\Module\Files\Contract\Response\PhpFilesResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor;
 use PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter;
-use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintToolCommand;
+use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool;
 use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
@@ -111,7 +111,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
 
         if (true === $preCommitResponse->isJsonLint()) {
             $this->commandBus->handle(
-                new JsonLintToolCommand($committedFiles, $preCommitResponse->getErrorMessage())
+                new JsonLintTool($committedFiles, $preCommitResponse->getErrorMessage())
             );
         }
 

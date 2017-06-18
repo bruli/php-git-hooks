@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\JsonLint\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 
-class JsonLintToolCommand implements CommandInterface
+class JsonLintTool implements CommandInterface
 {
     /**
      * @var array

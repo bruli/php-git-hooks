@@ -1,10 +1,4 @@
 services:
-  jsonlint.tool:
-    class: PhpGitHooks\Module\JsonLint\Service\JsonLintTool
-    public: false
-    arguments:
-      - "@jsonlint.tool.executor"
-      - "@bruli.query.bus"
   jsonlint.tool.executor:
     class: PhpGitHooks\Module\JsonLint\Service\JsonLintToolExecutor
     arguments:

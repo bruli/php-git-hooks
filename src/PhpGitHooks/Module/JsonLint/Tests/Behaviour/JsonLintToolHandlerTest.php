@@ -2,24 +2,22 @@
 
 namespace PhpGitHooks\Module\JsonLint\Tests\Behaviour;
 
-use PhpGitHooks\Module\Configuration\Tests\Stub\ConfigurationDataResponseStub;
 use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitResponseStub;
 use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractor;
 use PhpGitHooks\Module\Files\Tests\Stub\JsonFilesResponseStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
-use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintToolCommand;
-use PhpGitHooks\Module\JsonLint\Contract\CommandHandler\JsonLintToolCommandHandler;
+use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool;
+use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintToolHandler;
 use PhpGitHooks\Module\JsonLint\Contract\Exception\JsonLintViolationsException;
-use PhpGitHooks\Module\JsonLint\Service\JsonLintTool;
 use PhpGitHooks\Module\JsonLint\Service\JsonLintToolExecutor;
 use PhpGitHooks\Module\JsonLint\Tests\Infrastructure\JsonLintUnitTestCase;
 
-class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
+class JsonLintToolHandlerTest extends JsonLintUnitTestCase
 {
     /**
-     * @var JsonLintToolCommandHandler
+     * @var JsonLintToolHandler
      */
     private $jsonLintToolCommandHandler;
     /**
@@ -29,14 +27,12 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
 
     protected function setUp()
     {
-        $this->jsonLintToolCommandHandler = new JsonLintToolCommandHandler(
-            new JsonLintTool(
-                new JsonLintToolExecutor(
-                    $this->getJsonLintProcessor(),
-                    $this->getOutputInterface()
-                ),
-                $this->getQueryBus()
-            )
+        $this->jsonLintToolCommandHandler = new JsonLintToolHandler(
+            new JsonLintToolExecutor(
+                $this->getJsonLintProcessor(),
+                $this->getOutputInterface()
+            ),
+            $this->getQueryBus()
         );
 
         $this->errorMessage = PreCommitResponseStub::FIX_YOUR_CODE;
@@ -55,7 +51,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
         );
 
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintToolCommand($files, $this->errorMessage)
+            new JsonLintTool($files, $this->errorMessage)
         );
     }
 
@@ -75,12 +71,12 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
         $this->shouldWriteOutput($output->getMessage());
 
         foreach ($files->getFiles() as $file) {
-            $this->shouldProcessJsonLint($file, []);
+            $this->shouldProcessJsonLint($file, null);
         }
         $this->shouldWriteLnOutput($output->getSuccessfulMessage());
 
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintToolCommand($files->getFiles(), $this->errorMessage)
+            new JsonLintTool($files->getFiles(), $this->errorMessage)
         );
     }
 
@@ -112,7 +108,7 @@ class JsonLintToolCommandHandlerTest extends JsonLintUnitTestCase
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
 
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintToolCommand($jsonFilesResponse->getFiles(), $this->errorMessage)
+            new JsonLintTool($jsonFilesResponse->getFiles(), $this->errorMessage)
         );
     }
 }
