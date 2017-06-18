@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\PhpCs\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 
-class PhpCsToolCommand implements CommandInterface
+class PhpCsTool implements CommandInterface
 {
     /**
      * @var array

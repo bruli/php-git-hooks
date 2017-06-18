@@ -1,14 +1,16 @@
 <?php
 
-namespace PhpGitHooks\Module\PhpCs\Service;
+namespace PhpGitHooks\Module\PhpCs\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\PhpCs\Contract\Exception\PhpCsViolationException;
 use PhpGitHooks\Module\PhpCs\Model\PhpCsToolProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PhpCsTool
+class PhpCsToolHandler implements CommandHandlerInterface
 {
     const EXECUTE_MESSAGE = 'Checking code style with PHPCS';
     /**
@@ -23,7 +25,7 @@ class PhpCsTool
     /**
      * PhpCsTool constructor.
      *
-     * @param OutputInterface             $output
+     * @param OutputInterface $output
      * @param PhpCsToolProcessorInterface $phpCsToolProcessor
      */
     public function __construct(OutputInterface $output, PhpCsToolProcessorInterface $phpCsToolProcessor)
@@ -33,14 +35,14 @@ class PhpCsTool
     }
 
     /**
-     * @param array  $files
+     * @param array $files
      * @param string $standard
      * @param string $errorMessage
      * @param string $ignore
      *
      * @throws PhpCsViolationException
      */
-    public function execute(array $files, $standard, $errorMessage, $ignore)
+    private function execute(array $files, $standard, $errorMessage, $ignore)
     {
         $outputMessage = new PreCommitOutputWriter(self::EXECUTE_MESSAGE);
         $this->output->write($outputMessage->getMessage());
@@ -59,5 +61,18 @@ class PhpCsTool
             throw new PhpCsViolationException();
         }
         $this->output->writeln($outputMessage->getSuccessfulMessage());
+    }
+
+    /**
+     * @param CommandInterface|PhpCsTool $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute(
+            $command->getFiles(),
+            $command->getStandard(),
+            $command->getErrorMessage(),
+            $command->getIgnore()
+        );
     }
 }

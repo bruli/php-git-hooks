@@ -14,7 +14,7 @@ use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
 use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool;
-use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand;
+use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
@@ -78,7 +78,7 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
             new PhpLintToolCommand($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
         );
         $this->shouldHandleCommand(
-            new PhpCsToolCommand(
+            new PhpCsTool(
                 $files,
                 $configurationDataResponse->getPreCommit()->getPhpCs()->getPhpCsStandard(),
                 HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,

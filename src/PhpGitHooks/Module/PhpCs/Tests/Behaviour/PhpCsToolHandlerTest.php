@@ -6,26 +6,23 @@ use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
-use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand;
-use PhpGitHooks\Module\PhpCs\Contract\CommandHandler\PhpCsToolCommandHandler;
+use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
+use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolHandler;
 use PhpGitHooks\Module\PhpCs\Contract\Exception\PhpCsViolationException;
-use PhpGitHooks\Module\PhpCs\Service\PhpCsTool;
 use PhpGitHooks\Module\PhpCs\Tests\Infrastructure\PhpCsUnitTestCase;
 
-class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
+class PhpCsToolHandlerTest extends PhpCsUnitTestCase
 {
     /**
-     * @var PhpCsToolCommandHandler
+     * @var PhpCsToolHandler
      */
     private $phpCsToolCommandHandler;
 
     protected function setUp()
     {
-        $this->phpCsToolCommandHandler = new PhpCsToolCommandHandler(
-            new PhpCsTool(
-                $this->getOutputInterface(),
-                $this->getPhpCsToolProcessor()
-            )
+        $this->phpCsToolCommandHandler = new PhpCsToolHandler(
+            $this->getOutputInterface(),
+            $this->getPhpCsToolProcessor()
         );
     }
 
@@ -36,7 +33,7 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
     {
         $this->expectException(PhpCsViolationException::class);
 
-        $output = new PreCommitOutputWriter(PhpCsTool::EXECUTE_MESSAGE);
+        $output = new PreCommitOutputWriter(PhpCsToolHandler::EXECUTE_MESSAGE);
         $files = FilesCommittedStub::createOnlyPhpFiles();
 
         $this->shouldWriteOutput($output->getMessage());
@@ -53,7 +50,7 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint(HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT));
 
         $this->phpCsToolCommandHandler->handle(
-            new PhpCsToolCommand(
+            new PhpCsTool(
                 $files,
                 'PSR2',
                 HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
@@ -67,7 +64,7 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
      */
     public function itShouldWorksFine()
     {
-        $output = new PreCommitOutputWriter(PhpCsTool::EXECUTE_MESSAGE);
+        $output = new PreCommitOutputWriter(PhpCsToolHandler::EXECUTE_MESSAGE);
         $files = FilesCommittedStub::createOnlyPhpFiles();
 
         $this->shouldWriteOutput($output->getMessage());
@@ -79,7 +76,7 @@ class PhpCsToolCommandHandlerTest extends PhpCsUnitTestCase
         $this->shouldWriteLnOutput($output->getSuccessfulMessage());
 
         $this->phpCsToolCommandHandler->handle(
-            new PhpCsToolCommand(
+            new PhpCsTool(
                 $files,
                 'PSR2',
                 HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,

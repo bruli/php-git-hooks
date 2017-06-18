@@ -16,7 +16,7 @@ use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor;
 use PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter;
 use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool;
-use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsToolCommand;
+use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
@@ -128,7 +128,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
 
             if (true === $phpCsResponse->isPhpCs()) {
                 $this->commandBus->handle(
-                    new PhpCsToolCommand(
+                    new PhpCsTool(
                         $phpFiles,
                         $phpCsResponse->getPhpCsStandard(),
                         $preCommitResponse->getErrorMessage(),

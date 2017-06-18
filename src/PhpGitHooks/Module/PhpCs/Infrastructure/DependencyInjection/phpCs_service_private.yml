@@ -1,7 +1,0 @@
-services:
-  php.cs.tool:
-    class: PhpGitHooks\Module\PhpCs\Service\PhpCsTool
-    public: false
-    arguments:
-      - "@console.output"
-      - "@php.cs.tool.processor"
