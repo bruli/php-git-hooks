@@ -7,23 +7,23 @@ use PhpGitHooks\Module\Configuration\Tests\Stub\PreCommitResponseStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
-use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
-use PhpGitHooks\Module\PhpLint\Contract\CommandHandler\PhpLintToolCommandHandler;
+use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintTool;
+use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolHandler;
 use PhpGitHooks\Module\PhpLint\Contract\Exception\PhpLintViolationsException;
-use PhpGitHooks\Module\PhpLint\Service\PhpLintTool;
 use PhpGitHooks\Module\PhpLint\Tests\Infrastructure\PhpLintUnitTestCase;
 
-class PhpLintToolCommandHandlerTest extends PhpLintUnitTestCase
+class PhpLintToolHandlerTest extends PhpLintUnitTestCase
 {
     /**
-     * @var PhpLintToolCommandHandler
+     * @var PhpLintToolHandler
      */
     private $phpLintToolCommandHandler;
 
     protected function setUp()
     {
-        $this->phpLintToolCommandHandler = new PhpLintToolCommandHandler(
-            new PhpLintTool($this->getPhpLintToolProcessor(), $this->getOutputInterface())
+        $this->phpLintToolCommandHandler = new PhpLintToolHandler(
+            $this->getPhpLintToolProcessor(),
+            $this->getOutputInterface()
         );
     }
 
@@ -35,7 +35,7 @@ class PhpLintToolCommandHandlerTest extends PhpLintUnitTestCase
         $this->expectException(PhpLintViolationsException::class);
 
         $phpFiles = FilesCommittedStub::createOnlyPhpFiles();
-        $outputMessage = new PreCommitOutputWriter(PhpLintTool::RUNNING_PHPLINT);
+        $outputMessage = new PreCommitOutputWriter(PhpLintToolHandler::RUNNING_PHPLINT);
         $errorMessage = PreCommitResponseStub::FIX_YOUR_CODE;
 
         $this->shouldWriteOutput($outputMessage->getMessage());
@@ -52,7 +52,7 @@ class PhpLintToolCommandHandlerTest extends PhpLintUnitTestCase
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage));
 
         $this->phpLintToolCommandHandler->handle(
-            new PhpLintToolCommand($phpFiles, $errorMessage)
+            new PhpLintTool($phpFiles, $errorMessage)
         );
     }
 
@@ -62,7 +62,7 @@ class PhpLintToolCommandHandlerTest extends PhpLintUnitTestCase
     public function itShouldWorksFine()
     {
         $phpFiles = FilesCommittedStub::createOnlyPhpFiles();
-        $outputMessage = new PreCommitOutputWriter(PhpLintTool::RUNNING_PHPLINT);
+        $outputMessage = new PreCommitOutputWriter(PhpLintToolHandler::RUNNING_PHPLINT);
 
         $this->shouldWriteOutput($outputMessage->getMessage());
 
@@ -73,7 +73,7 @@ class PhpLintToolCommandHandlerTest extends PhpLintUnitTestCase
         $this->shouldWriteLnOutput($outputMessage->getSuccessfulMessage());
 
         $this->phpLintToolCommandHandler->handle(
-            new PhpLintToolCommand($phpFiles, HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT)
+            new PhpLintTool($phpFiles, HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT)
         );
     }
 }

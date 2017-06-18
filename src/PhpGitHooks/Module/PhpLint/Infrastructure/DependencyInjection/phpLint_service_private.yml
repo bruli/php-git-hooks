@@ -1,7 +1,0 @@
-services:
-  phplint.tool:
-    class: PhpGitHooks\Module\PhpLint\Service\PhpLintTool
-    public: false
-    arguments:
-      - "@phplint.tool.processor"
-      - "@console.output"

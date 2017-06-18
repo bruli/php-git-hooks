@@ -18,7 +18,7 @@ use PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter;
 use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool;
 use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerTool;
-use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
+use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintTool;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
@@ -120,7 +120,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
         if ($phpFiles) {
             if (true === $preCommitResponse->isPhpLint()) {
                 $this->commandBus->handle(
-                    new PhpLintToolCommand($phpFiles, $preCommitResponse->getErrorMessage())
+                    new PhpLintTool($phpFiles, $preCommitResponse->getErrorMessage())
                 );
             }
 

@@ -1,14 +1,16 @@
 <?php
 
-namespace PhpGitHooks\Module\PhpLint\Service;
+namespace PhpGitHooks\Module\PhpLint\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\PhpLint\Contract\Exception\PhpLintViolationsException;
 use PhpGitHooks\Module\PhpLint\Model\PhpLintToolProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PhpLintTool
+class PhpLintToolHandler implements CommandHandlerInterface
 {
     const RUNNING_PHPLINT = 'Running PHPLINT';
     /**
@@ -38,7 +40,7 @@ class PhpLintTool
      *
      * @throws PhpLintViolationsException
      */
-    public function execute(array $files, $errorMessage)
+    private function execute(array $files, $errorMessage)
     {
         $outputMessage = new PreCommitOutputWriter(self::RUNNING_PHPLINT);
         $this->output->write($outputMessage->getMessage());
@@ -59,5 +61,13 @@ class PhpLintTool
         }
 
         $this->output->writeln($outputMessage->getSuccessfulMessage());
+    }
+
+    /**
+     * @param CommandInterface|PhpLintTool $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute($command->getFiles(), $command->getErrorMessage());
     }
 }

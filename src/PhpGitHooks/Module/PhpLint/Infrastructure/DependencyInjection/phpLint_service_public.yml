@@ -1,6 +1,8 @@
 services:
   phplint.tool.command.handler:
-    class: PhpGitHooks\Module\PhpLint\Contract\CommandHandler\PhpLintToolCommandHandler
-    arguments: ["@phplint.tool"]
+    class: PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolHandler
+    arguments:
+      - "@phplint.tool.processor"
+      - "@console.output"
     tags:
-     - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand }
+     - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintTool }
