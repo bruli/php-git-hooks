@@ -7,26 +7,23 @@ use PhpGitHooks\Module\Configuration\Tests\Stub\PhpCsFixerOptionsStub;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
-use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
-use PhpGitHooks\Module\PhpCsFixer\Contract\CommandHandler\PhpCsFixerToolCommandHandler;
+use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerTool;
+use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolHandler;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Exception\PhpCsFixerViolationsException;
-use PhpGitHooks\Module\PhpCsFixer\Service\PhpCsFixerTool;
 use PhpGitHooks\Module\PhpCsFixer\Tests\Infrastructure\PhpCsFixerUnitTestCase;
 
-class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
+class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
 {
     /**
-     * @var PhpCsFixerToolCommandHandler
+     * @var PhpCsFixerToolHandler
      */
     private $phpCsFixerToolCommandHandler;
 
     protected function setUp()
     {
-        $this->phpCsFixerToolCommandHandler = new PhpCsFixerToolCommandHandler(
-            new PhpCsFixerTool(
-                $this->getOutputInterface(),
-                $this->getPhpCsFixerToolProcessor()
-            )
+        $this->phpCsFixerToolCommandHandler = new PhpCsFixerToolHandler(
+            $this->getOutputInterface(),
+            $this->getPhpCsFixerToolProcessor()
         );
     }
 
@@ -56,7 +53,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($configurationData->getPreCommit()->getErrorMessage()));
 
         $this->phpCsFixerToolCommandHandler->handle(
-            new PhpCsFixerToolCommand(
+            new PhpCsFixerTool(
                 $phpFiles,
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr0(),
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),
@@ -114,7 +111,7 @@ class PhpCsFixerToolCommandHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteLnOutput($outputMessageSymfony->getSuccessfulMessage());
 
         $this->phpCsFixerToolCommandHandler->handle(
-            new PhpCsFixerToolCommand(
+            new PhpCsFixerTool(
                 $phpFiles,
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr0(),
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),

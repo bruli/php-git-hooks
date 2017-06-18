@@ -1,14 +1,16 @@
 <?php
 
-namespace PhpGitHooks\Module\PhpCsFixer\Service;
+namespace PhpGitHooks\Module\PhpCsFixer\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Exception\PhpCsFixerViolationsException;
 use PhpGitHooks\Module\PhpCsFixer\Model\PhpCsFixerToolProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PhpCsFixerTool
+class PhpCsFixerToolHandler implements CommandHandlerInterface
 {
     /**
      * @var OutputInterface
@@ -22,7 +24,7 @@ class PhpCsFixerTool
     /**
      * PhpCsFixerTool constructor.
      *
-     * @param OutputInterface                  $output
+     * @param OutputInterface $output
      * @param PhpCsFixerToolProcessorInterface $phpCsFixerToolProcessor
      */
     public function __construct(OutputInterface $output, PhpCsFixerToolProcessorInterface $phpCsFixerToolProcessor)
@@ -32,15 +34,15 @@ class PhpCsFixerTool
     }
 
     /**
-     * @param array  $files
-     * @param bool   $psr0
-     * @param bool   $psr1
-     * @param bool   $psr2
-     * @param bool   $symfony
+     * @param array $files
+     * @param bool $psr0
+     * @param bool $psr1
+     * @param bool $psr2
+     * @param bool $symfony
      * @param string $options
      * @param string $errorMessage
      */
-    public function execute(array $files, $psr0, $psr1, $psr2, $symfony, $options, $errorMessage)
+    private function execute(array $files, $psr0, $psr1, $psr2, $symfony, $options, $errorMessage)
     {
         if (true === $psr0) {
             $this->executeTool($files, 'PSR0', $options, $errorMessage);
@@ -60,7 +62,7 @@ class PhpCsFixerTool
     }
 
     /**
-     * @param array  $files
+     * @param array $files
      * @param string $level
      * @param string $options
      * @param string $errorMessage
@@ -88,5 +90,21 @@ class PhpCsFixerTool
         }
 
         $this->output->writeln($outputMessage->getSuccessfulMessage());
+    }
+
+    /**
+     * @param CommandInterface|PhpCsFixerTool $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute(
+            $command->getFiles(),
+            $command->isPsr0(),
+            $command->isPsr1(),
+            $command->isPsr2(),
+            $command->isSymfony(),
+            $command->getOptions(),
+            $command->getErrorMessage()
+        );
     }
 }

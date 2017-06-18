@@ -15,7 +15,7 @@ use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
 use PhpGitHooks\Module\Git\Tests\Stub\FilesCommittedStub;
 use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool;
 use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
-use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
+use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerTool;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
@@ -86,7 +86,7 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
             )
         );
         $this->shouldHandleCommand(
-            new PhpCsFixerToolCommand(
+            new PhpCsFixerTool(
                 $files,
                 $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr0(),
                 $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr1(),

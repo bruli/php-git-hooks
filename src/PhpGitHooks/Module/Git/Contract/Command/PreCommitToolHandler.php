@@ -17,7 +17,7 @@ use PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor;
 use PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter;
 use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool;
 use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
-use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand;
+use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerTool;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintToolCommand;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
@@ -141,7 +141,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
 
             if (true === $phpCsFixerResponse->isPhpCsFixer()) {
                 $this->commandBus->handle(
-                    new PhpCsFixerToolCommand(
+                    new PhpCsFixerTool(
                         $phpFiles,
                         $phpCsFixerResponse->isPhpCsFixerPsr0(),
                         $phpCsFixerResponse->isPhpCsFixerPsr1(),

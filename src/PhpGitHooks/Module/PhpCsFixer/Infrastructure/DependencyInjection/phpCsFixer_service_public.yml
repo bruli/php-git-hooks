@@ -1,6 +1,8 @@
 services:
   phpcsfixer.tool.command.handler:
-    class: PhpGitHooks\Module\PhpCsFixer\Contract\CommandHandler\PhpCsFixerToolCommandHandler
-    arguments: ["@php.cs.fixer.tool"]
+    class: PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolHandler
+    arguments:
+      - "@console.output"
+      - "@php.cs.fixer.tool.processor"
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerToolCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerTool }
