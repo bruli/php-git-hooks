@@ -1,16 +1,25 @@
 services:
   phpunit.tool.command.handler:
-    class: PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\PhpUnitToolCommandHandler
-    arguments: ["@php.unit.tool.executor"]
+    class: PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolHandler
+    arguments:
+      - "@console.output"
+      - "@php.unit.processor"
+      - "@php.unit.randomizer.processor"
     tags:
-      - {name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand }
+      - {name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitTool }
   strict.coverage.tool.command.handler:
-    class: PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\StrictCoverageToolCommandHandler
-    arguments: ["@strict.coverage.tool.executor"]
+    class: PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageToolHandler
+    arguments:
+      - "@console.output"
+      - "@strict.coverage.tool"
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverage }
   guard.coverage.tool.command.handler:
-    class: PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\GuardCoverageToolCommandHandler
-    arguments: ["@guard.coverage.tool"]
+    class: PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageToolHandler
+    arguments:
+      - "@console.output"
+      - "@strict.coverage.processor"
+      - "@guard.coverage.file.reader"
+      - "@guard.coverage.file.writer"
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand }
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverage }

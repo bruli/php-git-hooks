@@ -10,9 +10,9 @@ use PhpGitHooks\Module\Git\Contract\Exception\InvalidPushException;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Tests\Infrastructure\GitUnitTestCase;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverage;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitTool;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverage;
 
 class PrePushToolHandlerTest extends GitUnitTestCase
 {
@@ -82,21 +82,21 @@ class PrePushToolHandlerTest extends GitUnitTestCase
         $this->shouldWriteLnOutput(PrePushToolHandler::PRE_PUSH_HOOK);
         $this->shouldExecutePrePushOriginal($this->remote, $this->url, '');
         $this->shouldHandleCommand(
-            new PhpUnitToolCommand(
+            new PhpUnitTool(
                 $configurationDataResponse->getPrePush()->getPhpUnit()->isPhpunitRandomMode(),
                 $configurationDataResponse->getPrePush()->getPhpUnit()->getPhpunitOptions(),
                 $configurationDataResponse->getPrePush()->getErrorMessage()
             )
         );
         $this->shouldHandleCommand(
-            new StrictCoverageCommand(
+            new StrictCoverage(
                 $configurationDataResponse->getPrePush()->getPhpUnitStrictCoverage()->getMinimum(),
                 $configurationDataResponse->getPrePush()->getErrorMessage()
             )
         );
 
         $this->shouldHandleCommand(
-            new GuardCoverageCommand(
+            new GuardCoverage(
                 $configurationDataResponse->getPreCommit()->getPhpUnitGuardCoverage()->getWarningMessage()
             )
         );

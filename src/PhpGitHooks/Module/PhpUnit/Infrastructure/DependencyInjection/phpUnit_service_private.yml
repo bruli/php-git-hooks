@@ -1,29 +1,9 @@
 services:
-  php.unit.tool.executor:
-    class: PhpGitHooks\Module\PhpUnit\Service\PhpUnitToolExecutor
-    public: false
-    arguments:
-      - "@console.output"
-      - "@php.unit.processor"
-      - "@php.unit.randomizer.processor"
   strict.coverage.tool:
     class: PhpGitHooks\Module\PhpUnit\Service\StrictCoverageTool
     public: false
     arguments:
       - "@strict.coverage.processor"
       - "@console.output"
-  strict.coverage.tool.executor:
-    class: PhpGitHooks\Module\PhpUnit\Service\StrictCoverageToolExecutor
-    public: false
-    arguments:
-      - "@console.output"
-      - "@strict.coverage.tool"
-  guard.coverage.tool:
-    class: PhpGitHooks\Module\PhpUnit\Service\GuardCoverageTool
-    public: false
-    arguments:
-      - "@console.output"
-      - "@strict.coverage.processor"
-      - "@guard.coverage.file.reader"
-      - "@guard.coverage.file.writer"
+
 

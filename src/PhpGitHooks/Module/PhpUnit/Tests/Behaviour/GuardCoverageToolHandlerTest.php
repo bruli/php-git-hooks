@@ -4,27 +4,24 @@ namespace PhpGitHooks\Module\PhpUnit\Tests\Behaviour;
 
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\GuardCoverageToolCommandHandler;
-use PhpGitHooks\Module\PhpUnit\Service\GuardCoverageTool;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverage;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageToolHandler;
 use PhpGitHooks\Module\PhpUnit\Tests\Infrastructure\PhpUnitUnitTestCase;
 
-class GuardCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
+class GuardCoverageToolHandlerTest extends PhpUnitUnitTestCase
 {
     /**
-     * @var GuardCoverageToolCommandHandler
+     * @var GuardCoverageToolHandler
      */
     private $guardCoverageToolCommandHandler;
 
     protected function setUp()
     {
-        $this->guardCoverageToolCommandHandler = new GuardCoverageToolCommandHandler(
-            new GuardCoverageTool(
-                $this->getOutputInterface(),
-                $this->getStrictCoverageProcessor(),
-                $this->getGuardCoverageFileReader(),
-                $this->getGuardCoverageFileWriter()
-            )
+        $this->guardCoverageToolCommandHandler = new GuardCoverageToolHandler(
+            $this->getOutputInterface(),
+            $this->getStrictCoverageProcessor(),
+            $this->getGuardCoverageFileReader(),
+            $this->getGuardCoverageFileWriter()
         );
     }
 
@@ -33,7 +30,7 @@ class GuardCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
      */
     public function itShouldShowWarningMessage()
     {
-        $outputMessage = new PreCommitOutputWriter(GuardCoverageTool::CHECKING_MESSAGE);
+        $outputMessage = new PreCommitOutputWriter(GuardCoverageToolHandler::CHECKING_MESSAGE);
         $currentCoverage = 60.00;
         $previousCoverage = 70.00;
 
@@ -51,7 +48,7 @@ class GuardCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
         $this->shouldWriteGuardCoverage($currentCoverage);
 
         $this->guardCoverageToolCommandHandler->handle(
-            new GuardCoverageCommand(HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT)
+            new GuardCoverage(HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT)
         );
     }
 
@@ -60,29 +57,34 @@ class GuardCoverageToolCommandHandlerTest extends PhpUnitUnitTestCase
      */
     public function itShouldWorksFine()
     {
-        $outputMessage = new PreCommitOutputWriter(GuardCoverageTool::CHECKING_MESSAGE);
+        $outputMessage = new PreCommitOutputWriter(GuardCoverageToolHandler::CHECKING_MESSAGE);
         $currentCoverage = 70.00;
         $previousCoverage = 60.00;
 
         $this->shouldProcessStrictCoverage($currentCoverage);
         $this->shouldWriteOutput($outputMessage->getMessage());
         $this->shouldReadGuardCoverage($previousCoverage);
-        $this->shouldWriteLnOutput($this->buildStrictCoverageSuccessfulMessage($currentCoverage, $previousCoverage,
-            $outputMessage->getSuccessfulMessage()));
+        $this->shouldWriteLnOutput(
+            $this->buildStrictCoverageSuccessfulMessage(
+                $currentCoverage,
+                $previousCoverage,
+                $outputMessage->getSuccessfulMessage()
+            )
+        );
         $this->shouldWriteGuardCoverage($currentCoverage);
 
         $this->guardCoverageToolCommandHandler->handle(
-            new GuardCoverageCommand(HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT)
+            new GuardCoverage(HookQuestions::PHPUNIT_GUARD_COVERAGE_MESSAGE_DEFAULT)
         );
     }
 
     private function buildStrictCoverageSuccessfulMessage($currentCoverage, $previousCoverage, $getSuccessfulMessage)
     {
         return $getSuccessfulMessage .
-        ' <comment>[' .
-        round($currentCoverage, 0) .
-        '% >= ' .
-        round($previousCoverage, 0) .
-        '%]</comment>';
+            ' <comment>[' .
+            round($currentCoverage, 0) .
+            '% >= ' .
+            round($previousCoverage, 0) .
+            '%]</comment>';
     }
 }

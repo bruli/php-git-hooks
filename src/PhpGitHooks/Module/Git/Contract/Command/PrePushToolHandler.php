@@ -12,9 +12,9 @@ use PhpGitHooks\Module\Git\Contract\Exception\InvalidPushException;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Contract\Response\GoodJobLogoResponse;
 use PhpGitHooks\Module\Git\Model\PrePushOriginalExecutorInterface;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverage;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitTool;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverage;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PrePushToolHandler implements CommandHandlerInterface
@@ -77,7 +77,7 @@ class PrePushToolHandler implements CommandHandlerInterface
 
             if (true === $phpunitResponse->isPhpunit()) {
                 $this->commandBus->handle(
-                    new PhpUnitToolCommand(
+                    new PhpUnitTool(
                         $phpunitResponse->isPhpunitRandomMode(),
                         $phpunitResponse->getPhpunitOptions(),
                         $prePushResponse->getErrorMessage()
@@ -88,7 +88,7 @@ class PrePushToolHandler implements CommandHandlerInterface
 
                 if (true === $phpunitStrictCoverageResponse->isPhpunitStrictCoverage()) {
                     $this->commandBus->handle(
-                        new StrictCoverageCommand(
+                        new StrictCoverage(
                             $phpunitStrictCoverageResponse->getMinimum(),
                             $prePushResponse->getErrorMessage()
                         )
@@ -99,7 +99,7 @@ class PrePushToolHandler implements CommandHandlerInterface
 
                 if (true === $phpunitGuardCoverageResponse->isEnabled()) {
                     $this->commandBus->handle(
-                        new GuardCoverageCommand($phpunitGuardCoverageResponse->getWarningMessage())
+                        new GuardCoverage($phpunitGuardCoverageResponse->getWarningMessage())
                     );
                 }
             }

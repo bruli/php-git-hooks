@@ -18,9 +18,9 @@ use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerTool;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintTool;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdTool;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverage;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitTool;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverage;
 use PhpGitHooks\Module\Tests\Infrastructure\Stub\StubCreator;
 
 class PreCommitToolHandlerTest extends GitUnitTestCase
@@ -104,7 +104,7 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
             )
         );
         $this->shouldHandleCommand(
-            new PhpUnitToolCommand(
+            new PhpUnitTool(
                 $configurationDataResponse->getPreCommit()->getPhpUnit()->isPhpunitRandomMode(),
                 $configurationDataResponse->getPreCommit()->getPhpUnit()->getPhpunitOptions(),
                 $configurationDataResponse->getPreCommit()->getErrorMessage()
@@ -112,14 +112,14 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
         );
 
         $this->shouldHandleCommand(
-            new StrictCoverageCommand(
+            new StrictCoverage(
                 $configurationDataResponse->getPreCommit()->getPhpUnitStrictCoverage()->getMinimum(),
                 $configurationDataResponse->getPreCommit()->getErrorMessage()
             )
         );
 
         $this->shouldHandleCommand(
-            new GuardCoverageCommand(
+            new GuardCoverage(
                 $configurationDataResponse->getPreCommit()->getPhpUnitGuardCoverage()->getWarningMessage()
             )
         );

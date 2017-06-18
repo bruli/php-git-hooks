@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\PhpUnit\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 
-class GuardCoverageCommand implements CommandInterface
+class GuardCoverage implements CommandInterface
 {
     /**
      * @var string

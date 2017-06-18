@@ -1,12 +1,15 @@
 <?php
 
-namespace PhpGitHooks\Module\PhpUnit\Service;
+namespace PhpGitHooks\Module\PhpUnit\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Configuration\Domain\MinimumStrictCoverage;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
+use PhpGitHooks\Module\PhpUnit\Service\StrictCoverageTool;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class StrictCoverageToolExecutor
+class StrictCoverageToolHandler implements CommandHandlerInterface
 {
     const EXECUTE_MESSAGE = 'Checking minimum coverage';
     /**
@@ -29,7 +32,11 @@ class StrictCoverageToolExecutor
         $this->strictCoverageTool = $strictCoverageTool;
     }
 
-    public function execute(MinimumStrictCoverage $minimumStrictCoverage, $errorMessage)
+    /**
+     * @param MinimumStrictCoverage $minimumStrictCoverage
+     * @param string $errorMessage
+     */
+    private function execute(MinimumStrictCoverage $minimumStrictCoverage, $errorMessage)
     {
         $outputMessage = new PreCommitOutputWriter(self::EXECUTE_MESSAGE);
         $this->output->write($outputMessage->getMessage());
@@ -38,11 +45,22 @@ class StrictCoverageToolExecutor
     }
 
     /**
-     * @param $currentCoverage
+     * @param string $currentCoverage
      * @return string
      */
     private function printCurrentCoverage($currentCoverage)
     {
         return ' <comment>[' . round($currentCoverage, 0) . '%]</comment>';
+    }
+
+    /**
+     * @param CommandInterface|StrictCoverage $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute(
+            new MinimumStrictCoverage($command->getMinimumCoverage()),
+            $command->getErrorMessage()
+        );
     }
 }

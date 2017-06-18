@@ -1,14 +1,17 @@
 <?php
 
-namespace PhpGitHooks\Module\PhpUnit\Service;
+namespace PhpGitHooks\Module\PhpUnit\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
+use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverage;
 use PhpGitHooks\Module\PhpUnit\Model\GuardCoverageFileReaderInterface;
 use PhpGitHooks\Module\PhpUnit\Model\GuardCoverageFileWriterInterface;
-use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\PhpUnit\Model\StrictCoverageProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GuardCoverageTool
+class GuardCoverageToolHandler implements CommandHandlerInterface
 {
     const CHECKING_MESSAGE = 'Checking your current coverage';
     /**
@@ -59,7 +62,7 @@ class GuardCoverageTool
     /**
      * @param string $warningMessage
      */
-    public function run($warningMessage)
+    private function run($warningMessage)
     {
         $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
         $this->output->write($outputMessage->getMessage());
@@ -96,9 +99,17 @@ class GuardCoverageTool
     private function printGuardCoverage()
     {
         return ' <comment>[' .
-        round($this->currentCoverage, 0) .
-        '% >= ' .
-        round($this->previousCoverage, 0) .
-        '%]</comment>';
+            round($this->currentCoverage, 0) .
+            '% >= ' .
+            round($this->previousCoverage, 0) .
+            '%]</comment>';
+    }
+
+    /**
+     * @param CommandInterface|GuardCoverage $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->run($command->getWarningMessage());
     }
 }

@@ -4,7 +4,7 @@ namespace PhpGitHooks\Module\PhpUnit\Contract\Command;
 
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 
-class PhpUnitToolCommand implements CommandInterface
+class PhpUnitTool implements CommandInterface
 {
     /**
      * @var bool

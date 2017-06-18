@@ -20,9 +20,9 @@ use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerTool;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintTool;
 use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdTool;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverage;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitTool;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverage;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PreCommitToolHandler implements CommandHandlerInterface
@@ -169,7 +169,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
 
             if (true === $phpunitResponse->isPhpunit()) {
                 $this->commandBus->handle(
-                    new PhpUnitToolCommand(
+                    new PhpUnitTool(
                         $phpunitResponse->isPhpunitRandomMode(),
                         $phpunitResponse->getPhpunitOptions(),
                         $preCommitResponse->getErrorMessage()
@@ -180,7 +180,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
 
                 if (true === $phpunitStrictCoverageResponse->isPhpunitStrictCoverage()) {
                     $this->commandBus->handle(
-                        new StrictCoverageCommand(
+                        new StrictCoverage(
                             $phpunitStrictCoverageResponse->getMinimum(),
                             $preCommitResponse->getErrorMessage()
                         )
@@ -191,7 +191,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
 
                 if (true === $phpunitGuardCoverageResponse->isEnabled()) {
                     $this->commandBus->handle(
-                        new GuardCoverageCommand(
+                        new GuardCoverage(
                             $phpunitGuardCoverageResponse->getWarningMessage()
                         )
                     );

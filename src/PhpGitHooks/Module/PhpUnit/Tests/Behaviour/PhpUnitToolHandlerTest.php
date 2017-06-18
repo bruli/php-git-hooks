@@ -5,27 +5,24 @@ namespace PhpGitHooks\Module\PhpUnit\Tests\Behaviour;
 use PhpGitHooks\Module\Configuration\Service\HookQuestions;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
-use PhpGitHooks\Module\PhpUnit\Contract\CommandHandler\PhpUnitToolCommandHandler;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitTool;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolHandler;
 use PhpGitHooks\Module\PhpUnit\Contract\Exception\PhpUnitViolationException;
-use PhpGitHooks\Module\PhpUnit\Service\PhpUnitToolExecutor;
 use PhpGitHooks\Module\PhpUnit\Tests\Infrastructure\PhpUnitUnitTestCase;
 
-class PhpUnitToolCommandHandlerTest extends PhpUnitUnitTestCase
+class PhpUnitToolHandlerTest extends PhpUnitUnitTestCase
 {
     /**
-     * @var PhpUnitToolCommandHandler
+     * @var PhpUnitToolHandler
      */
     private $phpUnitToolCommandHandler;
 
     protected function setUp()
     {
-        $this->phpUnitToolCommandHandler = new PhpUnitToolCommandHandler(
-            new PhpUnitToolExecutor(
-                $this->getOutputInterface(),
-                $this->getPhpUnitProcessor(),
-                $this->getPhpUnitProcessor()
-            )
+        $this->phpUnitToolCommandHandler = new PhpUnitToolHandler(
+            $this->getOutputInterface(),
+            $this->getPhpUnitProcessor(),
+            $this->getPhpUnitProcessor()
         );
     }
 
@@ -38,14 +35,14 @@ class PhpUnitToolCommandHandlerTest extends PhpUnitUnitTestCase
 
         $options = '--testsuite default';
         $errorMessage = HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT;
-        $outputMessage = new PreCommitOutputWriter(PhpUnitToolExecutor::EXECUTING_MESSAGE);
+        $outputMessage = new PreCommitOutputWriter(PhpUnitToolHandler::EXECUTING_MESSAGE);
 
         $this->shouldWriteLnOutput($outputMessage->getMessage());
         $this->shouldProcessPhpUnit($options, false);
         $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage));
 
         $this->phpUnitToolCommandHandler->handle(
-            new PhpUnitToolCommand(
+            new PhpUnitTool(
                 true,
                 $options,
                 $errorMessage
@@ -60,13 +57,13 @@ class PhpUnitToolCommandHandlerTest extends PhpUnitUnitTestCase
     {
         $options = '--testsuite default';
         $errorMessage = HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT;
-        $outputMessage = new PreCommitOutputWriter(PhpUnitToolExecutor::EXECUTING_MESSAGE);
+        $outputMessage = new PreCommitOutputWriter(PhpUnitToolHandler::EXECUTING_MESSAGE);
 
         $this->shouldWriteLnOutput($outputMessage->getMessage());
         $this->shouldProcessPhpUnit($options, true);
 
         $this->phpUnitToolCommandHandler->handle(
-            new PhpUnitToolCommand(
+            new PhpUnitTool(
                 true,
                 $options,
                 $errorMessage

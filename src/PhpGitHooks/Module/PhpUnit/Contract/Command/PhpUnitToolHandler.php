@@ -1,14 +1,17 @@
 <?php
 
-namespace PhpGitHooks\Module\PhpUnit\Service;
+namespace PhpGitHooks\Module\PhpUnit\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
+use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitTool;
 use PhpGitHooks\Module\PhpUnit\Contract\Exception\PhpUnitViolationException;
 use PhpGitHooks\Module\PhpUnit\Model\PhpUnitProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PhpUnitToolExecutor
+class PhpUnitToolHandler implements CommandHandlerInterface
 {
     const EXECUTING_MESSAGE = 'Running unit tests';
     /**
@@ -27,7 +30,7 @@ class PhpUnitToolExecutor
     /**
      * PhpUnitTool constructor.
      *
-     * @param OutputInterface           $output
+     * @param OutputInterface $output
      * @param PhpUnitProcessorInterface $phpUnitProcessor
      * @param PhpUnitProcessorInterface $phpUnitRandomizerProcessor
      */
@@ -48,7 +51,7 @@ class PhpUnitToolExecutor
      *
      * @throws PhpUnitViolationException
      */
-    public function execute($randomMode, $options, $errorMessage)
+    private function execute($randomMode, $options, $errorMessage)
     {
         $outputMessage = new PreCommitOutputWriter(self::EXECUTING_MESSAGE);
         $this->output->writeln($outputMessage->getMessage());
@@ -63,7 +66,7 @@ class PhpUnitToolExecutor
     }
 
     /**
-     * @param bool   $randomMode
+     * @param bool $randomMode
      * @param string $options
      *
      * @return bool
@@ -73,5 +76,17 @@ class PhpUnitToolExecutor
         return true === $randomMode ? $this->phpUnitRandomizerProcessor->process(
             $options
         ) : $this->phpUnitProcessor->process($options);
+    }
+
+    /**
+     * @param CommandInterface|PhpUnitTool $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute(
+            $command->isRandomMode(),
+            $command->getOptions(),
+            $command->getErrorMessage()
+        );
     }
 }
