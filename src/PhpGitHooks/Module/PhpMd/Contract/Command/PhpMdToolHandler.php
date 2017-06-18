@@ -1,14 +1,16 @@
 <?php
 
-namespace PhpGitHooks\Module\PhpMd\Service;
+namespace PhpGitHooks\Module\PhpMd\Contract\Command;
 
+use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
+use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
 use PhpGitHooks\Module\PhpMd\Contract\Exception\PhpMdViolationsException;
 use PhpGitHooks\Module\PhpMd\Model\PhpMdToolProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PhpMdTool
+class PhpMdToolHandler implements CommandHandlerInterface
 {
     const CHECKING_MESSAGE = 'Checking code mess with PHPMD';
     /**
@@ -39,7 +41,7 @@ class PhpMdTool
      *
      * @throws PhpMdViolationsException
      */
-    public function execute(array  $files, $options, $errorMessage)
+    private function execute(array  $files, $options, $errorMessage)
     {
         $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
         $this->output->write($outputMessage->getMessage());
@@ -60,5 +62,13 @@ class PhpMdTool
         }
 
         $this->output->writeln($outputMessage->getSuccessfulMessage());
+    }
+
+    /**
+     * @param CommandInterface|PhpMdTool $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        $this->execute($command->getFiles(), $command->getOptions(), $command->getErrorMessage());
     }
 }

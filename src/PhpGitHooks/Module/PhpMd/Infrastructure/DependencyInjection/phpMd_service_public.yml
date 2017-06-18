@@ -1,6 +1,8 @@
 services:
   php.md.tool.command.handler:
-    class: PhpGitHooks\Module\PhpMd\Contract\CommandHandler\PhpMdToolCommandHandler
-    arguments: ["@php.md.tool"]
+    class: PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolHandler
+    arguments:
+      - "@console.output"
+      - "@php.md.tool.processor"
     tags:
-      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand}
+      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdTool }

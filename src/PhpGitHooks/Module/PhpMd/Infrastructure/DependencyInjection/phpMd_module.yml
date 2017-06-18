@@ -1,4 +1,3 @@
 imports:
   - { resource: "phpMd_infrastructure.yml" }
-  - { resource: "phpMd_service_private.yml" }
   - { resource: "phpMd_service_public.yml" }

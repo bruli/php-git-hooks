@@ -1,7 +1,0 @@
-services:
-  php.md.tool:
-    class: PhpGitHooks\Module\PhpMd\Service\PhpMdTool
-    public: false
-    arguments:
-      - "@console.output"
-      - "@php.md.tool.processor"

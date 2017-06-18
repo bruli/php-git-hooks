@@ -17,7 +17,7 @@ use PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool;
 use PhpGitHooks\Module\PhpCs\Contract\Command\PhpCsTool;
 use PhpGitHooks\Module\PhpCsFixer\Contract\Command\PhpCsFixerTool;
 use PhpGitHooks\Module\PhpLint\Contract\Command\PhpLintTool;
-use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolCommand;
+use PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdTool;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\GuardCoverageCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolCommand;
 use PhpGitHooks\Module\PhpUnit\Contract\Command\StrictCoverageCommand;
@@ -97,7 +97,7 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
             )
         );
         $this->shouldHandleCommand(
-            new PhpMdToolCommand(
+            new PhpMdTool(
                 $files,
                 $configurationDataResponse->getPreCommit()->getPhpMd()->getPhpMdOptions(),
                 $configurationDataResponse->getPreCommit()->getErrorMessage()
