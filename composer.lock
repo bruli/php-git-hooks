@@ -149,22 +149,22 @@
         },
         {
             "name": "bruli/php-value-objects",
-            "version": "v0.3.1",
+            "version": "v0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/php-value-objects.git",
-                "reference": "0b9dc64c0dba571eea779f330de1d636998088f6"
+                "reference": "459f4e7a8012964f45a1d60e4fd5de7113d50d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/php-value-objects/zipball/0b9dc64c0dba571eea779f330de1d636998088f6",
-                "reference": "0b9dc64c0dba571eea779f330de1d636998088f6",
+                "url": "https://api.github.com/repos/bruli/php-value-objects/zipball/459f4e7a8012964f45a1d60e4fd5de7113d50d2f",
+                "reference": "459f4e7a8012964f45a1d60e4fd5de7113d50d2f",
                 "shasum": ""
             },
             "require": {
                 "beberlei/assert": "^2.5",
                 "php": ">=5.6",
-                "symfony/intl": "^3.1"
+                "symfony/intl": "~2.8|~3.0"
             },
             "require-dev": {
                 "fzaninotto/faker": "^1.6",
@@ -193,7 +193,7 @@
                 "php",
                 "value"
             ],
-            "time": "2017-02-09T08:07:09+00:00"
+            "time": "2017-07-27T12:42:19+00:00"
         },
         {
             "name": "doctrine/annotations",
