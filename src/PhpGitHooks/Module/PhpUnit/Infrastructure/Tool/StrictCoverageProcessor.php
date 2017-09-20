@@ -29,7 +29,7 @@ class StrictCoverageProcessor implements StrictCoverageProcessorInterface
     public function process()
     {
         $tool = $this->toolPathFinder->find('phpunit');
-        $command = 'php '.$tool.' --coverage-text|grep Classes|cut -d " " -f 4|cut -d "%" -f 1';
+        $command = 'php '.$tool.' --coverage-text|grep Classes|cut -d " " -f 5|cut -d "%" -f 1';
 
         $process = new Process($command);
         $process->run();
