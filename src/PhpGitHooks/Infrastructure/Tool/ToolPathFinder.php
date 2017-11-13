@@ -35,6 +35,11 @@ class ToolPathFinder
             }
         }
 
-        return 'bin'.DIRECTORY_SEPARATOR.$tool;
+        $binToolPath = 'bin' . DIRECTORY_SEPARATOR . $tool;
+        if (is_dir('bin')) {
+            return $binToolPath;
+        }
+
+        return 'vendor' . DIRECTORY_SEPARATOR . $binToolPath;
     }
 }
