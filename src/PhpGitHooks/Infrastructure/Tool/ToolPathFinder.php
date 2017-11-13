@@ -30,7 +30,7 @@ class ToolPathFinder
             $package = $this->installedPackages[$this->tools[$tool]];
             foreach ($package['bin'] as $bin) {
                 if (preg_match("#${tool}$#", $bin)) {
-                    return dirname(__FILE__).self::COMPOSER_VENDOR_DIR.$package['name'].DIRECTORY_SEPARATOR.$bin;
+                    return __DIR__.self::COMPOSER_VENDOR_DIR.$package['name'].DIRECTORY_SEPARATOR.$bin;
                 }
             }
         }
