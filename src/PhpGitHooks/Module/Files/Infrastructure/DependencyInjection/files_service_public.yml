@@ -1,13 +1,16 @@
 services:
-  composer.files.extractor.query.handler:
-    class: PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorHandler
+  _defaults:
+    public: true
+  PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorHandler:
     tags:
       - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractor }
-  json.files.extractor.query.handler:
-    class: PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorHandler
+  PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorHandler:
     tags:
       - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractor }
-  php.files.extractor.query.handler:
-    class: PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorHandler
+  PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorHandler:
     tags:
       - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractor }
+
+  composer.files.extractor.query.handler: '@PhpGitHooks\Module\Files\Contract\Query\ComposerFilesExtractorHandler'
+  json.files.extractor.query.handler: '@PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractorHandler'
+  php.files.extractor.query.handler: '@PhpGitHooks\Module\Files\Contract\Query\PhpFilesExtractorHandler'

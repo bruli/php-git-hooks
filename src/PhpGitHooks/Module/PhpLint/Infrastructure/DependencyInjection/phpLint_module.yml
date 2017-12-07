@@ -1,3 +1,0 @@
-imports:
-  - { resource: "phpLint_infrastructure.yml" }
-  - { resource: "phpLint_service_public.yml" }

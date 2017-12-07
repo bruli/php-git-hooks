@@ -1,4 +1,0 @@
-imports:
-  - { resource: "git_service_private.yml" }
-  - { resource: "git_service_public.yml" }
-  - { resource: "git_infrastructure.yml" }

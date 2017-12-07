@@ -1,4 +1,0 @@
-imports:
-  - { resource: "jsonLint_infrastructure.yml"}
-  - { resource: "jsonLint_service_private.yml"}
-  - { resource: "jsonLint_service_public.yml"}

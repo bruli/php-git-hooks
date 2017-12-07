@@ -1,4 +1,7 @@
 services:
-  jsonlint.processor:
-    class: PhpGitHooks\Module\JsonLint\Infrastructure\Tool\JsonLintProcessor
+  _defaults:
+    public: true
+  PhpGitHooks\Module\JsonLint\Infrastructure\Tool\JsonLintProcessor:
     arguments: ["@tool.path.finder"]
+
+  jsonlint.processor: '@PhpGitHooks\Module\JsonLint\Infrastructure\Tool\JsonLintProcessor'

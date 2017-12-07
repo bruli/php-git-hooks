@@ -1,8 +1,11 @@
 services:
-  jsonlint.tool.command.handler:
-    class: PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintToolHandler
+  _defaults:
+    public: true
+  PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintToolHandler:
     arguments:
       - "@jsonlint.tool.executor"
       - "@bruli.query.bus"
     tags:
      - { name: bruli.command_handler, handles: \PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintTool }
+
+  jsonlint.tool.command.handler: '@PhpGitHooks\Module\JsonLint\Contract\Command\JsonLintToolHandler'

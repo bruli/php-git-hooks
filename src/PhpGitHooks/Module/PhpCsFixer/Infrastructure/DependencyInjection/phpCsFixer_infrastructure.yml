@@ -1,4 +1,7 @@
 services:
-  php.cs.fixer.tool.processor:
-    class: PhpGitHooks\Module\PhpCsFixer\Infrastructure\Tool\PhpCsFixerToolProcessor
+  _defaults:
+    public: true
+  PhpGitHooks\Module\PhpCsFixer\Infrastructure\Tool\PhpCsFixerToolProcessor:
     arguments: ["@tool.path.finder"]
+
+  php.cs.fixer.tool.processor: '@PhpGitHooks\Module\PhpCsFixer\Infrastructure\Tool\PhpCsFixerToolProcessor'

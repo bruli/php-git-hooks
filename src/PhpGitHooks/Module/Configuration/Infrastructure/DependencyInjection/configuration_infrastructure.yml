@@ -1,7 +1,12 @@
 services:
-  configuration.file.reader:
-    class: PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileReader
-  configuration.file.writer:
-    class: PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileWriter
-  hook.copier:
-    class: PhpGitHooks\Module\Configuration\Infrastructure\Hook\HookCopier
+  _defaults:
+    public: true
+  PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileReader:
+  PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileWriter:
+  PhpGitHooks\Module\Configuration\Infrastructure\Hook\HookCopier:
+
+  configuration.file.reader: '@PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileReader'
+  configuration.file.writer: '@PhpGitHooks\Module\Configuration\Infrastructure\Persistence\Disk\ConfigurationFileWriter'
+  hook.copier: '@PhpGitHooks\Module\Configuration\Infrastructure\Hook\HookCopier'
+
+

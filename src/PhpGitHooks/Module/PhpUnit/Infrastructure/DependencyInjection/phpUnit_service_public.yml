@@ -1,4 +1,6 @@
 services:
+  _defaults:
+    public: true
   phpunit.tool.command.handler:
     class: PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitToolHandler
     arguments:

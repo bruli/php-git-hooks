@@ -1,14 +1,17 @@
 services:
-  tool.title.output.writer:
-    class: PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter
+  _defaults:
+    public: true
+  PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter:
     arguments: ["@console.output"]
-  commit.message.finder:
-    class: PhpGitHooks\Module\Git\Infrastructure\Git\CommitMessageFinder
-  merge.validator:
-    class: PhpGitHooks\Module\Git\Infrastructure\Git\MergeValidator
-  pre.push.original.executor:
-    class: PhpGitHooks\Module\Git\Infrastructure\Git\PrePushOriginalExecutor
-  gitignore.file.reader:
-    class: PhpGitHooks\Module\Git\Infrastructure\Git\GitIgnoreFileReader
-  gitignore.file.writer:
-    class: PhpGitHooks\Module\Git\Infrastructure\Git\GitIgnoreFileWriter
+  PhpGitHooks\Module\Git\Infrastructure\Git\CommitMessageFinder:
+  PhpGitHooks\Module\Git\Infrastructure\Git\MergeValidator:
+  PhpGitHooks\Module\Git\Infrastructure\Git\PrePushOriginalExecutor:
+  PhpGitHooks\Module\Git\Infrastructure\Git\GitIgnoreFileReader:
+  PhpGitHooks\Module\Git\Infrastructure\Git\GitIgnoreFileWriter:
+
+  tool.title.output.writer: '@PhpGitHooks\Module\Git\Infrastructure\OutputWriter\ToolTittleOutputWriter'
+  commit.message.finder: '@PhpGitHooks\Module\Git\Infrastructure\Git\CommitMessageFinder'
+  merge.validator: '@PhpGitHooks\Module\Git\Infrastructure\Git\MergeValidator'
+  pre.push.original.executor: '@PhpGitHooks\Module\Git\Infrastructure\Git\PrePushOriginalExecutor'
+  gitignore.file.reader: '@PhpGitHooks\Module\Git\Infrastructure\Git\GitIgnoreFileReader'
+  gitignore.file.writer: '@PhpGitHooks\Module\Git\Infrastructure\Git\GitIgnoreFileWriter'

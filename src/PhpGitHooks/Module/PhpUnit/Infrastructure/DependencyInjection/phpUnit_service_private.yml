@@ -1,4 +1,6 @@
 services:
+  _defaults:
+    public: true
   strict.coverage.tool:
     class: PhpGitHooks\Module\PhpUnit\Service\StrictCoverageTool
     public: false

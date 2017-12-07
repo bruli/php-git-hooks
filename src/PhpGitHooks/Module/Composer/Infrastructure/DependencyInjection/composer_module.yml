@@ -1,2 +1,0 @@
-imports:
-  - { resource: "composer_service_public.yml" }

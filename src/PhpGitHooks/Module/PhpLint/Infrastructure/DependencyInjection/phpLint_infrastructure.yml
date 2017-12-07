@@ -1,3 +1,6 @@
 services:
-  phplint.tool.processor:
-    class: PhpGitHooks\Module\PhpLint\Infrastructure\Tool\PhpLintToolProcessor
+  _defaults:
+    public: true
+  PhpGitHooks\Module\PhpLint\Infrastructure\Tool\PhpLintToolProcessor:
+
+  phplint.tool.processor: '@PhpGitHooks\Module\PhpLint\Infrastructure\Tool\PhpLintToolProcessor'

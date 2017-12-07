@@ -1,16 +1,19 @@
 imports:
-  - { resource: "./../../src/PhpGitHooks/Module/Configuration/Infrastructure/DependencyInjection/configuration_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/Git/Infrastructure/DependencyInjection/git_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/Composer/Infrastructure/DependencyInjection/composer_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/JsonLint/Infrastructure/DependencyInjection/jsonLint_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/PhpLint/Infrastructure/DependencyInjection/phpLint_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/PhpCs/Infrastructure/DependencyInjection/phpCs_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/PhpCsFixer/Infrastructure/DependencyInjection/phpCsFixer_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/PhpUnit/Infrastructure/DependencyInjection/phpUnit_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/Files/Infrastructure/DependencyInjection/files_module.yml" }
-  - { resource: "./../../src/PhpGitHooks/Module/PhpMd/Infrastructure/DependencyInjection/phpMd_module.yml" }
+  - { resource: "./../../src/PhpGitHooks/Module/Configuration/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/Git/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/Composer/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/JsonLint/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/PhpLint/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/PhpCs/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/PhpCsFixer/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/PhpUnit/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/Files/Infrastructure/DependencyInjection/" }
+  - { resource: "./../../src/PhpGitHooks/Module/PhpMd/Infrastructure/DependencyInjection/" }
 services:
-  console.output:
-    class: Symfony\Component\Console\Output\ConsoleOutput
-  tool.path.finder:
-    class: PhpGitHooks\Infrastructure\Tool\ToolPathFinder
+    _defaults:
+      public: true
+    Symfony\Component\Console\Output\ConsoleOutput:
+    PhpGitHooks\Infrastructure\Tool\ToolPathFinder:
+
+    console.output: '@Symfony\Component\Console\Output\ConsoleOutput'
+    tool.path.finder: '@PhpGitHooks\Infrastructure\Tool\ToolPathFinder'

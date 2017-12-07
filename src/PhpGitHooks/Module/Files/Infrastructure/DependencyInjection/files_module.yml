@@ -1,2 +1,0 @@
-imports:
-  - { resource: "files_service_public.yml" }

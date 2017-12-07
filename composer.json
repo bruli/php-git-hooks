@@ -26,15 +26,15 @@
         "phpunit/phpunit": "~6.0",
         "squizlabs/php_codesniffer": "~2.8",
         "phpmd/phpmd": "~2.6",
-        "symfony/dependency-injection": "~2.7|~3.0",
-        "symfony/config": "~2.7|~3.0",
-        "symfony/yaml": "~2.7|~3.0",
+        "symfony/dependency-injection": "~4.0",
+        "symfony/config": "~4.0",
+        "symfony/yaml": "~4.0",
         "fiunchinho/phpunit-randomizer": "~3.0",
         "seld/jsonlint": "~1.5",
         "bruli/ignore-files": "~1.0",
         "beberlei/assert": "~2.7",
         "bruli/php-value-objects": "~0.1",
-        "bruli/event-bus-bundle": "~0.2"
+        "bruli/event-bus-bundle": "^0.4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.6",

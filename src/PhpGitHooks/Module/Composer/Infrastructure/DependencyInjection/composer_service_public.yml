@@ -1,8 +1,11 @@
 services:
-  composer.tool.handler:
-    class: PhpGitHooks\Module\Composer\Contract\Command\ComposerToolHandler
+  _defaults:
+    public: true
+  PhpGitHooks\Module\Composer\Contract\Command\ComposerToolHandler:
     arguments:
       - "@bruli.query.bus"
       - "@console.output"
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Composer\Contract\Command\ComposerTool }
+
+  composer.tool.handler: '@PhpGitHooks\Module\Composer\Contract\Command\ComposerToolHandler'

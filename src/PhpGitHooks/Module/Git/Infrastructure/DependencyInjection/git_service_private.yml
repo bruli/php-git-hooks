@@ -1,5 +1,7 @@
 services:
-  files.commited.extractor:
-    class: PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor
+  _defaults:
+    public: true
+  PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor:
     public: false
 
+  files.commited.extractor: '@PhpGitHooks\Module\Git\Infrastructure\Files\FilesCommittedExtractor'

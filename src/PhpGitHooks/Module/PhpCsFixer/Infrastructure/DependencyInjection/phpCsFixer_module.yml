@@ -1,3 +1,0 @@
-imports:
-  - { resource: "phpCsFixer_service_public.yml" }
-  - { resource: "phpCsFixer_infrastructure.yml" }

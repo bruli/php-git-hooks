@@ -1,6 +1,7 @@
 services:
-  pre.commit.tool.command.handler:
-    class: PhpGitHooks\Module\Git\Contract\Command\PreCommitToolHandler
+  _defaults:
+    public: true
+  PhpGitHooks\Module\Git\Contract\Command\PreCommitToolHandler:
     arguments:
           - "@console.output"
           - "@files.commited.extractor"
@@ -9,16 +10,14 @@ services:
           - "@tool.title.output.writer"
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PreCommitTool}
-  commit.msg.handler:
-    class: PhpGitHooks\Module\Git\Contract\Command\CommitMsgHandler
+  PhpGitHooks\Module\Git\Contract\Command\CommitMsgHandler:
     arguments:
           - "@merge.validator"
           - "@bruli.query.bus"
           - "@commit.message.finder"
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\CommitMsg }
-  pre.push.tool.command.handler:
-    class: PhpGitHooks\Module\Git\Contract\Command\PrePushToolHandler
+  PhpGitHooks\Module\Git\Contract\Command\PrePushToolHandler:
     arguments:
       - "@bruli.query.bus"
       - "@pre.push.original.executor"
@@ -26,13 +25,17 @@ services:
       - "@bruli.command.bus"
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\PrePushTool }
-  gitignore.writer.command.handler:
-    class: PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterHandler
+  PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterHandler:
     arguments: ["@gitignore.file.writer"]
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriter }
-  gitignore.extractor.query.handler:
-    class: PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorHandler
+  PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorHandler:
     arguments: ["@gitignore.file.reader"]
     tags:
       - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractor }
+
+  pre.commit.tool.command.handler: '@PhpGitHooks\Module\Git\Contract\Command\PreCommitToolHandler'
+  commit.msg.handler: '@PhpGitHooks\Module\Git\Contract\Command\CommitMsgHandler'
+  pre.push.tool.command.handler: '@PhpGitHooks\Module\Git\Contract\Command\PrePushToolHandler'
+  gitignore.writer.command.handler: '@PhpGitHooks\Module\Git\Contract\Command\GitIgnoreWriterHandler'
+  gitignore.extractor.query.handler: '@PhpGitHooks\Module\Git\Contract\Query\GitIgnoreExtractorHandler'

@@ -1,8 +1,11 @@
 services:
-  php.md.tool.command.handler:
-    class: PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolHandler
+  _defaults:
+    public: true
+  PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolHandler:
     arguments:
       - "@console.output"
       - "@php.md.tool.processor"
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdTool }
+
+  php.md.tool.command.handler: '@PhpGitHooks\Module\PhpMd\Contract\Command\PhpMdToolHandler'

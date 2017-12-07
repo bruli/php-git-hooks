@@ -1,17 +1,20 @@
 services:
-  configuration.processor.handler:
-    class: PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorHandler
+  _defaults:
+    public: true
+  PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorHandler:
     arguments:
           - "@configuration.file.reader"
           - "@pre.commit.processor"
-          - "@commit.msg.processor"
+          - '@PhpGitHooks\Module\Configuration\Service\CommitMsgProcessor'
           - "@configuration.file.writer"
           - "@hook.copier"
           - "@pre.push.processor"
     tags:
       - { name: bruli.command_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessor}
-  configuration.data.finder.handler:
-    class: PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderHandler
+  PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderHandler:
     arguments: ["@configuration.file.reader"]
     tags:
       - { name: bruli.query_handler, handles: \PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinder }
+
+  configuration.processor.handler: '@PhpGitHooks\Module\Configuration\Contract\Command\ConfigurationProcessorHandler'
+  configuration.data.finder.handler: '@PhpGitHooks\Module\Configuration\Contract\Query\ConfigurationDataFinderHandler'

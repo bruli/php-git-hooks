@@ -1,4 +1,0 @@
-imports:
-  - { resource: "configuration_infrastructure.yml" }
-  - { resource: "configuration_service_public.yml" }
-  - { resource: "configuration_service_private.yml" }

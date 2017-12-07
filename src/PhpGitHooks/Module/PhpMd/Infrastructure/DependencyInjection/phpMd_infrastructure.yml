@@ -1,4 +1,7 @@
 services:
-  php.md.tool.processor:
-    class: PhpGitHooks\Module\PhpMd\Infrastructure\Tool\PhpMdToolProcessor
+  _defaults:
+    public: true
+  PhpGitHooks\Module\PhpMd\Infrastructure\Tool\PhpMdToolProcessor:
     arguments: ["@tool.path.finder"]
+
+  php.md.tool.processor: '@PhpGitHooks\Module\PhpMd\Infrastructure\Tool\PhpMdToolProcessor'
