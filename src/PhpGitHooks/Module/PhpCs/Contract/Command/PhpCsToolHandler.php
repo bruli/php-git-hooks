@@ -65,6 +65,7 @@ class PhpCsToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|PhpCsTool $command
+     * @throws PhpCsViolationException
      */
     public function handle(CommandInterface $command)
     {

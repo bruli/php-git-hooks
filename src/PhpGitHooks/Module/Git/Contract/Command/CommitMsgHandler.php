@@ -84,6 +84,7 @@ class CommitMsgHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|CommitMsg $command
+     * @throws InvalidCommitMessageException
      */
     public function handle(CommandInterface $command)
     {
