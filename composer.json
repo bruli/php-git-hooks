@@ -34,7 +34,7 @@
         "bruli/ignore-files": "~1.0",
         "beberlei/assert": "~2.7",
         "bruli/php-value-objects": "~0.1",
-        "bruli/event-bus-bundle": "^0.4.0",
+        "bruli/event-bus-bundle": "^0.4",
         "symfony/flex": "~1.0"
     },
     "require-dev": {
