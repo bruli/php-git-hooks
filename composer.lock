@@ -63,23 +63,28 @@
         },
         {
             "name": "bruli/event-bus-bundle",
-            "version": "0.2",
+            "version": "0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bruli/event-bus-bundle.git",
-                "reference": "0e493988781fea6035ab5b3d9bfeca46038fb130"
+                "reference": "b3e496f8261fac99d34a771d02960b085b9e97be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bruli/event-bus-bundle/zipball/0e493988781fea6035ab5b3d9bfeca46038fb130",
-                "reference": "0e493988781fea6035ab5b3d9bfeca46038fb130",
+                "url": "https://api.github.com/repos/bruli/event-bus-bundle/zipball/b3e496f8261fac99d34a771d02960b085b9e97be",
+                "reference": "b3e496f8261fac99d34a771d02960b085b9e97be",
                 "shasum": ""
             },
             "require": {
-                "symfony/config": "~2.3|~3.0",
-                "symfony/dependency-injection": "~2.3|~3.0",
-                "symfony/http-kernel": "^3.1",
-                "symfony/yaml": "~2.3|~3.0"
+                "symfony/config": "~3.0",
+                "symfony/dependency-injection": "~3.0",
+                "symfony/http-kernel": "~3.0",
+                "symfony/yaml": "~3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.9",
+                "phpunit/phpunit": "^6.2",
+                "symfony/console": "~3.0"
             },
             "type": "library",
             "autoload": {
@@ -100,10 +105,11 @@
             "description": "Bundle to use event bus in symfony projects",
             "keywords": [
                 "command bus",
+                "cqrs",
                 "event bus",
                 "symfony"
             ],
-            "time": "2016-10-28T10:10:37+00:00"
+            "time": "2017-12-07T08:56:36+00:00"
         },
         {
             "name": "bruli/ignore-files",
