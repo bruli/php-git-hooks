@@ -5,7 +5,6 @@ namespace PhpGitHooks\Module\PhpCs\Infrastructure\Tool;
 use PhpGitHooks\Infrastructure\Tool\ToolPathFinder;
 use PhpGitHooks\Module\PhpCs\Model\PhpCsToolProcessorInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 class PhpCsToolProcessor implements PhpCsToolProcessorInterface
 {
@@ -47,7 +46,7 @@ class PhpCsToolProcessor implements PhpCsToolProcessorInterface
      */
     private function execute($file, $standard, $ignore)
     {
-        $processBuilder = new ProcessBuilder(
+        $process = new Process(
             [
                 'php',
                 $this->toolPathFinder->find('phpcs'),
@@ -57,7 +56,6 @@ class PhpCsToolProcessor implements PhpCsToolProcessorInterface
             ]
         );
 
-        $process = $processBuilder->getProcess();
         $process->run();
 
         return $process;

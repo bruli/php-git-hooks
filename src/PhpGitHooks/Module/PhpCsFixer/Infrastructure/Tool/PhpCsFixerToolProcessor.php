@@ -5,7 +5,6 @@ namespace PhpGitHooks\Module\PhpCsFixer\Infrastructure\Tool;
 use PhpGitHooks\Infrastructure\Tool\ToolPathFinder;
 use PhpGitHooks\Module\PhpCsFixer\Model\PhpCsFixerToolProcessorInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 class PhpCsFixerToolProcessor implements PhpCsFixerToolProcessorInterface
 {
@@ -60,9 +59,8 @@ class PhpCsFixerToolProcessor implements PhpCsFixerToolProcessorInterface
             $arguments = array_merge($arguments, explode(' ', trim($options)));
         }
 
-        $processBuilder = new ProcessBuilder($arguments);
+        $process = new Process($arguments);
 
-        $process = $processBuilder->getProcess();
         $process->run();
 
         return $process;
