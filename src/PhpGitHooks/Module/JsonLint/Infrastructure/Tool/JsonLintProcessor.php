@@ -5,7 +5,6 @@ namespace PhpGitHooks\Module\JsonLint\Infrastructure\Tool;
 use PhpGitHooks\Infrastructure\Tool\ToolPathFinder;
 use PhpGitHooks\Module\JsonLint\Model\JsonLintProcessorInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 class JsonLintProcessor implements JsonLintProcessorInterface
 {
@@ -43,7 +42,7 @@ class JsonLintProcessor implements JsonLintProcessorInterface
      */
     private function execute($file)
     {
-        $processBuilder = new ProcessBuilder(
+        $process = new Process(
             [
                 'php',
                 $this->toolPathFinder->find('jsonlint'),
@@ -51,7 +50,6 @@ class JsonLintProcessor implements JsonLintProcessorInterface
             ]
         );
 
-        $process = $processBuilder->getProcess();
         $process->run();
 
         return $process;
