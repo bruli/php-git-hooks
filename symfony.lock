@@ -1,0 +1,5 @@
+{
+    "symfony/flex": {
+        "version": "v1.0.46"
+    }
+}
