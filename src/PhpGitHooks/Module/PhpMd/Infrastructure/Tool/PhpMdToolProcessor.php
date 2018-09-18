@@ -59,6 +59,6 @@ class PhpMdToolProcessor implements PhpMdToolProcessorInterface
      */
     private function setError(Process $process)
     {
-        return false === $process->isSuccessful() ? $process->getOutput() : null;
+        return false === $process->isSuccessful() ? $process->getErrorOutput() : null;
     }
 }

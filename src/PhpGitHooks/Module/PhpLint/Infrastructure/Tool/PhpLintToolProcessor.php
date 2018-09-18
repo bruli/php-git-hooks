@@ -46,6 +46,6 @@ class PhpLintToolProcessor implements PhpLintToolProcessorInterface
      */
     private function setErrors(Process $process)
     {
-        return false === $process->isSuccessful() ? $process->getOutput() : null;
+        return false === $process->isSuccessful() ? $process->getErrorOutput() : null;
     }
 }
