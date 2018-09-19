@@ -57,7 +57,7 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
         }
 
         if (true === $symfony) {
-            $this->executeTool($files, '@SYMFONY', $options, $errorMessage);
+            $this->executeTool($files, '@Symfony', $options, $errorMessage);
         }
     }
 
