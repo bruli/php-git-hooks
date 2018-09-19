@@ -49,9 +49,9 @@ class PhpCsFixerToolProcessor implements PhpCsFixerToolProcessorInterface
         $arguments = [
             'php',
             $this->toolPathFinder->find('php-cs-fixer'),
-            '--dry-run',
             'fix',
             $file,
+            '--dry-run',
             '--level='.$level,
         ];
 
