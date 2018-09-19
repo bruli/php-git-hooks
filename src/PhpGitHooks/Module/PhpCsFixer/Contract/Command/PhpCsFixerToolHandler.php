@@ -71,7 +71,9 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
      */
     private function executeTool(array $files, $level, $options, $errorMessage)
     {
-        $outputMessage = new PreCommitOutputWriter(sprintf('Checking %s code style with PHP-CS-FIXER', $level));
+        $outputMessage = new PreCommitOutputWriter(
+            sprintf('Checking %s code style with PHP-CS-FIXER', str_replace('@', '', $level))
+        );
         $this->output->write($outputMessage->getMessage());
 
         $errors = [];
