@@ -63,7 +63,7 @@ class JsonLintProcessor implements JsonLintProcessorInterface
     private function setErrors(Process $process)
     {
         if (false === $process->isSuccessful()) {
-            return $process->getOutput();
+            return $process->getErrorOutput();
         }
     }
 }
