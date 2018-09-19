@@ -44,7 +44,7 @@ class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
         $errors = null;
         foreach ($phpFiles as $file) {
             $errorText = 'ERROR';
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR0', $phpCsFixerOptions->value(), $errorText);
+            $this->shouldProcessPhpCsFixerTool($file, '@PSR0', $phpCsFixerOptions->value(), $errorText);
             $errors .= $errorText;
         }
 
@@ -78,7 +78,7 @@ class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr0->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR0', $phpCsFixerOptions->value(), null);
+            $this->shouldProcessPhpCsFixerTool($file, '@PSR0', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr0->getSuccessfulMessage());
@@ -87,7 +87,7 @@ class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr1->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR1', $phpCsFixerOptions->value(), null);
+            $this->shouldProcessPhpCsFixerTool($file, '@PSR1', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr1->getSuccessfulMessage());
@@ -96,16 +96,16 @@ class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
         $this->shouldWriteOutput($outputMessagePsr2->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'PSR2', $phpCsFixerOptions->value(), null);
+            $this->shouldProcessPhpCsFixerTool($file, '@PSR2', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessagePsr2->getSuccessfulMessage());
 
-        $outputMessageSymfony = new PreCommitOutputWriter('Checking SYMFONY code style with PHP-CS-FIXER');
+        $outputMessageSymfony = new PreCommitOutputWriter('Checking Symfony code style with PHP-CS-FIXER');
         $this->shouldWriteOutput($outputMessageSymfony->getMessage());
 
         foreach ($phpFiles as $file) {
-            $this->shouldProcessPhpCsFixerTool($file, 'SYMFONY', $phpCsFixerOptions->value(), null);
+            $this->shouldProcessPhpCsFixerTool($file, '@Symfony', $phpCsFixerOptions->value(), null);
         }
 
         $this->shouldWriteLnOutput($outputMessageSymfony->getSuccessfulMessage());
