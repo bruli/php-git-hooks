@@ -52,7 +52,7 @@ class PhpCsFixerToolProcessor implements PhpCsFixerToolProcessorInterface
             'fix',
             $file,
             '--dry-run',
-            '--level='.$level,
+            '--rules='.$level,
         ];
 
         if (null !== $options) {
