@@ -45,19 +45,19 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
     private function execute(array $files, $psr0, $psr1, $psr2, $symfony, $options, $errorMessage)
     {
         if (true === $psr0) {
-            $this->executeTool($files, 'PSR0', $options, $errorMessage);
+            $this->executeTool($files, '@PSR0', $options, $errorMessage);
         }
 
         if (true === $psr1) {
-            $this->executeTool($files, 'PSR1', $options, $errorMessage);
+            $this->executeTool($files, '@PSR1', $options, $errorMessage);
         }
 
         if (true === $psr2) {
-            $this->executeTool($files, 'PSR2', $options, $errorMessage);
+            $this->executeTool($files, '@PSR2', $options, $errorMessage);
         }
 
         if (true === $symfony) {
-            $this->executeTool($files, 'SYMFONY', $options, $errorMessage);
+            $this->executeTool($files, '@Symfony', $options, $errorMessage);
         }
     }
 
@@ -71,7 +71,9 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
      */
     private function executeTool(array $files, $level, $options, $errorMessage)
     {
-        $outputMessage = new PreCommitOutputWriter(sprintf('Checking %s code style with PHP-CS-FIXER', $level));
+        $outputMessage = new PreCommitOutputWriter(
+            sprintf('Checking %s code style with PHP-CS-FIXER', str_replace('@', '', $level))
+        );
         $this->output->write($outputMessage->getMessage());
 
         $errors = [];
