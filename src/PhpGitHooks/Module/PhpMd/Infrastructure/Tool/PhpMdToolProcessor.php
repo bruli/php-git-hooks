@@ -56,12 +56,6 @@ class PhpMdToolProcessor implements PhpMdToolProcessorInterface
      * @param Process $process
      *
      * @return null|string
-     */
-
-    /**
-     * @param Process $process
-     *
-     * @return null|string
      *
      * @throws \Symfony\Component\Process\Exception\LogicException
      */
