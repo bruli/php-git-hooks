@@ -64,12 +64,16 @@ class PhpCsToolProcessor implements PhpCsToolProcessorInterface
     /**
      * @param Process $process
      *
-     * @return string
+     * @return null|string
+     *
+     * @throws \Symfony\Component\Process\Exception\LogicException
      */
     private function setErrors(Process $process)
     {
         if (false === $process->isSuccessful()) {
-            return $process->getErrorOutput();
+            return $process->getErrorOutput() ?: $process->getOutput();
         }
+
+        return null;
     }
 }
