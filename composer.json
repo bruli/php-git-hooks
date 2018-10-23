@@ -29,7 +29,7 @@
         "symfony/dependency-injection": "~4.0",
         "symfony/config": "~4.0",
         "symfony/yaml": "~4.0",
-        "fiunchinho/phpunit-randomizer": "~3.0",
+        "fiunchinho/phpunit-randomizer": "~4.0",
         "seld/jsonlint": "~1.5",
         "bruli/ignore-files": "~1.0",
         "beberlei/assert": "~2.7",
