@@ -56,9 +56,15 @@ class PhpMdToolProcessor implements PhpMdToolProcessorInterface
      * @param Process $process
      *
      * @return null|string
+     *
+     * @throws \Symfony\Component\Process\Exception\LogicException
      */
     private function setError(Process $process)
     {
-        return false === $process->isSuccessful() ? $process->getErrorOutput() : null;
+        if (false === $process->isSuccessful()) {
+            return $process->getErrorOutput() ?: $process->getOutput();
+        }
+
+        return null;
     }
 }
