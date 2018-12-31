@@ -23,6 +23,11 @@ class HookCopier
         $this->copyHookFile('pre-push');
     }
 
+    public function copyPrepareCommitMsgHook(): void
+    {
+        $this->copyHookFile('prepare-commit-msg');
+    }
+
     protected function hookExists(string $hookFile): bool
     {
         return file_exists(sprintf('%s%s', $this->hookDir, $hookFile));
