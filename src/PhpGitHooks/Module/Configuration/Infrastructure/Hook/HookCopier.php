@@ -9,6 +9,7 @@ class HookCopier
     public const DEFAULT_GIT_HOOKS_DIR = '.git/hooks';
 
     protected $hookDir = self::DEFAULT_GIT_HOOKS_DIR;
+    protected $sourceHooksDir = __DIR__ . '/../../../../Infrastructure/Hook';
 
     public function copyPreCommitHook(): void
     {
@@ -50,7 +51,7 @@ class HookCopier
     protected function copyHookFile(string $file): void
     {
         if (false === $this->hookExists($file)) {
-            $this->copyFile(sprintf('%s/%s', __DIR__ . '/../../../../Infrastructure/Hook', $file));
+            $this->copyFile(sprintf('%s/%s', $this->sourceHooksDir, $file));
             $this->setPermissions($file);
         }
     }
