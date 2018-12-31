@@ -8,7 +8,7 @@ class HookCopier
 {
     public const DEFAULT_GIT_HOOKS_DIR = '.git/hooks';
 
-    protected $hookDir = self::DEFAULT_GIT_HOOKS_DIR;
+    protected $hooksDir       = self::DEFAULT_GIT_HOOKS_DIR;
     protected $sourceHooksDir = __DIR__ . '/../../../../Infrastructure/Hook';
 
     public function copyPreCommitHook(): void
@@ -33,18 +33,18 @@ class HookCopier
 
     protected function hookExists(string $hookFile): bool
     {
-        return file_exists(sprintf('%s%s', $this->hookDir, $hookFile));
+        return file_exists(sprintf('%s%s', $this->hooksDir, $hookFile));
     }
 
     protected function copyFile(string $hookFile): void
     {
-        $copy = new Process(sprintf("mkdir -p {$this->hookDir} && cp %s %s", $hookFile, $this->hookDir));
+        $copy = new Process(sprintf("mkdir -p {$this->hooksDir} && cp %s %s", $hookFile, $this->hooksDir));
         $copy->run();
     }
 
     protected function setPermissions(string $hookFile): void
     {
-        $permissions = new Process(sprintf('chmod 775 %s%s', $this->hookDir, $hookFile));
+        $permissions = new Process(sprintf('chmod 775 %s%s', $this->hooksDir, $hookFile));
         $permissions->run();
     }
 
