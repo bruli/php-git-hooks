@@ -6,7 +6,9 @@ use Symfony\Component\Process\Process;
 
 class HookCopier
 {
-    protected $hookDir = '.git/hooks/';
+    public const DEFAULT_GIT_HOOKS_DIR = '.git/hooks';
+
+    protected $hookDir = self::DEFAULT_GIT_HOOKS_DIR;
 
     public function copyPreCommitHook(): void
     {
