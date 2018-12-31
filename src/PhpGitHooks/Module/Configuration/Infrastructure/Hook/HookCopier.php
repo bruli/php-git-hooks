@@ -8,53 +8,39 @@ class HookCopier
 {
     private $hookDir = '.git/hooks/';
 
-    public function copyPreCommitHook()
+    public function copyPreCommitHook(): void
     {
         $this->copyHookFile('pre-commit');
     }
 
-    public function copyCommitMsgHook()
+    public function copyCommitMsgHook(): void
     {
         $this->copyHookFile('commit-msg');
     }
 
-    public function copyPrePushHook()
+    public function copyPrePushHook(): void
     {
         $this->copyHookFile('pre-push');
     }
 
-    /**
-     * @param string $hookFile
-     *
-     * @return bool
-     */
-    private function hookExists($hookFile)
+    private function hookExists(string $hookFile): bool
     {
         return file_exists(sprintf('%s%s', $this->hookDir, $hookFile));
     }
 
-    /**
-     * @param string $hookFile
-     */
-    private function copyFile($hookFile)
+    private function copyFile(string $hookFile): void
     {
         $copy = new Process(sprintf("mkdir -p {$this->hookDir} && cp %s %s", $hookFile, $this->hookDir));
         $copy->run();
     }
 
-    /**
-     * @param $hookFile
-     */
-    private function setPermissions($hookFile)
+    private function setPermissions(string $hookFile): void
     {
         $permissions = new Process(sprintf('chmod 775 %s%s', $this->hookDir, $hookFile));
         $permissions->run();
     }
 
-    /**
-     * @param string $file
-     */
-    private function copyHookFile($file)
+    private function copyHookFile(string $file): void
     {
         if (false === $this->hookExists($file)) {
             $this->copyFile(sprintf('%s/%s', __DIR__ . '/../../../../Infrastructure/Hook', $file));
