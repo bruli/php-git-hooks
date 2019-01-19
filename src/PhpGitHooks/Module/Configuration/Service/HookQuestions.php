@@ -16,7 +16,7 @@ class HookQuestions
     const JSONLINT_TOOL = '<info>Do you want enable JSONLINT tool?:</info> <comment>[Y/n]</comment>';
     const PHPLINT_TOOL = '<info>Do you want enable PHPLINT tool?:</info> <comment>[Y/n]</comment>';
     const PHPCS_TOOL = '<info>Do you want enable PHPCS tool?:</info> <comment>[Y/n]</comment>';
-    const PHPCS_STANDARD = '<info>Which standard do you want to user for PHPCS tool?:</info> '.
+    const PHPCS_STANDARD = '<info>Which standard do you want to use for PHPCS tool?:</info> '.
     '<comment>[PSR1/PSR2/PHPCS/MySource/Zend/Squiz/PEAR]</comment>';
     const PHPCS_IGNORE = '<info>Write ignore pattern for PHPCS, if you like:</info> '.
     '<comment>[No ignore pattern]</comment>';
