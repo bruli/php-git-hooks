@@ -6,58 +6,52 @@ use Symfony\Component\Process\Process;
 
 class HookCopier
 {
-    private $hookDir = '.git/hooks/';
+    public const DEFAULT_GIT_HOOKS_DIR = '.git/hooks';
 
-    public function copyPreCommitHook()
+    protected $hooksDir       = self::DEFAULT_GIT_HOOKS_DIR;
+    protected $sourceHooksDir = __DIR__ . '/../../../../Infrastructure/Hook';
+
+    public function copyPreCommitHook(): void
     {
         $this->copyHookFile('pre-commit');
     }
 
-    public function copyCommitMsgHook()
+    public function copyCommitMsgHook(): void
     {
         $this->copyHookFile('commit-msg');
     }
 
-    public function copyPrePushHook()
+    public function copyPrePushHook(): void
     {
         $this->copyHookFile('pre-push');
     }
 
-    /**
-     * @param string $hookFile
-     *
-     * @return bool
-     */
-    private function hookExists($hookFile)
+    public function copyPrepareCommitMsgHook(): void
     {
-        return file_exists(sprintf('%s%s', $this->hookDir, $hookFile));
+        $this->copyHookFile('prepare-commit-msg');
     }
 
-    /**
-     * @param string $hookFile
-     */
-    private function copyFile($hookFile)
+    protected function hookExists(string $hookFile): bool
     {
-        $copy = new Process(sprintf("mkdir -p {$this->hookDir} && cp %s %s", $hookFile, $this->hookDir));
+        return file_exists(sprintf('%s%s', $this->hooksDir, $hookFile));
+    }
+
+    protected function copyFile(string $hookFile): void
+    {
+        $copy = new Process(sprintf("mkdir -p {$this->hooksDir} && cp %s %s", $hookFile, $this->hooksDir));
         $copy->run();
     }
 
-    /**
-     * @param $hookFile
-     */
-    private function setPermissions($hookFile)
+    protected function setPermissions(string $hookFile): void
     {
-        $permissions = new Process(sprintf('chmod 775 %s%s', $this->hookDir, $hookFile));
+        $permissions = new Process(sprintf('chmod 775 %s%s', $this->hooksDir, $hookFile));
         $permissions->run();
     }
 
-    /**
-     * @param string $file
-     */
-    private function copyHookFile($file)
+    protected function copyHookFile(string $file): void
     {
         if (false === $this->hookExists($file)) {
-            $this->copyFile(sprintf('%s/%s', __DIR__ . '/../../../../Infrastructure/Hook', $file));
+            $this->copyFile(sprintf('%s/%s', $this->sourceHooksDir, $file));
             $this->setPermissions($file);
         }
     }
