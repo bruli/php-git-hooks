@@ -28,6 +28,7 @@ class PhpUnitToolHandlerTest extends PhpUnitUnitTestCase
 
     /**
      * @test
+     * @throws PhpUnitViolationException
      */
     public function itShouldThrowsException()
     {
@@ -39,19 +40,21 @@ class PhpUnitToolHandlerTest extends PhpUnitUnitTestCase
 
         $this->shouldWriteLnOutput($outputMessage->getMessage());
         $this->shouldProcessPhpUnit($options, false);
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage));
+        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage, true));
 
         $this->phpUnitToolCommandHandler->handle(
             new PhpUnitTool(
                 true,
                 $options,
-                $errorMessage
+                $errorMessage,
+                true
             )
         );
     }
 
     /**
      * @test
+     * @throws PhpUnitViolationException
      */
     public function itShouldExecuteAndWorksFine()
     {
@@ -66,7 +69,8 @@ class PhpUnitToolHandlerTest extends PhpUnitUnitTestCase
             new PhpUnitTool(
                 true,
                 $options,
-                $errorMessage
+                $errorMessage,
+                true
             )
         );
     }

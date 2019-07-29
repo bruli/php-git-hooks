@@ -89,7 +89,11 @@ class PreCommitStub implements RandomStubInterface
                 PhpUnitStrictCoverageStub::createEnabled(),
                 PhpUnitGuardCoverageStub::createEnabled('fix')
             ),
-            MessagesStub::create(MessageStub::create('ok'), MessageStub::create('fix'))
+            MessagesStub::create(
+                MessageStub::create('ok'),
+                MessageStub::create('fix'),
+                EnabledStub::create(true)
+            )
         );
     }
 }

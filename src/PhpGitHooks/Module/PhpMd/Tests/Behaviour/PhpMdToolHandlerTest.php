@@ -29,6 +29,7 @@ class PhpMdToolHandlerTest extends PhpMdUnitTestCase
 
     /**
      * @test
+     * @throws PhpMdViolationsException
      */
     public function itShouldThrowsException()
     {
@@ -50,14 +51,15 @@ class PhpMdToolHandlerTest extends PhpMdUnitTestCase
 
         $this->shouldWriteLnOutput($outputMessage->getFailMessage());
         $this->shouldWriteLnOutput($outputMessage->setError($errorsText));
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage));
+        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage, true));
 
-        $command = new PhpMdTool($phpFiles, $phpMdOptions->value(), $errorMessage);
+        $command = new PhpMdTool($phpFiles, $phpMdOptions->value(), $errorMessage, true);
         $this->phpMdToolCommandHandler->handle($command);
     }
 
     /**
      * @test
+     * @throws PhpMdViolationsException
      */
     public function itShouldWorksFine()
     {
@@ -74,7 +76,7 @@ class PhpMdToolHandlerTest extends PhpMdUnitTestCase
 
         $this->shouldWriteLnOutput($outputMessage->getSuccessfulMessage());
 
-        $command = new PhpMdTool($phpFiles, $phpMdOptions->value(), $errorMessage);
+        $command = new PhpMdTool($phpFiles, $phpMdOptions->value(), $errorMessage, true);
         $this->phpMdToolCommandHandler->handle($command);
     }
 }

@@ -41,23 +41,26 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
      * @param bool $symfony
      * @param string $options
      * @param string $errorMessage
+     * @param bool $enableFaces
+     *
+     * @throws PhpCsFixerViolationsException
      */
-    private function execute(array $files, $psr0, $psr1, $psr2, $symfony, $options, $errorMessage)
+    private function execute(array $files, $psr0, $psr1, $psr2, $symfony, $options, $errorMessage, $enableFaces)
     {
         if (true === $psr0) {
-            $this->executeTool($files, '@PSR0', $options, $errorMessage);
+            $this->executeTool($files, '@PSR0', $options, $errorMessage, $enableFaces);
         }
 
         if (true === $psr1) {
-            $this->executeTool($files, '@PSR1', $options, $errorMessage);
+            $this->executeTool($files, '@PSR1', $options, $errorMessage, $enableFaces);
         }
 
         if (true === $psr2) {
-            $this->executeTool($files, '@PSR2', $options, $errorMessage);
+            $this->executeTool($files, '@PSR2', $options, $errorMessage, $enableFaces);
         }
 
         if (true === $symfony) {
-            $this->executeTool($files, '@Symfony', $options, $errorMessage);
+            $this->executeTool($files, '@Symfony', $options, $errorMessage, $enableFaces);
         }
     }
 
@@ -66,10 +69,11 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
      * @param string $level
      * @param string $options
      * @param string $errorMessage
+     * @param bool $enableFaces
      *
      * @throws PhpCsFixerViolationsException
      */
-    private function executeTool(array $files, $level, $options, $errorMessage)
+    private function executeTool(array $files, $level, $options, $errorMessage, $enableFaces)
     {
         $outputMessage = new PreCommitOutputWriter(
             sprintf('Checking %s code style with PHP-CS-FIXER', str_replace('@', '', $level))
@@ -87,7 +91,7 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
             $this->output->writeln($outputMessage->getFailMessage());
             $errorsText = $outputMessage->setError(implode('', $errors));
             $this->output->writeln($errorsText);
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFaces));
             throw  new PhpCsFixerViolationsException();
         }
 
@@ -96,6 +100,8 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|PhpCsFixerTool $command
+     *
+     * @throws PhpCsFixerViolationsException
      */
     public function handle(CommandInterface $command)
     {
@@ -106,7 +112,8 @@ class PhpCsFixerToolHandler implements CommandHandlerInterface
             $command->isPsr2(),
             $command->isSymfony(),
             $command->getOptions(),
-            $command->getErrorMessage()
+            $command->getErrorMessage(),
+            $command->isEnableFaces()
         );
     }
 }

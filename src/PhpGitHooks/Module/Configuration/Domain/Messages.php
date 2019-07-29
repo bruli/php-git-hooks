@@ -14,15 +14,22 @@ class Messages
     private $errorMessage;
 
     /**
+     * @var Enabled
+     */
+    private $enableFaces;
+
+    /**
      * Messages constructor.
      *
      * @param Message $rightMessage
      * @param Message $errorMessage
+     * @param Enabled $enableFaces
      */
-    public function __construct(Message $rightMessage, Message $errorMessage)
+    public function __construct(Message $rightMessage, Message $errorMessage, Enabled $enableFaces)
     {
         $this->rightMessage = $rightMessage;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
     }
 
     /**
@@ -42,13 +49,22 @@ class Messages
     }
 
     /**
+     * @return Enabled
+     */
+    public function getEnableFaces()
+    {
+        return $this->enableFaces;
+    }
+
+    /**
      * @return Messages
      */
     public function disable()
     {
         return new self(
             new Message(null),
-            new Message(null)
+            new Message(null),
+            new Enabled(true)
         );
     }
 }

@@ -74,6 +74,11 @@ final class ConfigurationProcessorHandlerTest extends ConfigurationUnitTestCase
             HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
             ConfigArrayDataStub::ERROR_MESSAGE
         );
+        $this->shouldAsk(
+            HookQuestions::PRE_COMMIT_ENABLE_FACES_MESSAGE,
+            HookQuestions::DEFAULT_TOOL_ANSWER,
+            $yes
+        );
         $this->shouldAsk(HookQuestions::COMPOSER_TOOL, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldAsk(HookQuestions::JSONLINT_TOOL, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldAsk(HookQuestions::PHPLINT_TOOL, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
@@ -120,6 +125,11 @@ final class ConfigurationProcessorHandlerTest extends ConfigurationUnitTestCase
             HookQuestions::PRE_PUSH_ERROR_MESSAGE,
             HookQuestions::PRE_PUSH_ERROR_MESSAGE_DEFAULT,
             HookQuestions::PRE_PUSH_ERROR_MESSAGE_DEFAULT
+        );
+        $this->shouldAsk(
+            HookQuestions::PRE_PUSH_ENABLE_FACES_MESSAGE,
+            HookQuestions::DEFAULT_TOOL_ANSWER,
+            $yes
         );
         $this->shouldAsk(HookQuestions::PHPUNIT_TOOL, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);
         $this->shouldAsk(HookQuestions::PHPUNIT_RANDOM_MODE, HookQuestions::DEFAULT_TOOL_ANSWER, $yes);

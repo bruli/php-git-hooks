@@ -40,6 +40,7 @@ class JsonLintToolHandlerTest extends JsonLintUnitTestCase
 
     /**
      * @test
+     * @throws JsonLintViolationsException
      */
     public function itShouldNotExecuteTool()
     {
@@ -51,12 +52,13 @@ class JsonLintToolHandlerTest extends JsonLintUnitTestCase
         );
 
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintTool($files, $this->errorMessage)
+            new JsonLintTool($files, $this->errorMessage, true)
         );
     }
 
     /**
      * @test
+     * @throws JsonLintViolationsException
      */
     public function itShouldExecuteTool()
     {
@@ -76,12 +78,13 @@ class JsonLintToolHandlerTest extends JsonLintUnitTestCase
         $this->shouldWriteLnOutput($output->getSuccessfulMessage());
 
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintTool($files->getFiles(), $this->errorMessage)
+            new JsonLintTool($files->getFiles(), $this->errorMessage, true)
         );
     }
 
     /**
      * @test
+     * @throws JsonLintViolationsException
      */
     public function itShouldThrowsException()
     {
@@ -105,10 +108,10 @@ class JsonLintToolHandlerTest extends JsonLintUnitTestCase
 
         $this->shouldWriteLnOutput($output->getFailMessage());
         $this->shouldWriteLnOutput($output->setError($errorTxt));
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
+        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage, true));
 
         $this->jsonLintToolCommandHandler->handle(
-            new JsonLintTool($jsonFilesResponse->getFiles(), $this->errorMessage)
+            new JsonLintTool($jsonFilesResponse->getFiles(), $this->errorMessage, true)
         );
     }
 }

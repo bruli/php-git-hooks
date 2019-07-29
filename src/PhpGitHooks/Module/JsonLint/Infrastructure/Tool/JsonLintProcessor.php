@@ -65,5 +65,7 @@ class JsonLintProcessor implements JsonLintProcessorInterface
         if (false === $process->isSuccessful()) {
             return $process->getErrorOutput();
         }
+
+        return null;
     }
 }

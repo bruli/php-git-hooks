@@ -76,5 +76,7 @@ class PhpCsFixerToolProcessor implements PhpCsFixerToolProcessorInterface
         if (false === $process->isSuccessful()) {
             return $process->getErrorOutput();
         }
+
+        return null;
     }
 }

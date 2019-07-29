@@ -1,6 +1,7 @@
 composer.phar
 vendor/
 bin/
+.idea/
 php-git-hooks.yml
 # Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
@@ -9,7 +10,6 @@ composer.lock
 .guard_coverage
 var/cache
 var/logs
-.php_cs.cache
 
 ###> friendsofphp/php-cs-fixer ###
 .php_cs

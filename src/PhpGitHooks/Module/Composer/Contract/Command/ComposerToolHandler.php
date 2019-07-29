@@ -43,19 +43,22 @@ class ComposerToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|ComposerTool $command
-     */
-    public function handle(CommandInterface $command)
-    {
-        $this->execute($command->getFiles(), $command->getErrorMessage());
-    }
-
-    /**
-     * @param array  $files
-     * @param string $errorMessage
      *
      * @throws ComposerFilesNotFoundException
      */
-    private function execute(array $files, $errorMessage)
+    public function handle(CommandInterface $command)
+    {
+        $this->execute($command->getFiles(), $command->getErrorMessage(), $command->isEnableFaces());
+    }
+
+    /**
+     * @param array $files
+     * @param string $errorMessage
+     * @param bool $enableFaces
+     *
+     * @throws ComposerFilesNotFoundException
+     */
+    private function execute(array $files, $errorMessage, $enableFaces)
     {
         $composerFilesResponse = $this->getComposerFilesResponse($files);
 
@@ -66,24 +69,26 @@ class ComposerToolHandler implements CommandHandlerInterface
             $this->executeTool(
                 $composerFilesResponse->isJsonFile(),
                 $composerFilesResponse->isLockFile(),
-                $errorMessage
+                $errorMessage,
+                $enableFaces
             );
             $this->output->writeln($this->outputMessage->getSuccessfulMessage());
         }
     }
 
     /**
-     * @param bool   $jsonFile
-     * @param bool   $lockFile
+     * @param bool $jsonFile
+     * @param bool $lockFile
      * @param string $errorMessage
+     * @param bool $enableFaces
      *
      * @throws ComposerFilesNotFoundException *
      */
-    private function executeTool($jsonFile, $lockFile, $errorMessage)
+    private function executeTool($jsonFile, $lockFile, $errorMessage, $enableFaces)
     {
         if (true === $jsonFile && false === $lockFile) {
             $this->output->writeln($this->outputMessage->getFailMessage());
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFaces));
             throw new ComposerFilesNotFoundException();
         }
     }

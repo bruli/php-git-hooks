@@ -18,18 +18,19 @@ class PreCommitResponseStub
     const MINIMUM_COVERAGE = 100.00;
 
     /**
-     * @param bool                          $preCommit
-     * @param string                        $rightMessage
-     * @param string                        $errorMessage
-     * @param bool                          $composer
-     * @param bool                          $jsonLint
-     * @param bool                          $phpLint
-     * @param PhpMdResponse                 $pmdResponse
-     * @param PhpCsResponse                 $phpCsResponse
-     * @param PhpCsFixerResponse            $phpCsFixerResponse
-     * @param PhpUnitResponse               $phpUnitResponse
+     * @param bool $preCommit
+     * @param string $rightMessage
+     * @param string $errorMessage
+     * @param bool $enableFaces
+     * @param bool $composer
+     * @param bool $jsonLint
+     * @param bool $phpLint
+     * @param PhpMdResponse $pmdResponse
+     * @param PhpCsResponse $phpCsResponse
+     * @param PhpCsFixerResponse $phpCsFixerResponse
+     * @param PhpUnitResponse $phpUnitResponse
      * @param PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse
-     * @param PhpUnitGuardCoverageResponse  $phpUnitGuardCoverageResponse
+     * @param PhpUnitGuardCoverageResponse $phpUnitGuardCoverageResponse
      *
      * @return PreCommitResponse
      */
@@ -37,6 +38,7 @@ class PreCommitResponseStub
         $preCommit,
         $rightMessage,
         $errorMessage,
+        $enableFaces,
         $composer,
         $jsonLint,
         $phpLint,
@@ -51,6 +53,7 @@ class PreCommitResponseStub
             $preCommit,
             $rightMessage,
             $errorMessage,
+            $enableFaces,
             $composer,
             $jsonLint,
             $phpLint,
@@ -74,6 +77,7 @@ class PreCommitResponseStub
             $bool,
             static::GOOD_JOB,
             static::FIX_YOUR_CODE,
+            $bool,
             $bool,
             $bool,
             $bool,

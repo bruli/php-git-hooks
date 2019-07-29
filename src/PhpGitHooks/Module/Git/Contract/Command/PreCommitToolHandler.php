@@ -84,9 +84,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
             return;
         }
 
-        /**
-         * @var ConfigurationDataResponse
-         */
+        /** @var ConfigurationDataResponse $configurationData */
         $configurationData = $this->queryBus->handle(new ConfigurationDataFinder());
         $preCommit = $configurationData->getPreCommit();
 
@@ -94,7 +92,9 @@ class PreCommitToolHandler implements CommandHandlerInterface
             $this->executeTools($preCommit, $committedFiles);
         }
 
-        $this->output->writeln(GoodJobLogoResponse::paint($preCommit->getRightMessage()));
+        $this->output->writeln(
+            GoodJobLogoResponse::paint($preCommit->getRightMessage(), $preCommit->isEnableFaces())
+        );
     }
 
     /**
@@ -105,13 +105,21 @@ class PreCommitToolHandler implements CommandHandlerInterface
     {
         if (true === $preCommitResponse->isComposer()) {
             $this->commandBus->handle(
-                new ComposerTool($committedFiles, $preCommitResponse->getErrorMessage())
+                new ComposerTool(
+                    $committedFiles,
+                    $preCommitResponse->getErrorMessage(),
+                    $preCommitResponse->isEnableFaces()
+                )
             );
         }
 
         if (true === $preCommitResponse->isJsonLint()) {
             $this->commandBus->handle(
-                new JsonLintTool($committedFiles, $preCommitResponse->getErrorMessage())
+                new JsonLintTool(
+                    $committedFiles,
+                    $preCommitResponse->getErrorMessage(),
+                    $preCommitResponse->isEnableFaces()
+                )
             );
         }
 
@@ -120,7 +128,11 @@ class PreCommitToolHandler implements CommandHandlerInterface
         if ($phpFiles) {
             if (true === $preCommitResponse->isPhpLint()) {
                 $this->commandBus->handle(
-                    new PhpLintTool($phpFiles, $preCommitResponse->getErrorMessage())
+                    new PhpLintTool(
+                        $phpFiles,
+                        $preCommitResponse->getErrorMessage(),
+                        $preCommitResponse->isEnableFaces()
+                    )
                 );
             }
 
@@ -132,6 +144,7 @@ class PreCommitToolHandler implements CommandHandlerInterface
                         $phpFiles,
                         $phpCsResponse->getPhpCsStandard(),
                         $preCommitResponse->getErrorMessage(),
+                        $preCommitResponse->isEnableFaces(),
                         $phpCsResponse->getIgnore()
                     )
                 );
@@ -148,7 +161,8 @@ class PreCommitToolHandler implements CommandHandlerInterface
                         $phpCsFixerResponse->isPhpCsFixerPsr2(),
                         $phpCsFixerResponse->isPhpCsFixerSymfony(),
                         $phpCsFixerResponse->getPhpCsFixerOptions(),
-                        $preCommitResponse->getErrorMessage()
+                        $preCommitResponse->getErrorMessage(),
+                        $preCommitResponse->isEnableFaces()
                     )
                 );
             }
@@ -160,7 +174,8 @@ class PreCommitToolHandler implements CommandHandlerInterface
                     new PhpMdTool(
                         $phpFiles,
                         $phpMdResponse->getPhpMdOptions(),
-                        $preCommitResponse->getErrorMessage()
+                        $preCommitResponse->getErrorMessage(),
+                        $preCommitResponse->isEnableFaces()
                     )
                 );
             }
@@ -172,7 +187,8 @@ class PreCommitToolHandler implements CommandHandlerInterface
                     new PhpUnitTool(
                         $phpunitResponse->isPhpunitRandomMode(),
                         $phpunitResponse->getPhpunitOptions(),
-                        $preCommitResponse->getErrorMessage()
+                        $preCommitResponse->getErrorMessage(),
+                        $preCommitResponse->isEnableFaces()
                     )
                 );
 
@@ -182,7 +198,8 @@ class PreCommitToolHandler implements CommandHandlerInterface
                     $this->commandBus->handle(
                         new StrictCoverage(
                             $phpunitStrictCoverageResponse->getMinimum(),
-                            $preCommitResponse->getErrorMessage()
+                            $preCommitResponse->getErrorMessage(),
+                            $preCommitResponse->isEnableFaces()
                         )
                     );
                 }

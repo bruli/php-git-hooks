@@ -28,6 +28,7 @@ class PhpCsToolHandlerTest extends PhpCsUnitTestCase
 
     /**
      * @test
+     * @throws PhpCsViolationException
      */
     public function itShouldThrowsException()
     {
@@ -47,13 +48,16 @@ class PhpCsToolHandlerTest extends PhpCsUnitTestCase
 
         $this->shouldWriteLnOutput($output->getFailMessage());
         $this->shouldWriteLnOutput($output->setError($errorTxt));
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint(HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT));
+        $this->shouldWriteLnOutput(
+            BadJobLogoResponse::paint(HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT, true)
+        );
 
         $this->phpCsToolCommandHandler->handle(
             new PhpCsTool(
                 $files,
                 'PSR2',
                 HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
+                true,
                 ''
             )
         );
@@ -61,6 +65,7 @@ class PhpCsToolHandlerTest extends PhpCsUnitTestCase
 
     /**
      * @test
+     * @throws PhpCsViolationException
      */
     public function itShouldWorksFine()
     {
@@ -80,6 +85,7 @@ class PhpCsToolHandlerTest extends PhpCsUnitTestCase
                 $files,
                 'PSR2',
                 HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
+                true,
                 ''
             )
         );

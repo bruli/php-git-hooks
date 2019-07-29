@@ -25,6 +25,10 @@ class PrePushResponse
      */
     private $errorMessage;
     /**
+     * @var bool
+     */
+    private $enableFaces;
+    /**
      * @var PhpUnitGuardCoverageResponse
      */
     private $phpUnitGuardCoverage;
@@ -32,17 +36,19 @@ class PrePushResponse
     /**
      * PrePushResponse constructor.
      *
-     * @param bool                          $prePush
-     * @param string                        $rightMessage
-     * @param string                        $errorMessage
-     * @param PhpUnitResponse               $phpUnit
+     * @param bool $prePush
+     * @param string $rightMessage
+     * @param string $errorMessage
+     * @param bool $enableFaces
+     * @param PhpUnitResponse $phpUnit
      * @param PhpUnitStrictCoverageResponse $phpUnitStrictCoverage
-     * @param PhpUnitGuardCoverageResponse  $phpUnitGuardCoverage
+     * @param PhpUnitGuardCoverageResponse $phpUnitGuardCoverage
      */
     public function __construct(
         $prePush,
         $rightMessage,
         $errorMessage,
+        $enableFaces,
         PhpUnitResponse $phpUnit,
         PhpUnitStrictCoverageResponse $phpUnitStrictCoverage,
         PhpUnitGuardCoverageResponse $phpUnitGuardCoverage
@@ -52,6 +58,7 @@ class PrePushResponse
         $this->prePush = $prePush;
         $this->rightMessage = $rightMessage;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
         $this->phpUnitGuardCoverage = $phpUnitGuardCoverage;
     }
 
@@ -93,6 +100,14 @@ class PrePushResponse
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return string
+     */
+    public function isEnableFaces()
+    {
+        return $this->enableFaces;
     }
 
     /**

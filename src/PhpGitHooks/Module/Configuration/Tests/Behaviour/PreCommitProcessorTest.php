@@ -50,6 +50,7 @@ class PreCommitProcessorTest extends ConfigurationUnitTestCase
         $this->assertFalse($preCommitData->isUndefined());
         $this->assertNull($preCommitData->getMessages()->getRightMessage()->value());
         $this->assertNull($preCommitData->getMessages()->getErrorMessage()->value());
+        $this->assertTrue($preCommitData->getMessages()->getEnableFaces()->value());
 
         /** @var Execute $execute */
         $execute = $preCommitData->getExecute();

@@ -15,6 +15,10 @@ class PhpMdTool implements CommandInterface
      */
     private $errorMessage;
     /**
+     * @var bool
+     */
+    private $enableFaces;
+    /**
      * @var string
      */
     private $options;
@@ -22,14 +26,16 @@ class PhpMdTool implements CommandInterface
     /**
      * PhpMdToolCommand constructor.
      *
-     * @param array  $files
+     * @param array $files
      * @param string $options
      * @param string $errorMessage
+     * @param bool $enableFaces
      */
-    public function __construct(array $files, $options, $errorMessage)
+    public function __construct(array $files, $options, $errorMessage, $enableFaces)
     {
         $this->files = $files;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
         $this->options = $options;
     }
 
@@ -47,6 +53,14 @@ class PhpMdTool implements CommandInterface
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableFaces()
+    {
+        return $this->enableFaces;
     }
 
     /**

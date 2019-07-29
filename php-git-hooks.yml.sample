@@ -29,6 +29,7 @@ pre-commit:
         options:     '<some options>'
     composer:        true
   message:
+    enable-faces: true
     right-message: 'HEY, GOOD JOB!!'
     error-message: 'FIX YOUR CODE!!'
 commit-msg:
@@ -48,5 +49,6 @@ pre-push:
         enabled: true
         message: 'WARNING!!, your code coverage is lower.'
     message:
+      enable-faces: true
       right-message: 'PUSH IT!!'
       error-message: 'YOU CAN NOT PUSH CODE!!'

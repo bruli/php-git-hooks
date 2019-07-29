@@ -18,19 +18,25 @@ class PhpUnitTool implements CommandInterface
      * @var string
      */
     private $errorMessage;
+    /**
+     * @var bool
+     */
+    private $enableFaces;
 
     /**
      * PhpUnitToolCommand constructor.
      *
-     * @param bool        $randomMode
+     * @param bool $randomMode
      * @param string|null $options
-     * @param string      $errorMessage
+     * @param string $errorMessage
+     * @param bool $enableFaces
      */
-    public function __construct($randomMode, $options, $errorMessage)
+    public function __construct($randomMode, $options, $errorMessage, $enableFaces)
     {
         $this->randomMode = $randomMode;
         $this->options = $options;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
     }
 
     /**
@@ -55,5 +61,13 @@ class PhpUnitTool implements CommandInterface
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableFaces()
+    {
+        return $this->enableFaces;
     }
 }
