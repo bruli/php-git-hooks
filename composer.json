@@ -39,7 +39,7 @@
     },
     "require-dev": {
         "fzaninotto/faker": "^1.6",
-        "mockery/mockery": "~0.9",
+        "mockery/mockery": "~0.9|~1",
         "composer/composer": "^1.4"
     },
     "config": {
