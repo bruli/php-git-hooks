@@ -15,7 +15,7 @@ class PhpGuardCoverageGitIgnoreConfiguratorTest extends ConfigurationUnitTestCas
      */
     private $phpGuardCoverageGitIgnoreConfigurator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->phpGuardCoverageGitIgnoreConfigurator = new PhpGuardCoverageGitIgnoreConfigurator(
             $this->getQueryBus(),

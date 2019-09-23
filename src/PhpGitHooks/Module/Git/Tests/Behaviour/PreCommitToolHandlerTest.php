@@ -30,7 +30,7 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
      */
     private $preCommitToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->preCommitToolCommandHandler = new PreCommitToolHandler(
             $this->getOutputInterface(),

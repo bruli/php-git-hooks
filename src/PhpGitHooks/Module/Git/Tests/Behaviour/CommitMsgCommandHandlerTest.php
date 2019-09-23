@@ -17,7 +17,7 @@ class CommitMsgCommandHandlerTest extends GitUnitTestCase
      */
     private $commitMsgCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->commitMsgCommandHandler = new CommitMsgHandler(
             $this->getMergeValidator(),

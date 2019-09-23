@@ -24,7 +24,7 @@ class ComposerToolHandlerTest extends ComposerUnitTestCase
      */
     private $errorMessage;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->errorMessage = PreCommitResponseStub::FIX_YOUR_CODE;
         $this->composerToolCommandHandler = new ComposerToolHandler(

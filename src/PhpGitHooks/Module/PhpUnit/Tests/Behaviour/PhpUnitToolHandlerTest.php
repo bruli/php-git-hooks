@@ -17,7 +17,7 @@ class PhpUnitToolHandlerTest extends PhpUnitUnitTestCase
      */
     private $phpUnitToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->phpUnitToolCommandHandler = new PhpUnitToolHandler(
             $this->getOutputInterface(),

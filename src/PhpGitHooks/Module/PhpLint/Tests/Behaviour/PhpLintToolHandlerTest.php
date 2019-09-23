@@ -19,7 +19,7 @@ class PhpLintToolHandlerTest extends PhpLintUnitTestCase
      */
     private $phpLintToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->phpLintToolCommandHandler = new PhpLintToolHandler(
             $this->getPhpLintToolProcessor(),

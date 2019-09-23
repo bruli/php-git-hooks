@@ -24,7 +24,7 @@ class PreCommitProcessorTest extends ConfigurationUnitTestCase
      */
     private $io;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->io = $this->getIOInterface();
         $this->preCommitProcessor = new PreCommitProcessor(

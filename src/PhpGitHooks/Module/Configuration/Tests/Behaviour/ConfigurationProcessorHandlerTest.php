@@ -28,7 +28,7 @@ final class ConfigurationProcessorHandlerTest extends ConfigurationUnitTestCase
      */
     private $configurationProcessorCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configurationProcessorCommandHandler = new ConfigurationProcessorHandler(
             $this->getConfigurationFileReader(),

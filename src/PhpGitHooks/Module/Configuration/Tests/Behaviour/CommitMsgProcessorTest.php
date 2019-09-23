@@ -14,7 +14,7 @@ class CommitMsgProcessorTest extends ConfigurationUnitTestCase
      */
     private $commitMsgProcessor;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->commitMsgProcessor = new CommitMsgProcessor();
     }
