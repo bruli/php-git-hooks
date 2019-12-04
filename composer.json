@@ -23,7 +23,7 @@
     "require": {
         "php": "^7.1",
         "friendsofphp/php-cs-fixer": "^2.1",
-        "phpunit/phpunit": "~6.0|~7.0|~8",
+        "phpunit/phpunit": "^3.7|~6.0|~7.0|~8",
         "squizlabs/php_codesniffer": "~3.0",
         "phpmd/phpmd": "*",
         "symfony/dependency-injection": "~4.0",
