@@ -37,6 +37,7 @@ class StrictCoverageToolHandlerTest extends PhpUnitUnitTestCase
 
     /**
      * @test
+     * @throws InvalidStrictCoverageException
      */
     public function itShouldThrowsException()
     {
@@ -47,14 +48,15 @@ class StrictCoverageToolHandlerTest extends PhpUnitUnitTestCase
 
         $this->shouldWriteOutput($outputMessage->getMessage());
         $this->shouldProcessStrictCoverage(0.00);
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
+        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage, true));
 
-        $command = new StrictCoverage($minimumStrictCoverage->value(), $this->errorMessage);
+        $command = new StrictCoverage($minimumStrictCoverage->value(), $this->errorMessage, true);
         $this->strictCoverageToolCommandHandler->handle($command);
     }
 
     /**
      * @test
+     * @throws InvalidStrictCoverageException
      */
     public function itShouldWorksFine()
     {
@@ -72,7 +74,7 @@ class StrictCoverageToolHandlerTest extends PhpUnitUnitTestCase
             )
         );
 
-        $command = new StrictCoverage($minimumStrictCoverage->value(), $this->errorMessage);
+        $command = new StrictCoverage($minimumStrictCoverage->value(), $this->errorMessage, true);
         $this->strictCoverageToolCommandHandler->handle($command);
     }
 

@@ -29,6 +29,7 @@ class PhpLintToolHandlerTest extends PhpLintUnitTestCase
 
     /**
      * @test
+     * @throws PhpLintViolationsException
      */
     public function itShouldThrowsException()
     {
@@ -49,15 +50,16 @@ class PhpLintToolHandlerTest extends PhpLintUnitTestCase
 
         $this->shouldWriteLnOutput($outputMessage->getFailMessage());
         $this->shouldWriteLnOutput($outputMessage->setError($errors));
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage));
+        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($errorMessage, true));
 
         $this->phpLintToolCommandHandler->handle(
-            new PhpLintTool($phpFiles, $errorMessage)
+            new PhpLintTool($phpFiles, $errorMessage, true)
         );
     }
 
     /**
      * @test
+     * @throws PhpLintViolationsException
      */
     public function itShouldWorksFine()
     {
@@ -73,7 +75,7 @@ class PhpLintToolHandlerTest extends PhpLintUnitTestCase
         $this->shouldWriteLnOutput($outputMessage->getSuccessfulMessage());
 
         $this->phpLintToolCommandHandler->handle(
-            new PhpLintTool($phpFiles, HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT)
+            new PhpLintTool($phpFiles, HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT, true)
         );
     }
 }

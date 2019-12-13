@@ -21,11 +21,14 @@ class PrePushConfigurator
                 ->ask(HookQuestions::PRE_PUSH_RIGHT_MESSAGE, HookQuestions::PRE_PUSH_RIGHT_MESSAGE_DEFAULT);
             $errorMessageAnswer = $input
                 ->ask(HookQuestions::PRE_PUSH_ERROR_MESSAGE, HookQuestions::PRE_PUSH_ERROR_MESSAGE_DEFAULT);
+            $enableFaces = $input
+                ->ask(HookQuestions::PRE_PUSH_ENABLE_FACES_MESSAGE, HookQuestions::DEFAULT_TOOL_ANSWER);
 
             $prePush = $prePush->setMessages(
                 new Messages(
                     new Message($rightMessageAnswer),
-                    new Message($errorMessageAnswer)
+                    new Message($errorMessageAnswer),
+                    new Enabled(HookQuestions::DEFAULT_TOOL_ANSWER === strtoupper($enableFaces))
                 )
             );
         }

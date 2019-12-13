@@ -18,8 +18,6 @@ class ConfiguratorScript
 {
     /**
      * @param Event $event
-     *
-     * @return mixed
      */
     public static function buildConfig(Event $event)
     {

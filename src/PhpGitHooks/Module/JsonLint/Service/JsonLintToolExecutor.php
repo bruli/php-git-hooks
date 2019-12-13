@@ -33,12 +33,13 @@ class JsonLintToolExecutor
     }
 
     /**
-     * @param array  $files
+     * @param array $files
      * @param string $errorMessage
+     * @param bool $enableFaces
      *
      * @throws JsonLintViolationsException
      */
-    public function execute(array $files, $errorMessage)
+    public function execute(array $files, $errorMessage, $enableFaces)
     {
         $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
         $this->output->write($outputMessage->getMessage());
@@ -53,7 +54,7 @@ class JsonLintToolExecutor
         if (!empty($errors)) {
             $this->output->writeln($outputMessage->getFailMessage());
             $this->output->writeln($outputMessage->setError(implode('', $errors)));
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFaces));
             throw new JsonLintViolationsException(implode('', $errors));
         }
 

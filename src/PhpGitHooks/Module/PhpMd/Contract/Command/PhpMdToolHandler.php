@@ -35,13 +35,14 @@ class PhpMdToolHandler implements CommandHandlerInterface
     }
 
     /**
-     * @param array  $files
+     * @param array $files
      * @param string $options
      * @param string $errorMessage
+     * @param bool $enableFaces
      *
      * @throws PhpMdViolationsException
      */
-    private function execute(array  $files, $options, $errorMessage)
+    private function execute(array  $files, $options, $errorMessage, $enableFaces)
     {
         $outputMessage = new PreCommitOutputWriter(self::CHECKING_MESSAGE);
         $this->output->write($outputMessage->getMessage());
@@ -57,7 +58,7 @@ class PhpMdToolHandler implements CommandHandlerInterface
             $outputText = $outputMessage->setError(implode('', $errors));
             $this->output->writeln($outputMessage->getFailMessage());
             $this->output->writeln($outputText);
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFaces));
             throw new PhpMdViolationsException();
         }
 
@@ -66,9 +67,16 @@ class PhpMdToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|PhpMdTool $command
+     *
+     * @throws PhpMdViolationsException
      */
     public function handle(CommandInterface $command)
     {
-        $this->execute($command->getFiles(), $command->getOptions(), $command->getErrorMessage());
+        $this->execute(
+            $command->getFiles(),
+            $command->getOptions(),
+            $command->getErrorMessage(),
+            $command->isEnableFaces()
+        );
     }
 }

@@ -50,6 +50,7 @@ final class ConfigurationDataResponseStub
                 $preCommit,
                 PreCommitResponseStub::GOOD_JOB,
                 PreCommitResponseStub::FIX_YOUR_CODE,
+                true,
                 $preCommit,
                 $preCommit,
                 $preCommit,
@@ -65,6 +66,7 @@ final class ConfigurationDataResponseStub
                 $prePush,
                 PrePushResponseStub::RIGHT_MESSAGE,
                 PrePushResponseStub::ERROR_MESSAGE,
+                true,
                 PhpUnitResponseStub::create($prePush, $prePush, PhpUnitResponseStub::OPTIONS),
                 PhpUnitStrictCoverageResponseStub::create($prePush, PhpUnitStrictCoverageResponseStub::MINIMUM),
                 PhpUnitGuardCoverageResponseStub::create($prePush, PhpUnitGuardCoverageResponseStub::WARNING_MESSAGE)

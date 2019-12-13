@@ -65,23 +65,36 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
         $this->shouldGetFilesCommitted($files);
         $this->shouldHandleQuery(new ConfigurationDataFinder(), $configurationDataResponse);
         $this->shouldHandleCommand(
-            new ComposerTool($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
+            new ComposerTool(
+                $files,
+                $configurationDataResponse->getPreCommit()->getErrorMessage(),
+                $configurationDataResponse->getPreCommit()->isEnableFaces()
+            )
         );
         $this->shouldHandleCommand(
-            new JsonLintTool($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
+            new JsonLintTool(
+                $files,
+                $configurationDataResponse->getPreCommit()->getErrorMessage(),
+                $configurationDataResponse->getPreCommit()->isEnableFaces()
+            )
         );
         $this->shouldHandleQuery(
             new PhpFilesExtractor($files),
             PhpFilesResponseStub::create(FilesCommittedStub::createWithoutPhpFiles())
         );
         $this->shouldHandleCommand(
-            new PhpLintTool($files, $configurationDataResponse->getPreCommit()->getErrorMessage())
+            new PhpLintTool(
+                $files,
+                $configurationDataResponse->getPreCommit()->getErrorMessage(),
+                $configurationDataResponse->getPreCommit()->isEnableFaces()
+            )
         );
         $this->shouldHandleCommand(
             new PhpCsTool(
                 $files,
                 $configurationDataResponse->getPreCommit()->getPhpCs()->getPhpCsStandard(),
                 HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT,
+                $configurationDataResponse->getPreCommit()->isEnableFaces(),
                 $configurationDataResponse->getPreCommit()->getPhpCs()->getIgnore()
             )
         );
@@ -93,28 +106,32 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
                 $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
                 $configurationDataResponse->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
                 $configurationDataResponse->getPreCommit()->getPhpCsFixer()->getPhpCsFixerOptions(),
-                $configurationDataResponse->getPreCommit()->getErrorMessage()
+                $configurationDataResponse->getPreCommit()->getErrorMessage(),
+                $configurationDataResponse->getPreCommit()->isEnableFaces()
             )
         );
         $this->shouldHandleCommand(
             new PhpMdTool(
                 $files,
                 $configurationDataResponse->getPreCommit()->getPhpMd()->getPhpMdOptions(),
-                $configurationDataResponse->getPreCommit()->getErrorMessage()
+                $configurationDataResponse->getPreCommit()->getErrorMessage(),
+                $configurationDataResponse->getPreCommit()->isEnableFaces()
             )
         );
         $this->shouldHandleCommand(
             new PhpUnitTool(
                 $configurationDataResponse->getPreCommit()->getPhpUnit()->isPhpunitRandomMode(),
                 $configurationDataResponse->getPreCommit()->getPhpUnit()->getPhpunitOptions(),
-                $configurationDataResponse->getPreCommit()->getErrorMessage()
+                $configurationDataResponse->getPreCommit()->getErrorMessage(),
+                $configurationDataResponse->getPreCommit()->isEnableFaces()
             )
         );
 
         $this->shouldHandleCommand(
             new StrictCoverage(
                 $configurationDataResponse->getPreCommit()->getPhpUnitStrictCoverage()->getMinimum(),
-                $configurationDataResponse->getPreCommit()->getErrorMessage()
+                $configurationDataResponse->getPreCommit()->getErrorMessage(),
+                $configurationDataResponse->getPreCommit()->isEnableFaces()
             )
         );
 
@@ -125,7 +142,10 @@ class PreCommitToolHandlerTest extends GitUnitTestCase
         );
 
         $this->shouldWriteLnOutput(
-            GoodJobLogoResponse::paint($configurationDataResponse->getPreCommit()->getRightMessage())
+            GoodJobLogoResponse::paint(
+                $configurationDataResponse->getPreCommit()->getRightMessage(),
+                $configurationDataResponse->getPreCommit()->isEnableFaces()
+            )
         );
 
         $this->preCommitToolCommandHandler->handle(new PreCommitTool());

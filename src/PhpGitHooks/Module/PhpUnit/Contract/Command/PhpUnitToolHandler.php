@@ -6,7 +6,6 @@ use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Git\Contract\Response\BadJobLogoResponse;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
-use PhpGitHooks\Module\PhpUnit\Contract\Command\PhpUnitTool;
 use PhpGitHooks\Module\PhpUnit\Contract\Exception\PhpUnitViolationException;
 use PhpGitHooks\Module\PhpUnit\Model\PhpUnitProcessorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -48,10 +47,11 @@ class PhpUnitToolHandler implements CommandHandlerInterface
      * @param string $randomMode
      * @param string $options
      * @param string $errorMessage
+     * @param bool $enableFaces
      *
      * @throws PhpUnitViolationException
      */
-    private function execute($randomMode, $options, $errorMessage)
+    private function execute($randomMode, $options, $errorMessage, $enableFaces)
     {
         $outputMessage = new PreCommitOutputWriter(self::EXECUTING_MESSAGE);
         $this->output->writeln($outputMessage->getMessage());
@@ -59,7 +59,7 @@ class PhpUnitToolHandler implements CommandHandlerInterface
         $testResult = $this->executeTool($randomMode, $options);
 
         if (false === $testResult) {
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFaces));
 
             throw new PhpUnitViolationException();
         }
@@ -80,13 +80,16 @@ class PhpUnitToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|PhpUnitTool $command
+     *
+     * @throws PhpUnitViolationException
      */
     public function handle(CommandInterface $command)
     {
         $this->execute(
             $command->isRandomMode(),
             $command->getOptions(),
-            $command->getErrorMessage()
+            $command->getErrorMessage(),
+            $command->isEnableFaces()
         );
     }
 }

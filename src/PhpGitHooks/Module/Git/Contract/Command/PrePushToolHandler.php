@@ -71,7 +71,12 @@ class PrePushToolHandler implements CommandHandlerInterface
 
         if (true === $prePushResponse->isPrePush()) {
             $this->output->writeln(self::PRE_PUSH_HOOK);
-            $this->executeOriginalHook($remote, $url, $prePushResponse->getErrorMessage());
+            $this->executeOriginalHook(
+                $remote,
+                $url,
+                $prePushResponse->getErrorMessage(),
+                $prePushResponse->isEnableFaces()
+            );
 
             $phpunitResponse = $prePushResponse->getPhpUnit();
 
@@ -80,7 +85,8 @@ class PrePushToolHandler implements CommandHandlerInterface
                     new PhpUnitTool(
                         $phpunitResponse->isPhpunitRandomMode(),
                         $phpunitResponse->getPhpunitOptions(),
-                        $prePushResponse->getErrorMessage()
+                        $prePushResponse->getErrorMessage(),
+                        $prePushResponse->isEnableFaces()
                     )
                 );
 
@@ -90,7 +96,8 @@ class PrePushToolHandler implements CommandHandlerInterface
                     $this->commandBus->handle(
                         new StrictCoverage(
                             $phpunitStrictCoverageResponse->getMinimum(),
-                            $prePushResponse->getErrorMessage()
+                            $prePushResponse->getErrorMessage(),
+                            $prePushResponse->isEnableFaces()
                         )
                     );
                 }
@@ -104,7 +111,9 @@ class PrePushToolHandler implements CommandHandlerInterface
                 }
             }
 
-            $this->output->writeln(GoodJobLogoResponse::paint($prePushResponse->getRightMessage()));
+            $this->output->writeln(
+                GoodJobLogoResponse::paint($prePushResponse->getRightMessage(), $prePushResponse->isEnableFaces())
+            );
         }
     }
 
@@ -112,15 +121,16 @@ class PrePushToolHandler implements CommandHandlerInterface
      * @param string $remote
      * @param string $url
      * @param string $errorMessage
+     * @param bool $enableFaces
      *
      * @throws InvalidPushException
      */
-    private function executeOriginalHook($remote, $url, $errorMessage)
+    private function executeOriginalHook($remote, $url, $errorMessage, $enableFaces)
     {
         $response = $this->prePushOriginalExecutor->execute($remote, $url);
 
         if (null != $response) {
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFaces));
 
             throw new InvalidPushException();
         }
@@ -128,6 +138,8 @@ class PrePushToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|PrePushTool $command
+     *
+     * @throws InvalidPushException
      */
     public function handle(CommandInterface $command)
     {

@@ -62,6 +62,7 @@ class ConfigArrayDataStub
                     ],
                 ],
                 'message' => [
+                    'enable-faces' => true,
                     'right-message' => static::RIGHT_MESSAGE,
                     'error-message' => static::ERROR_MESSAGE,
                 ],
@@ -88,6 +89,7 @@ class ConfigArrayDataStub
                     ]
                 ],
                 'message' => [
+                    'enable-faces' => true,
                     'right-message' => HookQuestions::PRE_PUSH_RIGHT_MESSAGE_DEFAULT,
                     'error-message' => HookQuestions::PRE_PUSH_ERROR_MESSAGE_DEFAULT,
                 ]

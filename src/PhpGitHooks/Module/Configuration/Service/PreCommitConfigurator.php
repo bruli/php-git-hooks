@@ -27,10 +27,13 @@ class PreCommitConfigurator
                 ->ask(HookQuestions::PRE_COMMIT_RIGHT_MESSAGE, HookQuestions::PRE_COMMIT_RIGHT_MESSAGE_DEFAULT);
             $errorMessageAnswer = $io
                 ->ask(HookQuestions::PRE_COMMIT_ERROR_MESSAGE, HookQuestions::PRE_COMMIT_ERROR_MESSAGE_DEFAULT);
+            $enableFaces = $io
+                ->ask(HookQuestions::PRE_COMMIT_ENABLE_FACES_MESSAGE, HookQuestions::DEFAULT_TOOL_ANSWER);
 
             $preCommit = $preCommit->setMessages(new Messages(
                 new Message($rightMessageAnswer),
-                new Message($errorMessageAnswer)
+                new Message($errorMessageAnswer),
+                new Enabled(HookQuestions::DEFAULT_TOOL_ANSWER === strtoupper($enableFaces))
             ));
         }
 

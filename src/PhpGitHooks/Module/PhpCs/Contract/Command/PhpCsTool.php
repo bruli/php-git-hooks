@@ -21,21 +21,27 @@ class PhpCsTool implements CommandInterface
     /**
      * @var string
      */
+    private $enableFaces;
+    /**
+     * @var string
+     */
     private $ignore;
 
     /**
      * PhpCsToolCommand constructor.
      *
-     * @param array  $files
+     * @param array $files
      * @param string $standard
      * @param string $errorMessage
+     * @param bool $enableFaces
      * @param string $ignore
      */
-    public function __construct(array $files, $standard, $errorMessage, $ignore)
+    public function __construct(array $files, $standard, $errorMessage, $enableFaces, $ignore)
     {
         $this->files = $files;
         $this->standard = $standard;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
         $this->ignore = $ignore;
     }
 
@@ -45,6 +51,14 @@ class PhpCsTool implements CommandInterface
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return string
+     */
+    public function isEnableFaces()
+    {
+        return $this->enableFaces;
     }
 
     /**

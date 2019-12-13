@@ -19,6 +19,10 @@ class PreCommitResponse
     /**
      * @var bool
      */
+    private $enableFaces;
+    /**
+     * @var bool
+     */
     private $composer;
     /**
      * @var bool
@@ -56,23 +60,25 @@ class PreCommitResponse
     /**
      * PreCommitResponse constructor.
      *
-     * @param bool                          $preCommit
-     * @param string                        $rightMessage
-     * @param string                        $errorMessage
-     * @param bool                          $composer
-     * @param bool                          $jsonLint
-     * @param bool                          $phpLint
-     * @param PhpMdResponse                 $phpMd
-     * @param PhpCsResponse                 $phpCs
-     * @param PhpCsFixerResponse            $phpCsFixer
-     * @param PhpUnitResponse               $phpUnit
+     * @param bool $preCommit
+     * @param string $rightMessage
+     * @param string $errorMessage
+     * @param bool $enableFaces
+     * @param bool $composer
+     * @param bool $jsonLint
+     * @param bool $phpLint
+     * @param PhpMdResponse $phpMd
+     * @param PhpCsResponse $phpCs
+     * @param PhpCsFixerResponse $phpCsFixer
+     * @param PhpUnitResponse $phpUnit
      * @param PhpUnitStrictCoverageResponse $phpUnitStrictCoverage
-     * @param PhpUnitGuardCoverageResponse  $phpUnitGuardCoverage
+     * @param PhpUnitGuardCoverageResponse $phpUnitGuardCoverage
      */
     public function __construct(
         $preCommit,
         $rightMessage,
         $errorMessage,
+        $enableFaces,
         $composer,
         $jsonLint,
         $phpLint,
@@ -86,6 +92,7 @@ class PreCommitResponse
         $this->preCommit = $preCommit;
         $this->rightMessage = $rightMessage;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
         $this->composer = $composer;
         $this->jsonLint = $jsonLint;
         $this->phpLint = $phpLint;
@@ -119,6 +126,14 @@ class PreCommitResponse
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableFaces()
+    {
+        return $this->enableFaces;
     }
 
     /**

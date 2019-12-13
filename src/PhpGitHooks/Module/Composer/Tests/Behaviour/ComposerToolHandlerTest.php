@@ -35,6 +35,7 @@ class ComposerToolHandlerTest extends ComposerUnitTestCase
 
     /**
      * @test
+     * @throws ComposerFilesNotFoundException
      */
     public function itShouldWorksFine()
     {
@@ -49,12 +50,13 @@ class ComposerToolHandlerTest extends ComposerUnitTestCase
         $this->shouldWriteLnOutput($output->getSuccessfulMessage());
 
         $this->composerToolCommandHandler->handle(
-            new ComposerTool($files, $this->errorMessage)
+            new ComposerTool($files, $this->errorMessage, true)
         );
     }
 
     /**
      * @test
+     * @throws ComposerFilesNotFoundException
      */
     public function itShouldThrowException()
     {
@@ -69,15 +71,16 @@ class ComposerToolHandlerTest extends ComposerUnitTestCase
             ComposerFilesResponseStub::createInvalidData()
         );
         $this->shouldWriteLnOutput($output->getFailMessage());
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage));
+        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($this->errorMessage, true));
 
         $this->composerToolCommandHandler->handle(
-            new ComposerTool($files, $this->errorMessage)
+            new ComposerTool($files, $this->errorMessage, true)
         );
     }
 
     /**
      * @test
+     * @throws ComposerFilesNotFoundException
      */
     public function itShouldNotExecuteComposerTool()
     {
@@ -88,6 +91,6 @@ class ComposerToolHandlerTest extends ComposerUnitTestCase
             ComposerFilesResponseStub::createNoData()
         );
 
-        $this->composerToolCommandHandler->handle(new ComposerTool($files, $this->errorMessage));
+        $this->composerToolCommandHandler->handle(new ComposerTool($files, $this->errorMessage, true));
     }
 }

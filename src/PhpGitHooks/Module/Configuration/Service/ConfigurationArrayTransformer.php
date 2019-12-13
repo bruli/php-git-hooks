@@ -89,6 +89,7 @@ class ConfigurationArrayTransformer
                     ],
                 ],
                 'message' => [
+                    'enable-faces' => $preCommit->getMessages()->getEnableFaces()->value(),
                     'right-message' => $preCommit->getMessages()->getRightMessage()->value(),
                     'error-message' => $preCommit->getMessages()->getErrorMessage()->value(),
                 ],
@@ -115,6 +116,7 @@ class ConfigurationArrayTransformer
                     ],
                 ],
                 'message' => [
+                    'enable-faces' => $preCommit->getMessages()->getEnableFaces()->value(),
                     'right-message' => $prePush->getMessages()->getRightMessage()->value(),
                     'error-message' => $prePush->getMessages()->getErrorMessage()->value(),
                 ],

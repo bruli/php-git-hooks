@@ -13,12 +13,13 @@ class PrePushResponseStub
     const ERROR_MESSAGE = 'BAD PUSH';
 
     /**
-     * @param $prePush
-     * @param $rightMessage
-     * @param $errorMessage
-     * @param PhpUnitResponse               $phpUnitResponse
+     * @param bool $prePush
+     * @param string $rightMessage
+     * @param string $errorMessage
+     * @param bool $enableFaces
+     * @param PhpUnitResponse $phpUnitResponse
      * @param PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse
-     * @param PhpUnitGuardCoverageResponse  $phpUnitGuardCoverageResponse
+     * @param PhpUnitGuardCoverageResponse $phpUnitGuardCoverageResponse
      *
      * @return PrePushResponse
      */
@@ -26,6 +27,7 @@ class PrePushResponseStub
         $prePush,
         $rightMessage,
         $errorMessage,
+        $enableFaces,
         PhpUnitResponse $phpUnitResponse,
         PhpUnitStrictCoverageResponse $phpUnitStrictCoverageResponse,
         PhpUnitGuardCoverageResponse $phpUnitGuardCoverageResponse
@@ -34,6 +36,7 @@ class PrePushResponseStub
             $prePush,
             $rightMessage,
             $errorMessage,
+            $enableFaces,
             $phpUnitResponse,
             $phpUnitStrictCoverageResponse,
             $phpUnitGuardCoverageResponse
@@ -49,6 +52,7 @@ class PrePushResponseStub
             true,
             self::RIGHT_MESSAGE,
             self::ERROR_MESSAGE,
+            true,
             PhpUnitResponseStub::createEnabled(),
             PhpUnitStrictCoverageResponseStub::createEnabled(),
             PhpUnitGuardCoverageResponseStub::createEnabled()

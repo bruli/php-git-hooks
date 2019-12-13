@@ -14,17 +14,23 @@ class JsonLintTool implements CommandInterface
      * @var string
      */
     private $errorMessage;
+    /**
+     * @var bool
+     */
+    private $enableFaces;
 
     /**
      * JsonLintToolCommand constructor.
      *
-     * @param array  $files
+     * @param array $files
      * @param string $errorMessage
+     * @param bool $enableFaces
      */
-    public function __construct(array $files, $errorMessage)
+    public function __construct(array $files, $errorMessage, $enableFaces)
     {
         $this->files = $files;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
     }
 
     /**
@@ -33,6 +39,14 @@ class JsonLintTool implements CommandInterface
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableFaces()
+    {
+        return $this->enableFaces;
     }
 
     /**

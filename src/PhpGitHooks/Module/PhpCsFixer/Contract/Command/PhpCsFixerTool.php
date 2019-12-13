@@ -34,19 +34,24 @@ class PhpCsFixerTool implements CommandInterface
      * @var string
      */
     private $errorMessage;
+    /**
+     * @var bool
+     */
+    private $enableFaces;
 
     /**
      * PhpCsFixerToolCommand constructor.
      *
-     * @param array  $files
-     * @param bool   $psr0
-     * @param bool   $psr1
-     * @param bool   $psr2
-     * @param bool   $symfony
+     * @param array $files
+     * @param bool $psr0
+     * @param bool $psr1
+     * @param bool $psr2
+     * @param bool $symfony
      * @param string $options
      * @param string $errorMessage
+     * @param bool $enableFaces
      */
-    public function __construct(array $files, $psr0, $psr1, $psr2, $symfony, $options, $errorMessage)
+    public function __construct(array $files, $psr0, $psr1, $psr2, $symfony, $options, $errorMessage, $enableFaces)
     {
         $this->files = $files;
         $this->psr0 = $psr0;
@@ -55,6 +60,7 @@ class PhpCsFixerTool implements CommandInterface
         $this->symfony = $symfony;
         $this->options = $options;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
     }
 
     /**
@@ -111,5 +117,13 @@ class PhpCsFixerTool implements CommandInterface
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableFaces()
+    {
+        return $this->enableFaces;
     }
 }

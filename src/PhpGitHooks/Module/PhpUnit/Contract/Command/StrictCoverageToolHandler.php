@@ -6,6 +6,7 @@ use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use PhpGitHooks\Module\Configuration\Domain\MinimumStrictCoverage;
 use PhpGitHooks\Module\Git\Service\PreCommitOutputWriter;
+use PhpGitHooks\Module\PhpUnit\Contract\Exception\InvalidStrictCoverageException;
 use PhpGitHooks\Module\PhpUnit\Service\StrictCoverageTool;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -35,12 +36,15 @@ class StrictCoverageToolHandler implements CommandHandlerInterface
     /**
      * @param MinimumStrictCoverage $minimumStrictCoverage
      * @param string $errorMessage
+     * @param bool $enableFaces
+     *
+     * @throws InvalidStrictCoverageException
      */
-    private function execute(MinimumStrictCoverage $minimumStrictCoverage, $errorMessage)
+    private function execute(MinimumStrictCoverage $minimumStrictCoverage, $errorMessage, $enableFaces)
     {
         $outputMessage = new PreCommitOutputWriter(self::EXECUTE_MESSAGE);
         $this->output->write($outputMessage->getMessage());
-        $currentCoverage = $this->strictCoverageTool->run($minimumStrictCoverage, $errorMessage);
+        $currentCoverage = $this->strictCoverageTool->run($minimumStrictCoverage, $errorMessage, $enableFaces);
         $this->output->writeln($outputMessage->getSuccessfulMessage() . $this->printCurrentCoverage($currentCoverage));
     }
 
@@ -55,12 +59,15 @@ class StrictCoverageToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|StrictCoverage $command
+     *
+     * @throws InvalidStrictCoverageException
      */
     public function handle(CommandInterface $command)
     {
         $this->execute(
             new MinimumStrictCoverage($command->getMinimumCoverage()),
-            $command->getErrorMessage()
+            $command->getErrorMessage(),
+            $command->isEnableFaces()
         );
     }
 }

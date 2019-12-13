@@ -12,6 +12,7 @@ class HookQuestions
     const PRE_COMMIT_ERROR_MESSAGE = '<info>Write an error message for pre-commit hook:</info> '.
     '<comment>'.self::PRE_COMMIT_ERROR_MESSAGE_DEFAULT.'</comment>';
     const PRE_COMMIT_ERROR_MESSAGE_DEFAULT = 'FIX YOUR FUCKING CODE!!';
+    const PRE_COMMIT_ENABLE_FACES_MESSAGE = '<info>Enable face in messages for pre-commit hook?:</info> <comment>[Y/n]</comment>';
     const COMPOSER_TOOL = '<info>Do you want enable COMPOSER tool?:</info> <comment>[Y/n]</comment>';
     const JSONLINT_TOOL = '<info>Do you want enable JSONLINT tool?:</info> <comment>[Y/n]</comment>';
     const PHPLINT_TOOL = '<info>Do you want enable PHPLINT tool?:</info> <comment>[Y/n]</comment>';
@@ -43,6 +44,7 @@ class HookQuestions
     const PRE_PUSH_ERROR_MESSAGE_DEFAULT = 'YOU CAN NOT PUSH CODE!!';
     const PRE_PUSH_ERROR_MESSAGE = '<info>Write an error message for pre-push hook:</info> '.
     '<comment>'.self::PRE_PUSH_ERROR_MESSAGE_DEFAULT.'</comment>';
+    const PRE_PUSH_ENABLE_FACES_MESSAGE = '<info>Enable face in messages for pre-push hook?:</info> <comment>[Y/n]</comment>';
     const PHPUNIT_STRICT_COVERAGE = '<info>Do you want enable STRICT COVERAGE tool?:</info> <comment>[Y/n]</comment>';
     const PHPUNIT_STRICT_COVERAGE_MINIMUM = '<info>Write minimum coverage to guard:</info> <comment>[0.00]</comment>';
     const PHPUNIT_GUARD_COVERAGE = '<info>Do you want enable GUARD COVERAGE tool?:</info> <comment>[Y/n]</comment>';

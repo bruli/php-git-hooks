@@ -50,7 +50,12 @@ class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
 
         $this->shouldWriteLnOutput($outputMessage->getFailMessage());
         $this->shouldWriteLnOutput($outputMessage->setError($errors));
-        $this->shouldWriteLnOutput(BadJobLogoResponse::paint($configurationData->getPreCommit()->getErrorMessage()));
+        $this->shouldWriteLnOutput(
+            BadJobLogoResponse::paint(
+                $configurationData->getPreCommit()->getErrorMessage(),
+                $configurationData->getPreCommit()->isEnableFaces()
+            )
+        );
 
         $this->phpCsFixerToolCommandHandler->handle(
             new PhpCsFixerTool(
@@ -60,7 +65,8 @@ class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
                 $phpCsFixerOptions->value(),
-                $configurationData->getPreCommit()->getErrorMessage()
+                $configurationData->getPreCommit()->getErrorMessage(),
+                $configurationData->getPreCommit()->isEnableFaces()
             )
         );
     }
@@ -118,7 +124,8 @@ class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerPsr2(),
                 $configurationData->getPreCommit()->getPhpCsFixer()->isPhpCsFixerSymfony(),
                 $phpCsFixerOptions->value(),
-                $configurationData->getPreCommit()->getErrorMessage()
+                $configurationData->getPreCommit()->getErrorMessage(),
+                $configurationData->getPreCommit()->isEnableFaces()
             )
         );
     }

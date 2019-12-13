@@ -14,17 +14,23 @@ class StrictCoverage implements CommandInterface
      * @var string
      */
     private $errorMessage;
+    /**
+     * @var bool
+     */
+    private $enableFaces;
 
     /**
      * StrictCoverageCommand constructor.
      *
-     * @param float  $minimumCoverage
+     * @param float $minimumCoverage
      * @param string $errorMessage
+     * @param bool $enableFaces
      */
-    public function __construct($minimumCoverage, $errorMessage)
+    public function __construct($minimumCoverage, $errorMessage, $enableFaces)
     {
         $this->minimumCoverage = $minimumCoverage;
         $this->errorMessage = $errorMessage;
+        $this->enableFaces = $enableFaces;
     }
 
     /**
@@ -41,5 +47,13 @@ class StrictCoverage implements CommandInterface
     public function getErrorMessage()
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableFaces()
+    {
+        return $this->enableFaces;
     }
 }

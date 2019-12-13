@@ -55,7 +55,11 @@ class PrePushStub implements RandomStubInterface
             new Undefined(false),
             EnabledStub::create(true),
             PrePushExecuteStub::createEnabled(),
-            MessagesStub::create(MessageStub::create('0k'), MessageStub::create('Faltal'))
+            MessagesStub::create(
+                MessageStub::create('0k'),
+                MessageStub::create('Faltal'),
+                EnabledStub::create(true)
+            )
         );
     }
 

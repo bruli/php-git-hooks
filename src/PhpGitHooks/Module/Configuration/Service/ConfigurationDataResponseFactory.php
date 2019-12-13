@@ -72,6 +72,7 @@ class ConfigurationDataResponseFactory
             $prePush->isEnabled(),
             $prePush->getMessages()->getRightMessage(),
             $prePush->getMessages()->getErrorMessage(),
+            $prePush->getMessages()->getEnableFaces()->value(),
             new PhpUnitResponse(
                 $prePushPhpUnit->isEnabled(),
                 $prePushPhpUnit->getRandomMode()->value(),
@@ -91,6 +92,7 @@ class ConfigurationDataResponseFactory
             $preCommit->isEnabled(),
             $preCommit->getMessages()->getRightMessage()->value(),
             $preCommit->getMessages()->getErrorMessage()->value(),
+            $preCommit->getMessages()->getEnableFaces()->value(),
             $composer->isEnabled(),
             $jsonLint->isEnabled(),
             $phpLint->isEnabled(),

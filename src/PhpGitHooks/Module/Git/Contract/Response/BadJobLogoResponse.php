@@ -6,12 +6,13 @@ final class BadJobLogoResponse
 {
     /**
      * @param string $message
+     * @param bool $enableFace
      *
      * @return string
      */
-    public static function paint($message)
+    public static function paint($message, $enableFace)
     {
-        return sprintf("<fg=red;options=bold;>
+        $face = $enableFace ? "<fg=red;options=bold;>
                 @@@@@@@@@@@@@@@
              @@@@@@@@@@@@@@@@@@@@
            @@@@@@@@  @@@@@  @@@@@@@
@@ -27,7 +28,11 @@ final class BadJobLogoResponse
            @@@@@@@@@@@@@@@@@@@@@@@@@
              @@@@@@@@@@@@@@@@@@@@@
                 @@@@@@@@@@@@@@@
-        </fg=red;options=bold;>\n
-        <fg=white;bg=red;options=bold;>   %s    </fg=white;bg=red;options=bold;>\n", $message);
+        </fg=red;options=bold;>\n" : '';
+
+        return sprintf(
+            "$face<fg=white;bg=red;options=bold;>   %s    </fg=white;bg=red;options=bold;>\n",
+            $message
+        );
     }
 }

@@ -6,6 +6,7 @@ use Bruli\EventBusBundle\CommandBus\CommandHandlerInterface;
 use Bruli\EventBusBundle\CommandBus\CommandInterface;
 use Bruli\EventBusBundle\QueryBus\QueryBus;
 use PhpGitHooks\Module\Files\Contract\Query\JsonFilesExtractor;
+use PhpGitHooks\Module\JsonLint\Contract\Exception\JsonLintViolationsException;
 use PhpGitHooks\Module\JsonLint\Service\JsonLintToolExecutor;
 
 class JsonLintToolHandler implements CommandHandlerInterface
@@ -34,15 +35,18 @@ class JsonLintToolHandler implements CommandHandlerInterface
     }
 
     /**
-     * @param array  $files
+     * @param array $files
      * @param string $errorMessage
+     * @param bool $enableFaces
+     *
+     * @throws JsonLintViolationsException
      */
-    private function execute(array $files, $errorMessage)
+    private function execute(array $files, $errorMessage, $enableFaces)
     {
         $jsonFilesResponse = $this->queryBus->handle(new JsonFilesExtractor($files));
 
         if (true === $this->jsonFilesExists($jsonFilesResponse->getFiles())) {
-            $this->jsonLintToolExecutor->execute($jsonFilesResponse->getFiles(), $errorMessage);
+            $this->jsonLintToolExecutor->execute($jsonFilesResponse->getFiles(), $errorMessage, $enableFaces);
         }
     }
 
@@ -58,9 +62,11 @@ class JsonLintToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|JsonLintTool $command
+     *
+     * @throws JsonLintViolationsException
      */
     public function handle(CommandInterface $command)
     {
-        $this->execute($command->getFiles(), $command->getErrorMessage());
+        $this->execute($command->getFiles(), $command->getErrorMessage(), $command->isEnableFaces());
     }
 }

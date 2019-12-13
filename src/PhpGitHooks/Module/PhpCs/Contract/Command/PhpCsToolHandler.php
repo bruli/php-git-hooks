@@ -38,11 +38,12 @@ class PhpCsToolHandler implements CommandHandlerInterface
      * @param array $files
      * @param string $standard
      * @param string $errorMessage
+     * @param bool $enableFace
      * @param string $ignore
      *
      * @throws PhpCsViolationException
      */
-    private function execute(array $files, $standard, $errorMessage, $ignore)
+    private function execute(array $files, $standard, $errorMessage, $enableFace, $ignore)
     {
         $outputMessage = new PreCommitOutputWriter(self::EXECUTE_MESSAGE);
         $this->output->write($outputMessage->getMessage());
@@ -57,7 +58,7 @@ class PhpCsToolHandler implements CommandHandlerInterface
         if (!empty($errors)) {
             $this->output->writeln($outputMessage->getFailMessage());
             $this->output->writeln($outputMessage->setError(implode('', $errors)));
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFace));
             throw new PhpCsViolationException();
         }
         $this->output->writeln($outputMessage->getSuccessfulMessage());
@@ -73,6 +74,7 @@ class PhpCsToolHandler implements CommandHandlerInterface
             $command->getFiles(),
             $command->getStandard(),
             $command->getErrorMessage(),
+            $command->isEnableFaces(),
             $command->getIgnore()
         );
     }

@@ -34,16 +34,17 @@ class StrictCoverageTool
     /**
      * @param MinimumStrictCoverage $minimumStrictCoverage
      * @param string $errorMessage
+     * @param bool $enableFaces
      *
      * @return float
      * @throws InvalidStrictCoverageException
      */
-    public function run(MinimumStrictCoverage $minimumStrictCoverage, $errorMessage)
+    public function run(MinimumStrictCoverage $minimumStrictCoverage, $errorMessage, $enableFaces)
     {
         $currentCoverage = $this->strictCoverageProcessor->process();
 
         if ($minimumStrictCoverage->value() > $currentCoverage) {
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFaces));
 
             throw new InvalidStrictCoverageException($currentCoverage, $minimumStrictCoverage->value());
         }

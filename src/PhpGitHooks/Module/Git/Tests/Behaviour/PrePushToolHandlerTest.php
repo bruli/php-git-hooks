@@ -35,6 +35,7 @@ class PrePushToolHandlerTest extends GitUnitTestCase
 
     /**
      * @test
+     * @throws InvalidPushException
      */
     public function itShouldNotExecuteHook()
     {
@@ -48,6 +49,7 @@ class PrePushToolHandlerTest extends GitUnitTestCase
 
     /**
      * @test
+     * @throws InvalidPushException
      */
     public function itShouldThrowsExceptionFromOriginalScript()
     {
@@ -62,7 +64,10 @@ class PrePushToolHandlerTest extends GitUnitTestCase
         $this->shouldWriteLnOutput(PrePushToolHandler::PRE_PUSH_HOOK);
         $this->shouldExecutePrePushOriginal($this->remote, $this->url, 'error');
         $this->shouldWriteLnOutput(
-            BadJobLogoResponse::paint($configurationDataResponse->getPrePush()->getErrorMessage())
+            BadJobLogoResponse::paint(
+                $configurationDataResponse->getPrePush()->getErrorMessage(),
+                $configurationDataResponse->getPrePush()->isEnableFaces()
+            )
         );
 
         $this->prePushToolCommandHandler->handle(new PrePushTool($this->remote, $this->url));
@@ -70,6 +75,7 @@ class PrePushToolHandlerTest extends GitUnitTestCase
 
     /**
      * @test
+     * @throws InvalidPushException
      */
     public function itShouldWorksFine()
     {
@@ -85,13 +91,15 @@ class PrePushToolHandlerTest extends GitUnitTestCase
             new PhpUnitTool(
                 $configurationDataResponse->getPrePush()->getPhpUnit()->isPhpunitRandomMode(),
                 $configurationDataResponse->getPrePush()->getPhpUnit()->getPhpunitOptions(),
-                $configurationDataResponse->getPrePush()->getErrorMessage()
+                $configurationDataResponse->getPrePush()->getErrorMessage(),
+                $configurationDataResponse->getPrePush()->isEnableFaces()
             )
         );
         $this->shouldHandleCommand(
             new StrictCoverage(
                 $configurationDataResponse->getPrePush()->getPhpUnitStrictCoverage()->getMinimum(),
-                $configurationDataResponse->getPrePush()->getErrorMessage()
+                $configurationDataResponse->getPrePush()->getErrorMessage(),
+                $configurationDataResponse->getPrePush()->isEnableFaces()
             )
         );
 
@@ -102,7 +110,10 @@ class PrePushToolHandlerTest extends GitUnitTestCase
         );
 
         $this->shouldWriteLnOutput(
-            GoodJobLogoResponse::paint($configurationDataResponse->getPrePush()->getRightMessage())
+            GoodJobLogoResponse::paint(
+                $configurationDataResponse->getPrePush()->getRightMessage(),
+                $configurationDataResponse->getPrePush()->isEnableFaces()
+            )
         );
 
         $this->prePushToolCommandHandler->handle(new PrePushTool($this->remote, $this->url));

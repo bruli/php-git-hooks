@@ -37,10 +37,11 @@ class PhpLintToolHandler implements CommandHandlerInterface
     /**
      * @param array $files
      * @param string $errorMessage
+     * @param bool $enableFaces
      *
      * @throws PhpLintViolationsException
      */
-    private function execute(array $files, $errorMessage)
+    private function execute(array $files, $errorMessage, $enableFaces)
     {
         $outputMessage = new PreCommitOutputWriter(self::RUNNING_PHPLINT);
         $this->output->write($outputMessage->getMessage());
@@ -55,7 +56,7 @@ class PhpLintToolHandler implements CommandHandlerInterface
         if (!empty($errors)) {
             $this->output->writeln($outputMessage->getFailMessage());
             $this->output->writeln($outputMessage->setError(implode('', $errors)));
-            $this->output->writeln(BadJobLogoResponse::paint($errorMessage));
+            $this->output->writeln(BadJobLogoResponse::paint($errorMessage, $enableFaces));
 
             throw new PhpLintViolationsException();
         }
@@ -65,9 +66,11 @@ class PhpLintToolHandler implements CommandHandlerInterface
 
     /**
      * @param CommandInterface|PhpLintTool $command
+     *
+     * @throws PhpLintViolationsException
      */
     public function handle(CommandInterface $command)
     {
-        $this->execute($command->getFiles(), $command->getErrorMessage());
+        $this->execute($command->getFiles(), $command->getErrorMessage(), $command->isEnableFaces());
     }
 }
