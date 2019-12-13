@@ -25,7 +25,7 @@ class JsonLintToolHandlerTest extends JsonLintUnitTestCase
      */
     private $errorMessage;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->jsonLintToolCommandHandler = new JsonLintToolHandler(
             new JsonLintToolExecutor(

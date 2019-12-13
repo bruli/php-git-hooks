@@ -19,7 +19,7 @@ class PhpMdToolHandlerTest extends PhpMdUnitTestCase
      */
     private $phpMdToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->phpMdToolCommandHandler = new PhpMdToolHandler(
             $this->getOutputInterface(),

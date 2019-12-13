@@ -18,7 +18,7 @@ class PhpCsToolHandlerTest extends PhpCsUnitTestCase
      */
     private $phpCsToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->phpCsToolCommandHandler = new PhpCsToolHandler(
             $this->getOutputInterface(),

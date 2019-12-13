@@ -23,7 +23,7 @@ class StrictCoverageToolHandlerTest extends PhpUnitUnitTestCase
      */
     private $strictCoverageToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->errorMessage = ConfigArrayDataStub::ERROR_MESSAGE;
         $this->strictCoverageToolCommandHandler = new StrictCoverageToolHandler(

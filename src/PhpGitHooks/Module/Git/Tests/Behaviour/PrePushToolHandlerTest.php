@@ -23,7 +23,7 @@ class PrePushToolHandlerTest extends GitUnitTestCase
      */
     private $prePushToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->prePushToolCommandHandler = new PrePushToolHandler(
             $this->getQueryBus(),

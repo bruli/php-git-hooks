@@ -19,7 +19,7 @@ class PhpCsFixerToolHandlerTest extends PhpCsFixerUnitTestCase
      */
     private $phpCsFixerToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->phpCsFixerToolCommandHandler = new PhpCsFixerToolHandler(
             $this->getOutputInterface(),

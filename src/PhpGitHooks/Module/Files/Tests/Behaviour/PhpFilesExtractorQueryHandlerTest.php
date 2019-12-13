@@ -15,7 +15,7 @@ class PhpFilesExtractorQueryHandlerTest extends FilesUnitTestCase
      */
     private $phpFilesExtractorQueryHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->phpFilesExtractorQueryHandler = new PhpFilesExtractorHandler();
     }

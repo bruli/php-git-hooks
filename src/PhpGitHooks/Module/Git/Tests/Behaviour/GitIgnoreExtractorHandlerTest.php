@@ -14,7 +14,7 @@ class GitIgnoreExtractorHandlerTest extends GitUnitTestCase
      */
     private $gitIgnoreExtractorQueryHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->gitIgnoreExtractorQueryHandler = new GitIgnoreExtractorHandler($this->getGitIgnoreFileReader());
     }

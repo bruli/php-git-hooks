@@ -18,7 +18,7 @@ class ConfigurationDataFinderHandlerTest extends ConfigurationUnitTestCase
      */
     private $configurationDataFinderQueryHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configurationDataFinderQueryHandler = new ConfigurationDataFinderHandler(
             $this->getConfigurationFileReader()

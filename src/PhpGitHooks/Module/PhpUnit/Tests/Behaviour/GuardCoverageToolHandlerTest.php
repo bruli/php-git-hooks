@@ -15,7 +15,7 @@ class GuardCoverageToolHandlerTest extends PhpUnitUnitTestCase
      */
     private $guardCoverageToolCommandHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->guardCoverageToolCommandHandler = new GuardCoverageToolHandler(
             $this->getOutputInterface(),
