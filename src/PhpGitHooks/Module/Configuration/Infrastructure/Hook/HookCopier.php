@@ -38,13 +38,21 @@ class HookCopier
 
     protected function copyFile(string $hookFile): void
     {
-        $copy = new Process(sprintf("mkdir -p {$this->hooksDir} && cp %s %s", $hookFile, $this->hooksDir));
+        $this->createHooksDir();
+
+        $copy = new Process(['cp', $hookFile, $this->hooksDir]);
         $copy->run();
+    }
+
+    protected function createHooksDir(): void
+    {
+        $mkdir = new Process(['mkdir', '-p', $this->hooksDir]);
+        $mkdir->run();
     }
 
     protected function setPermissions(string $hookFile): void
     {
-        $permissions = new Process(sprintf('chmod 775 %s%s', $this->hooksDir, $hookFile));
+        $permissions = new Process(['chmod', '775', $this->hooksDir . "/$hookFile"]);
         $permissions->run();
     }
 
