@@ -33,25 +33,33 @@ class HookCopier
 
     protected function hookExists(string $hookFile): bool
     {
-        return file_exists(sprintf('%s%s', $this->hooksDir, $hookFile));
+        return \file_exists($this->hooksDir . "/$hookFile");
     }
 
     protected function copyFile(string $hookFile): void
     {
-        $copy = new Process(sprintf("mkdir -p {$this->hooksDir} && cp %s %s", $hookFile, $this->hooksDir));
+        $this->createHooksDir();
+
+        $copy = new Process(['cp', $hookFile, $this->hooksDir]);
         $copy->run();
+    }
+
+    protected function createHooksDir(): void
+    {
+        $mkdir = new Process(['mkdir', '-p', $this->hooksDir]);
+        $mkdir->run();
     }
 
     protected function setPermissions(string $hookFile): void
     {
-        $permissions = new Process(sprintf('chmod 775 %s%s', $this->hooksDir, $hookFile));
+        $permissions = new Process(['chmod', '775', $this->hooksDir . "/$hookFile"]);
         $permissions->run();
     }
 
     protected function copyHookFile(string $file): void
     {
         if (false === $this->hookExists($file)) {
-            $this->copyFile(sprintf('%s/%s', $this->sourceHooksDir, $file));
+            $this->copyFile($this->sourceHooksDir . "/$file");
             $this->setPermissions($file);
         }
     }
