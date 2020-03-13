@@ -33,7 +33,7 @@ class HookCopier
 
     protected function hookExists(string $hookFile): bool
     {
-        return file_exists(sprintf('%s%s', $this->hooksDir, $hookFile));
+        return \file_exists($this->hooksDir . "/$hookFile");
     }
 
     protected function copyFile(string $hookFile): void
@@ -59,7 +59,7 @@ class HookCopier
     protected function copyHookFile(string $file): void
     {
         if (false === $this->hookExists($file)) {
-            $this->copyFile(sprintf('%s/%s', $this->sourceHooksDir, $file));
+            $this->copyFile($this->sourceHooksDir . "/$file");
             $this->setPermissions($file);
         }
     }
