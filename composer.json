@@ -21,7 +21,7 @@
         }
     },
     "require": {
-        "php": "^5.6|^7.2",
+        "php": "^5.6|^7.1|^7.2",
         "friendsofphp/php-cs-fixer": "^2.1",
         "phpunit/phpunit": "^3.7|~6.0|~7.0|~8",
         "squizlabs/php_codesniffer": "~3.0",
